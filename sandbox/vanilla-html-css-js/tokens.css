@@ -1,0 +1,109 @@
+/*
+  Enviolo brand tokens — per design.md v0.1.
+  Load order: basecoat-luma.cdn.min.css first, this file second (design.md #4).
+  Brand colors are fixed; only the neutral ramp + semantic mapping change
+  between :root (light) and .dark (design.md "Philosophy").
+*/
+
+:root {
+  /* Brand colors (fixed across modes) */
+  --midnight: #03161c;
+  --coral: #ed9b85;
+  --coral-dark: #df4b23;
+  --dusk: #99635d;
+  --gold: #cec0aa;
+  --orange: #f2bb9d;
+  --white: #ffffff;
+  --positive: #3fa772;
+  --negative: #e0523f;
+  --ivory: #faeac0;
+
+  /* Neutral ramp — Taupe (light mode) */
+  --taupe-50: #fbfaf9;
+  --taupe-100: #f3f1f1;
+  --taupe-200: #e8e4e3;
+  --taupe-300: #d8d2d0;
+  --taupe-400: #aba09c;
+  --taupe-500: #7c6d67;
+  --taupe-600: #5b4f4b;
+  --taupe-700: #473c39;
+  --taupe-800: #2b2422;
+  --taupe-900: #1d1816;
+  --taupe-950: #0c0a09;
+
+  /* Neutral ramp — Mist (dark mode) */
+  --mist-50: #f9fbfb;
+  --mist-100: #f1f3f3;
+  --mist-200: #e3e7e8;
+  --mist-300: #d0d6d8;
+  --mist-400: #9ca8ab;
+  --mist-500: #67787c;
+  --mist-600: #4b585b;
+  --mist-700: #394447;
+  --mist-800: #22292b;
+  --mist-900: #161b1d;
+  --mist-950: #090b0c;
+
+  /* Semantic mapping — light mode */
+  --background: var(--taupe-50);
+  --foreground: var(--taupe-950);
+  --card: var(--white);
+  --card-foreground: var(--taupe-950);
+  --popover: var(--white);
+  --popover-foreground: var(--taupe-950);
+  --primary: var(--midnight);
+  --primary-foreground: var(--white);
+  --secondary: var(--taupe-100);
+  --secondary-foreground: var(--taupe-950);
+  --muted: var(--taupe-100);
+  --muted-foreground: var(--taupe-500);
+  --accent: var(--taupe-100);
+  --accent-foreground: var(--taupe-950);
+  --destructive: var(--negative);
+  --border: var(--taupe-200);
+  --input: var(--taupe-200);
+  --ring: var(--dusk);
+  --radius: 0.625rem;
+
+  --font-sans: "Source Sans 3", Arial, sans-serif;
+
+  /* Chart accent — single-hue per chart, per the dataviz skill's guidance
+     against multi-hue categorical palettes that haven't been run through
+     its CVD validator (brand ramp is warm/low-diversity: not safe as-is).
+     Kept separate from --ring: charts get coral/ivory, --ring keeps dusk/gold. */
+  --chart-1: var(--coral);
+  --chart-bar-radius: var(--radius-sm);
+
+  /* Chart gradient pair — bars/area fills; small marks (line stroke, dots,
+     sparklines, tooltip swatches) stay on flat --chart-1. */
+  --chart-gradient-a: var(--coral);
+  --chart-gradient-b: var(--dusk);
+}
+
+/* Dark mode: neutral ramp + semantic mapping flip. --ring swaps --dusk for
+   --gold, and --chart-1 swaps --coral for --ivory (design.md "Brand colors");
+   --primary swaps midnight/white for white/midnight, so the primary button
+   stays legible against a dark page. */
+.dark {
+  --background: var(--mist-950);
+  --foreground: var(--mist-50);
+  --card: var(--mist-900);
+  --card-foreground: var(--mist-50);
+  --popover: var(--mist-900);
+  --popover-foreground: var(--mist-50);
+  --primary: var(--white);
+  --primary-foreground: var(--midnight);
+  --secondary: var(--mist-800);
+  --secondary-foreground: var(--mist-50);
+  --muted: var(--mist-800);
+  --muted-foreground: var(--mist-400);
+  --accent: var(--mist-800);
+  --accent-foreground: var(--mist-50);
+  --destructive: var(--negative);
+  --border: var(--mist-800);
+  --input: var(--mist-800);
+  --ring: var(--gold);
+  --chart-1: var(--ivory);
+  --chart-gradient-a: var(--ivory);
+  --chart-gradient-b: var(--gold);
+}

@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Enviolo · Fleet dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="vendor/basecoat-luma.cdn.min.css" />
+<link rel="stylesheet" href="tokens.css" />
+<link rel="stylesheet" href="dashboard.css" />
+
+<script>
+  (function () {
+    var stored = localStorage.getItem("enviolo-theme");
+    var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (stored ? stored === "dark" : prefersDark) {
+      document.documentElement.classList.add("dark");
+    }
+  })();
+</script>
+</head>
+<body>
+  <div class="dashboard">
+    <header class="dashboard-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name">Enviolo</p>
+          <p class="brand-subtitle">Fleet dashboard</p>
+        </div>
+      </div>
+      <button type="button" class="btn" data-variant="ghost" data-size="icon" id="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <section class="stat-grid" aria-label="Key metrics">
+      <article class="card stat-card">
+        <section>
+          <p class="stat-label">Active hubs</p>
+          <p class="stat-value">128,402</p>
+          <div class="stat-meta">
+            <span class="badge" data-variant="positive">▲ 3.2%</span>
+            <p class="stat-caption">vs last month</p>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 32" preserveAspectRatio="none" data-points="40,44,42,48,52,50,58,60,64,70" aria-hidden="true"></svg>
+        </section>
+      </article>
+
+      <article class="card stat-card">
+        <section>
+          <p class="stat-label">Rides today</p>
+          <p class="stat-value">84,910</p>
+          <div class="stat-meta">
+            <span class="badge" data-variant="positive">▲ 1.8%</span>
+            <p class="stat-caption">vs yesterday</p>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 32" preserveAspectRatio="none" data-points="50,48,55,52,60,58,65,62,70,75" aria-hidden="true"></svg>
+        </section>
+      </article>
+
+      <article class="card stat-card">
+        <section>
+          <p class="stat-label">Avg charge cycle</p>
+          <p class="stat-value">3.4 days</p>
+          <div class="stat-meta">
+            <span class="badge" data-variant="positive">▼ 6.5%</span>
+            <p class="stat-caption">faster vs last month</p>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 32" preserveAspectRatio="none" data-points="70,66,68,60,58,55,50,48,44,40" aria-hidden="true"></svg>
+        </section>
+      </article>
+
+      <article class="card stat-card">
+        <section>
+          <p class="stat-label">Open service alerts</p>
+          <p class="stat-value">14</p>
+          <div class="stat-meta">
+            <span class="badge" data-variant="negative">▲ 18.0%</span>
+            <p class="stat-caption">vs last month</p>
+          </div>
+          <svg class="sparkline" viewBox="0 0 100 32" preserveAspectRatio="none" data-points="30,32,28,35,38,34,42,45,48,55" aria-hidden="true"></svg>
+        </section>
+      </article>
+    </section>
+
+    <section class="chart-grid" aria-label="Trends">
+      <article class="card chart-card">
+        <header>
+          <h2 class="card-title">Rides — last 14 days</h2>
+          <p class="card-description">Daily completed rides across the fleet</p>
+        </header>
+        <section>
+          <div class="chart" id="line-chart-wrap">
+            <svg id="line-chart" viewBox="0 0 640 280" role="img" aria-label="Line chart of daily rides over the last 14 days, rising from 6,120 on August 5 to 9,840 on August 18."></svg>
+            <div class="chart-tooltip" id="line-tooltip" hidden>
+              <p class="chart-tooltip-label"></p>
+              <div class="chart-tooltip-items">
+                <div class="chart-tooltip-item">
+                  <span class="chart-tooltip-indicator" style="--chart-indicator-color: var(--chart-1)"></span>
+                  <span>Rides</span>
+                  <span class="chart-tooltip-value"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <article class="card chart-card">
+        <header>
+          <h2 class="card-title">Rides by weekday</h2>
+          <p class="card-description">Aggregate over the last 8 weeks</p>
+        </header>
+        <section>
+          <div class="chart" id="bar-chart-wrap">
+            <svg id="bar-chart" viewBox="0 0 640 280" role="img" aria-label="Bar chart of rides by weekday, ranging from 8,200 on Monday to a peak of 11,240 on Saturday."></svg>
+            <div class="chart-tooltip" id="bar-tooltip" hidden>
+              <p class="chart-tooltip-label"></p>
+              <div class="chart-tooltip-items">
+                <div class="chart-tooltip-item">
+                  <span class="chart-tooltip-indicator" style="--chart-indicator-color: var(--chart-1)"></span>
+                  <span>Rides</span>
+                  <span class="chart-tooltip-value"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </article>
+    </section>
+
+    <article class="card" aria-label="Input fields">
+      <header>
+        <h2 class="card-title">Fields</h2>
+        <p class="card-description">Basecoat's own input components</p>
+      </header>
+      <footer>
+        <div class="button-row">
+          <div class="button-demo">
+            <input class="input" type="text" placeholder="Hub name" />
+            <p class="button-caption">Input</p>
+          </div>
+          <div class="button-demo">
+            <div class="input-group">
+              <span data-align="start" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" />
+                  <path d="M21 21l-6 -6" />
+                </svg>
+              </span>
+              <input type="text" placeholder="Search fleet" />
+            </div>
+            <p class="button-caption">Input group</p>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <article class="card" aria-label="Button styles">
+      <header>
+        <h2 class="card-title">Actions</h2>
+        <p class="card-description">Basecoat's own button variants</p>
+      </header>
+      <footer>
+        <div class="button-row">
+          <div class="button-demo">
+            <button type="button" class="btn" data-variant="primary">
+              <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5l0 14" />
+                <path d="M5 12l14 0" />
+              </svg>
+              Create route
+            </button>
+            <p class="button-caption">Primary</p>
+          </div>
+          <div class="button-demo">
+            <button type="button" class="btn" data-variant="secondary">
+              <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                <path d="M7 11l5 5l5 -5" />
+                <path d="M12 4l0 12" />
+              </svg>
+              Export report
+            </button>
+            <p class="button-caption">Secondary</p>
+          </div>
+          <div class="button-demo">
+            <button type="button" class="btn" data-variant="outline">
+              <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227" />
+              </svg>
+              Filter
+            </button>
+            <p class="button-caption">Outline</p>
+          </div>
+          <div class="button-demo">
+            <button type="button" class="btn" data-variant="ghost">
+              <svg data-icon="inline-start" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 6l-12 12" />
+                <path d="M6 6l12 12" />
+              </svg>
+              Dismiss
+            </button>
+            <p class="button-caption">Ghost</p>
+          </div>
+        </div>
+      </footer>
+    </article>
+
+    <footer class="dashboard-footer">
+      <p>Sample data · tokens per design.md v0.2 · Enviolo</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

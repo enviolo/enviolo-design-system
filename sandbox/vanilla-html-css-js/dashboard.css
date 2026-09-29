@@ -1,0 +1,225 @@
+/*
+  Layout & one-off additions not covered by the Basecoat component library.
+  Basecoat's CDN bundle ships components only (no utility classes), so grid/
+  spacing here is hand-written against the same --spacing unit (design.md
+  "Spacing"). Colors route through tokens.css — no literals below.
+*/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+.dashboard {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding: calc(var(--spacing) * 8) calc(var(--spacing) * 5) calc(var(--spacing) * 12);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 8);
+}
+
+/* Header */
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 3);
+}
+
+.brand-mark {
+  width: calc(var(--spacing) * 9);
+  height: calc(var(--spacing) * 9);
+  border-radius: var(--radius-xl, 0.75rem);
+  background-color: var(--primary);
+  flex-shrink: 0;
+}
+
+.brand-name {
+  margin: 0;
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold, 600);
+  line-height: 1.2;
+}
+
+.brand-subtitle {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+#theme-toggle .icon-moon {
+  display: none;
+}
+.dark #theme-toggle .icon-sun {
+  display: none;
+}
+.dark #theme-toggle .icon-moon {
+  display: block;
+}
+
+/* Stat cards */
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: calc(var(--spacing) * 4);
+}
+
+.stat-card > section {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--spacing) * 2);
+}
+
+.stat-label {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--muted-foreground);
+}
+
+.stat-value {
+  margin: 0;
+  font-size: var(--text-2xl, 1.5rem);
+  font-weight: var(--font-weight-semibold, 600);
+  font-variant-numeric: proportional-nums;
+}
+
+.stat-meta {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--spacing) * 2);
+}
+
+.stat-caption {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+.sparkline {
+  width: 100%;
+  height: calc(var(--spacing) * 8);
+  display: block;
+  overflow: visible;
+}
+
+/* Badges added on top of --destructive per design.md "Status colors" */
+
+.badge[data-variant="positive"] {
+  background-color: color-mix(in oklab, var(--positive) 16%, var(--card));
+  color: var(--positive);
+  border-color: color-mix(in oklab, var(--positive) 35%, transparent);
+}
+
+.badge[data-variant="negative"] {
+  background-color: color-mix(in oklab, var(--negative) 14%, var(--card));
+  color: var(--negative);
+  border-color: color-mix(in oklab, var(--negative) 35%, transparent);
+}
+
+/* Charts */
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+  gap: calc(var(--spacing) * 4);
+}
+
+.chart-card > section {
+  padding-top: calc(var(--spacing) * 2);
+}
+
+.chart > svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.chart-grid-line {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.chart-axis-label {
+  fill: var(--muted-foreground);
+  font-size: 11px;
+  font-family: var(--font-sans);
+}
+
+.chart-value-label {
+  fill: var(--foreground);
+  font-size: 12px;
+  font-weight: var(--font-weight-medium, 500);
+  font-family: var(--font-sans);
+}
+
+.chart-hover-target {
+  fill: transparent;
+}
+
+.chart-crosshair {
+  stroke: var(--muted-foreground);
+  stroke-width: 1;
+  stroke-dasharray: 2 3;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Actions card */
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(var(--spacing) * 6);
+}
+
+.button-demo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--spacing) * 2);
+}
+
+.button-demo .input,
+.button-demo .input-group {
+  width: calc(var(--spacing) * 56);
+}
+
+.button-caption {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+/* Footer */
+
+.dashboard-footer {
+  text-align: center;
+}
+
+.dashboard-footer p {
+  margin: 0;
+  font-size: var(--text-xs);
+  color: var(--muted-foreground);
+}
+
+@media (max-width: 30rem) {
+  .dashboard-header {
+    flex-wrap: wrap;
+    gap: calc(var(--spacing) * 4);
+  }
+}
