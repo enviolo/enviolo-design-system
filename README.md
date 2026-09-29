@@ -10,17 +10,19 @@ It is a lightweight, token-first system. It doesn't ship its own component libra
 ## What's in this repo
 
 
-| Path                                                         | What it is                                                                                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| [design.md](design.md)                                       | The source of truth: philosophy, brand and semantic color tokens, the light and dark neutral ramps, and deployment guidelines. |
-| [sandbox/vanilla-html-css-js/](sandbox/vanilla-html-css-js/) | A working reference implementation of the tokens: a fleet dashboard in vanilla HTML, CSS and JS on top of BasecoatUI.          |
+| Path                                                         | What it is                                                                                                                        |
+| ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| [design.md](design.md)                                       | The source of truth: philosophy, brand and semantic color tokens, the light and dark neutral ramps, and deployment guidelines.    |
+| [sandbox/vanilla-html-css-js/](sandbox/vanilla-html-css-js/) | A preview and working reference implementation of the tokens: a fleet dashboard in vanilla HTML, CSS and JS on top of BasecoatUI. |
 
 
 
 
 ### Sandbox
 
-The sandbox shows the tokens applied to real UI. Open [sandbox/vanilla-html-css-js/index.html](sandbox/vanilla-html-css-js/index.html) in a browser. It needs no build step.
+The sandbox shows the tokens applied to real UI for preview.
+
+Open [sandbox/vanilla-html-css-js/index.html](sandbox/vanilla-html-css-js/index.html) in a browser. It needs no build step.
 
 - `vendor/basecoat-luma.cdn.min.css` is the vendored base library, loaded first.
 - `tokens.css` holds Enviolo's brand tokens and semantic mapping, loaded second.
