@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Layout · Enviolo Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&family=Urbanist:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/docs-base.css">
+<link rel="stylesheet" href="../../../tokens/components.css">
+<link rel="stylesheet" href="../assets/docs.css">
+<script src="../assets/theme-init.js"></script>
+</head>
+<body data-page="foundations/layout">
+<main class="wrap" id="main">
+<div class="view" data-view="foundations/layout">
+  <div class="view-head">
+    <div class="topic-head"><p class="topic-name">Foundations</p></div>
+    <nav class="subnav seg" data-subnav="foundations" aria-label="Foundations sections"></nav>
+    <h1>Layout</h1>
+    <p class="lede">Three layouts: mobile, tablet and desktop. Content sits in a 1080px container; columns and gutters grow with the screen.</p>
+  </div>
+
+  <div class="bp-now" style="margin-top:32px" aria-live="polite">
+    <span class="small">You're viewing</span><b id="bpName">Desktop</b><span class="w" id="bpWidth"></span>
+    <div class="row"><button class="btn" data-variant="secondary" data-size="sm" type="button" id="overlayToggle" aria-pressed="false">Show grid overlay</button></div>
+  </div>
+
+  <section aria-labelledby="l-bp" style="margin-top:24px">
+    <div class="section-head"><h2 id="l-bp">Breakpoints</h2></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Layout</th><th>Width</th><th>Columns</th><th>Gutter</th><th>Margin</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td><b>Mobile</b></td><td>320–599px</td><td>4</td><td>16px</td><td>16px</td><td>One column. Actions stack full width, primary on top.</td></tr>
+          <tr><td><b>Tablet</b></td><td>600–879px</td><td>8</td><td>20px</td><td>24px</td><td>Two-column layouts hold. Large buttons step down to default size.</td></tr>
+          <tr><td><b>Desktop</b></td><td>880px and up</td><td>12</td><td>24px</td><td>24px</td><td>Container caps at 1080px and centres.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:14px">Tailwind's defaults are 640, 768 and 1024px. Enviolo uses content-driven breakpoints, set as custom tokens:</p>
+    <code style="display:block;padding:12px 14px;line-height:1.6;white-space:pre-wrap">@theme {
+  --breakpoint-sm: 37.5rem;   /* 600px, tablet */
+  --breakpoint-md: 55rem;     /* 880px, desktop */
+  --container-content: 67.5rem; /* 1080px */
+}</code>
+  </section>
+
+  <section aria-labelledby="l-grid">
+    <div class="section-head"><h2 id="l-grid">Columns</h2><p class="small">Resize the window: 12 columns become 8, then 4.</p></div>
+    <div class="cols" aria-hidden="true"><div class="c">1</div><div class="c">2</div><div class="c">3</div><div class="c">4</div><div class="c">5</div><div class="c">6</div><div class="c">7</div><div class="c">8</div><div class="c">9</div><div class="c">10</div><div class="c">11</div><div class="c">12</div></div>
+    <p class="ex-label">Product page: 5 + 7 on desktop, 3 + 5 on tablet, stacked on mobile.</p>
+    <div class="ex" aria-hidden="true"><div class="s5">Image</div><div class="s7">Details and actions</div></div>
+    <p class="ex-label">Cards: three across on desktop, two on tablet, one on mobile.</p>
+    <div class="ex" aria-hidden="true"><div class="s4">Card</div><div class="s4">Card</div><div class="s4">Card</div></div>
+  </section>
+
+  <section aria-labelledby="l-space">
+    <div class="section-head"><h2 id="l-space">Spacing</h2><p class="small">4px base unit. These steps cover almost everything.</p></div>
+    <div class="space"><div><span>4</span><i style="width:4px"></i></div><div><span>8</span><i style="width:8px"></i></div><div><span>12</span><i style="width:12px"></i></div><div><span>16</span><i style="width:16px"></i></div><div><span>24</span><i style="width:24px"></i></div><div><span>32</span><i style="width:32px"></i></div><div><span>48</span><i style="width:48px"></i></div><div><span>72</span><i style="width:72px"></i></div></div>
+  </section>
+
+  <section aria-labelledby="l-radius">
+    <div class="section-head"><h2 id="l-radius">Radius</h2><p class="small">Shape signals role: pills act, corners hold.</p></div>
+    <div class="radii">
+      <div><span style="border-radius:var(--radius-control)"></span><code>--radius-control</code>999px · buttons, inputs</div>
+      <div><span style="border-radius:14px"></span><code>14px</code>cards, menus, dialogs</div>
+      <div><span style="border-radius:var(--radius)"></span><code>--radius</code>10px · small containers</div>
+    </div>
+  </section>
+</div>
+<div class="grid-overlay" id="gridOverlay" hidden aria-hidden="true"><div class="cols"><div class="c">1</div><div class="c">2</div><div class="c">3</div><div class="c">4</div><div class="c">5</div><div class="c">6</div><div class="c">7</div><div class="c">8</div><div class="c">9</div><div class="c">10</div><div class="c">11</div><div class="c">12</div></div></div>
+</main>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Typography · Enviolo Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&family=Urbanist:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/docs-base.css">
+<link rel="stylesheet" href="../../../tokens/components.css">
+<link rel="stylesheet" href="../assets/docs.css">
+<script src="../assets/theme-init.js"></script>
+</head>
+<body data-page="foundations/typography">
+<main class="wrap" id="main">
+<div class="view" data-view="foundations/typography">
+  <div class="view-head">
+    <div class="topic-head"><p class="topic-name">Foundations</p></div>
+    <nav class="subnav seg" data-subnav="foundations" aria-label="Foundations sections"></nav>
+    <h1>Typography</h1>
+    <p class="lede">One sans family for everything people read, one mono for code and token names. Both come from Adobe's Source family, so they share proportions.</p>
+  </div>
+
+  <section aria-labelledby="t-fam" style="margin-top:40px">
+    <div class="section-head"><h2 id="t-fam">Families</h2></div>
+    <div class="families">
+      <div class="family"><span class="small">Interface and content</span><h3 data-font-label>Source Sans 3</h3><div class="big">Aa</div><div class="abc">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 € % Nm</div><button class="btn" data-variant="outline" data-size="sm" type="button" data-copy-font="--font" data-copy-label="font stack" style="justify-self:start;margin-top:8px;font-family:var(--font)">Copy font-family</button></div>
+      <div class="family" style="font-family:var(--font-mono)"><span class="small" style="font-family:var(--font)">Code and tokens</span><h3 data-mono-label style="font-family:var(--font)">Source Code Pro</h3><div class="big" style="font-weight:500">Aa</div><div class="abc">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 {} [] =&gt;</div><button class="btn" data-variant="outline" data-size="sm" type="button" data-copy-font="--font-mono" data-copy-label="font stack" style="justify-self:start;margin-top:8px;font-family:var(--font)">Copy font-family</button></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-scale">
+    <div class="section-head"><h2 id="t-scale">Scale</h2><p class="small">Size · weight · line height · tracking. Select a spec to copy its CSS.</p></div>
+    <div class="scale"><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>Display / H1</b>clamp(2.2rem,5vw,3.4rem) · 800 · 1.02 · -0.03em</button><div class="sample" style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;line-height:1.02;letter-spacing:-.03em">Stepless, wherever you ride</div></div><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>H2</b>1.6rem · 700 · 1.15 · -0.02em</button><div class="sample" style="font-size:1.6rem;font-weight:700;line-height:1.15;letter-spacing:-.02em">Built for heavy loads</div></div><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>H3</b>1.15rem · 700 · 1.3 · -0.01em</button><div class="sample" style="font-size:1.15rem;font-weight:700;line-height:1.3;letter-spacing:-.01em">Installing a Utility hub</div></div><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>Lede</b>1.15rem · 400 · 1.5</button><div class="sample" style="font-size:1.15rem;line-height:1.5;color:var(--muted-foreground)">Enviolo Utility handles cargo, speed pedelecs and SUV builds, with motors up to 120 Nm.</div></div><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>Body</b>1rem · 400 · 1.5</button><div class="sample" style="font-size:1rem;line-height:1.5">The hub changes ratio continuously, so riders always pedal at a comfortable cadence. No steps, no jumps, no missed shifts under load.</div></div><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>Small / meta</b>0.875rem · 400 · 1.5</button><div class="sample" style="font-size:.875rem;line-height:1.5;color:var(--muted-foreground)">Workshop course, 25 min</div></div><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>Button</b>0.95rem · 600</button><div class="sample" style="font-size:.95rem;font-weight:600">Find a dealer</div></div><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>Menu label</b>0.8rem · 600</button><div class="sample" style="font-size:.8rem;font-weight:600;color:var(--muted-foreground)">Neutral colours</div></div><div class="scale-row"><button type="button" class="tspec" data-copy-style title="Select to copy the CSS"><b>Code</b>var(--font-mono) · 0.82em</button><div class="sample" style="font-family:var(--font-mono);font-size:.9rem">--enviolo-200: #E79782;</div></div></div>
+  </section>
+
+  <section aria-labelledby="t-weights">
+    <div class="section-head"><h2 id="t-weights">Weights</h2></div>
+    <div class="weights">
+      <div style="font-weight:400">Ride<small>400 Regular · body</small></div>
+      <div style="font-weight:600">Ride<small>600 Semibold · buttons, labels</small></div>
+      <div style="font-weight:700">Ride<small>700 Bold · headings</small></div>
+      <div style="font-weight:800">Ride<small>800 Extra bold · display</small></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-rules">
+    <div class="section-head"><h2 id="t-rules">Rules</h2></div>
+    <div class="rules">
+      <div class="rule"><h3>Sentence case</h3><p>Headings, buttons and labels. No all-caps eyebrows.</p></div>
+      <div class="rule"><h3>Readable lines</h3><p>Body copy stays under about 62 characters per line.</p></div>
+      <div class="rule"><h3>Mono for code only</h3><p>Token names, hex values and code. Tables and numbers use the sans with tabular figures.</p></div>
+      <div class="rule"><h3>No word highlights</h3><p>Don't colour or italicise single words in headlines. Hierarchy comes from size and weight.</p></div>
+    </div>
+  </section>
+</div>
+</main>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

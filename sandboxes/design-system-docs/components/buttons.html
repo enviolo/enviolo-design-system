@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Buttons · Enviolo Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&family=Urbanist:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/docs-base.css">
+<link rel="stylesheet" href="../../../tokens/components.css">
+<link rel="stylesheet" href="../assets/docs.css">
+<script src="../assets/theme-init.js"></script>
+</head>
+<body data-page="components/buttons">
+<main class="wrap" id="main">
+<div class="view" data-view="components/buttons">
+
+  <div class="view-head">
+    <div class="topic-head"><p class="topic-name">Components</p></div>
+    <div class="subnav-row"><nav class="subnav seg" data-subnav="components" aria-label="Components sections"></nav><span class="soon">More components soon</span></div>
+    <h1>Buttons</h1>
+    <p class="lede">Four types cover almost every action: primary, secondary, outline and ghost. Each has one job, and together they show people what matters most on a screen.</p>
+  </div>
+
+  <!-- LADDER -->
+  <section aria-labelledby="types">
+    <div class="section-head"><h2 id="types">The four types</h2><p class="small">Ranked by emphasis. Secondary and outline share rank 2; the surface they sit on decides which one to use.</p></div>
+    <div class="types">
+      <article class="type-card">
+        <div class="type-stage"><button class="btn">Find a dealer</button><button class="btn" data-size="sm">Save</button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Primary</h3><span class="badge">Rank 1</span></div>
+          <div class="chips"><code>btn</code><code>variant="default"</code></div>
+          <p><b>Use for</b> the main job of the view, like Find a dealer, Place order or Start course.</p>
+          <p><b>Avoid</b> more than one per view. If two actions feel equally important, the view is doing two jobs.</p>
+        </div>
+      </article>
+      <article class="type-card">
+        <div class="type-stage"><button class="btn" data-variant="secondary">Compare hubs</button><button class="btn" data-variant="secondary" data-size="sm">Save draft</button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Secondary</h3><span class="badge">Rank 2</span></div>
+          <div class="chips"><code>data-variant="secondary"</code><code>variant="secondary"</code></div>
+          <p><b>Use for</b> supporting actions on plain backgrounds, filters and toggles, and a second action with a consequence.</p>
+          <p><b>Avoid</b> cards, dialogs and imagery, where the muted fill blends into the surface.</p>
+        </div>
+      </article>
+      <article class="type-card">
+        <div class="type-stage"><button class="btn" data-variant="outline">Preview</button><button class="btn" data-variant="outline" data-size="sm"><svg class="ic" data-icon="download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Manual</button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Outline</h3><span class="badge">Rank 2</span></div>
+          <div class="chips"><code>data-variant="outline"</code><code>variant="outline"</code></div>
+          <p><b>Use for</b> supporting actions on cards, panels, dialogs and imagery, and the safe way out of a dialog.</p>
+          <p><b>Avoid</b> full-width buttons in mobile forms, where a bordered pill reads like an empty input.</p>
+        </div>
+      </article>
+      <article class="type-card">
+        <div class="type-stage"><button class="btn" data-variant="ghost">Show all</button><button class="btn" data-variant="ghost" data-size="icon" aria-label="More options"><svg class="ic" data-icon="more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Ghost</h3><span class="badge">Rank 3</span></div>
+          <div class="chips"><code>data-variant="ghost"</code><code>variant="ghost"</code></div>
+          <p><b>Use for</b> repeated actions on rows and toolbars, skip or defer actions, and icon buttons.</p>
+          <p><b>Avoid</b> the only action on a screen, or anything people must not miss.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="extras">
+    <div class="section-head"><h2 id="extras">Also available</h2><p class="small">Two special-purpose variants outside the ranking.</p></div>
+    <div class="types two">
+      <article class="type-card">
+        <div class="type-stage"><a class="btn" data-variant="link" href="#">Read the warranty terms</a></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Link</h3><span class="badge">Inline</span></div>
+          <div class="chips"><code>data-variant="link"</code><code>variant="link"</code></div>
+          <p><b>Use for</b> navigation inside a sentence.</p>
+          <p><b>Avoid</b> standalone actions. If it does something, it should be a button.</p>
+        </div>
+      </article>
+      <article class="type-card">
+        <div class="type-stage"><button class="btn" data-variant="destructive">Delete draft</button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Destructive</h3><span class="badge">Special</span></div>
+          <div class="chips"><code>data-variant="destructive"</code><code>variant="destructive"</code></div>
+          <p><b>Use for</b> irreversible actions, always next to an outline way out.</p>
+          <p><b>Avoid</b> anything that can be undone, or as the default focus.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="choose">
+    <div class="section-head"><h2 id="choose">Choosing a type</h2><p class="small">Ask in this order and stop at the first yes.</p></div>
+    <ol class="choose">
+      <li><b>Is it the main thing people come here to do?</b><span>Primary. Only one per view.</span></li>
+      <li><b>Does it support the main job and change something?</b><span>Secondary on plain backgrounds, outline on cards, dialogs and imagery.</span></li>
+      <li><b>Is it repeated, optional or a way out?</b><span>Ghost.</span></li>
+      <li><b>Is it navigation inside a sentence?</b><span>Link. Irreversible instead? Destructive, next to an outline way out.</span></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="sizes">
+    <div class="section-head"><h2 id="sizes">Sizes</h2><p class="small">Same pill shape at every size. Mobile stacks use large; tablet can step large down to default.</p></div>
+    <div class="size-row">
+      <div><button class="btn" data-size="sm">Small</button><code>data-size="sm" · 32px</code></div>
+      <div><button class="btn">Default</button><code>default · 40px</code></div>
+      <div><button class="btn" data-size="lg">Large</button><code>data-size="lg" · 48px</code></div>
+      <div><button class="btn" data-size="icon" aria-label="Share"><svg class="ic" data-icon="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button><code>data-size="icon" · square</code></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="states">
+    <div class="section-head"><h2 id="states">States</h2><p class="small">Hover is a solid fill from a token (primary moves two ramp steps, the others one), focus uses the focus colour from the Display menu, disabled drops to 45% opacity.</p></div>
+    <div class="table-wrap states">
+      <table>
+        <thead><tr><th><span style="position:absolute;left:-9999px">Type</span></th><th>Default</th><th>Hover</th><th>Focus</th><th>Disabled</th></tr></thead>
+        <tbody><tr><th scope="row">Primary</th><td><button class="btn" tabindex="-1">Button</button></td><td><button class="btn is-hover" tabindex="-1">Button</button></td><td><button class="btn is-focus" tabindex="-1">Button</button></td><td><button class="btn" disabled>Button</button></td></tr><tr><th scope="row">Secondary</th><td><button class="btn" data-variant="secondary" tabindex="-1">Button</button></td><td><button class="btn is-hover" data-variant="secondary" tabindex="-1">Button</button></td><td><button class="btn is-focus" data-variant="secondary" tabindex="-1">Button</button></td><td><button class="btn" data-variant="secondary" disabled>Button</button></td></tr><tr><th scope="row">Outline</th><td><button class="btn" data-variant="outline" tabindex="-1">Button</button></td><td><button class="btn is-hover" data-variant="outline" tabindex="-1">Button</button></td><td><button class="btn is-focus" data-variant="outline" tabindex="-1">Button</button></td><td><button class="btn" data-variant="outline" disabled>Button</button></td></tr><tr><th scope="row">Ghost</th><td><button class="btn" data-variant="ghost" tabindex="-1">Button</button></td><td><button class="btn is-hover" data-variant="ghost" tabindex="-1">Button</button></td><td><button class="btn is-focus" data-variant="ghost" tabindex="-1">Button</button></td><td><button class="btn" data-variant="ghost" disabled>Button</button></td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="context" style="margin-bottom:-24px">
+    <div class="section-head"><h2 id="context">In context</h2><p class="small">The four types at work on real Enviolo screens.</p></div>
+  </section>
+
+  <section aria-labelledby="web">
+    <div class="section-head">
+      <h2 id="web">enviolo.com — hero on imagery</h2>
+      <p class="small">On photos or dark brand surfaces the muted fill gets lost. Outline, inverted, carries the second action.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>enviolo.com</div>
+      <div class="hero on-dark">
+        <div class="hub" aria-hidden="true"></div>
+        <h3>Stepless shifting for heavy loads</h3>
+        <p>Enviolo Utility handles cargo, speed pedelecs and SUV builds, with motors up to 120 Nm.</p>
+        <div class="row">
+          <a class="btn" data-size="lg" href="#">Find a dealer</a>
+          <a class="btn" data-variant="outline" data-size="lg" href="#">How the hub works</a>
+        </div>
+      </div>
+    </div>
+    <div class="why">
+      <div><b>Primary, inverted</b>White solid is the strongest mark on a dark surface.</div>
+      <div><b>Outline, inverted</b>Present but quiet. A muted grey fill would read as a disabled button here.</div>
+    </div>
+  </section>
+
+  <!-- PRODUCT PAGE -->
+  <section aria-labelledby="product">
+    <div class="section-head">
+      <h2 id="product">enviolo.com — product page</h2>
+      <p class="small">Plain white page, two actions side by side. Secondary keeps the pair calm and equal in size.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>enviolo.com/utility</div>
+      <div class="product">
+        <div class="shot" aria-hidden="true"><span></span></div>
+        <div>
+          <h3 style="font-size:1.6rem;letter-spacing:-.02em">Enviolo Utility</h3>
+          <p class="small">Stepless hub for cargo and high-torque builds.</p>
+          <dl class="spec">
+            <dt>Max motor torque</dt><dd>120 Nm</dd>
+            <dt>Applications</dt><dd>Cargo, speed pedelec, SUV</dd>
+            <dt>Shifting</dt><dd>Manual or Automatic</dd>
+          </dl>
+          <div class="row">
+            <button class="btn" data-size="lg">Find a dealer</button>
+            <button class="btn" data-variant="secondary" data-size="lg">Compare hubs</button>
+            <button class="btn" data-variant="ghost" data-size="icon-lg" aria-label="Share"><svg class="ic" data-icon="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+          </div>
+          <p class="small" style="margin-top:14px">Building bikes? <a class="btn" data-variant="link" href="#">Talk to our OEM team</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDERS -->
+  <section aria-labelledby="orders">
+    <div class="section-head">
+      <h2 id="orders">orders.enviolo.com — B2B portal</h2>
+      <p class="small">Dense screen. Filters are a secondary segmented control, row actions are ghost, and the order footer pairs primary with secondary.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>orders.enviolo.com/new</div>
+      <div class="orders">
+        <div class="toolbar">
+          <div class="seg" role="group" aria-label="Filter lines">
+            <button class="btn" data-size="sm" aria-pressed="true">All lines</button>
+            <button class="btn" data-size="sm" aria-pressed="false">Hubs</button>
+            <button class="btn" data-size="sm" aria-pressed="false">Shifters</button>
+            <button class="btn" data-size="sm" aria-pressed="false">Spare parts</button>
+          </div>
+          <div class="row">
+            <label class="search"><svg class="ic" data-icon="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><input class="input input-sm" type="search" placeholder="Search part number" aria-label="Search part number"></label>
+            <button class="btn" data-variant="outline" data-size="sm">
+              <svg class="ic" data-icon="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Add line
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Item</th><th>Qty</th><th>Availability</th><th><span class="sr-only" style="position:absolute;left:-9999px">Actions</span></th></tr></thead>
+            <tbody>
+              <tr><td>Utility hub, 36H, disc</td><td>40</td><td><span class="pill ok">In stock</span></td>
+                <td class="actions">
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                </td></tr>
+              <tr><td>Automatic shifter kit</td><td>40</td><td><span class="pill">Ships in 3 weeks</span></td>
+                <td class="actions">
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                </td></tr>
+              <tr><td>Cable set, 1800 mm</td><td>80</td><td><span class="pill ok">In stock</span></td>
+                <td class="actions">
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                </td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="order-foot">
+          <button class="btn" data-variant="secondary">Save draft</button>
+          <button class="btn">Place order</button>
+        </div>
+      </div>
+    </div>
+    <div class="why">
+      <div><b>Segmented secondary</b>Filters change the view, not the data. Selected state lifts to the page colour.</div>
+      <div><b>Outline for "Add line"</b>Sits in a toolbar next to a muted control; outline keeps it distinct from the filters.</div>
+      <div><b>Ghost row actions</b>Repeated on every row. Any fill would turn the table into a wall of buttons.</div>
+      <div><b>Primary last</b>Place order sits at the end of the reading path, right-aligned.</div>
+    </div>
+  </section>
+
+  <!-- DIALOG -->
+  <section aria-labelledby="dialog">
+    <div class="section-head">
+      <h2 id="dialog">Confirmations and destructive actions</h2>
+      <p class="small">Cancel is outline in dialogs: the dialog already sits on a dimmed surface, and outline reads as the safe exit.</p>
+    </div>
+    <div class="frame">
+      <div class="dialog-demo">
+        <div class="dialog" role="dialog" aria-labelledby="dlg-t">
+          <h3 id="dlg-t">Delete this draft order?</h3>
+          <p class="small" style="margin:0">The 3 lines in draft #10482 will be removed. This can't be undone.</p>
+          <div class="row">
+            <button class="btn" data-variant="outline">Keep draft</button>
+            <button class="btn" data-variant="destructive">Delete draft</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT + UNIVERSITY CARDS -->
+  <section aria-labelledby="cards">
+    <div class="section-head">
+      <h2 id="cards">support.enviolo.com and University — cards</h2>
+      <p class="small">Cards already carry a fill. A muted button would sink into the card, so the card's own action is outline. Only the true next step gets primary.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>university.enviolo.com</div>
+      <div class="row" style="padding:22px 22px 0">
+        <label class="search" style="flex:1;max-width:420px"><svg class="ic" data-icon="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><input class="input" style="width:100%" type="search" placeholder="Search courses and manuals" aria-label="Search courses and manuals"></label>
+        <button class="btn" data-variant="secondary">Search</button>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="thumb" aria-hidden="true"></div>
+          <h3>Installing a Utility hub</h3>
+          <span class="meta">Workshop course, 25 min</span>
+          <div class="row">
+            <button class="btn">Start course</button>
+            <button class="btn" data-variant="outline">Preview</button>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb alt" aria-hidden="true"></div>
+          <h3>Explaining stepless shifting</h3>
+          <span class="meta">Sales course, 12 min</span>
+          <div class="row">
+            <button class="btn" data-variant="outline">Preview</button>
+            <button class="btn" data-variant="ghost">Save for later</button>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb alt2" aria-hidden="true"></div>
+          <h3>Utility hub manual</h3>
+          <span class="meta">PDF, 4.2 MB, 9 languages</span>
+          <div class="row">
+            <button class="btn" data-variant="outline">
+              <svg class="ic" data-icon="download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Download manual
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="why">
+      <div><b>One primary on the page</b>Only the course the dealer is assigned gets "Start course". Others stay outline.</div>
+      <div><b>Ghost for "Save for later"</b>Optional, personal, reversible.</div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section aria-labelledby="app">
+    <div class="section-head">
+      <h2 id="app">Enviolo App — onboarding</h2>
+      <p class="small">Mobile stacks full-width. Primary on top, the escape hatch as ghost so it never competes.</p>
+    </div>
+    <div class="frame">
+      <div class="app-demo">
+        <div class="phone">
+          <div class="top">
+            <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Back"><svg class="ic" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+            <span class="small">Step 2 of 3</span>
+            <span style="width:32px"></span>
+          </div>
+          <div>
+            <div class="ring">Hold your phone near the shifter</div>
+            <h3 style="text-align:center">Connect your hub</h3>
+            <p class="small" style="text-align:center;margin:0 auto">Turn on the bike and keep Bluetooth on.</p>
+          </div>
+          <div class="stack">
+            <button class="btn" data-size="lg">Connect hub</button>
+            <button class="btn" data-variant="ghost" data-size="lg">Set up later</button>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="top">
+            <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Back"><svg class="ic" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+            <span class="small">Riding mode</span>
+            <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Settings"><svg class="ic" data-icon="settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+          </div>
+          <div>
+            <h3>Pedal cadence</h3>
+            <p class="small">Choose how fast you want to pedal. The hub shifts to keep it.</p>
+            <div class="seg" role="group" aria-label="Cadence preset" style="display:flex">
+              <button class="btn" data-size="sm" style="flex:1" aria-pressed="false">Relaxed</button>
+              <button class="btn" data-size="sm" style="flex:1" aria-pressed="true">Balanced</button>
+              <button class="btn" data-size="sm" style="flex:1" aria-pressed="false">Sporty</button>
+            </div>
+          </div>
+          <div class="stack">
+            <button class="btn" data-size="lg">Save cadence</button>
+            <button class="btn" data-variant="secondary" data-size="lg">Reset to default</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIGRATION -->
+  <section aria-labelledby="migrate">
+    <div class="section-head">
+      <h2 id="migrate">Migration from the current system</h2>
+    </div>
+    <div class="map">
+      <button class="btn">Old solid</button><span class="arrow" aria-hidden="true">becomes</span><code>btn</code>
+      <button class="btn" data-variant="outline">Old outline</button><span class="arrow" aria-hidden="true">becomes</span><span><code>outline</code> on cards and imagery, <code>secondary</code> in groups on plain pages</span>
+      <button class="btn" data-variant="ghost">Old ghost</button><span class="arrow" aria-hidden="true">becomes</span><code>ghost</code>
+      <p class="note">Audit every page for more than one primary. Downgrade the extras to secondary or outline.</p>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section aria-labelledby="rules">
+    <div class="section-head"><h2 id="rules">Rules of thumb</h2></div>
+    <div class="rules">
+      <div class="rule"><h3>One primary per view</h3><p>If two actions feel equally important, the view is doing two jobs. Split it.</p></div>
+      <div class="rule"><h3>Primary goes last</h3><p>Right-aligned on desktop footers, top of the stack on mobile.</p></div>
+      <div class="rule"><h3>Surface picks rank 2</h3><p>Secondary on plain backgrounds, outline on cards, dialogs and imagery. Never both in one group.</p></div>
+      <div class="rule"><h3>Repeated means ghost</h3><p>Anything shown on every row, card or toolbar slot drops to ghost.</p></div>
+      <div class="rule"><h3>Name the outcome</h3><p>"Place order", "Download manual", not "Submit" or "OK". Icon-only buttons always get a label for screen readers.</p></div>
+      <div class="rule"><h3>Destructive is its own variant</h3><p>Only for irreversible actions, and always next to an outline way out.</p></div>
+    </div>
+  </section>
+
+</div>
+</main>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

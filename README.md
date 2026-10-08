@@ -24,7 +24,7 @@ Sandboxes show the tokens applied to real UI. Open the `index.html` in a browser
 
 | Sandbox | Version | What it is |
 | ------- | ------- | ---------- |
-| [design-system-docs](sandboxes/design-system-docs/index.html) | v0.3 (current) | Design system tester and documentation site: colour, typography, buttons, layout. |
+| [design-system-docs](sandboxes/design-system-docs/index.html) | v0.3 (current) | Design system tester and documentation site, one page per topic: Overview, Foundations (colour, typography, layout) and Components (buttons). Shared styles and scripts live in its `assets/` folder; the nav is built by `assets/docs.js`. |
 | [html-dashboard](versions/v0.2/sandboxes/html-dashboard/index.html) | v0.2 | A fleet dashboard in vanilla HTML, CSS and JS on top of BasecoatUI. |
 
 ## Principles
