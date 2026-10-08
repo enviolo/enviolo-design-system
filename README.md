@@ -16,7 +16,7 @@ It is a lightweight, token-first system. It doesn't ship its own component libra
 | [tokens/components.css](tokens/components.css) | Plain-HTML component styles (buttons, inputs, status pills) built on the tokens. The web backbone; used by the docs site. |
 | [sandboxes/](sandboxes/) | Working references for the current version. |
 | [versions/](versions/) | Previous versions, each in its own folder with its design.md and sandboxes. |
-| [CLAUDE.md](CLAUDE.md) | Snippet that points AI tools at design.md and the tokens. |
+| [CLAUDE.md](CLAUDE.md) | Instructions for AI-assisted work on this repo itself (workflow, versions, docs site). Not for projects that use the system. |
 
 ### Sandboxes
 
@@ -46,6 +46,22 @@ Then open <http://localhost:8765/sandboxes/design-system-docs/index.html>. Stop 
 - **Port already in use.** Pick another, for example `python3 -m http.server 8766`, and change the port in the URL.
 - **Editing.** Reload the page to see changes. Display choices (theme, font, ramps) are saved in the browser for each address, so `localhost` and a `file://` copy keep separate settings.
 - **Adding a page.** Create the HTML file under `sandboxes/design-system-docs/`, copy the `<head>` and script tags from an existing page (mind the `../` depth), set `data-page` on `<body>`, and add an entry to `TOPICS` in `assets/docs.js`. The nav, sub-nav and Display menu are built from that list.
+
+## Use it in a project
+
+`design.md` is the source of truth, and it has a hard-rules section written for AI tools (§0). A tool only follows it if something tells it to read it, so add a short pointer to the instructions file your AI tool reads.
+
+1. **Copy the files into your project:** `design.md`, `tokens/tokens.css`, and for plain HTML/CSS projects `tokens/components.css`. React apps use shadcn/ui with `tokens.css` and don't need `components.css`.
+2. **Paste this snippet** into your project's instructions file. Claude Code reads `CLAUDE.md`; Cursor, Copilot and other tools use their own rules or instructions files (check your tool's docs for the name). Adjust the paths if you put the files elsewhere.
+
+```md
+## Design system
+- Follow `design.md` for all UI work. Its section 0 lists the hard rules.
+- Tokens live in `tokens/tokens.css`; web pages also use `tokens/components.css`. Use semantic tokens only; never hard-code colours.
+- When a rule is unclear, check design.md §15 (open decisions) and ask instead of inventing tokens.
+```
+
+The snippet only points at `design.md` and doesn't restate the rules, so it can't go out of date when the rules change.
 
 ## Principles
 
