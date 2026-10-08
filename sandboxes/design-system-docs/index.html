@@ -36,6 +36,7 @@
   --success:var(--green-600); --success-foreground:#FFFFFF;
   --warning:var(--amber-500); --warning-foreground:var(--amber-950);
   --info:var(--blue-600); --info-foreground:#FFFFFF;
+  --primary-hover:var(--n-700); --secondary-hover:var(--n-200); --destructive-hover:var(--red-700);
   --destructive-bg:var(--red-50); --destructive-text:var(--red-700); --success-bg:var(--green-50); --success-text:var(--green-700); --warning-bg:var(--amber-50); --warning-text:var(--amber-700); --info-bg:var(--blue-50); --info-text:var(--blue-700); /* status pills: solid ramp steps */
   --ring:var(--light-ring,var(--enviolo-300));
   /* Enviolo brand ramp (draft): light to dark, sunset to midnight */
@@ -50,7 +51,7 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-500);
-    --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --destructive-bg:var(--red-950); --destructive-text:var(--red-300); --success-bg:var(--green-950); --success-text:var(--green-300); --warning-bg:var(--amber-950); --warning-text:var(--amber-300); --info-bg:var(--blue-950); --info-text:var(--blue-300);
+    --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --primary-hover:var(--n-200); --secondary-hover:var(--n-700); --destructive-hover:var(--red-600); --destructive-bg:var(--red-950); --destructive-text:var(--red-300); --success-bg:var(--green-950); --success-text:var(--green-300); --warning-bg:var(--amber-950); --warning-text:var(--amber-300); --info-bg:var(--blue-950); --info-text:var(--blue-300);
     --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
     --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
     --card:var(--n-900); --border:var(--n-800); --primary:var(--n-50); --primary-foreground:var(--n-900);
@@ -59,7 +60,7 @@
 }
 :root[data-theme="dark"]{
   --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-500);
-  --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --destructive-bg:var(--red-950); --destructive-text:var(--red-300); --success-bg:var(--green-950); --success-text:var(--green-300); --warning-bg:var(--amber-950); --warning-text:var(--amber-300); --info-bg:var(--blue-950); --info-text:var(--blue-300);
+  --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --primary-hover:var(--n-200); --secondary-hover:var(--n-700); --destructive-hover:var(--red-600); --destructive-bg:var(--red-950); --destructive-text:var(--red-300); --success-bg:var(--green-950); --success-text:var(--green-300); --warning-bg:var(--amber-950); --warning-text:var(--amber-300); --info-bg:var(--blue-950); --info-text:var(--blue-300);
   --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
   --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
   --card:var(--n-900); --border:var(--n-800); --primary:var(--n-50); --primary-foreground:var(--n-900);
@@ -156,7 +157,8 @@ section{margin-top:72px}
 .orders{padding:22px}
 .toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
 .seg{display:inline-flex;gap:4px;padding:4px;background:var(--muted);border-radius:var(--radius-control)}
-.seg .btn{background:transparent;color:var(--muted-foreground)}
+.seg .btn{background:transparent;color:var(--muted-foreground);--btn-hover:transparent}
+.seg .btn:hover{color:var(--foreground)}
 .seg .btn[aria-pressed="true"]{background:var(--background);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.08)}
 .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}
@@ -262,9 +264,8 @@ code{overflow-wrap:anywhere}
 .states table{min-width:520px}
 .states th[scope="row"]{font-weight:600;color:var(--foreground);background:transparent}
 .states td{padding:14px}
-.btn.is-hover{opacity:.88}
-.btn-secondary.is-hover{opacity:1;background:color-mix(in srgb,var(--secondary) 80%,var(--foreground) 8%)}
-.btn-outline.is-hover,.btn-ghost.is-hover{opacity:1;background:var(--accent)}
+.btn.is-hover{background:var(--btn-hover)}
+.btn-link.is-hover{opacity:.7}
 .btn.is-focus{outline:2px solid var(--ring);outline-offset:2px}
 
 /* ---------- Site navigation ---------- */
@@ -482,7 +483,7 @@ code{overflow-wrap:anywhere}
     <div class="hub" aria-hidden="true"></div>
     <h1 id="ov-title">Enviolo Design System</h1>
     <p>One set of tokens, components and rules for web, app and AI-assisted development at Enviolo. Built on shadcn/ui conventions and shaped by Enviolo: warm days, cool nights. Introduced step by step, as each product is ready for it.</p>
-    <p class="meta">v0.3 · Draft · Updated October 2026</p>
+    <p class="meta">v0.3.6 · Draft · Updated October 2026</p>
   </section>
 
   <section aria-labelledby="ov-explore">
@@ -510,8 +511,8 @@ code{overflow-wrap:anywhere}
     <div class="section-head"><h2 id="ov-principles">Principles</h2></div>
     <div class="rules four">
       <div class="rule"><h3>One job per view</h3><p>Each screen has one primary action. If two feel equally important, split the screen.</p></div>
-      <div class="rule"><h3>Pills act, corners hold</h3><p>Based on the Luma style of shadcn/ui and Basecoat: controls are pill-shaped, while cards, panels and dialogs keep soft corners. Shape tells people what they can press.</p></div>
-      <div class="rule"><h3>Tokens, not values</h3><p>Components only use semantic tokens. Change a ramp or a mode and every screen follows.</p></div>
+      <div class="rule"><h3>Pills act, corners hold</h3><p>Based on the Luma style of shadcn/ui: controls are pill-shaped, while cards, panels and dialogs keep soft corners. Shape tells people what they can press.</p></div>
+      <div class="rule"><h3>Tokens, not values</h3><p>Components only use semantic tokens, and states like hover are token fills, never opacity tricks or colour mixes. Change a ramp or a mode and every screen follows.</p></div>
       <div class="rule"><h3>Warm days, cool nights</h3><p>Light mode runs on Taupe, dark mode on Mist. The brand ramp moves like the sky, from sunset to midnight.</p></div>
     </div>
   </section>
@@ -547,20 +548,21 @@ code{overflow-wrap:anywhere}
           <div class="arch-body"><p>React components that live in our own codebase, so we can adapt them freely.</p><div class="chips"><code>&lt;Button variant="secondary"&gt;</code></div></div>
         </div>
         <div class="arch-tier">
-          <div class="arch-label"><b>Basecoat</b><span>Backbone for the web</span></div>
-          <div class="arch-body"><p>The same components as plain HTML classes, for websites and CMS templates. No React needed.</p><div class="chips"><code>class="btn-secondary"</code></div></div>
+          <div class="arch-label"><b>Enviolo CSS</b><span>Backbone for the web</span></div>
+          <div class="arch-body"><p>The same components as plain HTML classes from one stylesheet, for websites and CMS templates. No React and no third-party library needed.</p><div class="chips"><code>class="btn btn-secondary"</code></div></div>
         </div>
       </div>
     </div>
-    <p class="small" style="margin-top:14px">Figma mirrors the same variables through the shadcncraft kit. For AI-assisted development, design.md describes all three layers, so Claude or Cursor picks the right backbone for each surface and only uses Enviolo tokens.</p>
+    <p class="small" style="margin-top:14px">Figma mirrors the same variables through the shadcncraft kit. For AI-assisted development, design.md describes all three layers, so Claude or Cursor picks the right backbone for each surface and only uses Enviolo tokens. A component the web stylesheet doesn't have yet is not part of the system until it is added.</p>
   </section>
 
   <section aria-labelledby="ov-build" style="margin-top:48px">
     <h2 id="ov-build" class="sr-only" style="position:absolute;left:-9999px">About this page</h2>
     <button class="btn btn-ghost btn-sm about-toggle" id="aboutToggle" type="button" aria-expanded="false" aria-controls="aboutPanel">How this page is built<svg class="ic chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
     <div class="about" id="aboutPanel" hidden>
-      <p>Plain HTML, CSS and a little vanilla JavaScript, with no framework and no build step. No component library is loaded either: the CSS is hand-written to follow two conventions.</p>
-      <p>Class names follow <a class="btn btn-link" href="https://basecoatui.com" rel="noopener">Basecoat</a> (<code>btn</code>, <code>btn-secondary</code>, <code>btn-outline</code>, <code>btn-ghost</code>), which brings the shadcn/ui look to plain HTML. Colour and radius tokens use <a class="btn btn-link" href="https://ui.shadcn.com/docs/theming" rel="noopener">shadcn/ui</a> naming (<code>--primary</code>, <code>--secondary</code>, <code>--muted</code>, <code>--border</code>), so the same tokens drop into a React shadcn setup or a Figma variables file. The visual style is based on Luma, available in both shadcn/ui and Basecoat, which brings the pill-shaped controls. Enviolo-specific choices on top: a two-ramp neutral system for light and dark, and the Enviolo colour ramp.</p>
+      <p>Plain HTML, CSS and a little vanilla JavaScript, with no framework and no build step. No component library is loaded. Buttons, inputs and status pills come from <code>tokens/components.css</code>, the same stylesheet websites use; the rest of this page's CSS is documentation only.</p>
+      <p>Class names use the shadcn vocabulary (<code>btn</code>, <code>btn-secondary</code>, <code>btn-outline</code>, <code>btn-ghost</code>). Colour and radius tokens use <a class="btn btn-link" href="https://ui.shadcn.com/docs/theming" rel="noopener">shadcn/ui</a> naming (<code>--primary</code>, <code>--secondary</code>, <code>--muted</code>, <code>--border</code>), so the same tokens drop into a React shadcn setup or a Figma variables file. The visual style is based on Luma, which brings the pill-shaped controls. Enviolo-specific choices on top: a two-ramp neutral system for light and dark, and the Enviolo colour ramp.</p>
+      <p>New components start from <a class="btn btn-link" href="https://basecoatui.com" rel="noopener">Basecoat</a> as a reference, then get ported into our own stylesheet and checked in both modes, so every state follows the same rules.</p>
     </div>
   </section>
 </div>
@@ -662,7 +664,7 @@ code{overflow-wrap:anywhere}
   </section>
 
   <section aria-labelledby="states">
-    <div class="section-head"><h2 id="states">States</h2><p class="small">Hover is subtle, focus uses the focus colour from the Display menu, disabled drops to 45% opacity.</p></div>
+    <div class="section-head"><h2 id="states">States</h2><p class="small">Hover is a solid fill from a token (primary moves two ramp steps, the others one), focus uses the focus colour from the Display menu, disabled drops to 45% opacity.</p></div>
     <div class="table-wrap states">
       <table>
         <thead><tr><th><span style="position:absolute;left:-9999px">Type</span></th><th>Default</th><th>Hover</th><th>Focus</th><th>Disabled</th></tr></thead>

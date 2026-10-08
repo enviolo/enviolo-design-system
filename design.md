@@ -4,7 +4,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
-- **Version:** v0.3 (draft), October 2026
+- **Version:** v0.3.6 (draft), October 2026
 - **Live reference:** Enviolo Design System artifact (Overview, Brand, Components, Layout)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
@@ -12,7 +12,7 @@ The system is introduced **step by step**: apply it where a product is ready, an
 
 ## 0. Rules for AI-assisted development (read first)
 
-1. **Pick the backbone by surface.** React app → shadcn/ui components. Website, CMS template or plain HTML → Basecoat classes. Never mix both in one surface.
+1. **Pick the backbone by surface.** React app → shadcn/ui components. Website, CMS template or plain HTML → Enviolo CSS (`tokens/components.css`). Never mix both in one surface. If `components.css` doesn't have a component yet, it isn't part of the system: ask, or add it first (see section 1).
 2. **Use semantic tokens only** (`--background`, `--primary`, `--muted`, `--border`, `--ring`, `--accent`, status tokens). Never hard-code hex, oklch or Tailwind palette classes such as `bg-stone-100` in components.
 3. **Never rename tokens.** Enviolo changes values, not names. Keep shadcn naming so components stay drop-in.
 4. **One primary action per view.** Choose the second rank by surface: secondary on plain backgrounds, outline on cards, dialogs and imagery. Repeated actions are ghost.
@@ -39,9 +39,9 @@ Three layers. Each layer only changes values in the layer below it, never names.
 │    shadcn token names + Luma style                       │
 │    --background --primary --muted --border --ring …      │
 ├────────────────────────────┬────────────────────────────┤
-│ 1a. shadcn/ui              │ 1b. Basecoat               │
+│ 1a. shadcn/ui              │ 1b. Enviolo CSS            │
 │     React apps             │     Web (HTML, CMS)        │
-│     <Button variant=…>     │     class="btn-…"          │
+│     <Button variant=…>     │     class="btn btn-…"      │
 └────────────────────────────┴────────────────────────────┘
         Figma: shadcncraft kit, same variable names
 ```
@@ -49,23 +49,24 @@ Three layers. Each layer only changes values in the layer below it, never names.
 | Layer | What it is | Used for |
 |---|---|---|
 | **shadcn/ui** | React components copied into our codebase and owned by us | React apps |
-| **Basecoat** | shadcn's look and token names as plain HTML/CSS classes, plus a little JS for interactive parts | Websites, CMS templates, static pages |
+| **Enviolo CSS** | Plain HTML/CSS classes in `tokens/components.css`, built on the same tokens and the Luma look, in the shadcn vocabulary. No third-party library is loaded | Websites, CMS templates, static pages |
 | **Shared contract** | shadcn token names and the **Luma** style (pill controls, soft containers) | Every surface, CSS, Tailwind, Figma |
 | **Enviolo tokens** | Values: ramps, modes, status, accent, focus, type, icons | Everything Enviolo-specific |
 | **Figma** | shadcncraft kit; variables named exactly like the CSS tokens | Design, handoff |
 
 **Implementation notes**
-- Both backbones run on **Tailwind v4**. Tokens live in one `globals.css` / `tokens.css`, mapped into Tailwind with `@theme inline`.
-- Dark mode in production: use the **`.dark` class** on `<html>` (what shadcn and Basecoat expect). The prototype uses `data-theme`; don't copy that.
-- **Same vocabulary, different syntax.** Variants (primary, secondary, outline, ghost, link, destructive) and sizes (xs, sm, default, lg, icon sizes) mean the same in every backbone. Write specs and tickets in these names, then translate to the surface you build for:
+- React apps run on **Tailwind v4**; the Tailwind mapping in `tokens.css` is for them. Enviolo CSS is plain CSS with no build step. Both read the same tokens.
+- Dark mode in production: use the **`.dark` class** on `<html>` (what shadcn expects and what `tokens.css` uses). The docs-site sandbox uses `data-theme`; don't copy that.
+- **Same vocabulary, different syntax.** Variants (primary, secondary, outline, ghost, link, destructive) and sizes (xs, sm, default, lg, icon sizes) mean the same on every surface. Write specs and tickets in these names, then translate:
 
-| Intent | shadcn/ui (React) | Basecoat (HTML) | Docs-site sandbox |
-|---|---|---|---|
-| Primary, default size | `<Button>` | `<button class="btn">` | `btn` |
-| Outline, small | `<Button variant="outline" size="sm">` | `<button class="btn" data-variant="outline" data-size="sm">` | `btn btn-sm btn-outline` |
-| Destructive, large | `<Button variant="destructive" size="lg">` | `<button class="btn" data-variant="destructive" data-size="lg">` | `btn btn-lg btn-destructive` |
+| Intent | shadcn/ui (React) | Enviolo CSS (HTML) |
+|---|---|---|
+| Primary, default size | `<Button>` | `<button class="btn">` |
+| Outline, small | `<Button variant="outline" size="sm">` | `<button class="btn btn-outline btn-sm">` |
+| Destructive, large | `<Button variant="destructive" size="lg">` | `<button class="btn btn-destructive btn-lg">` |
 
-  Primary is the default in both (shadcn names it `default`). Verified against the Basecoat docs and the vendored Luma CSS on 8 October 2026. The docs-site sandbox has its own hand-written classes; don't copy its markup.
+  Primary is the default in both (shadcn names it `default`).
+- **Adding a web component.** Basecoat is a reference, not a dependency. Start from its markup and CSS, then port it into `components.css` with tokens only, in the shadcn vocabulary, and check it in light and dark with any neutral ramp. States follow one rule: a solid fill from a token (see 8.1), never an opacity change or a computed colour mix. Basecoat's own secondary hover mixes in OKLCH and turns brown in dark mode, which is why the library isn't used as is.
 
 ---
 
@@ -90,7 +91,7 @@ Three layers. Each layer only changes values in the layer below it, never names.
 ```
 primitives                     mode layer                    semantic                    components
 --l-50…950 (Taupe)   ─┐
-                      ├─►  --n-50…950  ─────────────►  --background, --primary,  ─►  shadcn / Basecoat
+                      ├─►  --n-50…950  ─────────────►  --background, --primary,  ─►  shadcn / Enviolo CSS
 --d-50…950 (Mist)    ─┘   (light → --l, dark → --d)    --muted, --border, …
 --enviolo-50…950 ──────────────────────────────────►  --ring, --chart-*, gradients
 --red/amber/green/blue-50…950 ─────────────────────►  --destructive, --success, --warning, --info
@@ -121,6 +122,7 @@ per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --a
 | `--success` | green-600 | green-400 | Confirmations |
 | `--warning` | amber-500 | amber-400 | Caution (text on it: amber-950) |
 | `--info` | blue-600 | blue-400 | Notices |
+| `--primary-hover`, `--secondary-hover`, `--destructive-hover` | n-700, n-200, red-700 | n-200, n-700, red-600 | Button hover fills |
 | `--destructive-bg`, `--success-bg`, `--warning-bg`, `--info-bg` | status 50 | status 950 | Solid background of status pills and alerts |
 | `--destructive-text`, `--success-text`, `--warning-text`, `--info-text` | status 700 | status 300 | Text on those backgrounds |
 | `--chart-1…4` | Enviolo 200, 400, 600, 900 | Enviolo 50, 200, 400, 500 | Chart series |
@@ -130,7 +132,7 @@ per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --a
 
 Not yet defined but part of shadcn's full theme; add them when the matching components arrive: `--popover`, `--input`, `--card-foreground`, `--accent-foreground`, `--sidebar-*`.
 
-### 3.3 Example (Tailwind v4, shared by shadcn and Basecoat)
+### 3.3 Example (Tailwind v4)
 
 ```css
 @import "tailwindcss";
@@ -333,7 +335,7 @@ Never give a container a pill radius, and never give a control a container radiu
 
 ### 8.1 Buttons
 
-| Rank | Variant | shadcn | Basecoat | Use |
+| Rank | Variant | shadcn | Enviolo CSS | Use |
 |---|---|---|---|---|
 | 1 | Primary (solid) | `variant="default"` | `btn` | The main job of the view. One per view. |
 | 2 | Secondary (muted) **or** outline | `secondary` / `outline` | `btn-secondary` / `btn-outline` | Supporting action. Same rank, pick by surface. |
@@ -363,7 +365,7 @@ Never give a container a pill radius, and never give a control a container radiu
 
 **Sizes**: sm 32px / 14px padding · default 40px / 18px · lg 48px / 22px · icon square. Icons 18px (16px in sm). Mobile stacks use lg; tablet may step lg down to default.
 
-**States**: hover (primary −12% opacity; secondary slightly darker; outline and ghost get `--accent`) · focus-visible `2px solid var(--ring)`, offset 2px · disabled 45% opacity.
+**States**: hover is a solid fill from a token, never an opacity change or a computed mix (primary `--primary-hover`, two ramp steps; secondary `--secondary-hover`, one step; outline and ghost `--accent`; destructive `--destructive-hover`; link fades to 70%) · focus-visible `2px solid var(--ring)`, offset 2px · disabled 45% opacity.
 
 **On dark imagery**: primary white with ink text; outline transparent, white text, `rgba(255,255,255,.45)` border.
 
@@ -453,7 +455,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 14. Checklist for any new screen
 
-- [ ] Right backbone for the surface (shadcn/ui in React, Basecoat on the web)
+- [ ] Right backbone for the surface (shadcn/ui in React, Enviolo CSS on the web)
 - [ ] Only semantic tokens; no raw colours or palette classes
 - [ ] One primary action, placed last on desktop, top on mobile
 - [ ] Second rank chosen by surface; repeated actions are ghost
@@ -479,13 +481,14 @@ Bold = default. Contrast ratios are against the default background.
 - Dark-mode focus stays **Coral** (8.6:1).
 - Status backgrounds use **solid ramp steps** (50 / 700 light, 950 / 300 dark), not transparent tints.
 - **Nightfall** is the final name for Enviolo 800.
-- Basecoat buttons use `data-variant` and `data-size` attributes (see section 1).
+- Websites use **Enviolo CSS** (`tokens/components.css`), not the Basecoat library. Basecoat stays a reference for new components (it sets variants with `data-variant` and `data-size`).
 
 ---
 
 ## 16. Changelog
 
-- **v0.3.5**: decisions from the open list. Copper is the light-mode focus default; status backgrounds are solid ramp steps (`--{status}-bg`, `--{status}-text`, replacing `--status-tint`); Nightfall confirmed; Basecoat buttons verified to use `data-variant` and `data-size`.
+- **v0.3.6**: web backbone is Enviolo CSS (`tokens/components.css`: buttons, inputs, status pills) instead of Basecoat; Basecoat kept as a reference for new components; button hover is one token-driven rule; overview of the docs site and the AI rules rewritten to match.
+- **v0.3.5**: decisions from the open list; button hover is one rule driven by tokens (`--primary-hover`, `--secondary-hover`, `--destructive-hover`), fixing the brown secondary hover seen with Basecoat in dark mode. Copper is the light-mode focus default; status backgrounds are solid ramp steps (`--{status}-bg`, `--{status}-text`, replacing `--status-tint`); Nightfall confirmed; Basecoat buttons verified to use `data-variant` and `data-size`.
 - **v0.3.4**: architecture (shadcn/ui for React apps, Basecoat for web, Enviolo token layer on top); AI rules up front; per-mode background, accent and focus; status colours from Tailwind primitives with `--status-tint`; navigation patterns (topic dropdowns, sub-nav, cards as links); open decisions.
 - **v0.3.3**: Enviolo ramp (11 steps, Nightfall added), gradients, chart steps; grid and breakpoints.
 - **v0.3.2**: confirmed defaults (Source Sans 3, Tabler, Source Code Pro, Taupe/Mist).

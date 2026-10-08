@@ -1,5 +1,5 @@
 /*
-  Enviolo components.css (v0.3, draft)
+  Enviolo components.css (v0.3.6, draft)
   Plain-HTML component styles for websites and CMS templates: buttons, inputs, status pills.
   Uses semantic tokens only (tokens/tokens.css). No hard-coded colours except the inverted
   `.on-dark` variants, which sit on imagery.
@@ -14,19 +14,18 @@
   font:600 .95rem/1 var(--font);letter-spacing:.005em;white-space:nowrap;cursor:pointer;
   border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);
   transition:background-color .15s,border-color .15s,color .15s,opacity .15s;text-decoration:none;
+  --btn-hover:var(--primary-hover);
 }
-.btn:hover{opacity:.88}
+/* One hover rule for every variant: the variant only sets --btn-hover. */
+@media (hover:hover){.btn:not(:disabled):hover{background:var(--btn-hover)}}
 .btn:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
 .btn:disabled{opacity:.45;cursor:not-allowed}
-.btn-secondary{background:var(--secondary);color:var(--secondary-foreground)}
-.btn-secondary:hover{opacity:1;background:color-mix(in srgb,var(--secondary) 80%,var(--foreground) 8%)}
-.btn-outline{background:transparent;color:var(--foreground);border-color:var(--border)}
-.btn-outline:hover{opacity:1;background:var(--accent)}
-.btn-ghost{background:transparent;color:var(--foreground)}
-.btn-ghost:hover{opacity:1;background:var(--accent)}
-.btn-link{background:transparent;color:var(--foreground);padding:0;height:auto;text-decoration:underline;text-underline-offset:4px}
-.btn-link:hover{opacity:.7}
-.btn-destructive{background:var(--destructive);color:var(--destructive-foreground)}
+.btn-secondary{background:var(--secondary);color:var(--secondary-foreground);--btn-hover:var(--secondary-hover)}
+.btn-outline{background:transparent;color:var(--foreground);border-color:var(--border);--btn-hover:var(--accent)}
+.btn-ghost{background:transparent;color:var(--foreground);--btn-hover:var(--accent)}
+.btn-link{background:transparent;color:var(--foreground);padding:0;height:auto;text-decoration:underline;text-underline-offset:4px;--btn-hover:transparent}
+.btn-link:not(:disabled):hover{opacity:.7}
+.btn-destructive{background:var(--destructive);color:var(--destructive-foreground);--btn-hover:var(--destructive-hover)}
 .btn-sm{--h:32px;padding:0 14px;font-size:.85rem}
 .btn-lg{--h:48px;padding:0 22px;font-size:1rem}
 .btn-icon{width:var(--h);padding:0}
@@ -44,9 +43,8 @@
 .search .input{padding-left:38px}
 
 /* inverted variants for dark imagery */
-.on-dark .btn{background:#FFFFFF;color:#17181B}
-.on-dark .btn-outline{background:transparent;color:#FFFFFF;border-color:rgba(255,255,255,.45)}
-.on-dark .btn-outline:hover{background:rgba(255,255,255,.1)}
+.on-dark .btn{background:#FFFFFF;color:#17181B;--btn-hover:rgba(255,255,255,.88)}
+.on-dark .btn-outline{background:transparent;color:#FFFFFF;border-color:rgba(255,255,255,.45);--btn-hover:rgba(255,255,255,.1)}
 
 /* ---------- Status pills ---------- */
 .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.8rem;font-weight:600;background:var(--muted)}
