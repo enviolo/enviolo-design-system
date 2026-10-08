@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Enviolo Design System: tokens.css  (v0.3.6, draft)
+   Enviolo Design System: tokens.css  (v0.3.7, draft)
    Framework-agnostic: works with Enviolo CSS (components.css, web) and shadcn/ui (React).
    Load BEFORE components.css, and AFTER Tailwind base styles if used. Dark mode = `.dark` on <html>.
    Layers: 1 primitives -> 2 mode layer -> 3 semantic -> 4 Tailwind mapping.
@@ -168,6 +168,11 @@
   --secondary: var(--n-100);
   --secondary-foreground: var(--n-900);
   --accent: var(--light-accent, var(--n-100));
+  --accent-foreground: var(--foreground);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --input: var(--n-200);
   --ring: var(--light-ring, var(--enviolo-300)); /* Copper, 3.1:1 on white */
 
   --destructive: var(--red-600);  --destructive-foreground: #ffffff;
@@ -203,6 +208,11 @@
   --secondary: var(--n-800);
   --secondary-foreground: var(--n-50);
   --accent: var(--dark-accent, var(--n-800));
+  --accent-foreground: var(--foreground);
+  --card-foreground: var(--foreground);
+  --popover: var(--n-900);
+  --popover-foreground: var(--foreground);
+  --input: var(--n-800);
   --ring: var(--dark-ring, var(--enviolo-200));
 
   --destructive: var(--red-500);
@@ -232,6 +242,11 @@
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-input: var(--input);
   --color-ring: var(--ring);
   --color-destructive: var(--destructive);
   --color-success: var(--success);

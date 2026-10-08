@@ -4,7 +4,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
-- **Version:** v0.3.6 (draft), October 2026
+- **Version:** v0.3.7 (draft), October 2026
 - **Live reference:** Enviolo Design System artifact (Overview, Brand, Components, Layout)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
@@ -117,6 +117,9 @@ per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --a
 | `--secondary` | n-100 | n-800 | Secondary (muted) button fill |
 | `--secondary-foreground` | n-900 | n-50 | Text on secondary |
 | `--accent` | `var(--light-accent, n-100)` | `var(--dark-accent, n-800)` | Hover and muted/selected fills |
+| `--accent-foreground`, `--card-foreground`, `--popover-foreground` | foreground | foreground | Text on accent, card and popover surfaces |
+| `--popover` | background | n-900 | Menus, popovers, dialogs |
+| `--input` | n-200 | n-800 | Input borders (shadcn reads it) |
 | `--ring` | `var(--light-ring, Enviolo 300)` | `var(--dark-ring, Enviolo 200)` | Focus rings, active fields |
 | `--destructive` | red-600 | red-500 | Irreversible actions, errors |
 | `--success` | green-600 | green-400 | Confirmations |
@@ -487,6 +490,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
+- **v0.3.7**: added the shadcn tokens `--input`, `--popover`, `--popover-foreground`, `--card-foreground` and `--accent-foreground`, which shadcn/ui components read and v0.3 was missing. Hand-written Enviolo CSS stays the web backbone; Basecoat was evaluated and not adopted.
 - **v0.3.6**: web backbone is Enviolo CSS (`tokens/components.css`: buttons, inputs, status pills) instead of Basecoat; Basecoat kept as a reference for new components; button hover is one token-driven rule; overview of the docs site and the AI rules rewritten to match.
 - **v0.3.5**: decisions from the open list; button hover is one rule driven by tokens (`--primary-hover`, `--secondary-hover`, `--destructive-hover`), fixing the brown secondary hover seen with Basecoat in dark mode. Copper is the light-mode focus default; status backgrounds are solid ramp steps (`--{status}-bg`, `--{status}-text`, replacing `--status-tint`); Nightfall confirmed; Basecoat buttons verified to use `data-variant` and `data-size`.
 - **v0.3.4**: architecture (shadcn/ui for React apps, Basecoat for web, Enviolo token layer on top); AI rules up front; per-mode background, accent and focus; status colours from Tailwind primitives with `--status-tint`; navigation patterns (topic dropdowns, sub-nav, cards as links); open decisions.
