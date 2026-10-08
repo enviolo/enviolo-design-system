@@ -22,17 +22,30 @@ It is a lightweight, token-first system. It doesn't ship its own component libra
 
 Sandboxes show the tokens applied to real UI. Open the `index.html` in a browser; no build step is needed.
 
-The docs site spans several files. Opening `index.html` from disk works in normal browsers. Some IDE-embedded browsers (Cursor's, for one) don't follow links between local files; there, serve the repo root and open it over http. The root matters, because the pages load `tokens/components.css` from outside their folder:
-
-```
-python3 -m http.server 8765
-# then open http://localhost:8765/sandboxes/design-system-docs/
-```
+The docs site spans several files. Opening `index.html` from disk works in normal browsers; for IDE-embedded browsers see [Run the docs site locally](#run-the-docs-site-locally).
 
 | Sandbox | Version | What it is |
 | ------- | ------- | ---------- |
 | [design-system-docs](sandboxes/design-system-docs/index.html) | v0.3 (current) | Design system tester and documentation site, one page per topic: Overview, Foundations (colour, typography, layout) and Components (buttons). Shared styles and scripts live in its `assets/` folder; the nav is built by `assets/docs.js`. |
 | [html-dashboard](versions/v0.2/sandboxes/html-dashboard/index.html) | v0.2 | A fleet dashboard in vanilla HTML, CSS and JS on top of BasecoatUI. |
+
+### Run the docs site locally
+
+The docs site is plain HTML, CSS and JavaScript, so there is no install or build step. It needs Python 3 only to serve it.
+
+From the repo root:
+
+```
+python3 -m http.server 8765
+```
+
+Then open <http://localhost:8765/sandboxes/design-system-docs/index.html>. Stop the server with `Ctrl+C`.
+
+- **Serve the repo root, not the docs folder.** The pages load `tokens/components.css` from outside their folder, so serving the folder alone leaves buttons and inputs unstyled.
+- **Why a server at all.** The site is one HTML file per page. Normal browsers can open `index.html` straight from disk, but some IDE-embedded browsers (Cursor's, for one) don't follow links between local `file://` pages. Over `http://localhost` they do.
+- **Port already in use.** Pick another, for example `python3 -m http.server 8766`, and change the port in the URL.
+- **Editing.** Reload the page to see changes. Display choices (theme, font, ramps) are saved in the browser for each address, so `localhost` and a `file://` copy keep separate settings.
+- **Adding a page.** Create the HTML file under `sandboxes/design-system-docs/`, copy the `<head>` and script tags from an existing page (mind the `../` depth), set `data-page` on `<body>`, and add an entry to `TOPICS` in `assets/docs.js`. The nav, sub-nav and Display menu are built from that list.
 
 ## Principles
 
