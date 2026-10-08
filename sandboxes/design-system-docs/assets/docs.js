@@ -127,7 +127,7 @@
     light:{
       bg:{white:['White','#FFFFFF',null],neutral:['Neutral 50','var(--l-50)','var(--l-50)'],ivory:['Ivory tint','color-mix(in srgb,var(--enviolo-50) 35%,#fff)','color-mix(in srgb,var(--enviolo-50) 35%,#fff)']},
       accent:{neutral:['Neutral 100','var(--l-100)',null],ivory:['Ivory','color-mix(in srgb,var(--enviolo-50) 70%,#fff)','color-mix(in srgb,var(--enviolo-50) 70%,#fff)'],coral:['Coral tint','color-mix(in srgb,var(--enviolo-200) 18%,#fff)','color-mix(in srgb,var(--enviolo-200) 18%,transparent)']},
-      focus:{copper:['Copper','var(--enviolo-300)',null,'3.1:1'],coral:['Coral','var(--enviolo-200)','var(--enviolo-200)','2.3:1 · low'],clay:['Clay','var(--enviolo-400)','var(--enviolo-400)','4.2:1']}
+      focus:{copper:['Copper','var(--enviolo-300)',null,'3.05:1'],coral:['Coral','var(--enviolo-200)','var(--enviolo-200)','2.3:1 · low'],clay:['Clay','var(--enviolo-400)','var(--enviolo-400)','4.15:1']}
     },
     dark:{
       bg:{neutral:['Neutral 950','var(--d-950)',null],pearl:['Pearl Black','var(--enviolo-950)','var(--enviolo-950)'],midnight:['Midnight','var(--enviolo-900)','var(--enviolo-900)']},

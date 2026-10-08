@@ -57,7 +57,7 @@ Three layers. Each layer only changes values in the layer below it, never names.
 **Implementation notes**
 - React apps run on **Tailwind v4**; the Tailwind mapping in `tokens.css` is for them. Enviolo CSS is plain CSS with no build step. Both read the same tokens.
 - Dark mode in production: use the **`.dark` class** on `<html>` (what shadcn expects and what `tokens.css` uses). The docs-site sandbox uses `data-theme`; don't copy that.
-- **Same vocabulary, different syntax.** Variants (primary, secondary, outline, ghost, link, destructive) and sizes (xs, sm, default, lg, icon sizes) mean the same on every surface. Write specs and tickets in these names, then translate:
+- **Same vocabulary, different syntax.** Variants (primary, secondary, outline, ghost, link, destructive) and sizes (sm, default, lg, icon sizes) mean the same on every surface. Write specs and tickets in these names, then translate:
 
 | Intent | shadcn/ui (React) | Enviolo CSS (HTML) |
 |---|---|---|
@@ -66,7 +66,7 @@ Three layers. Each layer only changes values in the layer below it, never names.
 | Destructive, large | `<Button variant="destructive" size="lg">` | `<button class="btn" data-variant="destructive" data-size="lg">` |
 
   Primary is the default in both: shadcn names it `default`, Enviolo CSS omits `data-variant`. Same split as shadcn's component plus variant prop, and as Basecoat.
-- **Adding a web component.** Basecoat is a reference, not a dependency. Start from its markup and CSS, then port it into `components.css` with tokens only, in the shadcn vocabulary, and check it in light and dark with any neutral ramp. States follow one rule: a solid fill from a token (see 8.1), never an opacity change or a computed colour mix. Basecoat's own secondary hover mixes in OKLCH and turns brown in dark mode, which is why the library isn't used as is.
+- **Adding a web component.** Basecoat is a reference, not a dependency. Start from its markup and CSS, then port it into `components.css` with tokens only, in the shadcn vocabulary, and check it in light and dark with any neutral ramp. States follow one rule: a solid fill from a token (see 8.1), never an opacity change or a computed colour mix. Watch for colour mixes in polar spaces (oklch, lch, hsl): Basecoat's secondary hover mixes in OKLCH and turns brown in dark mode, so don't copy that recipe.
 
 ---
 
@@ -134,7 +134,7 @@ per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --a
 | `--radius` | 10px | 10px | Small containers |
 | `--font` / `--font-mono` | Source Sans 3 / Source Code Pro | same | Type |
 
-Not yet defined but part of shadcn's full theme; add them when the matching components arrive: `--popover`, `--input`, `--card-foreground`, `--accent-foreground`, `--sidebar-*`.
+Not yet defined but part of shadcn's full theme; add them when the matching components arrive: `--sidebar-*`.
 
 ### 3.3 Example (Tailwind v4)
 
@@ -158,10 +158,10 @@ Not yet defined but part of shadcn's full theme; add them when the matching comp
   --muted-foreground: var(--color-taupe-500);
   --accent: var(--light-accent, var(--color-taupe-100));
   --border: var(--color-taupe-200);
-  --ring: var(--light-ring, var(--color-enviolo-200));
+  --ring: var(--light-ring, var(--color-enviolo-300));
   --destructive: var(--color-red-600);
   --radius: 0.625rem;
-  --radius-control: 9999px;
+  --radius-control: 999px;
 }
 
 .dark {
@@ -337,6 +337,8 @@ Never give a container a pill radius, and never give a control a container radiu
 
 ## 8. Components
 
+Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search and status pills**. The segmented control, menus, cards and navigation below are specified here but built only in the docs site (`sandboxes/design-system-docs/assets/docs.css`) for now; use them as the reference until they move into `components.css`.
+
 ### 8.1 Buttons
 
 | Rank | Variant | shadcn | Enviolo CSS | Use |
@@ -414,7 +416,7 @@ Never give a container a pill radius, and never give a control a container radiu
 |---|---|---|---|
 | Background | `--light-bg` / `--dark-bg` | **White**, Neutral 50, Ivory tint | **Neutral 950**, Pearl Black, Midnight |
 | Accent (hover and muted) | `--light-accent` / `--dark-accent` | **Neutral 100**, Ivory, Coral tint | **Neutral 800**, Nightfall, Coral tint |
-| Focus (active fields) | `--light-ring` / `--dark-ring` | **Copper** 3.1:1, Coral 2.3:1, Clay 4.2:1 | **Coral** 8.6:1, Ivory 16:1, Apricot 13:1 |
+| Focus (active fields) | `--light-ring` / `--dark-ring` | **Copper** 3.05:1, Coral 2.3:1, Clay 4.15:1 | **Coral** 8.6:1, Ivory 16:1, Apricot 13:1 |
 | Neutrals | `--l-*` / `--d-*` | **Taupe** + all Tailwind neutrals | **Mist** + all Tailwind neutrals |
 
 Bold = default. Contrast ratios are against the default background.
@@ -423,7 +425,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 11. Accessibility
 
-- Visible focus on every interactive element (`:focus-visible` + `--ring`). Focus indicators need ≥ 3:1 against their background; **Coral fails on white** (2.3:1), so the light-mode default is Copper (3.1:1).
+- Visible focus on every interactive element (`:focus-visible` + `--ring`). Focus indicators need ≥ 3:1 against their background; **Coral fails on white** (2.3:1), so the light-mode default is Copper (3.05:1, a narrow pass).
 - Text contrast WCAG AA. Check `--muted-foreground` on card and muted surfaces for every neutral ramp and both modes.
 - Touch targets ≥ 40px (32px allowed for icon buttons in dense tables).
 - Respect `prefers-reduced-motion`.
@@ -481,7 +483,7 @@ Bold = default. Contrast ratios are against the default background.
 | Rollout | Which product adopts the system first | Not decided; step by step, per product readiness |
 
 **Decided (v0.3.5)**
-- Light-mode focus is **Copper** (3.1:1 on white). Coral stays an option in the mode settings.
+- Light-mode focus is **Copper** (3.05:1 on white, a narrow pass). Coral stays an option in the mode settings.
 - Dark-mode focus stays **Coral** (8.6:1).
 - Status backgrounds use **solid ramp steps** (50 / 700 light, 950 / 300 dark), not transparent tints.
 - **Nightfall** is the final name for Enviolo 800.
@@ -492,7 +494,7 @@ Bold = default. Contrast ratios are against the default background.
 ## 16. Changelog
 
 - **v0.3.9**: chart series follow the ramp order and take up to five steps (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500), so Apricot is included. Docs site: one page per topic with shared `assets/`; Colour, Typography and Layout grouped under Foundations (the usual industry term); every value on Foundations can be copied; neutral steps and the status background and text colours are labelled for the current mode; the Display menu lists defaults first.
-- **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split, Basecoat and the Figma kit's variant properties. No visual change.
+- **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split and Basecoat's convention. No visual change.
 - **v0.3.7**: added the shadcn tokens `--input`, `--popover`, `--popover-foreground`, `--card-foreground` and `--accent-foreground`, which shadcn/ui components read and v0.3 was missing. Hand-written Enviolo CSS stays the web backbone; Basecoat was evaluated and not adopted.
 - **v0.3.6**: web backbone is Enviolo CSS (`tokens/components.css`: buttons, inputs, status pills) instead of Basecoat; Basecoat kept as a reference for new components; button hover is one token-driven rule; overview of the docs site and the AI rules rewritten to match.
 - **v0.3.5**: decisions from the open list; button hover is one rule driven by tokens (`--primary-hover`, `--secondary-hover`, `--destructive-hover`), fixing the brown secondary hover seen with Basecoat in dark mode. Copper is the light-mode focus default; status backgrounds are solid ramp steps (`--{status}-bg`, `--{status}-text`, replacing `--status-tint`); Nightfall confirmed; Basecoat buttons verified to use `data-variant` and `data-size`.
