@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Enviolo Design System: tokens.css  (v0.3.8, draft)
+   Enviolo Design System: tokens.css  (v0.3.9, draft)
    Framework-agnostic: works with Enviolo CSS (components.css, web) and shadcn/ui (React).
    Load BEFORE components.css, and AFTER Tailwind base styles if used. Dark mode = `.dark` on <html>.
    Layers: 1 primitives -> 2 mode layer -> 3 semantic -> 4 Tailwind mapping.
@@ -186,8 +186,10 @@
   --warning-bg: var(--amber-50);     --warning-text: var(--amber-700);
   --info-bg: var(--blue-50);         --info-text: var(--blue-700);
 
-  --chart-1: var(--enviolo-200); --chart-2: var(--enviolo-400);
-  --chart-3: var(--enviolo-600); --chart-4: var(--enviolo-900);
+  /* Series follow the ramp order, lightest first. Apricot and Ivory are pale: label the bars. */
+  --chart-1: var(--enviolo-100); --chart-2: var(--enviolo-200);
+  --chart-3: var(--enviolo-400); --chart-4: var(--enviolo-600);
+  --chart-5: var(--enviolo-900);
 
   --radius: 0.625rem;        /* 10px, small containers */
   --radius-control: 9999px;  /* pill: buttons, inputs, chips (Luma) */
@@ -225,8 +227,9 @@
   --warning-bg: var(--amber-950);    --warning-text: var(--amber-300);
   --info-bg: var(--blue-950);        --info-text: var(--blue-300);
 
-  --chart-1: var(--enviolo-50);  --chart-2: var(--enviolo-200);
-  --chart-3: var(--enviolo-400); --chart-4: var(--enviolo-500);
+  --chart-1: var(--enviolo-50);  --chart-2: var(--enviolo-100);
+  --chart-3: var(--enviolo-200); --chart-4: var(--enviolo-400);
+  --chart-5: var(--enviolo-500);
 }
 
 /* 4. Tailwind v4 mapping (Tailwind projects only) ------------------------- */

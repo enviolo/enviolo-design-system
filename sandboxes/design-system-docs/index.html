@@ -42,7 +42,7 @@
   /* Enviolo brand ramp (draft): light to dark, sunset to midnight */
   --enviolo-50:#FAEAC0; --enviolo-100:#F5CAA8; --enviolo-200:#E79782; --enviolo-300:#C88273; --enviolo-400:#A96D64; --enviolo-500:#865A56; --enviolo-600:#614749; --enviolo-700:#393339; --enviolo-800:#20262B; --enviolo-900:#05191E; --enviolo-950:#020D12;
   --brand-1:var(--enviolo-50); --brand-2:var(--enviolo-200); --brand-3:var(--enviolo-400); --brand-4:var(--enviolo-600);
-  --chart-1:var(--enviolo-200); --chart-2:var(--enviolo-400); --chart-3:var(--enviolo-600); --chart-4:var(--enviolo-900);
+  --chart-1:var(--enviolo-100); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-600); --chart-5:var(--enviolo-900);
   --radius:10px;
   --radius-control:999px;
   --font-mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -50,7 +50,7 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-500);
+    --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-100); --chart-3:var(--enviolo-200); --chart-4:var(--enviolo-400); --chart-5:var(--enviolo-500);
     --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --primary-hover:var(--n-200); --secondary-hover:var(--n-700); --destructive-hover:var(--red-600); --destructive-bg:var(--red-950); --destructive-text:var(--red-300); --success-bg:var(--green-950); --success-text:var(--green-300); --warning-bg:var(--amber-950); --warning-text:var(--amber-300); --info-bg:var(--blue-950); --info-text:var(--blue-300);
     --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
     --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
@@ -59,7 +59,7 @@
   }
 }
 :root[data-theme="dark"]{
-  --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-500);
+  --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-100); --chart-3:var(--enviolo-200); --chart-4:var(--enviolo-400); --chart-5:var(--enviolo-500);
   --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --primary-hover:var(--n-200); --secondary-hover:var(--n-700); --destructive-hover:var(--red-600); --destructive-bg:var(--red-950); --destructive-text:var(--red-300); --success-bg:var(--green-950); --success-text:var(--green-300); --warning-bg:var(--amber-950); --warning-text:var(--amber-300); --info-bg:var(--blue-950); --info-text:var(--blue-300);
   --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
   --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
@@ -495,7 +495,7 @@ code{overflow-wrap:anywhere}
     <div class="hub" aria-hidden="true"></div>
     <h1 id="ov-title">Enviolo Design System</h1>
     <p>One set of tokens, components and rules for web, app and AI-assisted development at Enviolo. Built on shadcn/ui conventions and shaped by Enviolo: warm days, cool nights. Introduced step by step, as each product is ready for it.</p>
-    <p class="meta">v0.3.8 · Draft · Updated October 2026</p>
+    <p class="meta">v0.3.9 · Draft · Updated October 2026</p>
   </section>
 
   <section aria-labelledby="ov-explore">
@@ -966,10 +966,10 @@ code{overflow-wrap:anywhere}
   </section>
 
   <section aria-labelledby="c-chart">
-    <div class="section-head"><h2 id="c-chart">Charts</h2><p class="small">Pick spaced steps so bars separate by lightness, not just hue. Light mode uses 200, 400, 600, 900; dark mode shifts to 50, 200, 400, 500 so bars stay visible on dark surfaces.</p></div>
-    <div class="chart" role="img" aria-label="Example bar chart: share of hub sales by segment. Cargo 42%, speed pedelec 28%, SUV 19%, city 11%.">
+    <div class="section-head"><h2 id="c-chart">Charts</h2><p class="small">Series follow the ramp order, lightest first. Light mode uses 100, 200, 400, 600, 900; dark mode shifts to 50, 100, 200, 400, 500 so bars stay visible on dark surfaces. The pale steps (Ivory, Apricot) have weak contrast against their background, so always label the bars.</p></div>
+    <div class="chart" role="img" aria-label="Example bar chart: share of hub sales by segment. Cargo 38%, speed pedelec 26%, SUV 18%, city 11%, other 7%.">
       <h3 style="margin:0">Share of hub sales by segment</h3>
-      <div class="bar-row"><span>Cargo</span><span class="track"><span class="fill" style="display:block;width:100.0%;background:var(--chart-1)"></span></span><span class="v">42%</span></div><div class="bar-row"><span>Speed pedelec</span><span class="track"><span class="fill" style="display:block;width:66.7%;background:var(--chart-2)"></span></span><span class="v">28%</span></div><div class="bar-row"><span>SUV</span><span class="track"><span class="fill" style="display:block;width:45.2%;background:var(--chart-3)"></span></span><span class="v">19%</span></div><div class="bar-row"><span>City</span><span class="track"><span class="fill" style="display:block;width:26.2%;background:var(--chart-4)"></span></span><span class="v">11%</span></div>
+      <div class="bar-row"><span>Cargo</span><span class="track"><span class="fill" style="display:block;width:100.0%;background:var(--chart-1)"></span></span><span class="v">38%</span></div><div class="bar-row"><span>Speed pedelec</span><span class="track"><span class="fill" style="display:block;width:68.4%;background:var(--chart-2)"></span></span><span class="v">26%</span></div><div class="bar-row"><span>SUV</span><span class="track"><span class="fill" style="display:block;width:47.4%;background:var(--chart-3)"></span></span><span class="v">18%</span></div><div class="bar-row"><span>City</span><span class="track"><span class="fill" style="display:block;width:28.9%;background:var(--chart-4)"></span></span><span class="v">11%</span></div><div class="bar-row"><span>Other</span><span class="track"><span class="fill" style="display:block;width:18.4%;background:var(--chart-5)"></span></span><span class="v">7%</span></div>
       <p class="small" style="margin:0">Illustrative data.</p>
     </div>
   </section>

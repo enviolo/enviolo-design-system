@@ -4,7 +4,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
-- **Version:** v0.3.8 (draft), October 2026
+- **Version:** v0.3.9 (draft), October 2026
 - **Live reference:** Enviolo Design System artifact (Overview, Primitives, Components, Layout)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
@@ -128,7 +128,7 @@ per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --a
 | `--primary-hover`, `--secondary-hover`, `--destructive-hover` | n-700, n-200, red-700 | n-200, n-700, red-600 | Button hover fills |
 | `--destructive-bg`, `--success-bg`, `--warning-bg`, `--info-bg` | status 50 | status 950 | Solid background of status pills and alerts |
 | `--destructive-text`, `--success-text`, `--warning-text`, `--info-text` | status 700 | status 300 | Text on those backgrounds |
-| `--chart-1…4` | Enviolo 200, 400, 600, 900 | Enviolo 50, 200, 400, 500 | Chart series |
+| `--chart-1…5` | Enviolo 100, 200, 400, 600, 900 | Enviolo 50, 100, 200, 400, 500 | Chart series, in ramp order |
 | `--radius-control` | 999px | 999px | Buttons, inputs, chips |
 | `--radius` | 10px | 10px | Small containers |
 | `--font` / `--font-mono` | Source Sans 3 / Source Code Pro | same | Type |
@@ -243,7 +243,7 @@ Nightfall is the OKLab midpoint between Coffee and Midnight; it closes the 22 �
 - **Night**: `linear-gradient(180deg, 800, 900, 950)`
 - **Volume**: `radial-gradient(circle at 34% 30%, 50, 100, 200, 300, 400, 600, 700, 800, 900)` for hubs, spheres and product glow
 
-**Charts**: spaced steps so series separate by lightness. Light 200 / 400 / 600 / 900; dark 50 / 200 / 400 / 500.
+**Charts**: series follow the ramp order, lightest first, up to five. Light 100 / 200 / 400 / 600 / 900; dark 50 / 100 / 200 / 400 / 500. The pale steps (Ivory, Apricot) have weak contrast against their background and sit close together in dark mode, so label every bar and don't rely on colour alone.
 
 **Rules**
 - One gradient per view, for a brand moment.
@@ -490,6 +490,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
+- **v0.3.9**: chart series follow the ramp order and take up to five steps, so Apricot is included (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500). Before, four steps skipped Apricot. The docs site now labels the neutral steps and the status background and text colours for the current mode.
 - **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split, Basecoat and the Figma kit's variant properties. No visual change.
 - **v0.3.7**: added the shadcn tokens `--input`, `--popover`, `--popover-foreground`, `--card-foreground` and `--accent-foreground`, which shadcn/ui components read and v0.3 was missing. Hand-written Enviolo CSS stays the web backbone; Basecoat was evaluated and not adopted.
 - **v0.3.6**: web backbone is Enviolo CSS (`tokens/components.css`: buttons, inputs, status pills) instead of Basecoat; Basecoat kept as a reference for new components; button hover is one token-driven rule; overview of the docs site and the AI rules rewritten to match.
