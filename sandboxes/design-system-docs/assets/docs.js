@@ -2,9 +2,10 @@
 (function(){
   var root=document.documentElement;
   /* ---------- Site shell: nav, toast and Display menu are built here so every page stays small ---------- */
-  var BASE=new URL('../',document.currentScript.src).href;
   var PAGE=document.body.dataset.page||'overview';
-  function href(p){return new URL(p,BASE).href;}
+  /* Relative links, so the site works from a folder, a local server or an embedded browser */
+  var UP=new Array((PAGE.match(/\//g)||[]).length+1).join('../');
+  function href(p){return UP+p;}
   var TOPICS=[
     {key:'foundations',label:'Foundations',items:[
       {path:'foundations/colour.html',label:'Colour',desc:'Enviolo ramp, gradients, neutrals, status'},
