@@ -192,7 +192,7 @@
   --chart-5: var(--enviolo-900);
 
   --radius: 0.625rem;        /* 10px, small containers */
-  --radius-control: 9999px;  /* pill: buttons, inputs, chips (Luma) */
+  --radius-control: 999px;   /* pill: buttons, inputs, chips (Luma) */
 
   --font: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;

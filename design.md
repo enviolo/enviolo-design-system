@@ -5,7 +5,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
 - **Version:** v0.3.9 (draft), October 2026
-- **Live reference:** Enviolo Design System artifact (Overview, Foundations, Components)
+- **Live reference:** the docs site in `sandboxes/design-system-docs/` (Overview, Foundations, Components); open `index.html`
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
 ---
@@ -125,6 +125,7 @@ per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --a
 | `--success` | green-600 | green-400 | Confirmations |
 | `--warning` | amber-500 | amber-400 | Caution (text on it: amber-950) |
 | `--info` | blue-600 | blue-400 | Notices |
+| `--destructive-foreground`, `--success-foreground`, `--warning-foreground`, `--info-foreground` | white, white, amber-950, white | white, green-950, amber-950, blue-950 | Text and icons on solid status fills |
 | `--primary-hover`, `--secondary-hover`, `--destructive-hover` | n-700, n-200, red-700 | n-200, n-700, red-600 | Button hover fills |
 | `--destructive-bg`, `--success-bg`, `--warning-bg`, `--info-bg` | status 50 | status 950 | Solid background of status pills and alerts |
 | `--destructive-text`, `--success-text`, `--warning-text`, `--info-text` | status 700 | status 300 | Text on those backgrounds |
@@ -379,7 +380,7 @@ Never give a container a pill radius, and never give a control a container radiu
 - **Input**: pill, 40px (sm 32px), 1px `--border`, `--background` fill, 18px padding; on focus the ring replaces the border.
 - **Search**: leading icon 14px from the left, padding-left 38px.
 - **Segmented control**: pill track in `--muted`, 4px inset; the selected segment gets `--background`, foreground text and a 1px shadow (`aria-pressed` or `aria-current`). For view switches and filters, not actions. Segments share width evenly when tight, or the track scrolls.
-- **Status pill**: 999px, 0.8rem, weight 600, tinted background (see 4.3).
+- **Status pill**: 999px, 0.8rem, weight 600; solid `--{status}-bg` background with `--{status}-text` (see 4.3).
 
 ### 8.3 Navigation and menus
 
@@ -406,7 +407,7 @@ Never give a container a pill radius, and never give a control a container radiu
 ## 10. Theming and display preferences
 
 - **Theme**: match system by default; users can force light or dark. A quick toggle shows the destination (moon in light mode, sun in dark mode).
-- **Display menu** (one place for all preferences, saved locally): theme, font, icons, code font, **Mode settings**. Default options carry a "Default" tag.
+- **Display menu** (one place for all preferences, saved locally): theme, font, icons, code font, **Mode settings**. Default options carry a "Default" tag and are listed first in every group.
 - **Mode settings**: one submenu per mode, four groups each.
 
 | Group | Token | Light mode options | Dark mode options |
@@ -490,7 +491,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
-- **v0.3.9**: the docs site is split into one page per topic with shared `assets/`, and groups Colour, Typography and Layout under one Foundations topic (the usual industry term), and labels the neutral steps and the status background and text colours for the current mode. Chart series follow the ramp order and take up to five steps, so Apricot is included (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500). Before, four steps skipped Apricot. The docs site now labels the neutral steps and the status background and text colours for the current mode.
+- **v0.3.9**: chart series follow the ramp order and take up to five steps (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500), so Apricot is included. Docs site: one page per topic with shared `assets/`; Colour, Typography and Layout grouped under Foundations (the usual industry term); every value on Foundations can be copied; neutral steps and the status background and text colours are labelled for the current mode; the Display menu lists defaults first.
 - **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split, Basecoat and the Figma kit's variant properties. No visual change.
 - **v0.3.7**: added the shadcn tokens `--input`, `--popover`, `--popover-foreground`, `--card-foreground` and `--accent-foreground`, which shadcn/ui components read and v0.3 was missing. Hand-written Enviolo CSS stays the web backbone; Basecoat was evaluated and not adopted.
 - **v0.3.6**: web backbone is Enviolo CSS (`tokens/components.css`: buttons, inputs, status pills) instead of Basecoat; Basecoat kept as a reference for new components; button hover is one token-driven rule; overview of the docs site and the AI rules rewritten to match.
