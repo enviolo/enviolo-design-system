@@ -13,6 +13,7 @@ It is a lightweight, token-first system. It doesn't ship its own component libra
 | ---- | ---------- |
 | [design.md](design.md) | The source of truth for the current version: rules, tokens, components, layout, accessibility and open decisions. |
 | [tokens/tokens.css](tokens/tokens.css) | Production-ready token file built from design.md, for Tailwind v4 projects. |
+| [tokens/components.css](tokens/components.css) | Plain-HTML component styles (buttons, inputs, status pills) built on the tokens. Used by the docs site; replaces Basecoat for websites (in progress). |
 | [sandboxes/](sandboxes/) | Working references for the current version. |
 | [versions/](versions/) | Previous versions, each in its own folder with its design.md and sandboxes. |
 | [CLAUDE.md](CLAUDE.md) | Snippet that points AI tools at design.md and the tokens. |
