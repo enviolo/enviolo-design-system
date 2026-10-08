@@ -4,7 +4,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
-- **Version:** v0.3.7 (draft), October 2026
+- **Version:** v0.3.8 (draft), October 2026
 - **Live reference:** Enviolo Design System artifact (Overview, Brand, Components, Layout)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
@@ -12,7 +12,7 @@ The system is introduced **step by step**: apply it where a product is ready, an
 
 ## 0. Rules for AI-assisted development (read first)
 
-1. **Pick the backbone by surface.** React app → shadcn/ui components. Website, CMS template or plain HTML → Enviolo CSS (`tokens/components.css`). Never mix both in one surface. If `components.css` doesn't have a component yet, it isn't part of the system: ask, or add it first (see section 1).
+1. **Pick the backbone by surface.** React app → shadcn/ui components. Website, CMS template or plain HTML → Enviolo CSS (`tokens/components.css`), written as a base class plus attributes: `class="btn" data-variant="secondary"`. Never mix both in one surface. If `components.css` doesn't have a component yet, it isn't part of the system: ask, or add it first (see section 1).
 2. **Use semantic tokens only** (`--background`, `--primary`, `--muted`, `--border`, `--ring`, `--accent`, status tokens). Never hard-code hex, oklch or Tailwind palette classes such as `bg-stone-100` in components.
 3. **Never rename tokens.** Enviolo changes values, not names. Keep shadcn naming so components stay drop-in.
 4. **One primary action per view.** Choose the second rank by surface: secondary on plain backgrounds, outline on cards, dialogs and imagery. Repeated actions are ghost.
@@ -41,7 +41,7 @@ Three layers. Each layer only changes values in the layer below it, never names.
 ├────────────────────────────┬────────────────────────────┤
 │ 1a. shadcn/ui              │ 1b. Enviolo CSS            │
 │     React apps             │     Web (HTML, CMS)        │
-│     <Button variant=…>     │     class="btn btn-…"      │
+│     <Button variant=…>     │     class="btn" data-…     │
 └────────────────────────────┴────────────────────────────┘
         Figma: shadcncraft kit, same variable names
 ```
@@ -62,10 +62,10 @@ Three layers. Each layer only changes values in the layer below it, never names.
 | Intent | shadcn/ui (React) | Enviolo CSS (HTML) |
 |---|---|---|
 | Primary, default size | `<Button>` | `<button class="btn">` |
-| Outline, small | `<Button variant="outline" size="sm">` | `<button class="btn btn-outline btn-sm">` |
-| Destructive, large | `<Button variant="destructive" size="lg">` | `<button class="btn btn-destructive btn-lg">` |
+| Outline, small | `<Button variant="outline" size="sm">` | `<button class="btn" data-variant="outline" data-size="sm">` |
+| Destructive, large | `<Button variant="destructive" size="lg">` | `<button class="btn" data-variant="destructive" data-size="lg">` |
 
-  Primary is the default in both (shadcn names it `default`).
+  Primary is the default in both: shadcn names it `default`, Enviolo CSS omits `data-variant`. Same split as shadcn's component plus variant prop, and as Basecoat.
 - **Adding a web component.** Basecoat is a reference, not a dependency. Start from its markup and CSS, then port it into `components.css` with tokens only, in the shadcn vocabulary, and check it in light and dark with any neutral ramp. States follow one rule: a solid fill from a token (see 8.1), never an opacity change or a computed colour mix. Basecoat's own secondary hover mixes in OKLCH and turns brown in dark mode, which is why the library isn't used as is.
 
 ---
@@ -341,10 +341,10 @@ Never give a container a pill radius, and never give a control a container radiu
 | Rank | Variant | shadcn | Enviolo CSS | Use |
 |---|---|---|---|---|
 | 1 | Primary (solid) | `variant="default"` | `btn` | The main job of the view. One per view. |
-| 2 | Secondary (muted) **or** outline | `secondary` / `outline` | `btn-secondary` / `btn-outline` | Supporting action. Same rank, pick by surface. |
-| 3 | Ghost | `ghost` | `btn-ghost` | Repeated, low-stakes, skip/defer, icon actions |
-| 4 | Link | `link` | `btn-link` | Inline navigation in text |
-| — | Destructive | `destructive` | `btn-destructive` | Irreversible only, next to an outline way out |
+| 2 | Secondary (muted) **or** outline | `secondary` / `outline` | `data-variant="secondary"` / `"outline"` | Supporting action. Same rank, pick by surface. |
+| 3 | Ghost | `ghost` | `data-variant="ghost"` | Repeated, low-stakes, skip/defer, icon actions |
+| 4 | Link | `link` | `data-variant="link"` | Inline navigation in text |
+| — | Destructive | `destructive` | `data-variant="destructive"` | Irreversible only, next to an outline way out |
 
 **Choosing a type** (ask in order, stop at the first yes)
 1. Is it the main thing people come here to do? → Primary, one per view.
@@ -366,7 +366,7 @@ Never give a container a pill radius, and never give a control a container radiu
 4. Primary goes last: right-aligned on desktop, top of the stack on mobile.
 5. Destructive is never the default focus.
 
-**Sizes**: sm 32px / 14px padding · default 40px / 18px · lg 48px / 22px · icon square. Icons 18px (16px in sm). Mobile stacks use lg; tablet may step lg down to default.
+**Sizes** (`data-size`): sm 32px / 14px padding · default 40px / 18px · lg 48px / 22px · icon, icon-sm, icon-lg square at the same heights. Icons 18px (16px in sm). Mobile stacks use lg; tablet may step lg down to default.
 
 **States**: hover is a solid fill from a token, never an opacity change or a computed mix (primary `--primary-hover`, two ramp steps; secondary `--secondary-hover`, one step; outline and ghost `--accent`; destructive `--destructive-hover`; link fades to 70%) · focus-visible `2px solid var(--ring)`, offset 2px · disabled 45% opacity.
 
@@ -490,6 +490,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
+- **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split, Basecoat and the Figma kit's variant properties. No visual change.
 - **v0.3.7**: added the shadcn tokens `--input`, `--popover`, `--popover-foreground`, `--card-foreground` and `--accent-foreground`, which shadcn/ui components read and v0.3 was missing. Hand-written Enviolo CSS stays the web backbone; Basecoat was evaluated and not adopted.
 - **v0.3.6**: web backbone is Enviolo CSS (`tokens/components.css`: buttons, inputs, status pills) instead of Basecoat; Basecoat kept as a reference for new components; button hover is one token-driven rule; overview of the docs site and the AI rules rewritten to match.
 - **v0.3.5**: decisions from the open list; button hover is one rule driven by tokens (`--primary-hover`, `--secondary-hover`, `--destructive-hover`), fixing the brown secondary hover seen with Basecoat in dark mode. Copper is the light-mode focus default; status backgrounds are solid ramp steps (`--{status}-bg`, `--{status}-text`, replacing `--status-tint`); Nightfall confirmed; Basecoat buttons verified to use `data-variant` and `data-size`.

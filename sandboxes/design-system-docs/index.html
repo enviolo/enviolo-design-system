@@ -88,7 +88,7 @@ p{margin:0 0 12px;max-width:62ch}
 .about p{font-size:.95rem;color:var(--muted-foreground);margin:0 0 8px}
 .about p:last-child{margin:0}
 .about b{color:var(--foreground)}
-.about .btn-link{font-weight:600}
+.about .btn:where([data-variant="link"]){font-weight:600}
 .small{font-size:.875rem;color:var(--muted-foreground)}
 code{font-family:var(--font-mono);font-size:.82em;background:var(--muted);padding:2px 6px;border-radius:6px}
 section{margin-top:72px}
@@ -143,8 +143,8 @@ section{margin-top:72px}
   .product .shot{aspect-ratio:1/1}
   .product .spec{grid-template-columns:1fr;gap:0}
   .product .spec dd{margin-bottom:8px}
-  .product .btn-lg{--h:40px;padding:0 16px;font-size:.95rem}
-  .product .btn-lg.btn-icon{padding:0}
+  .product .btn:where([data-size="lg"]){--h:40px;padding:0 16px;font-size:.95rem}
+  .product .btn:where([data-size="icon-lg"]){--h:40px;width:40px;padding:0}
 }
 @media (max-width:600px){
   .product{grid-template-columns:1fr}
@@ -265,7 +265,7 @@ code{overflow-wrap:anywhere}
 .states th[scope="row"]{font-weight:600;color:var(--foreground);background:transparent}
 .states td{padding:14px}
 .btn.is-hover{background:var(--btn-hover)}
-.btn-link.is-hover{opacity:.7}
+.btn:where([data-variant="link"]).is-hover{opacity:.7}
 .btn.is-focus{outline:2px solid var(--ring);outline-offset:2px}
 
 /* ---------- Site navigation ---------- */
@@ -467,10 +467,10 @@ code{overflow-wrap:anywhere}
   <div class="topnav-inner">
     <a class="brandmark" href="#/overview" aria-label="Enviolo Design System, overview"><svg viewBox="0 0 496.06 112.06" fill="currentColor" aria-hidden="true"><path d="M276.93,32.01c-4.39,0-7.98,3.56-7.98,8.02v64.02c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02V40.03c-.06-4.46-3.6-8.02-7.98-8.02Z"/><path d="M336.71,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.88-40.03-39.87-40.03ZM336.65,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M456.2,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.82-40.03-39.87-40.03ZM456.2,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M396.42,0c-4.39,0-7.98,3.56-7.98,8.02v96.03c0,4.4,3.54,8.02,7.98,8.02s7.98-3.61,7.98-8.02V8.02c0-4.4-3.54-8.02-7.98-8.02Z"/><path d="M131.47,32.01c-21.99,0-39.87,17.9-39.87,40.03v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01h0c0-13.27,10.68-23.99,23.9-23.99s23.9,10.73,23.95,23.99h0v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01c-.11-22.13-17.94-40.03-39.92-40.03Z"/><path d="M252.59,32.86c-3.94-1.98-8.72-.4-10.68,3.56l-24.74,49.68-24.74-49.68c-1.97-3.95-6.75-5.53-10.68-3.56s-5.57,6.77-3.6,10.73l31.88,64.02h0c1.29,2.6,3.99,4.4,7.14,4.4s5.79-1.81,7.14-4.46h0l31.88-64.02c1.91-3.9.34-8.69-3.6-10.67Z"/><path d="M71.52,81.18c-3.77-2.26-8.6-1.02-10.91,2.71-4.1,7.28-11.86,12.19-20.81,12.19-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05c8.72,0,16.31,4.69,20.52,11.69l-20.47,12.36h39.87c0-22.07-17.82-40.03-39.87-40.03-22.04,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03c14.73,0,27.61-8.02,34.53-19.98,2.14-3.84.9-8.69-2.87-10.9Z"/></svg><span>Design System</span></a>
     <nav class="mainnav" aria-label="Main">
-      <a class="btn btn-ghost btn-sm" href="#/overview" data-nav="overview">Overview</a>
-      <a class="btn btn-ghost btn-sm nav-trigger" href="#/brand/colour" data-nav="brand" data-menu="brand" aria-expanded="false" aria-controls="navdd-brand">Brand<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
-      <a class="btn btn-ghost btn-sm nav-trigger" href="#/components/buttons" data-nav="components" data-menu="components" aria-expanded="false" aria-controls="navdd-components">Components<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
-      <a class="btn btn-ghost btn-sm nav-trigger" href="#/layout/grid" data-nav="layout" data-menu="layout" aria-expanded="false" aria-controls="navdd-layout">Layout<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
+      <a class="btn" data-variant="ghost" data-size="sm" href="#/overview" data-nav="overview">Overview</a>
+      <a class="btn nav-trigger" data-variant="ghost" data-size="sm" href="#/brand/colour" data-nav="brand" data-menu="brand" aria-expanded="false" aria-controls="navdd-brand">Brand<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
+      <a class="btn nav-trigger" data-variant="ghost" data-size="sm" href="#/components/buttons" data-nav="components" data-menu="components" aria-expanded="false" aria-controls="navdd-components">Components<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
+      <a class="btn nav-trigger" data-variant="ghost" data-size="sm" href="#/layout/grid" data-nav="layout" data-menu="layout" aria-expanded="false" aria-controls="navdd-layout">Layout<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
     </nav>
   </div>
   <div class="navdd" id="navdd-brand" hidden><a href="#/brand/colour" data-sub="brand/colour"><b>Colour</b><span>Enviolo ramp, gradients, neutrals, status</span></a><a href="#/brand/typography" data-sub="brand/typography"><b>Typography</b><span>Families, scale, weights, rules</span></a></div>
@@ -483,7 +483,7 @@ code{overflow-wrap:anywhere}
     <div class="hub" aria-hidden="true"></div>
     <h1 id="ov-title">Enviolo Design System</h1>
     <p>One set of tokens, components and rules for web, app and AI-assisted development at Enviolo. Built on shadcn/ui conventions and shaped by Enviolo: warm days, cool nights. Introduced step by step, as each product is ready for it.</p>
-    <p class="meta">v0.3.6 · Draft · Updated October 2026</p>
+    <p class="meta">v0.3.8 · Draft · Updated October 2026</p>
   </section>
 
   <section aria-labelledby="ov-explore">
@@ -492,17 +492,17 @@ code{overflow-wrap:anywhere}
       <article class="card">
         <h3><a class="card-link" href="#/brand/colour">Brand</a></h3>
         <p>The Enviolo colour ramp, gradients, neutrals and typography.</p>
-        <div class="row"><a class="btn btn-outline btn-sm" href="#/brand/colour">Colour</a><a class="btn btn-outline btn-sm" href="#/brand/typography">Typography</a></div>
+        <div class="row"><a class="btn" data-variant="outline" data-size="sm" href="#/brand/colour">Colour</a><a class="btn" data-variant="outline" data-size="sm" href="#/brand/typography">Typography</a></div>
       </article>
       <article class="card">
         <h3><a class="card-link" href="#/components/buttons">Components</a></h3>
         <p>Buttons today, more to come. Each component documents when to use it, not just how it looks.</p>
-        <div class="row"><a class="btn btn-outline btn-sm" href="#/components/buttons">Buttons</a></div>
+        <div class="row"><a class="btn" data-variant="outline" data-size="sm" href="#/components/buttons">Buttons</a></div>
       </article>
       <article class="card">
         <h3><a class="card-link" href="#/layout/grid">Layout</a></h3>
         <p>Grid, breakpoints, spacing and radius. How screens adapt from phone to desktop.</p>
-        <div class="row"><a class="btn btn-outline btn-sm" href="#/layout/grid">Grid and breakpoints</a></div>
+        <div class="row"><a class="btn" data-variant="outline" data-size="sm" href="#/layout/grid">Grid and breakpoints</a></div>
       </article>
     </div>
   </section>
@@ -549,7 +549,7 @@ code{overflow-wrap:anywhere}
         </div>
         <div class="arch-tier">
           <div class="arch-label"><b>Enviolo CSS</b><span>Backbone for the web, modelled on Basecoat</span></div>
-          <div class="arch-body"><p>Our own stylesheet, modelled on <a class="btn btn-link" href="https://basecoatui.com" rel="noopener">Basecoat</a>: the same components as plain HTML classes, for websites and CMS templates. No React and no third-party library needed.</p><div class="chips"><code>class="btn btn-secondary"</code></div></div>
+          <div class="arch-body"><p>Our own stylesheet, modelled on <a class="btn" data-variant="link" href="https://basecoatui.com" rel="noopener">Basecoat</a>: the same components as plain HTML, a base class plus attributes, for websites and CMS templates. No React and no third-party library needed.</p><div class="chips"><code>class="btn" data-variant="secondary"</code></div></div>
         </div>
       </div>
     </div>
@@ -558,11 +558,11 @@ code{overflow-wrap:anywhere}
 
   <section aria-labelledby="ov-build" style="margin-top:48px">
     <h2 id="ov-build" class="sr-only" style="position:absolute;left:-9999px">About this page</h2>
-    <button class="btn btn-ghost btn-sm about-toggle" id="aboutToggle" type="button" aria-expanded="false" aria-controls="aboutPanel">How this page is built<svg class="ic chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+    <button class="btn about-toggle" data-variant="ghost" data-size="sm" id="aboutToggle" type="button" aria-expanded="false" aria-controls="aboutPanel">How this page is built<svg class="ic chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
     <div class="about" id="aboutPanel" hidden>
       <p>Plain HTML, CSS and a little vanilla JavaScript, with no framework and no build step. No component library is loaded. Buttons, inputs and status pills come from <code>tokens/components.css</code>, the same stylesheet websites use; the rest of this page's CSS is documentation only.</p>
-      <p>Class names use the shadcn vocabulary (<code>btn</code>, <code>btn-secondary</code>, <code>btn-outline</code>, <code>btn-ghost</code>). Colour and radius tokens use <a class="btn btn-link" href="https://ui.shadcn.com/docs/theming" rel="noopener">shadcn/ui</a> naming (<code>--primary</code>, <code>--secondary</code>, <code>--muted</code>, <code>--border</code>), so the same tokens drop into a React shadcn setup or a Figma variables file. The visual style is based on Luma, which brings the pill-shaped controls. Enviolo-specific choices on top: a two-ramp neutral system for light and dark, and the Enviolo colour ramp.</p>
-      <p>New components start from <a class="btn btn-link" href="https://basecoatui.com" rel="noopener">Basecoat</a> as a reference, then get ported into our own stylesheet and checked in both modes, so every state follows the same rules.</p>
+      <p>Markup is a base class plus attributes (<code>class="btn" data-variant="secondary"</code>), the same split shadcn/ui makes with <code>&lt;Button variant="secondary"&gt;</code>. Colour and radius tokens use <a class="btn" data-variant="link" href="https://ui.shadcn.com/docs/theming" rel="noopener">shadcn/ui</a> naming (<code>--primary</code>, <code>--secondary</code>, <code>--muted</code>, <code>--border</code>), so the same tokens drop into a React shadcn setup or a Figma variables file. The visual style is based on Luma, which brings the pill-shaped controls. Enviolo-specific choices on top: a two-ramp neutral system for light and dark, and the Enviolo colour ramp.</p>
+      <p>New components start from <a class="btn" data-variant="link" href="https://basecoatui.com" rel="noopener">Basecoat</a> as a reference, then get ported into our own stylesheet and checked in both modes, so every state follows the same rules.</p>
     </div>
   </section>
 </div>
@@ -571,7 +571,7 @@ code{overflow-wrap:anywhere}
 
   <div class="view-head">
     <div class="topic-head"><p class="topic-name">Components</p></div>
-    <div class="subnav-row"><nav class="subnav seg" aria-label="Components sections"><a class="btn btn-sm" href="#/components/buttons" data-sub="components/buttons">Buttons</a></nav><span class="soon">More components soon</span></div>
+    <div class="subnav-row"><nav class="subnav seg" aria-label="Components sections"><a class="btn" data-size="sm" href="#/components/buttons" data-sub="components/buttons">Buttons</a></nav><span class="soon">More components soon</span></div>
     <h1>Buttons</h1>
     <p class="lede">Four types cover almost every action: primary, secondary, outline and ghost. Each has one job, and together they show people what matters most on a screen.</p>
   </div>
@@ -581,7 +581,7 @@ code{overflow-wrap:anywhere}
     <div class="section-head"><h2 id="types">The four types</h2><p class="small">Ranked by emphasis. Secondary and outline share rank 2; the surface they sit on decides which one to use.</p></div>
     <div class="types">
       <article class="type-card">
-        <div class="type-stage"><button class="btn">Find a dealer</button><button class="btn btn-sm">Save</button></div>
+        <div class="type-stage"><button class="btn">Find a dealer</button><button class="btn" data-size="sm">Save</button></div>
         <div class="type-body">
           <div class="type-title"><h3>Primary</h3><span class="badge">Rank 1</span></div>
           <div class="chips"><code>btn</code><code>variant="default"</code></div>
@@ -590,28 +590,28 @@ code{overflow-wrap:anywhere}
         </div>
       </article>
       <article class="type-card">
-        <div class="type-stage"><button class="btn btn-secondary">Compare hubs</button><button class="btn btn-secondary btn-sm">Save draft</button></div>
+        <div class="type-stage"><button class="btn" data-variant="secondary">Compare hubs</button><button class="btn" data-variant="secondary" data-size="sm">Save draft</button></div>
         <div class="type-body">
           <div class="type-title"><h3>Secondary</h3><span class="badge">Rank 2</span></div>
-          <div class="chips"><code>btn-secondary</code><code>variant="secondary"</code></div>
+          <div class="chips"><code>data-variant="secondary"</code><code>variant="secondary"</code></div>
           <p><b>Use for</b> supporting actions on plain backgrounds, filters and toggles, and a second action with a consequence.</p>
           <p><b>Avoid</b> cards, dialogs and imagery, where the muted fill blends into the surface.</p>
         </div>
       </article>
       <article class="type-card">
-        <div class="type-stage"><button class="btn btn-outline">Preview</button><button class="btn btn-outline btn-sm"><svg class="ic" data-icon="download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Manual</button></div>
+        <div class="type-stage"><button class="btn" data-variant="outline">Preview</button><button class="btn" data-variant="outline" data-size="sm"><svg class="ic" data-icon="download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Manual</button></div>
         <div class="type-body">
           <div class="type-title"><h3>Outline</h3><span class="badge">Rank 2</span></div>
-          <div class="chips"><code>btn-outline</code><code>variant="outline"</code></div>
+          <div class="chips"><code>data-variant="outline"</code><code>variant="outline"</code></div>
           <p><b>Use for</b> supporting actions on cards, panels, dialogs and imagery, and the safe way out of a dialog.</p>
           <p><b>Avoid</b> full-width buttons in mobile forms, where a bordered pill reads like an empty input.</p>
         </div>
       </article>
       <article class="type-card">
-        <div class="type-stage"><button class="btn btn-ghost">Show all</button><button class="btn btn-ghost btn-icon" aria-label="More options"><svg class="ic" data-icon="more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button></div>
+        <div class="type-stage"><button class="btn" data-variant="ghost">Show all</button><button class="btn" data-variant="ghost" data-size="icon" aria-label="More options"><svg class="ic" data-icon="more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button></div>
         <div class="type-body">
           <div class="type-title"><h3>Ghost</h3><span class="badge">Rank 3</span></div>
-          <div class="chips"><code>btn-ghost</code><code>variant="ghost"</code></div>
+          <div class="chips"><code>data-variant="ghost"</code><code>variant="ghost"</code></div>
           <p><b>Use for</b> repeated actions on rows and toolbars, skip or defer actions, and icon buttons.</p>
           <p><b>Avoid</b> the only action on a screen, or anything people must not miss.</p>
         </div>
@@ -623,19 +623,19 @@ code{overflow-wrap:anywhere}
     <div class="section-head"><h2 id="extras">Also available</h2><p class="small">Two special-purpose variants outside the ranking.</p></div>
     <div class="types two">
       <article class="type-card">
-        <div class="type-stage"><a class="btn btn-link" href="#">Read the warranty terms</a></div>
+        <div class="type-stage"><a class="btn" data-variant="link" href="#">Read the warranty terms</a></div>
         <div class="type-body">
           <div class="type-title"><h3>Link</h3><span class="badge">Inline</span></div>
-          <div class="chips"><code>btn-link</code><code>variant="link"</code></div>
+          <div class="chips"><code>data-variant="link"</code><code>variant="link"</code></div>
           <p><b>Use for</b> navigation inside a sentence.</p>
           <p><b>Avoid</b> standalone actions. If it does something, it should be a button.</p>
         </div>
       </article>
       <article class="type-card">
-        <div class="type-stage"><button class="btn btn-destructive">Delete draft</button></div>
+        <div class="type-stage"><button class="btn" data-variant="destructive">Delete draft</button></div>
         <div class="type-body">
           <div class="type-title"><h3>Destructive</h3><span class="badge">Special</span></div>
-          <div class="chips"><code>btn-destructive</code><code>variant="destructive"</code></div>
+          <div class="chips"><code>data-variant="destructive"</code><code>variant="destructive"</code></div>
           <p><b>Use for</b> irreversible actions, always next to an outline way out.</p>
           <p><b>Avoid</b> anything that can be undone, or as the default focus.</p>
         </div>
@@ -656,10 +656,10 @@ code{overflow-wrap:anywhere}
   <section aria-labelledby="sizes">
     <div class="section-head"><h2 id="sizes">Sizes</h2><p class="small">Same pill shape at every size. Mobile stacks use large; tablet can step large down to default.</p></div>
     <div class="size-row">
-      <div><button class="btn btn-sm">Small</button><code>btn-sm · 32px</code></div>
+      <div><button class="btn" data-size="sm">Small</button><code>data-size="sm" · 32px</code></div>
       <div><button class="btn">Default</button><code>default · 40px</code></div>
-      <div><button class="btn btn-lg">Large</button><code>btn-lg · 48px</code></div>
-      <div><button class="btn btn-icon" aria-label="Share"><svg class="ic" data-icon="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button><code>btn-icon · square</code></div>
+      <div><button class="btn" data-size="lg">Large</button><code>data-size="lg" · 48px</code></div>
+      <div><button class="btn" data-size="icon" aria-label="Share"><svg class="ic" data-icon="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button><code>data-size="icon" · square</code></div>
     </div>
   </section>
 
@@ -668,7 +668,7 @@ code{overflow-wrap:anywhere}
     <div class="table-wrap states">
       <table>
         <thead><tr><th><span style="position:absolute;left:-9999px">Type</span></th><th>Default</th><th>Hover</th><th>Focus</th><th>Disabled</th></tr></thead>
-        <tbody><tr><th scope="row">Primary</th><td><button class="btn" tabindex="-1">Button</button></td><td><button class="btn is-hover" tabindex="-1">Button</button></td><td><button class="btn is-focus" tabindex="-1">Button</button></td><td><button class="btn" disabled>Button</button></td></tr><tr><th scope="row">Secondary</th><td><button class="btn btn-secondary" tabindex="-1">Button</button></td><td><button class="btn btn-secondary is-hover" tabindex="-1">Button</button></td><td><button class="btn btn-secondary is-focus" tabindex="-1">Button</button></td><td><button class="btn btn-secondary" disabled>Button</button></td></tr><tr><th scope="row">Outline</th><td><button class="btn btn-outline" tabindex="-1">Button</button></td><td><button class="btn btn-outline is-hover" tabindex="-1">Button</button></td><td><button class="btn btn-outline is-focus" tabindex="-1">Button</button></td><td><button class="btn btn-outline" disabled>Button</button></td></tr><tr><th scope="row">Ghost</th><td><button class="btn btn-ghost" tabindex="-1">Button</button></td><td><button class="btn btn-ghost is-hover" tabindex="-1">Button</button></td><td><button class="btn btn-ghost is-focus" tabindex="-1">Button</button></td><td><button class="btn btn-ghost" disabled>Button</button></td></tr></tbody>
+        <tbody><tr><th scope="row">Primary</th><td><button class="btn" tabindex="-1">Button</button></td><td><button class="btn is-hover" tabindex="-1">Button</button></td><td><button class="btn is-focus" tabindex="-1">Button</button></td><td><button class="btn" disabled>Button</button></td></tr><tr><th scope="row">Secondary</th><td><button class="btn" data-variant="secondary" tabindex="-1">Button</button></td><td><button class="btn is-hover" data-variant="secondary" tabindex="-1">Button</button></td><td><button class="btn is-focus" data-variant="secondary" tabindex="-1">Button</button></td><td><button class="btn" data-variant="secondary" disabled>Button</button></td></tr><tr><th scope="row">Outline</th><td><button class="btn" data-variant="outline" tabindex="-1">Button</button></td><td><button class="btn is-hover" data-variant="outline" tabindex="-1">Button</button></td><td><button class="btn is-focus" data-variant="outline" tabindex="-1">Button</button></td><td><button class="btn" data-variant="outline" disabled>Button</button></td></tr><tr><th scope="row">Ghost</th><td><button class="btn" data-variant="ghost" tabindex="-1">Button</button></td><td><button class="btn is-hover" data-variant="ghost" tabindex="-1">Button</button></td><td><button class="btn is-focus" data-variant="ghost" tabindex="-1">Button</button></td><td><button class="btn" data-variant="ghost" disabled>Button</button></td></tr></tbody>
       </table>
     </div>
   </section>
@@ -689,8 +689,8 @@ code{overflow-wrap:anywhere}
         <h3>Stepless shifting for heavy loads</h3>
         <p>Enviolo Utility handles cargo, speed pedelecs and SUV builds, with motors up to 120 Nm.</p>
         <div class="row">
-          <a class="btn btn-lg" href="#">Find a dealer</a>
-          <a class="btn btn-lg btn-outline" href="#">How the hub works</a>
+          <a class="btn" data-size="lg" href="#">Find a dealer</a>
+          <a class="btn" data-variant="outline" data-size="lg" href="#">How the hub works</a>
         </div>
       </div>
     </div>
@@ -719,11 +719,11 @@ code{overflow-wrap:anywhere}
             <dt>Shifting</dt><dd>Manual or Automatic</dd>
           </dl>
           <div class="row">
-            <button class="btn btn-lg">Find a dealer</button>
-            <button class="btn btn-lg btn-secondary">Compare hubs</button>
-            <button class="btn btn-lg btn-ghost btn-icon" aria-label="Share"><svg class="ic" data-icon="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+            <button class="btn" data-size="lg">Find a dealer</button>
+            <button class="btn" data-variant="secondary" data-size="lg">Compare hubs</button>
+            <button class="btn" data-variant="ghost" data-size="icon-lg" aria-label="Share"><svg class="ic" data-icon="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
           </div>
-          <p class="small" style="margin-top:14px">Building bikes? <a class="btn btn-link" href="#">Talk to our OEM team</a></p>
+          <p class="small" style="margin-top:14px">Building bikes? <a class="btn" data-variant="link" href="#">Talk to our OEM team</a></p>
         </div>
       </div>
     </div>
@@ -740,14 +740,14 @@ code{overflow-wrap:anywhere}
       <div class="orders">
         <div class="toolbar">
           <div class="seg" role="group" aria-label="Filter lines">
-            <button class="btn btn-sm" aria-pressed="true">All lines</button>
-            <button class="btn btn-sm" aria-pressed="false">Hubs</button>
-            <button class="btn btn-sm" aria-pressed="false">Shifters</button>
-            <button class="btn btn-sm" aria-pressed="false">Spare parts</button>
+            <button class="btn" data-size="sm" aria-pressed="true">All lines</button>
+            <button class="btn" data-size="sm" aria-pressed="false">Hubs</button>
+            <button class="btn" data-size="sm" aria-pressed="false">Shifters</button>
+            <button class="btn" data-size="sm" aria-pressed="false">Spare parts</button>
           </div>
           <div class="row">
             <label class="search"><svg class="ic" data-icon="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><input class="input input-sm" type="search" placeholder="Search part number" aria-label="Search part number"></label>
-            <button class="btn btn-sm btn-outline">
+            <button class="btn" data-variant="outline" data-size="sm">
               <svg class="ic" data-icon="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Add line
             </button>
           </div>
@@ -758,24 +758,24 @@ code{overflow-wrap:anywhere}
             <tbody>
               <tr><td>Utility hub, 36H, disc</td><td>40</td><td><span class="pill ok">In stock</span></td>
                 <td class="actions">
-                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
-                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
                 </td></tr>
               <tr><td>Automatic shifter kit</td><td>40</td><td><span class="pill">Ships in 3 weeks</span></td>
                 <td class="actions">
-                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
-                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
                 </td></tr>
               <tr><td>Cable set, 1800 mm</td><td>80</td><td><span class="pill ok">In stock</span></td>
                 <td class="actions">
-                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
-                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
                 </td></tr>
             </tbody>
           </table>
         </div>
         <div class="order-foot">
-          <button class="btn btn-secondary">Save draft</button>
+          <button class="btn" data-variant="secondary">Save draft</button>
           <button class="btn">Place order</button>
         </div>
       </div>
@@ -800,8 +800,8 @@ code{overflow-wrap:anywhere}
           <h3 id="dlg-t">Delete this draft order?</h3>
           <p class="small" style="margin:0">The 3 lines in draft #10482 will be removed. This can't be undone.</p>
           <div class="row">
-            <button class="btn btn-outline">Keep draft</button>
-            <button class="btn btn-destructive">Delete draft</button>
+            <button class="btn" data-variant="outline">Keep draft</button>
+            <button class="btn" data-variant="destructive">Delete draft</button>
           </div>
         </div>
       </div>
@@ -818,7 +818,7 @@ code{overflow-wrap:anywhere}
       <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>university.enviolo.com</div>
       <div class="row" style="padding:22px 22px 0">
         <label class="search" style="flex:1;max-width:420px"><svg class="ic" data-icon="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><input class="input" style="width:100%" type="search" placeholder="Search courses and manuals" aria-label="Search courses and manuals"></label>
-        <button class="btn btn-secondary">Search</button>
+        <button class="btn" data-variant="secondary">Search</button>
       </div>
       <div class="cards">
         <article class="card">
@@ -827,7 +827,7 @@ code{overflow-wrap:anywhere}
           <span class="meta">Workshop course, 25 min</span>
           <div class="row">
             <button class="btn">Start course</button>
-            <button class="btn btn-outline">Preview</button>
+            <button class="btn" data-variant="outline">Preview</button>
           </div>
         </article>
         <article class="card">
@@ -835,8 +835,8 @@ code{overflow-wrap:anywhere}
           <h3>Explaining stepless shifting</h3>
           <span class="meta">Sales course, 12 min</span>
           <div class="row">
-            <button class="btn btn-outline">Preview</button>
-            <button class="btn btn-ghost">Save for later</button>
+            <button class="btn" data-variant="outline">Preview</button>
+            <button class="btn" data-variant="ghost">Save for later</button>
           </div>
         </article>
         <article class="card">
@@ -844,7 +844,7 @@ code{overflow-wrap:anywhere}
           <h3>Utility hub manual</h3>
           <span class="meta">PDF, 4.2 MB, 9 languages</span>
           <div class="row">
-            <button class="btn btn-outline">
+            <button class="btn" data-variant="outline">
               <svg class="ic" data-icon="download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Download manual
             </button>
           </div>
@@ -867,7 +867,7 @@ code{overflow-wrap:anywhere}
       <div class="app-demo">
         <div class="phone">
           <div class="top">
-            <button class="btn btn-ghost btn-icon btn-sm" aria-label="Back"><svg class="ic" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+            <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Back"><svg class="ic" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
             <span class="small">Step 2 of 3</span>
             <span style="width:32px"></span>
           </div>
@@ -877,28 +877,28 @@ code{overflow-wrap:anywhere}
             <p class="small" style="text-align:center;margin:0 auto">Turn on the bike and keep Bluetooth on.</p>
           </div>
           <div class="stack">
-            <button class="btn btn-lg">Connect hub</button>
-            <button class="btn btn-lg btn-ghost">Set up later</button>
+            <button class="btn" data-size="lg">Connect hub</button>
+            <button class="btn" data-variant="ghost" data-size="lg">Set up later</button>
           </div>
         </div>
         <div class="phone">
           <div class="top">
-            <button class="btn btn-ghost btn-icon btn-sm" aria-label="Back"><svg class="ic" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+            <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Back"><svg class="ic" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
             <span class="small">Riding mode</span>
-            <button class="btn btn-ghost btn-icon btn-sm" aria-label="Settings"><svg class="ic" data-icon="settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+            <button class="btn" data-variant="ghost" data-size="icon-sm" aria-label="Settings"><svg class="ic" data-icon="settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
           </div>
           <div>
             <h3>Pedal cadence</h3>
             <p class="small">Choose how fast you want to pedal. The hub shifts to keep it.</p>
             <div class="seg" role="group" aria-label="Cadence preset" style="display:flex">
-              <button class="btn btn-sm" style="flex:1" aria-pressed="false">Relaxed</button>
-              <button class="btn btn-sm" style="flex:1" aria-pressed="true">Balanced</button>
-              <button class="btn btn-sm" style="flex:1" aria-pressed="false">Sporty</button>
+              <button class="btn" data-size="sm" style="flex:1" aria-pressed="false">Relaxed</button>
+              <button class="btn" data-size="sm" style="flex:1" aria-pressed="true">Balanced</button>
+              <button class="btn" data-size="sm" style="flex:1" aria-pressed="false">Sporty</button>
             </div>
           </div>
           <div class="stack">
-            <button class="btn btn-lg">Save cadence</button>
-            <button class="btn btn-lg btn-secondary">Reset to default</button>
+            <button class="btn" data-size="lg">Save cadence</button>
+            <button class="btn" data-variant="secondary" data-size="lg">Reset to default</button>
           </div>
         </div>
       </div>
@@ -912,8 +912,8 @@ code{overflow-wrap:anywhere}
     </div>
     <div class="map">
       <button class="btn">Old solid</button><span class="arrow" aria-hidden="true">becomes</span><code>btn</code>
-      <button class="btn btn-outline">Old outline</button><span class="arrow" aria-hidden="true">becomes</span><span><code>btn-outline</code> on cards and imagery, <code>btn-secondary</code> in groups on plain pages</span>
-      <button class="btn btn-ghost">Old ghost</button><span class="arrow" aria-hidden="true">becomes</span><code>btn-ghost</code>
+      <button class="btn" data-variant="outline">Old outline</button><span class="arrow" aria-hidden="true">becomes</span><span><code>outline</code> on cards and imagery, <code>secondary</code> in groups on plain pages</span>
+      <button class="btn" data-variant="ghost">Old ghost</button><span class="arrow" aria-hidden="true">becomes</span><code>ghost</code>
       <p class="note">Audit every page for more than one primary. Downgrade the extras to secondary or outline.</p>
     </div>
   </section>
@@ -936,7 +936,7 @@ code{overflow-wrap:anywhere}
 <div class="view" data-view="brand/colour" hidden>
   <div class="view-head">
     <div class="topic-head"><p class="topic-name">Brand</p></div>
-    <nav class="subnav seg" aria-label="Brand sections"><a class="btn btn-sm" href="#/brand/colour" data-sub="brand/colour">Colour</a><a class="btn btn-sm" href="#/brand/typography" data-sub="brand/typography">Typography</a></nav>
+    <nav class="subnav seg" aria-label="Brand sections"><a class="btn" data-size="sm" href="#/brand/colour" data-sub="brand/colour">Colour</a><a class="btn" data-size="sm" href="#/brand/typography" data-sub="brand/typography">Typography</a></nav>
     <h1>Colour</h1>
     <p class="lede">Two systems. Neutrals carry the interface; the Enviolo ramp carries the brand. Brand colours never go on buttons, text or borders.</p>
   </div>
@@ -984,7 +984,7 @@ code{overflow-wrap:anywhere}
 <div class="view" data-view="brand/typography" hidden>
   <div class="view-head">
     <div class="topic-head"><p class="topic-name">Brand</p></div>
-    <nav class="subnav seg" aria-label="Brand sections"><a class="btn btn-sm" href="#/brand/colour" data-sub="brand/colour">Colour</a><a class="btn btn-sm" href="#/brand/typography" data-sub="brand/typography">Typography</a></nav>
+    <nav class="subnav seg" aria-label="Brand sections"><a class="btn" data-size="sm" href="#/brand/colour" data-sub="brand/colour">Colour</a><a class="btn" data-size="sm" href="#/brand/typography" data-sub="brand/typography">Typography</a></nav>
     <h1>Typography</h1>
     <p class="lede">One sans family for everything people read, one mono for code and token names. Both come from Adobe's Source family, so they share proportions.</p>
   </div>
@@ -1026,14 +1026,14 @@ code{overflow-wrap:anywhere}
 <div class="view" data-view="layout/grid" hidden>
   <div class="view-head">
     <div class="topic-head"><p class="topic-name">Layout</p></div>
-    <nav class="subnav seg" aria-label="Layout sections"><a class="btn btn-sm" href="#/layout/grid" data-sub="layout/grid">Grid and breakpoints</a></nav>
+    <nav class="subnav seg" aria-label="Layout sections"><a class="btn" data-size="sm" href="#/layout/grid" data-sub="layout/grid">Grid and breakpoints</a></nav>
     <h1>Grid and breakpoints</h1>
     <p class="lede">Three layouts: mobile, tablet and desktop. Content sits in a 1080px container; columns and gutters grow with the screen.</p>
   </div>
 
   <div class="bp-now" style="margin-top:32px" aria-live="polite">
     <span class="small">You're viewing</span><b id="bpName">Desktop</b><span class="w" id="bpWidth"></span>
-    <div class="row"><button class="btn btn-secondary btn-sm" type="button" id="overlayToggle" aria-pressed="false">Show grid overlay</button></div>
+    <div class="row"><button class="btn" data-variant="secondary" data-size="sm" type="button" id="overlayToggle" aria-pressed="false">Show grid overlay</button></div>
   </div>
 
   <section aria-labelledby="l-bp" style="margin-top:24px">
@@ -1116,8 +1116,8 @@ code{overflow-wrap:anywhere}
     </div>
   </div>
   <div class="menu submenu" id="subMenu" role="menu" aria-labelledby="subLabel" hidden></div>
-  <button class="btn btn-outline btn-sm btn-icon settings-trigger" id="modeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><svg class="ic" data-icon="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
-  <button class="btn btn-outline btn-sm settings-trigger" id="settingsTrigger" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
+  <button class="btn settings-trigger" data-variant="outline" data-size="icon-sm" id="modeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><svg class="ic" data-icon="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+  <button class="btn settings-trigger" data-variant="outline" data-size="sm" id="settingsTrigger" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
     <svg class="ic" data-icon="sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Display
     <svg class="ic chev" data-icon="chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
   </button>
