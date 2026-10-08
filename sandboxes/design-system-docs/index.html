@@ -336,7 +336,7 @@ code{overflow-wrap:anywhere}
 .arch-split .arch-tier{grid-template-columns:1fr;gap:10px}
 @media (max-width:880px){.arch-tier{grid-template-columns:1fr;gap:10px}}
 @media (max-width:600px){.arch-split{grid-template-columns:1fr}}
-.explore{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.explore{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .explore .card{padding:22px;gap:8px}
 .explore .card p{font-size:.95rem;color:var(--muted-foreground);margin:0}
 .explore .card .row{margin:8px 0 0;gap:6px;align-self:end}
@@ -480,14 +480,12 @@ code{overflow-wrap:anywhere}
     <a class="brandmark" href="#/overview" aria-label="Enviolo Design System, overview"><svg viewBox="0 0 496.06 112.06" fill="currentColor" aria-hidden="true"><path d="M276.93,32.01c-4.39,0-7.98,3.56-7.98,8.02v64.02c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02V40.03c-.06-4.46-3.6-8.02-7.98-8.02Z"/><path d="M336.71,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.88-40.03-39.87-40.03ZM336.65,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M456.2,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.82-40.03-39.87-40.03ZM456.2,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M396.42,0c-4.39,0-7.98,3.56-7.98,8.02v96.03c0,4.4,3.54,8.02,7.98,8.02s7.98-3.61,7.98-8.02V8.02c0-4.4-3.54-8.02-7.98-8.02Z"/><path d="M131.47,32.01c-21.99,0-39.87,17.9-39.87,40.03v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01h0c0-13.27,10.68-23.99,23.9-23.99s23.9,10.73,23.95,23.99h0v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01c-.11-22.13-17.94-40.03-39.92-40.03Z"/><path d="M252.59,32.86c-3.94-1.98-8.72-.4-10.68,3.56l-24.74,49.68-24.74-49.68c-1.97-3.95-6.75-5.53-10.68-3.56s-5.57,6.77-3.6,10.73l31.88,64.02h0c1.29,2.6,3.99,4.4,7.14,4.4s5.79-1.81,7.14-4.46h0l31.88-64.02c1.91-3.9.34-8.69-3.6-10.67Z"/><path d="M71.52,81.18c-3.77-2.26-8.6-1.02-10.91,2.71-4.1,7.28-11.86,12.19-20.81,12.19-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05c8.72,0,16.31,4.69,20.52,11.69l-20.47,12.36h39.87c0-22.07-17.82-40.03-39.87-40.03-22.04,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03c14.73,0,27.61-8.02,34.53-19.98,2.14-3.84.9-8.69-2.87-10.9Z"/></svg><span>Design System</span></a>
     <nav class="mainnav" aria-label="Main">
       <a class="btn" data-variant="ghost" data-size="sm" href="#/overview" data-nav="overview">Overview</a>
-      <a class="btn nav-trigger" data-variant="ghost" data-size="sm" href="#/primitives/colour" data-nav="primitives" data-menu="primitives" aria-expanded="false" aria-controls="navdd-primitives">Primitives<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
+      <a class="btn nav-trigger" data-variant="ghost" data-size="sm" href="#/foundations/colour" data-nav="foundations" data-menu="foundations" aria-expanded="false" aria-controls="navdd-foundations">Foundations<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
       <a class="btn nav-trigger" data-variant="ghost" data-size="sm" href="#/components/buttons" data-nav="components" data-menu="components" aria-expanded="false" aria-controls="navdd-components">Components<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
-      <a class="btn nav-trigger" data-variant="ghost" data-size="sm" href="#/layout/grid" data-nav="layout" data-menu="layout" aria-expanded="false" aria-controls="navdd-layout">Layout<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
     </nav>
   </div>
-  <div class="navdd" id="navdd-primitives" hidden><a href="#/primitives/colour" data-sub="primitives/colour"><b>Colour</b><span>Enviolo ramp, gradients, neutrals, status</span></a><a href="#/primitives/typography" data-sub="primitives/typography"><b>Typography</b><span>Families, scale, weights, rules</span></a></div>
+  <div class="navdd" id="navdd-foundations" hidden><a href="#/foundations/colour" data-sub="foundations/colour"><b>Colour</b><span>Enviolo ramp, gradients, neutrals, status</span></a><a href="#/foundations/typography" data-sub="foundations/typography"><b>Typography</b><span>Families, scale, weights, rules</span></a><a href="#/foundations/layout" data-sub="foundations/layout"><b>Layout</b><span>Grid, breakpoints, spacing, radius</span></a></div>
   <div class="navdd" id="navdd-components" hidden><a href="#/components/buttons" data-sub="components/buttons"><b>Buttons</b><span>Hierarchy, variants and usage</span></a><div class="soon">More components soon</div></div>
-  <div class="navdd" id="navdd-layout" hidden><a href="#/layout/grid" data-sub="layout/grid"><b>Grid and breakpoints</b><span>Columns, breakpoints, spacing, radius</span></a></div>
 </header>
 <main class="wrap" id="main">
 <div class="view" data-view="overview">
@@ -502,19 +500,14 @@ code{overflow-wrap:anywhere}
     <div class="section-head"><h2 id="ov-explore">Explore</h2></div>
     <div class="explore">
       <article class="card">
-        <h3><a class="card-link" href="#/primitives/colour">Primitives</a></h3>
-        <p>The Enviolo colour ramp, gradients, neutrals and typography.</p>
-        <div class="row"><a class="btn" data-variant="outline" data-size="sm" href="#/primitives/colour">Colour</a><a class="btn" data-variant="outline" data-size="sm" href="#/primitives/typography">Typography</a></div>
+        <h3><a class="card-link" href="#/foundations/colour">Foundations</a></h3>
+        <p>The Enviolo colour ramp, gradients, neutrals and typography, plus grid, breakpoints, spacing and radius.</p>
+        <div class="row"><a class="btn" data-variant="outline" data-size="sm" href="#/foundations/colour">Colour</a><a class="btn" data-variant="outline" data-size="sm" href="#/foundations/typography">Typography</a><a class="btn" data-variant="outline" data-size="sm" href="#/foundations/layout">Layout</a></div>
       </article>
       <article class="card">
         <h3><a class="card-link" href="#/components/buttons">Components</a></h3>
         <p>Buttons today, more to come. Each component documents when to use it, not just how it looks.</p>
         <div class="row"><a class="btn" data-variant="outline" data-size="sm" href="#/components/buttons">Buttons</a></div>
-      </article>
-      <article class="card">
-        <h3><a class="card-link" href="#/layout/grid">Layout</a></h3>
-        <p>Grid, breakpoints, spacing and radius. How screens adapt from phone to desktop.</p>
-        <div class="row"><a class="btn" data-variant="outline" data-size="sm" href="#/layout/grid">Grid and breakpoints</a></div>
       </article>
     </div>
   </section>
@@ -945,10 +938,10 @@ code{overflow-wrap:anywhere}
 
 </div>
 
-<div class="view" data-view="primitives/colour" hidden>
+<div class="view" data-view="foundations/colour" hidden>
   <div class="view-head">
-    <div class="topic-head"><p class="topic-name">Primitives</p></div>
-    <nav class="subnav seg" aria-label="Primitives sections"><a class="btn" data-size="sm" href="#/primitives/colour" data-sub="primitives/colour">Colour</a><a class="btn" data-size="sm" href="#/primitives/typography" data-sub="primitives/typography">Typography</a></nav>
+    <div class="topic-head"><p class="topic-name">Foundations</p></div>
+    <nav class="subnav seg" aria-label="Foundations sections"><a class="btn" data-size="sm" href="#/foundations/colour" data-sub="foundations/colour">Colour</a><a class="btn" data-size="sm" href="#/foundations/typography" data-sub="foundations/typography">Typography</a><a class="btn" data-size="sm" href="#/foundations/layout" data-sub="foundations/layout">Layout</a></nav>
     <h1>Colour</h1>
     <p class="lede">Two systems. Neutrals carry the interface; the Enviolo ramp carries the brand. Brand colours never go on buttons, text or borders.</p>
   </div>
@@ -995,10 +988,10 @@ code{overflow-wrap:anywhere}
   </section>
 </div>
 
-<div class="view" data-view="primitives/typography" hidden>
+<div class="view" data-view="foundations/typography" hidden>
   <div class="view-head">
-    <div class="topic-head"><p class="topic-name">Primitives</p></div>
-    <nav class="subnav seg" aria-label="Primitives sections"><a class="btn" data-size="sm" href="#/primitives/colour" data-sub="primitives/colour">Colour</a><a class="btn" data-size="sm" href="#/primitives/typography" data-sub="primitives/typography">Typography</a></nav>
+    <div class="topic-head"><p class="topic-name">Foundations</p></div>
+    <nav class="subnav seg" aria-label="Foundations sections"><a class="btn" data-size="sm" href="#/foundations/colour" data-sub="foundations/colour">Colour</a><a class="btn" data-size="sm" href="#/foundations/typography" data-sub="foundations/typography">Typography</a><a class="btn" data-size="sm" href="#/foundations/layout" data-sub="foundations/layout">Layout</a></nav>
     <h1>Typography</h1>
     <p class="lede">One sans family for everything people read, one mono for code and token names. Both come from Adobe's Source family, so they share proportions.</p>
   </div>
@@ -1037,11 +1030,11 @@ code{overflow-wrap:anywhere}
   </section>
 </div>
 
-<div class="view" data-view="layout/grid" hidden>
+<div class="view" data-view="foundations/layout" hidden>
   <div class="view-head">
-    <div class="topic-head"><p class="topic-name">Layout</p></div>
-    <nav class="subnav seg" aria-label="Layout sections"><a class="btn" data-size="sm" href="#/layout/grid" data-sub="layout/grid">Grid and breakpoints</a></nav>
-    <h1>Grid and breakpoints</h1>
+    <div class="topic-head"><p class="topic-name">Foundations</p></div>
+    <nav class="subnav seg" aria-label="Foundations sections"><a class="btn" data-size="sm" href="#/foundations/colour" data-sub="foundations/colour">Colour</a><a class="btn" data-size="sm" href="#/foundations/typography" data-sub="foundations/typography">Typography</a><a class="btn" data-size="sm" href="#/foundations/layout" data-sub="foundations/layout">Layout</a></nav>
+    <h1>Layout</h1>
     <p class="lede">Three layouts: mobile, tablet and desktop. Content sits in a 1080px container; columns and gutters grow with the screen.</p>
   </div>
 
@@ -1344,8 +1337,8 @@ code{overflow-wrap:anywhere}
   });
 
   /* ---------- Docs: router ---------- */
-  var ROUTES=['overview','components/buttons','primitives/colour','primitives/typography','layout/grid'];
-  var TITLES={'overview':'Overview','components/buttons':'Buttons','primitives/colour':'Colour','primitives/typography':'Typography','layout/grid':'Grid and breakpoints'};
+  var ROUTES=['overview','components/buttons','foundations/colour','foundations/typography','foundations/layout'];
+  var TITLES={'overview':'Overview','components/buttons':'Buttons','foundations/colour':'Colour','foundations/typography':'Typography','foundations/layout':'Layout'};
   function route(scroll){
     var h=location.hash.replace(/^#\/?/,'');
     if(ROUTES.indexOf(h)===-1) h='overview';

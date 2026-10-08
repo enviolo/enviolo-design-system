@@ -5,7 +5,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
 - **Version:** v0.3.9 (draft), October 2026
-- **Live reference:** Enviolo Design System artifact (Overview, Primitives, Components, Layout)
+- **Live reference:** Enviolo Design System artifact (Overview, Foundations, Components)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
 ---
@@ -490,7 +490,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
-- **v0.3.9**: chart series follow the ramp order and take up to five steps, so Apricot is included (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500). Before, four steps skipped Apricot. The docs site now labels the neutral steps and the status background and text colours for the current mode.
+- **v0.3.9**: the docs site groups Colour, Typography and Layout under one Foundations topic (the usual industry term), and labels the neutral steps and the status background and text colours for the current mode. Chart series follow the ramp order and take up to five steps, so Apricot is included (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500). Before, four steps skipped Apricot. The docs site now labels the neutral steps and the status background and text colours for the current mode.
 - **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split, Basecoat and the Figma kit's variant properties. No visual change.
 - **v0.3.7**: added the shadcn tokens `--input`, `--popover`, `--popover-foreground`, `--card-foreground` and `--accent-foreground`, which shadcn/ui components read and v0.3 was missing. Hand-written Enviolo CSS stays the web backbone; Basecoat was evaluated and not adopted.
 - **v0.3.6**: web backbone is Enviolo CSS (`tokens/components.css`: buttons, inputs, status pills) instead of Basecoat; Basecoat kept as a reference for new components; button hover is one token-driven rule; overview of the docs site and the AI rules rewritten to match.
