@@ -5,7 +5,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
 - **Version:** v0.3.8 (draft), October 2026
-- **Live reference:** Enviolo Design System artifact (Overview, Brand, Components, Layout)
+- **Live reference:** Enviolo Design System artifact (Overview, Primitives, Components, Layout)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
 ---
