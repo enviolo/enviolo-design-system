@@ -403,7 +403,7 @@ code{overflow-wrap:anywhere}
 .status-block h3 small{font-weight:500;font-size:.85rem;color:var(--muted-foreground)}
 .neutral-row .used span{text-align:left;overflow:hidden;display:block;font:600 .72rem var(--font);padding:6px 0 0 8px}
 .neutral-row .used{box-shadow:inset 0 0 0 2px var(--foreground),inset 0 0 0 4px var(--background)}
-.status-key{margin:0 0 18px}
+.status-key{margin:0 0 18px;max-width:100ch}
 @media (max-width:600px){.neutral-row .used span{display:none}}
 .status-demo{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
 .tokens{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
@@ -976,6 +976,7 @@ code{overflow-wrap:anywhere}
 
   <section aria-labelledby="c-neutral">
     <div class="section-head"><h2 id="c-neutral">Neutrals</h2><p class="small">Tailwind v4.3 ramps. Light and dark mode use different ramps; change them in the Display menu. Select a swatch to copy its hex.</p></div>
+    <p class="small status-key" id="neutralKey" aria-live="polite"></p>
     <div class="neutral-block"><h3 id="nl-title">Light mode</h3><div class="neutral-row" id="neutralLight"></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div>
     <div class="neutral-block"><h3 id="nd-title">Dark mode</h3><div class="neutral-row" id="neutralDark"></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div>
   </section>
@@ -1222,7 +1223,7 @@ code{overflow-wrap:anywhere}
     modeToggle.setAttribute('aria-label',label); modeToggle.setAttribute('title',label);
   }
   modeToggle.addEventListener('click',function(){state.theme=isDark()?'light':'dark';apply();});
-  if(darkMQ.addEventListener) darkMQ.addEventListener('change',function(){if(state.theme==='system'){syncModeToggle();renderIcons();markStatus();}});
+  if(darkMQ.addEventListener) darkMQ.addEventListener('change',function(){if(state.theme==='system'){syncModeToggle();renderIcons();markStatus();markNeutrals();}});
   function apply(){
     if(state.theme==='system') root.removeAttribute('data-theme'); else root.setAttribute('data-theme',state.theme);
     root.style.setProperty('--font',FONTS[state.font]+', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif');
@@ -1360,6 +1361,31 @@ code{overflow-wrap:anywhere}
   route(false);
 
   /* ---------- Docs: live bits ---------- */
+  /* Which neutral steps components use, per mode. Mirrors tokens.css; labels are short, tokens are the full list. */
+  function markNeutrals(){
+    var mode=isDark()?'dark':'light';
+    var ROLES={
+      light:{50:[['Card'],'--card, --primary-foreground'],100:[['Muted','Accent'],'--muted, --secondary, --accent'],200:[['Border'],'--border, --input, --secondary-hover'],500:[['Muted text'],'--muted-foreground'],700:[['Primary','hover'],'--primary-hover'],900:[['Primary'],'--primary, --secondary-foreground'],950:[['Text'],'--foreground']},
+      dark:{50:[['Text','Primary'],'--foreground, --primary, --secondary-foreground'],200:[['Primary','hover'],'--primary-hover'],400:[['Muted text'],'--muted-foreground'],700:[['Secondary','hover'],'--secondary-hover'],800:[['Border','Accent'],'--border, --input, --secondary, --accent'],900:[['Card','Muted'],'--card, --muted, --popover, --primary-foreground'],950:[['Background'],'--background']}
+    }[mode];
+    [['neutralLight','light'],['neutralDark','dark']].forEach(function(r){
+      var row=document.getElementById(r[0]); if(!row) return;
+      [].slice.call(row.querySelectorAll('button')).forEach(function(b){
+        if(!b.dataset.baseTitle){b.dataset.baseTitle=b.title;b.dataset.baseLabel=b.getAttribute('aria-label');}
+        var step=parseInt(b.dataset.baseTitle,10), role=r[1]===mode?ROLES[step]:null;
+        b.classList.toggle('used',!!role);
+        b.innerHTML=role?role[0].map(function(t){return '<span>'+t+'</span>';}).join(''):'';
+        b.style.color='';
+        if(role){var hx=toHex(b), rr=parseInt(hx.substr(1,2),16), gg=parseInt(hx.substr(3,2),16), bb=parseInt(hx.substr(5,2),16); b.style.color=(0.299*rr+0.587*gg+0.114*bb)>150?'#1c1917':'#FFFFFF';}
+        b.title=b.dataset.baseTitle+(role?' · '+role[1]:'');
+        b.setAttribute('aria-label',b.dataset.baseLabel+(role?', used for '+role[1]+' in '+mode+' mode':''));
+      });
+    });
+    var key=document.getElementById('neutralKey');
+    if(key){
+      key.innerHTML='Labelled for <b>'+mode+' mode</b>, the steps components use: '+Object.keys(ROLES).map(function(k){return '<b>'+k+'</b> <code>'+ROLES[k][1].split(', ').join('</code> <code>')+'</code>';}).join(' · ')+(mode==='light'?' · <code>--background</code> is white by default.':'.')+' Labels follow the Display theme.';
+    }
+  }
   function markStatus(){
     var mode=isDark()?'dark':'light', m=mode==='dark'?{bg:950,text:300}:{bg:50,text:700}; /* --{status}-bg / -text steps, design.md 4.3 */
     document.querySelectorAll('.status-block .neutral-row button').forEach(function(b){
@@ -1383,6 +1409,7 @@ code{overflow-wrap:anywhere}
     row('neutralLight','nl-title','rampLight','Light mode');
     row('neutralDark','nd-title','rampDark','Dark mode');
     markStatus();
+    markNeutrals();
     var fontNames={source:'Source Sans 3',urbanist:'Urbanist',plex:'IBM Plex Sans',system:'System font'};
     var monoNames={system:'System mono',sourcecode:'Source Code Pro'};
     document.querySelectorAll('[data-font-label]').forEach(function(el){el.textContent=fontNames[state.font];});
