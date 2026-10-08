@@ -36,8 +36,8 @@
   --success:var(--green-600); --success-foreground:#FFFFFF;
   --warning:var(--amber-500); --warning-foreground:var(--amber-950);
   --info:var(--blue-600); --info-foreground:#FFFFFF;
-  --status-tint:15%; /* status backgrounds: token mixed with transparent */
-  --ring:var(--light-ring,var(--enviolo-200));
+  --destructive-bg:var(--red-50); --destructive-text:var(--red-700); --success-bg:var(--green-50); --success-text:var(--green-700); --warning-bg:var(--amber-50); --warning-text:var(--amber-700); --info-bg:var(--blue-50); --info-text:var(--blue-700); /* status pills: solid ramp steps */
+  --ring:var(--light-ring,var(--enviolo-300));
   /* Enviolo brand ramp (draft): light to dark, sunset to midnight */
   --enviolo-50:#FAEAC0; --enviolo-100:#F5CAA8; --enviolo-200:#E79782; --enviolo-300:#C88273; --enviolo-400:#A96D64; --enviolo-500:#865A56; --enviolo-600:#614749; --enviolo-700:#393339; --enviolo-800:#20262B; --enviolo-900:#05191E; --enviolo-950:#020D12;
   --brand-1:var(--enviolo-50); --brand-2:var(--enviolo-200); --brand-3:var(--enviolo-400); --brand-4:var(--enviolo-600);
@@ -50,7 +50,7 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-500);
-    --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --status-tint:22%;
+    --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --destructive-bg:var(--red-950); --destructive-text:var(--red-300); --success-bg:var(--green-950); --success-text:var(--green-300); --warning-bg:var(--amber-950); --warning-text:var(--amber-300); --info-bg:var(--blue-950); --info-text:var(--blue-300);
     --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
     --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
     --card:var(--n-900); --border:var(--n-800); --primary:var(--n-50); --primary-foreground:var(--n-900);
@@ -59,7 +59,7 @@
 }
 :root[data-theme="dark"]{
   --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-500);
-  --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --status-tint:22%;
+  --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --destructive-bg:var(--red-950); --destructive-text:var(--red-300); --success-bg:var(--green-950); --success-text:var(--green-300); --warning-bg:var(--amber-950); --warning-text:var(--amber-300); --info-bg:var(--blue-950); --info-text:var(--blue-300);
   --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
   --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
   --card:var(--n-900); --border:var(--n-800); --primary:var(--n-50); --primary-foreground:var(--n-900);
@@ -204,10 +204,10 @@ td{padding:10px 14px;border-bottom:1px solid var(--border)}
 tr:last-child td{border-bottom:0}
 td.actions{text-align:right;white-space:nowrap}
 .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.8rem;font-weight:600;background:var(--muted)}
-.pill.ok{background:color-mix(in srgb,var(--success) var(--status-tint),transparent);color:var(--success)}
-.pill.warn{background:color-mix(in srgb,var(--warning) var(--status-tint),transparent);color:color-mix(in srgb,var(--warning) 70%,var(--foreground))}
-.pill.info{background:color-mix(in srgb,var(--info) var(--status-tint),transparent);color:var(--info)}
-.pill.err{background:color-mix(in srgb,var(--destructive) var(--status-tint),transparent);color:var(--destructive)}
+.pill.ok{background:var(--success-bg);color:var(--success-text)}
+.pill.warn{background:var(--warning-bg);color:var(--warning-text)}
+.pill.info{background:var(--info-bg);color:var(--info-text)}
+.pill.err{background:var(--destructive-bg);color:var(--destructive-text)}
 .order-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;flex-wrap:wrap}
 
 /* dialog */
@@ -1013,7 +1013,7 @@ code{overflow-wrap:anywhere}
   <section aria-labelledby="c-status">
     <div class="section-head"><h2 id="c-status">Status colours</h2><p class="small">Tailwind v4.3 primitives, mapped to semantic status tokens. Outlined steps are the ones each token uses: the darker step in light mode, the lighter step in dark mode, so status colours keep their contrast on both backgrounds. Status colours carry meaning only: errors, warnings, success and information, never decoration.</p></div>
     <div class="status-block"><h3>Red <small>Destructive · light 600, dark 500</small></h3><div class="neutral-row"><div class="" style="background:var(--red-50)" title="50 · oklch(97.1% 0.013 17.38)"></div><div class="" style="background:var(--red-100)" title="100 · oklch(93.6% 0.032 17.717)"></div><div class="" style="background:var(--red-200)" title="200 · oklch(88.5% 0.062 18.334)"></div><div class="" style="background:var(--red-300)" title="300 · oklch(80.8% 0.114 19.571)"></div><div class="" style="background:var(--red-400)" title="400 · oklch(70.4% 0.191 22.216)"></div><div class="used" style="background:var(--red-500);color:#FFFFFF" title="500 · oklch(63.7% 0.237 25.331)"><span>Dark</span></div><div class="used" style="background:var(--red-600);color:#FFFFFF" title="600 · oklch(57.7% 0.245 27.325)"><span>Light</span></div><div class="" style="background:var(--red-700)" title="700 · oklch(50.5% 0.213 27.518)"></div><div class="" style="background:var(--red-800)" title="800 · oklch(44.4% 0.177 26.899)"></div><div class="" style="background:var(--red-900)" title="900 · oklch(39.6% 0.141 25.723)"></div><div class="" style="background:var(--red-950)" title="950 · oklch(25.8% 0.092 26.042)"></div></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div><div class="status-block"><h3>Amber <small>Warning · light 500, dark 400</small></h3><div class="neutral-row"><div class="" style="background:var(--amber-50)" title="50 · oklch(98.7% 0.022 95.277)"></div><div class="" style="background:var(--amber-100)" title="100 · oklch(96.2% 0.059 95.617)"></div><div class="" style="background:var(--amber-200)" title="200 · oklch(92.4% 0.12 95.746)"></div><div class="" style="background:var(--amber-300)" title="300 · oklch(87.9% 0.169 91.605)"></div><div class="used" style="background:var(--amber-400);color:#1c1917" title="400 · oklch(82.8% 0.189 84.429)"><span>Dark</span></div><div class="used" style="background:var(--amber-500);color:#1c1917" title="500 · oklch(76.9% 0.188 70.08)"><span>Light</span></div><div class="" style="background:var(--amber-600)" title="600 · oklch(66.6% 0.179 58.318)"></div><div class="" style="background:var(--amber-700)" title="700 · oklch(55.5% 0.163 48.998)"></div><div class="" style="background:var(--amber-800)" title="800 · oklch(47.3% 0.137 46.201)"></div><div class="" style="background:var(--amber-900)" title="900 · oklch(41.4% 0.112 45.904)"></div><div class="" style="background:var(--amber-950)" title="950 · oklch(27.9% 0.077 45.635)"></div></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div><div class="status-block"><h3>Green <small>Success · light 600, dark 400</small></h3><div class="neutral-row"><div class="" style="background:var(--green-50)" title="50 · oklch(98.2% 0.018 155.826)"></div><div class="" style="background:var(--green-100)" title="100 · oklch(96.2% 0.044 156.743)"></div><div class="" style="background:var(--green-200)" title="200 · oklch(92.5% 0.084 155.995)"></div><div class="" style="background:var(--green-300)" title="300 · oklch(87.1% 0.15 154.449)"></div><div class="used" style="background:var(--green-400);color:#1c1917" title="400 · oklch(79.2% 0.209 151.711)"><span>Dark</span></div><div class="" style="background:var(--green-500)" title="500 · oklch(72.3% 0.219 149.579)"></div><div class="used" style="background:var(--green-600);color:#FFFFFF" title="600 · oklch(62.7% 0.194 149.214)"><span>Light</span></div><div class="" style="background:var(--green-700)" title="700 · oklch(52.7% 0.154 150.069)"></div><div class="" style="background:var(--green-800)" title="800 · oklch(44.8% 0.119 151.328)"></div><div class="" style="background:var(--green-900)" title="900 · oklch(39.3% 0.095 152.535)"></div><div class="" style="background:var(--green-950)" title="950 · oklch(26.6% 0.065 152.934)"></div></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div><div class="status-block"><h3>Blue <small>Info · light 600, dark 400</small></h3><div class="neutral-row"><div class="" style="background:var(--blue-50)" title="50 · oklch(97% 0.014 254.604)"></div><div class="" style="background:var(--blue-100)" title="100 · oklch(93.2% 0.032 255.585)"></div><div class="" style="background:var(--blue-200)" title="200 · oklch(88.2% 0.059 254.128)"></div><div class="" style="background:var(--blue-300)" title="300 · oklch(80.9% 0.105 251.813)"></div><div class="used" style="background:var(--blue-400);color:#1c1917" title="400 · oklch(70.7% 0.165 254.624)"><span>Dark</span></div><div class="" style="background:var(--blue-500)" title="500 · oklch(62.3% 0.214 259.815)"></div><div class="used" style="background:var(--blue-600);color:#FFFFFF" title="600 · oklch(54.6% 0.245 262.881)"><span>Light</span></div><div class="" style="background:var(--blue-700)" title="700 · oklch(48.8% 0.243 264.376)"></div><div class="" style="background:var(--blue-800)" title="800 · oklch(42.4% 0.199 265.638)"></div><div class="" style="background:var(--blue-900)" title="900 · oklch(37.9% 0.146 265.522)"></div><div class="" style="background:var(--blue-950)" title="950 · oklch(28.2% 0.091 267.935)"></div></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div>
-    <p class="small" style="margin:18px 0 6px">Backgrounds are the status token at <code>--status-tint</code> opacity: 15% in light mode, 22% in dark mode (lower contrast surfaces need a stronger tint). Text uses the token itself; warning text is mixed 70% with the foreground, because amber alone is too light to read.</p>
+    <p class="small" style="margin:18px 0 6px">Backgrounds and text are solid ramp steps, so they match Figma one to one: <code>--{status}-bg</code> is step 50 in light mode and 950 in dark mode, <code>--{status}-text</code> is step 700 in light and 300 in dark. The status token itself is for fills, icons and borders.</p>
     <div class="status-demo"><span class="pill err">Payment failed</span><span class="pill warn">Ships in 3 weeks</span><span class="pill ok">In stock</span><span class="pill info">New firmware</span></div>
   </section>
 
@@ -1220,7 +1220,7 @@ code{overflow-wrap:anywhere}
     light:{
       bg:{white:['White','#FFFFFF',null],neutral:['Neutral 50','var(--l-50)','var(--l-50)'],ivory:['Ivory tint','color-mix(in srgb,var(--enviolo-50) 35%,#fff)','color-mix(in srgb,var(--enviolo-50) 35%,#fff)']},
       accent:{neutral:['Neutral 100','var(--l-100)',null],ivory:['Ivory','color-mix(in srgb,var(--enviolo-50) 70%,#fff)','color-mix(in srgb,var(--enviolo-50) 70%,#fff)'],coral:['Coral tint','color-mix(in srgb,var(--enviolo-200) 18%,#fff)','color-mix(in srgb,var(--enviolo-200) 18%,transparent)']},
-      focus:{coral:['Coral','var(--enviolo-200)',null,'2.3:1 · low'],copper:['Copper','var(--enviolo-300)','var(--enviolo-300)','3.1:1'],clay:['Clay','var(--enviolo-400)','var(--enviolo-400)','4.2:1']}
+      focus:{copper:['Copper','var(--enviolo-300)',null,'3.1:1'],coral:['Coral','var(--enviolo-200)','var(--enviolo-200)','2.3:1 · low'],clay:['Clay','var(--enviolo-400)','var(--enviolo-400)','4.2:1']}
     },
     dark:{
       bg:{neutral:['Neutral 950','var(--d-950)',null],pearl:['Pearl Black','var(--enviolo-950)','var(--enviolo-950)'],midnight:['Midnight','var(--enviolo-900)','var(--enviolo-900)']},
@@ -1228,7 +1228,7 @@ code{overflow-wrap:anywhere}
       focus:{coral:['Coral','var(--enviolo-200)',null,'8.6:1'],ivory:['Ivory','var(--enviolo-50)','var(--enviolo-50)','16:1'],apricot:['Apricot','var(--enviolo-100)','var(--enviolo-100)','13:1']}
     }
   };
-  var state={theme:'system',font:'source',icons:'tabler',mono:'sourcecode',rampLight:'taupe',rampDark:'mist',bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'coral',focusDark:'coral'};
+  var state={theme:'system',font:'source',icons:'tabler',mono:'sourcecode',rampLight:'taupe',rampDark:'mist',bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'copper',focusDark:'coral'};
   try{var saved=JSON.parse(localStorage.getItem('enviolo-display')||'{}'); if(saved.theme) state.theme=saved.theme; if(saved.font&&FONTS[saved.font]) state.font=saved.font; if(saved.icons==='lucide'||saved.icons==='tabler') state.icons=saved.icons; if(saved.mono&&MONO[saved.mono]) state.mono=saved.mono; if(saved.rampLight&&RAMPS[saved.rampLight]) state.rampLight=saved.rampLight; if(saved.rampDark&&RAMPS[saved.rampDark]) state.rampDark=saved.rampDark; if(saved.darkbg==='pearl') state.bgDark='pearl'; ['bg','accent','focus'].forEach(function(t){['Light','Dark'].forEach(function(m){var k=t+m; if(saved[k]&&MODE_OPTS[m.toLowerCase()][t][saved[k]]) state[k]=saved[k];});});}catch(e){}
   var settings=document.getElementById('settings');
   var trigger=document.getElementById('settingsTrigger'), menu=document.getElementById('settingsMenu'), sub=document.getElementById('subMenu');
@@ -1273,7 +1273,7 @@ code{overflow-wrap:anywhere}
 
   function buildSub(mode,focus){
     var sfx=mode==='light'?'Light':'Dark';
-    var DEF={bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'coral',focusDark:'coral',rampLight:'taupe',rampDark:'mist'};
+    var DEF={bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'copper',focusDark:'coral',rampLight:'taupe',rampDark:'mist'};
     function item(key,val,label,sw,checked){return '<button class="menu-item" role="menuitemradio" aria-checked="'+checked+'" data-key="'+key+'" data-value="'+val+'">'+iconSvg('check','ic check')+'<span>'+label+'</span>'+(DEF[key]===val?'<span class="def">Default</span>':'')+'<span class="sample swatch">'+sw+'</span></button>';}
     var html='<button class="menu-item back" role="menuitem" data-back="1">'+iconSvg('chevron-left')+'<span>Back</span></button>'+
       '<div class="menu-label" id="subLabel">'+sfx+' mode · Background</div>';

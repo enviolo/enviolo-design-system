@@ -15,7 +15,6 @@ It is a lightweight, token-first system. It doesn't ship its own component libra
 | [tokens/tokens.css](tokens/tokens.css) | Production-ready token file built from design.md, for Tailwind v4 projects. |
 | [sandboxes/](sandboxes/) | Working references for the current version. |
 | [versions/](versions/) | Previous versions, each in its own folder with its design.md and sandboxes. |
-| [docs/](docs/) | Notes from design sessions. |
 | [CLAUDE.md](CLAUDE.md) | Snippet that points AI tools at design.md and the tokens. |
 
 ### Sandboxes
@@ -44,7 +43,7 @@ Versions are git tags. `main` holds released versions only; work in progress liv
 | v0.3 | _pending_ | [design.md](design.md) | [design-system-docs](sandboxes/design-system-docs/index.html) | Architecture (shadcn/ui for React apps, Basecoat for web, Enviolo token layer on top); AI rules up front; Enviolo ramp (11 steps); per-mode background, accent and focus; status colours; gradients and chart steps; layout grid and breakpoints; navigation patterns. Adds `tokens/tokens.css`. |
 | v0.2 | `v0.2` | [versions/v0.2/design.md](versions/v0.2/design.md) | [html-dashboard](versions/v0.2/sandboxes/html-dashboard/index.html) | Brand and semantic colour tokens, Taupe/Mist neutral ramps, light and dark mode, shadcn and BasecoatUI routers. (v0.1 was earlier BasecoatUI testing.) |
 
-The detailed history inside v0.3 is in design.md §16, numbered v0.3.1 to v0.3.4.
+The detailed history inside v0.3 is in design.md §16, numbered v0.3.1 to v0.3.5.
 
 ## Status
 

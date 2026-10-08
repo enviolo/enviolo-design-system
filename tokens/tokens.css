@@ -168,13 +168,16 @@
   --secondary: var(--n-100);
   --secondary-foreground: var(--n-900);
   --accent: var(--light-accent, var(--n-100));
-  --ring: var(--light-ring, var(--enviolo-200)); /* Coral, 2.3:1 on white: see open decisions */
+  --ring: var(--light-ring, var(--enviolo-300)); /* Copper, 3.1:1 on white */
 
   --destructive: var(--red-600);  --destructive-foreground: #ffffff;
   --success: var(--green-600);    --success-foreground: #ffffff;
   --warning: var(--amber-500);    --warning-foreground: var(--amber-950);
   --info: var(--blue-600);        --info-foreground: #ffffff;
-  --status-tint: 15%;
+  --destructive-bg: var(--red-50);   --destructive-text: var(--red-700);
+  --success-bg: var(--green-50);     --success-text: var(--green-700);
+  --warning-bg: var(--amber-50);     --warning-text: var(--amber-700);
+  --info-bg: var(--blue-50);         --info-text: var(--blue-700);
 
   --chart-1: var(--enviolo-200); --chart-2: var(--enviolo-400);
   --chart-3: var(--enviolo-600); --chart-4: var(--enviolo-900);
@@ -204,7 +207,10 @@
   --success: var(--green-400);    --success-foreground: var(--green-950);
   --warning: var(--amber-400);
   --info: var(--blue-400);        --info-foreground: var(--blue-950);
-  --status-tint: 22%;
+  --destructive-bg: var(--red-950);  --destructive-text: var(--red-300);
+  --success-bg: var(--green-950);    --success-text: var(--green-300);
+  --warning-bg: var(--amber-950);    --warning-text: var(--amber-300);
+  --info-bg: var(--blue-950);        --info-text: var(--blue-300);
 
   --chart-1: var(--enviolo-50);  --chart-2: var(--enviolo-200);
   --chart-3: var(--enviolo-400); --chart-4: var(--enviolo-500);
@@ -228,6 +234,10 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-info: var(--info);
+  --color-destructive-bg: var(--destructive-bg);  --color-destructive-text: var(--destructive-text);
+  --color-success-bg: var(--success-bg);          --color-success-text: var(--success-text);
+  --color-warning-bg: var(--warning-bg);          --color-warning-text: var(--warning-text);
+  --color-info-bg: var(--info-bg);                --color-info-text: var(--info-text);
   --radius-lg: var(--radius);
   --font-sans: var(--font);
 }

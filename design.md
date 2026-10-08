@@ -57,7 +57,15 @@ Three layers. Each layer only changes values in the layer below it, never names.
 **Implementation notes**
 - Both backbones run on **Tailwind v4**. Tokens live in one `globals.css` / `tokens.css`, mapped into Tailwind with `@theme inline`.
 - Dark mode in production: use the **`.dark` class** on `<html>` (what shadcn and Basecoat expect). The prototype uses `data-theme`; don't copy that.
-- Basecoat combines size and variant into single classes (e.g. `btn-sm-outline`), as far as known. Verify against the Basecoat docs before copying markup from the prototype, which uses separate `btn btn-sm btn-outline` classes.
+- **Same vocabulary, different syntax.** Variants (primary, secondary, outline, ghost, link, destructive) and sizes (xs, sm, default, lg, icon sizes) mean the same in every backbone. Write specs and tickets in these names, then translate to the surface you build for:
+
+| Intent | shadcn/ui (React) | Basecoat (HTML) | Docs-site sandbox |
+|---|---|---|---|
+| Primary, default size | `<Button>` | `<button class="btn">` | `btn` |
+| Outline, small | `<Button variant="outline" size="sm">` | `<button class="btn" data-variant="outline" data-size="sm">` | `btn btn-sm btn-outline` |
+| Destructive, large | `<Button variant="destructive" size="lg">` | `<button class="btn" data-variant="destructive" data-size="lg">` | `btn btn-lg btn-destructive` |
+
+  Primary is the default in both (shadcn names it `default`). Verified against the Basecoat docs and the vendored Luma CSS on 8 October 2026. The docs-site sandbox has its own hand-written classes; don't copy its markup.
 
 ---
 
@@ -70,7 +78,7 @@ Three layers. Each layer only changes values in the layer below it, never names.
 | Code font | Source Code Pro | System mono |
 | Icons | Tabler (outline) | Lucide (shadcn's default) |
 | Style | Luma | — |
-| Light mode | Background White · Accent Neutral 100 · Focus Coral · Neutrals Taupe | see section 10 |
+| Light mode | Background White · Accent Neutral 100 · Focus Copper · Neutrals Taupe | see section 10 |
 | Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Coral · Neutrals Mist | see section 10 |
 
 ---
@@ -108,12 +116,13 @@ per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --a
 | `--secondary` | n-100 | n-800 | Secondary (muted) button fill |
 | `--secondary-foreground` | n-900 | n-50 | Text on secondary |
 | `--accent` | `var(--light-accent, n-100)` | `var(--dark-accent, n-800)` | Hover and muted/selected fills |
-| `--ring` | `var(--light-ring, Enviolo 200)` | `var(--dark-ring, Enviolo 200)` | Focus rings, active fields |
+| `--ring` | `var(--light-ring, Enviolo 300)` | `var(--dark-ring, Enviolo 200)` | Focus rings, active fields |
 | `--destructive` | red-600 | red-500 | Irreversible actions, errors |
 | `--success` | green-600 | green-400 | Confirmations |
 | `--warning` | amber-500 | amber-400 | Caution (text on it: amber-950) |
 | `--info` | blue-600 | blue-400 | Notices |
-| `--status-tint` | 15% | 22% | Opacity of status backgrounds |
+| `--destructive-bg`, `--success-bg`, `--warning-bg`, `--info-bg` | status 50 | status 950 | Solid background of status pills and alerts |
+| `--destructive-text`, `--success-text`, `--warning-text`, `--info-text` | status 700 | status 300 | Text on those backgrounds |
 | `--chart-1…4` | Enviolo 200, 400, 600, 900 | Enviolo 50, 200, 400, 500 | Chart series |
 | `--radius-control` | 999px | 999px | Buttons, inputs, chips |
 | `--radius` | 10px | 10px | Small containers |
@@ -215,7 +224,7 @@ For gradients, chart bars and volumetric effects. Light → dark (50 → 950). I
 | 500 | Dusk | `#865A56` | 43 |
 | 600 | Twilight | `#614749` | 33 |
 | 700 | Coffee | `#393339` | 22 |
-| 800 | Nightfall *(name TBC)* | `#20262B` | 15 |
+| 800 | Nightfall | `#20262B` | 15 |
 | 900 | Midnight | `#05191E` | 7 |
 | 950 | Pearl Black | `#020D12` | 3 |
 
@@ -241,7 +250,7 @@ Nightfall is the OKLab midpoint between Coffee and Midnight; it closes the 22 �
 Primitives: Tailwind v4.3 `red`, `amber`, `green`, `blue` (50–950). Each status token takes a darker step in light mode and a lighter step in dark mode, so contrast holds on both backgrounds (see the table in 3.2).
 
 - Meaning only: errors, warnings, success, information. Never decoration.
-- Background: `color-mix(in srgb, var(--success) var(--status-tint), transparent)`. Text: the token itself; warning text is mixed 70% with `--foreground`.
+- Background and text: solid ramp steps, so the values match Figma one to one. `--{status}-bg` is step 50 in light and 950 in dark; `--{status}-text` is step 700 in light and 300 in dark. The status token itself (`--success`, …) is for fills, icons and borders.
 - Always pair colour with text or an icon.
 - shadcn only ships `--destructive`. `--success`, `--warning` and `--info` are Enviolo additions in the same naming pattern.
 
@@ -399,7 +408,7 @@ Never give a container a pill radius, and never give a control a container radiu
 |---|---|---|---|
 | Background | `--light-bg` / `--dark-bg` | **White**, Neutral 50, Ivory tint | **Neutral 950**, Pearl Black, Midnight |
 | Accent (hover and muted) | `--light-accent` / `--dark-accent` | **Neutral 100**, Ivory, Coral tint | **Neutral 800**, Nightfall, Coral tint |
-| Focus (active fields) | `--light-ring` / `--dark-ring` | **Coral** 2.3:1, Copper 3.1:1, Clay 4.2:1 | **Coral** 8.6:1, Ivory 16:1, Apricot 13:1 |
+| Focus (active fields) | `--light-ring` / `--dark-ring` | **Copper** 3.1:1, Coral 2.3:1, Clay 4.2:1 | **Coral** 8.6:1, Ivory 16:1, Apricot 13:1 |
 | Neutrals | `--l-*` / `--d-*` | **Taupe** + all Tailwind neutrals | **Mist** + all Tailwind neutrals |
 
 Bold = default. Contrast ratios are against the default background.
@@ -408,7 +417,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 11. Accessibility
 
-- Visible focus on every interactive element (`:focus-visible` + `--ring`). Focus indicators need ≥ 3:1 against their background; **Coral fails on white** (see section 15).
+- Visible focus on every interactive element (`:focus-visible` + `--ring`). Focus indicators need ≥ 3:1 against their background; **Coral fails on white** (2.3:1), so the light-mode default is Copper (3.1:1).
 - Text contrast WCAG AA. Check `--muted-foreground` on card and muted surfaces for every neutral ramp and both modes.
 - Touch targets ≥ 40px (32px allowed for icon buttons in dense tables).
 - Respect `prefers-reduced-motion`.
@@ -462,18 +471,21 @@ Bold = default. Contrast ratios are against the default background.
 
 | Topic | Question | Current state |
 |---|---|---|
-| Light-mode focus | Coral is 2.3:1 on white (below 3:1). Switch the default to Copper (3.1:1)? | Coral default, Copper recommended |
-| Dark-mode focus | Make Ivory the default (mirrors Coral in light)? | Coral default |
-| Status backgrounds | Transparent tints (current) or solid ramp steps (50 bg / 700 text light, 950 bg / 300–400 text dark) for Figma parity? | Tints; solids recommended |
-| Nightfall | Final name for Enviolo 800 | Name TBC |
-| Enviolo ramp | Publish to Enviolo brand guidelines | Draft |
-| Rollout | Which product adopts the system first | Step by step, per product readiness |
-| Basecoat markup | Confirm class naming (combined size + variant) before production | To verify |
+| Enviolo ramp | Publish to the Enviolo brand guidelines | Planned, still draft |
+| Rollout | Which product adopts the system first | Not decided; step by step, per product readiness |
+
+**Decided (v0.3.5)**
+- Light-mode focus is **Copper** (3.1:1 on white). Coral stays an option in the mode settings.
+- Dark-mode focus stays **Coral** (8.6:1).
+- Status backgrounds use **solid ramp steps** (50 / 700 light, 950 / 300 dark), not transparent tints.
+- **Nightfall** is the final name for Enviolo 800.
+- Basecoat buttons use `data-variant` and `data-size` attributes (see section 1).
 
 ---
 
 ## 16. Changelog
 
+- **v0.3.5**: decisions from the open list. Copper is the light-mode focus default; status backgrounds are solid ramp steps (`--{status}-bg`, `--{status}-text`, replacing `--status-tint`); Nightfall confirmed; Basecoat buttons verified to use `data-variant` and `data-size`.
 - **v0.3.4**: architecture (shadcn/ui for React apps, Basecoat for web, Enviolo token layer on top); AI rules up front; per-mode background, accent and focus; status colours from Tailwind primitives with `--status-tint`; navigation patterns (topic dropdowns, sub-nav, cards as links); open decisions.
 - **v0.3.3**: Enviolo ramp (11 steps, Nightfall added), gradients, chart steps; grid and breakpoints.
 - **v0.3.2**: confirmed defaults (Source Sans 3, Tabler, Source Code Pro, Taupe/Mist).
