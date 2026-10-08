@@ -49,7 +49,7 @@ Three layers. Each layer only changes values in the layer below it, never names.
 | Layer | What it is | Used for |
 |---|---|---|
 | **shadcn/ui** | React components copied into our codebase and owned by us | React apps |
-| **Enviolo CSS** | Plain HTML/CSS classes in `tokens/components.css`, built on the same tokens and the Luma look, in the shadcn vocabulary. No third-party library is loaded | Websites, CMS templates, static pages |
+| **Enviolo CSS** | Plain HTML/CSS classes in `tokens/components.css`, modelled on Basecoat and built on the same tokens and the Luma look, in the shadcn vocabulary. No third-party library is loaded | Websites, CMS templates, static pages |
 | **Shared contract** | shadcn token names and the **Luma** style (pill controls, soft containers) | Every surface, CSS, Tailwind, Figma |
 | **Enviolo tokens** | Values: ramps, modes, status, accent, focus, type, icons | Everything Enviolo-specific |
 | **Figma** | shadcncraft kit; variables named exactly like the CSS tokens | Design, handoff |
