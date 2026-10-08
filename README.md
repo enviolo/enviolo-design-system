@@ -22,6 +22,13 @@ It is a lightweight, token-first system. It doesn't ship its own component libra
 
 Sandboxes show the tokens applied to real UI. Open the `index.html` in a browser; no build step is needed.
 
+The docs site spans several files. Opening `index.html` from disk works in normal browsers. Some IDE-embedded browsers (Cursor's, for one) don't follow links between local files; there, serve the repo root and open it over http. The root matters, because the pages load `tokens/components.css` from outside their folder:
+
+```
+python3 -m http.server 8765
+# then open http://localhost:8765/sandboxes/design-system-docs/
+```
+
 | Sandbox | Version | What it is |
 | ------- | ------- | ---------- |
 | [design-system-docs](sandboxes/design-system-docs/index.html) | v0.3 (current) | Design system tester and documentation site, one page per topic: Overview, Foundations (colour, typography, layout) and Components (buttons). Shared styles and scripts live in its `assets/` folder; the nav is built by `assets/docs.js`. |
