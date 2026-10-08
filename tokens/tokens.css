@@ -1,0 +1,240 @@
+/* ==========================================================================
+   Enviolo Design System: tokens.css  (v0.3, draft)
+   Framework-agnostic: works with Basecoat (web) and shadcn/ui (React).
+   Load AFTER Tailwind / Basecoat base styles. Dark mode = `.dark` on <html>.
+   Layers: 1 primitives -> 2 mode layer -> 3 semantic -> 4 Tailwind mapping.
+   Components only use layer 3 (semantic) tokens.
+   ========================================================================== */
+
+/* 1. Primitives ------------------------------------------------------------ */
+:root {
+  /* Enviolo brand ramp (draft): sunset -> midnight */
+  --enviolo-50: #FAEAC0;
+  --enviolo-100: #F5CAA8;
+  --enviolo-200: #E79782;
+  --enviolo-300: #C88273;
+  --enviolo-400: #A96D64;
+  --enviolo-500: #865A56;
+  --enviolo-600: #614749;
+  --enviolo-700: #393339;
+  --enviolo-800: #20262B;
+  --enviolo-900: #05191E;
+  --enviolo-950: #020D12;
+  --enviolo-ivory: var(--enviolo-50);
+  --enviolo-apricot: var(--enviolo-100);
+  --enviolo-coral: var(--enviolo-200);
+  --enviolo-copper: var(--enviolo-300);
+  --enviolo-clay: var(--enviolo-400);
+  --enviolo-dusk: var(--enviolo-500);
+  --enviolo-twilight: var(--enviolo-600);
+  --enviolo-coffee: var(--enviolo-700);
+  --enviolo-nightfall: var(--enviolo-800);
+  --enviolo-midnight: var(--enviolo-900);
+  --enviolo-pearl-black: var(--enviolo-950);
+
+  /* Neutrals: Tailwind v4.3 values */
+  --taupe-50: oklch(98.6% 0.002 67.8);
+  --taupe-100: oklch(96% 0.002 17.2);
+  --taupe-200: oklch(92.2% 0.005 34.3);
+  --taupe-300: oklch(86.8% 0.007 39.5);
+  --taupe-400: oklch(71.4% 0.014 41.2);
+  --taupe-500: oklch(54.7% 0.021 43.1);
+  --taupe-600: oklch(43.8% 0.017 39.3);
+  --taupe-700: oklch(36.7% 0.016 35.7);
+  --taupe-800: oklch(26.8% 0.011 36.5);
+  --taupe-900: oklch(21.4% 0.009 43.1);
+  --taupe-950: oklch(14.7% 0.004 49.3);
+  --mist-50: oklch(98.7% 0.002 197.1);
+  --mist-100: oklch(96.3% 0.002 197.1);
+  --mist-200: oklch(92.5% 0.005 214.3);
+  --mist-300: oklch(87.2% 0.007 219.6);
+  --mist-400: oklch(72.3% 0.014 214.4);
+  --mist-500: oklch(56% 0.021 213.5);
+  --mist-600: oklch(45% 0.017 213.2);
+  --mist-700: oklch(37.8% 0.015 216);
+  --mist-800: oklch(27.5% 0.011 216.9);
+  --mist-900: oklch(21.8% 0.008 223.9);
+  --mist-950: oklch(14.8% 0.004 228.8);
+
+  /* Status: Tailwind v4.3 values */
+  --red-50: oklch(97.1% 0.013 17.38);
+  --red-100: oklch(93.6% 0.032 17.717);
+  --red-200: oklch(88.5% 0.062 18.334);
+  --red-300: oklch(80.8% 0.114 19.571);
+  --red-400: oklch(70.4% 0.191 22.216);
+  --red-500: oklch(63.7% 0.237 25.331);
+  --red-600: oklch(57.7% 0.245 27.325);
+  --red-700: oklch(50.5% 0.213 27.518);
+  --red-800: oklch(44.4% 0.177 26.899);
+  --red-900: oklch(39.6% 0.141 25.723);
+  --red-950: oklch(25.8% 0.092 26.042);
+  --amber-50: oklch(98.7% 0.022 95.277);
+  --amber-100: oklch(96.2% 0.059 95.617);
+  --amber-200: oklch(92.4% 0.12 95.746);
+  --amber-300: oklch(87.9% 0.169 91.605);
+  --amber-400: oklch(82.8% 0.189 84.429);
+  --amber-500: oklch(76.9% 0.188 70.08);
+  --amber-600: oklch(66.6% 0.179 58.318);
+  --amber-700: oklch(55.5% 0.163 48.998);
+  --amber-800: oklch(47.3% 0.137 46.201);
+  --amber-900: oklch(41.4% 0.112 45.904);
+  --amber-950: oklch(27.9% 0.077 45.635);
+  --green-50: oklch(98.2% 0.018 155.826);
+  --green-100: oklch(96.2% 0.044 156.743);
+  --green-200: oklch(92.5% 0.084 155.995);
+  --green-300: oklch(87.1% 0.15 154.449);
+  --green-400: oklch(79.2% 0.209 151.711);
+  --green-500: oklch(72.3% 0.219 149.579);
+  --green-600: oklch(62.7% 0.194 149.214);
+  --green-700: oklch(52.7% 0.154 150.069);
+  --green-800: oklch(44.8% 0.119 151.328);
+  --green-900: oklch(39.3% 0.095 152.535);
+  --green-950: oklch(26.6% 0.065 152.934);
+  --blue-50: oklch(97% 0.014 254.604);
+  --blue-100: oklch(93.2% 0.032 255.585);
+  --blue-200: oklch(88.2% 0.059 254.128);
+  --blue-300: oklch(80.9% 0.105 251.813);
+  --blue-400: oklch(70.7% 0.165 254.624);
+  --blue-500: oklch(62.3% 0.214 259.815);
+  --blue-600: oklch(54.6% 0.245 262.881);
+  --blue-700: oklch(48.8% 0.243 264.376);
+  --blue-800: oklch(42.4% 0.199 265.638);
+  --blue-900: oklch(37.9% 0.146 265.522);
+  --blue-950: oklch(28.2% 0.091 267.935);
+}
+
+/* 2. Mode layer: light uses Taupe, dark uses Mist (swap ramps here) -------- */
+:root {
+  --l-50: var(--taupe-50);
+  --l-100: var(--taupe-100);
+  --l-200: var(--taupe-200);
+  --l-300: var(--taupe-300);
+  --l-400: var(--taupe-400);
+  --l-500: var(--taupe-500);
+  --l-600: var(--taupe-600);
+  --l-700: var(--taupe-700);
+  --l-800: var(--taupe-800);
+  --l-900: var(--taupe-900);
+  --l-950: var(--taupe-950);
+  --d-50: var(--mist-50);
+  --d-100: var(--mist-100);
+  --d-200: var(--mist-200);
+  --d-300: var(--mist-300);
+  --d-400: var(--mist-400);
+  --d-500: var(--mist-500);
+  --d-600: var(--mist-600);
+  --d-700: var(--mist-700);
+  --d-800: var(--mist-800);
+  --d-900: var(--mist-900);
+  --d-950: var(--mist-950);
+  --n-50: var(--l-50);
+  --n-100: var(--l-100);
+  --n-200: var(--l-200);
+  --n-300: var(--l-300);
+  --n-400: var(--l-400);
+  --n-500: var(--l-500);
+  --n-600: var(--l-600);
+  --n-700: var(--l-700);
+  --n-800: var(--l-800);
+  --n-900: var(--l-900);
+  --n-950: var(--l-950);
+}
+.dark {
+  --n-50: var(--d-50);
+  --n-100: var(--d-100);
+  --n-200: var(--d-200);
+  --n-300: var(--d-300);
+  --n-400: var(--d-400);
+  --n-500: var(--d-500);
+  --n-600: var(--d-600);
+  --n-700: var(--d-700);
+  --n-800: var(--d-800);
+  --n-900: var(--d-900);
+  --n-950: var(--d-950);
+}
+
+/* 3. Semantic tokens (shadcn names + Enviolo additions) --------------------
+   Optional per-mode overrides: --light-bg, --dark-bg, --light-accent,
+   --dark-accent, --light-ring, --dark-ring. Unset = default.            */
+:root {
+  --background: var(--light-bg, #ffffff);
+  --foreground: var(--n-950);
+  --card: var(--n-50);
+  --muted: var(--n-100);
+  --muted-foreground: var(--n-500);
+  --border: var(--n-200);
+  --primary: var(--n-900);
+  --primary-foreground: var(--n-50);
+  --secondary: var(--n-100);
+  --secondary-foreground: var(--n-900);
+  --accent: var(--light-accent, var(--n-100));
+  --ring: var(--light-ring, var(--enviolo-200)); /* Coral, 2.3:1 on white: see open decisions */
+
+  --destructive: var(--red-600);  --destructive-foreground: #ffffff;
+  --success: var(--green-600);    --success-foreground: #ffffff;
+  --warning: var(--amber-500);    --warning-foreground: var(--amber-950);
+  --info: var(--blue-600);        --info-foreground: #ffffff;
+  --status-tint: 15%;
+
+  --chart-1: var(--enviolo-200); --chart-2: var(--enviolo-400);
+  --chart-3: var(--enviolo-600); --chart-4: var(--enviolo-900);
+
+  --radius: 0.625rem;        /* 10px, small containers */
+  --radius-control: 9999px;  /* pill: buttons, inputs, chips (Luma) */
+
+  --font: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.dark {
+  --background: var(--dark-bg, var(--n-950));
+  --foreground: var(--n-50);
+  --card: var(--n-900);
+  --muted: var(--n-900);
+  --muted-foreground: var(--n-400);
+  --border: var(--n-800);
+  --primary: var(--n-50);
+  --primary-foreground: var(--n-900);
+  --secondary: var(--n-800);
+  --secondary-foreground: var(--n-50);
+  --accent: var(--dark-accent, var(--n-800));
+  --ring: var(--dark-ring, var(--enviolo-200));
+
+  --destructive: var(--red-500);
+  --success: var(--green-400);    --success-foreground: var(--green-950);
+  --warning: var(--amber-400);
+  --info: var(--blue-400);        --info-foreground: var(--blue-950);
+  --status-tint: 22%;
+
+  --chart-1: var(--enviolo-50);  --chart-2: var(--enviolo-200);
+  --chart-3: var(--enviolo-400); --chart-4: var(--enviolo-500);
+}
+
+/* 4. Tailwind v4 mapping (Tailwind projects only) ------------------------- */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  --radius-lg: var(--radius);
+  --font-sans: var(--font);
+}
+
+@theme {
+  --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --breakpoint-sm: 37.5rem;     /* 600px, tablet */
+  --breakpoint-md: 55rem;       /* 880px, desktop */
+  --container-content: 67.5rem; /* 1080px */
+}

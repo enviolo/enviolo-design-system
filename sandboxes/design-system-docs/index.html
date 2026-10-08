@@ -1,0 +1,1461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Enviolo Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&family=Urbanist:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- Tokens (shadcn naming, mapped to a neutral ramp) ---------- */
+:root{
+  /* two neutral ramps: one feeds light mode, one feeds dark mode. Swapped at runtime. */
+  --l-50:oklch(98.6% 0.002 67.8); --l-100:oklch(96% 0.002 17.2); --l-200:oklch(92.2% 0.005 34.3); --l-300:oklch(86.8% 0.007 39.5); --l-400:oklch(71.4% 0.014 41.2); --l-500:oklch(54.7% 0.021 43.1); --l-600:oklch(43.8% 0.017 39.3); --l-700:oklch(36.7% 0.016 35.7); --l-800:oklch(26.8% 0.011 36.5); --l-900:oklch(21.4% 0.009 43.1); --l-950:oklch(14.7% 0.004 49.3);
+  --d-50:oklch(98.7% 0.002 197.1); --d-100:oklch(96.3% 0.002 197.1); --d-200:oklch(92.5% 0.005 214.3); --d-300:oklch(87.2% 0.007 219.6); --d-400:oklch(72.3% 0.014 214.4); --d-500:oklch(56% 0.021 213.5); --d-600:oklch(45% 0.017 213.2); --d-700:oklch(37.8% 0.015 216); --d-800:oklch(27.5% 0.011 216.9); --d-900:oklch(21.8% 0.008 223.9); --d-950:oklch(14.8% 0.004 228.8);
+  --n-50:var(--l-50); --n-100:var(--l-100); --n-200:var(--l-200); --n-300:var(--l-300); --n-400:var(--l-400); --n-500:var(--l-500); --n-600:var(--l-600); --n-700:var(--l-700); --n-800:var(--l-800); --n-900:var(--l-900); --n-950:var(--l-950);
+
+  --background:var(--light-bg,#FFFFFF);
+  --foreground:var(--n-950);
+  --muted:var(--n-100);
+  --muted-foreground:var(--n-500);
+  --card:var(--n-50);
+  --border:var(--n-200);
+  --primary:var(--n-900);
+  --primary-foreground:var(--n-50);
+  --secondary:var(--n-100);
+  --secondary-foreground:var(--n-900);
+  --accent:var(--light-accent,var(--n-100));
+  /* status primitives: Tailwind v4.3 red, amber, green, blue */
+  --red-50:oklch(97.1% 0.013 17.38); --red-100:oklch(93.6% 0.032 17.717); --red-200:oklch(88.5% 0.062 18.334); --red-300:oklch(80.8% 0.114 19.571); --red-400:oklch(70.4% 0.191 22.216); --red-500:oklch(63.7% 0.237 25.331); --red-600:oklch(57.7% 0.245 27.325); --red-700:oklch(50.5% 0.213 27.518); --red-800:oklch(44.4% 0.177 26.899); --red-900:oklch(39.6% 0.141 25.723); --red-950:oklch(25.8% 0.092 26.042);
+  --amber-50:oklch(98.7% 0.022 95.277); --amber-100:oklch(96.2% 0.059 95.617); --amber-200:oklch(92.4% 0.12 95.746); --amber-300:oklch(87.9% 0.169 91.605); --amber-400:oklch(82.8% 0.189 84.429); --amber-500:oklch(76.9% 0.188 70.08); --amber-600:oklch(66.6% 0.179 58.318); --amber-700:oklch(55.5% 0.163 48.998); --amber-800:oklch(47.3% 0.137 46.201); --amber-900:oklch(41.4% 0.112 45.904); --amber-950:oklch(27.9% 0.077 45.635);
+  --green-50:oklch(98.2% 0.018 155.826); --green-100:oklch(96.2% 0.044 156.743); --green-200:oklch(92.5% 0.084 155.995); --green-300:oklch(87.1% 0.15 154.449); --green-400:oklch(79.2% 0.209 151.711); --green-500:oklch(72.3% 0.219 149.579); --green-600:oklch(62.7% 0.194 149.214); --green-700:oklch(52.7% 0.154 150.069); --green-800:oklch(44.8% 0.119 151.328); --green-900:oklch(39.3% 0.095 152.535); --green-950:oklch(26.6% 0.065 152.934);
+  --blue-50:oklch(97% 0.014 254.604); --blue-100:oklch(93.2% 0.032 255.585); --blue-200:oklch(88.2% 0.059 254.128); --blue-300:oklch(80.9% 0.105 251.813); --blue-400:oklch(70.7% 0.165 254.624); --blue-500:oklch(62.3% 0.214 259.815); --blue-600:oklch(54.6% 0.245 262.881); --blue-700:oklch(48.8% 0.243 264.376); --blue-800:oklch(42.4% 0.199 265.638); --blue-900:oklch(37.9% 0.146 265.522); --blue-950:oklch(28.2% 0.091 267.935);
+  /* status semantics */
+  --destructive:var(--red-600); --destructive-foreground:#FFFFFF;
+  --success:var(--green-600); --success-foreground:#FFFFFF;
+  --warning:var(--amber-500); --warning-foreground:var(--amber-950);
+  --info:var(--blue-600); --info-foreground:#FFFFFF;
+  --status-tint:15%; /* status backgrounds: token mixed with transparent */
+  --ring:var(--light-ring,var(--enviolo-200));
+  /* Enviolo brand ramp (draft): light to dark, sunset to midnight */
+  --enviolo-50:#FAEAC0; --enviolo-100:#F5CAA8; --enviolo-200:#E79782; --enviolo-300:#C88273; --enviolo-400:#A96D64; --enviolo-500:#865A56; --enviolo-600:#614749; --enviolo-700:#393339; --enviolo-800:#20262B; --enviolo-900:#05191E; --enviolo-950:#020D12;
+  --brand-1:var(--enviolo-50); --brand-2:var(--enviolo-200); --brand-3:var(--enviolo-400); --brand-4:var(--enviolo-600);
+  --chart-1:var(--enviolo-200); --chart-2:var(--enviolo-400); --chart-3:var(--enviolo-600); --chart-4:var(--enviolo-900);
+  --radius:10px;
+  --radius-control:999px;
+  --font-mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font:"Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-500);
+    --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --status-tint:22%;
+    --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
+    --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
+    --card:var(--n-900); --border:var(--n-800); --primary:var(--n-50); --primary-foreground:var(--n-900);
+    --secondary:var(--n-800); --secondary-foreground:var(--n-50); --accent:var(--dark-accent,var(--n-800)); --ring:var(--dark-ring,var(--enviolo-200));
+  }
+}
+:root[data-theme="dark"]{
+  --chart-1:var(--enviolo-50); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-500);
+  --destructive:var(--red-500); --success:var(--green-400); --success-foreground:var(--green-950); --warning:var(--amber-400); --info:var(--blue-400); --info-foreground:var(--blue-950); --status-tint:22%;
+  --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
+  --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
+  --card:var(--n-900); --border:var(--n-800); --primary:var(--n-50); --primary-foreground:var(--n-900);
+  --secondary:var(--n-800); --secondary-foreground:var(--n-50); --accent:var(--dark-accent,var(--n-800)); --ring:var(--dark-ring,var(--enviolo-200));
+}
+
+/* ---------- Base ---------- */
+*,*::before,*::after{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 80px)}
+body{margin:0;background:var(--background);color:var(--foreground);font-family:var(--font);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:40px 24px 120px}
+h1{font-size:clamp(2.2rem,5vw,3.4rem);line-height:1.02;font-weight:800;letter-spacing:-.03em;margin:0 0 16px;max-width:16ch}
+h2{font-size:1.6rem;line-height:1.15;font-weight:700;letter-spacing:-.02em;margin:0 0 6px}
+h3{font-size:1.15rem;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+p{margin:0 0 12px;max-width:62ch}
+.lede{font-size:1.15rem;color:var(--muted-foreground)}
+.about-toggle{margin:14px 0 0 -14px;color:var(--muted-foreground)}
+.about-toggle .chev{transition:transform .15s}
+.about-toggle[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.about[hidden]{display:none}
+.about:not([hidden]){animation:menu-in .14s ease-out}
+.about{margin-top:8px;padding:16px 18px;border:1px solid var(--border);border-radius:12px;background:var(--card);max-width:72ch}
+.about p{font-size:.95rem;color:var(--muted-foreground);margin:0 0 8px}
+.about p:last-child{margin:0}
+.about b{color:var(--foreground)}
+.about .btn-link{font-weight:600}
+.small{font-size:.875rem;color:var(--muted-foreground)}
+code{font-family:var(--font-mono);font-size:.82em;background:var(--muted);padding:2px 6px;border-radius:6px}
+section{margin-top:72px}
+.section-head{display:grid;gap:4px;margin-bottom:20px}
+
+/* ---------- Basecoat-style buttons ---------- */
+.btn{
+  --h:40px;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  height:var(--h);padding:0 18px;border-radius:var(--radius-control);
+  font:600 .95rem/1 var(--font);letter-spacing:.005em;white-space:nowrap;cursor:pointer;
+  border:1px solid transparent;background:var(--primary);color:var(--primary-foreground);
+  transition:background-color .15s,border-color .15s,color .15s,opacity .15s;text-decoration:none;
+}
+.btn:hover{opacity:.88}
+.btn:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-secondary{background:var(--secondary);color:var(--secondary-foreground)}
+.btn-secondary:hover{opacity:1;background:color-mix(in srgb,var(--secondary) 80%,var(--foreground) 8%)}
+.btn-outline{background:transparent;color:var(--foreground);border-color:var(--border)}
+.btn-outline:hover{opacity:1;background:var(--accent)}
+.btn-ghost{background:transparent;color:var(--foreground)}
+.btn-ghost:hover{opacity:1;background:var(--accent)}
+.btn-link{background:transparent;color:var(--foreground);padding:0;height:auto;text-decoration:underline;text-underline-offset:4px}
+.btn-link:hover{opacity:.7}
+.btn-destructive{background:var(--destructive);color:var(--destructive-foreground)}
+.btn-sm{--h:32px;padding:0 14px;font-size:.85rem}
+.btn-lg{--h:48px;padding:0 22px;font-size:1rem}
+.btn-icon{width:var(--h);padding:0}
+.btn-icon.btn-sm{width:32px}
+.btn svg{width:18px;height:18px;flex:none}
+.btn-sm svg{width:16px;height:16px}
+
+/* input — same pill affordance as buttons */
+.input{height:40px;padding:0 18px;border-radius:var(--radius-control);border:1px solid var(--border);background:var(--background);color:var(--foreground);font:400 .95rem var(--font);min-width:0}
+.input::placeholder{color:var(--muted-foreground)}
+.input:focus-visible{outline:2px solid var(--ring);outline-offset:2px;border-color:transparent}
+.input-sm{height:32px;padding:0 14px;font-size:.88rem}
+.search{position:relative;display:inline-flex;align-items:center}
+.search svg{position:absolute;left:14px;width:16px;height:16px;color:var(--muted-foreground);pointer-events:none}
+.search .input{padding-left:38px}
+
+/* inverted variants for dark imagery */
+.on-dark .btn{background:#FFFFFF;color:#17181B}
+.on-dark .btn-outline{background:transparent;color:#FFFFFF;border-color:rgba(255,255,255,.45)}
+.on-dark .btn-outline:hover{background:rgba(255,255,255,.1)}
+
+/* ---------- Hierarchy ladder ---------- */
+.ladder{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.rung{padding:22px 20px 20px;border-right:1px solid var(--border);display:grid;gap:12px;align-content:start}
+.rung:last-child{border-right:0}
+.rung .lvl{font-size:.85rem;color:var(--muted-foreground);font-weight:600}
+.rung .row{display:flex;gap:8px;flex-wrap:wrap}
+.rung p{font-size:.92rem;margin:0}
+@media (max-width:820px){.ladder{grid-template-columns:1fr 1fr}.rung:nth-child(2){border-right:0}.rung:nth-child(-n+2){border-bottom:1px solid var(--border)}}
+@media (max-width:480px){.ladder{grid-template-columns:1fr}.rung{border-right:0;border-bottom:1px solid var(--border)}.rung:last-child{border-bottom:0}}
+
+/* ---------- Example frames ---------- */
+.frame{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--background)}
+.frame-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:.82rem;color:var(--muted-foreground);background:var(--muted)}
+.frame-bar .dots{display:flex;gap:5px}.frame-bar .dots i{width:9px;height:9px;border-radius:50%;background:var(--border);display:block}
+.why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 28px;margin-top:16px}
+.why div{font-size:.9rem;color:var(--muted-foreground)}
+.why b{color:var(--foreground);font-weight:700;display:block;margin-bottom:2px}
+
+/* enviolo.com hero */
+.hero{position:relative;min-height:340px;padding:40px 36px;display:grid;align-content:end;gap:18px;color:#fff;
+  background:
+    radial-gradient(120% 90% at 85% 10%, rgba(231,151,130,.55), transparent 55%),
+    radial-gradient(90% 80% at 10% 100%, rgba(97,71,73,.85), transparent 60%),
+    linear-gradient(160deg,var(--enviolo-700) 0%,var(--enviolo-800) 35%,var(--enviolo-900) 70%,var(--enviolo-950) 100%);}
+.hero .hub{position:absolute;right:36px;top:34px;width:150px;height:150px;border-radius:50%;
+  background:conic-gradient(from 210deg,var(--brand-1),var(--brand-2),var(--brand-3),var(--brand-4),var(--brand-1));
+  -webkit-mask:radial-gradient(circle,transparent 46%,#000 47%,#000 62%,transparent 63%,transparent 70%,#000 71%);
+          mask:radial-gradient(circle,transparent 46%,#000 47%,#000 62%,transparent 63%,transparent 70%,#000 71%);opacity:.9}
+.hero h3{font-size:clamp(1.6rem,3.6vw,2.4rem);line-height:1.05;letter-spacing:-.025em;font-weight:800;max-width:14ch;margin:0}
+.hero p{color:rgba(255,255,255,.75);margin:0;max-width:44ch}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+@media (max-width:560px){.hero .hub{width:90px;height:90px;right:20px;top:20px}.hero{padding:28px 22px}}
+
+/* product */
+.product{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;padding:28px}
+.product > *{min-width:0}
+.product .shot{max-height:360px;width:100%}
+.product .shot{aspect-ratio:4/3;border-radius:12px;background:radial-gradient(circle at 50% 50%,var(--muted) 0 30%,transparent 31%),var(--card);border:1px solid var(--border);display:grid;place-items:center}
+.product .shot span{width:42%;aspect-ratio:1;border-radius:50%;border:14px solid var(--foreground);box-shadow:inset 0 0 0 10px var(--card),inset 0 0 0 14px var(--border)}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;font-size:.92rem;margin:14px 0 22px}
+.spec dt{color:var(--muted-foreground)}.spec dd{margin:0;font-weight:600}
+@media (max-width:880px){
+  .product{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:22px;padding:22px}
+  .product .shot{aspect-ratio:1/1}
+  .product .spec{grid-template-columns:1fr;gap:0}
+  .product .spec dd{margin-bottom:8px}
+  .product .btn-lg{--h:40px;padding:0 16px;font-size:.95rem}
+  .product .btn-lg.btn-icon{padding:0}
+}
+@media (max-width:600px){
+  .product{grid-template-columns:1fr}
+  .product .shot{aspect-ratio:16/9}
+  .product .spec{grid-template-columns:auto 1fr;gap:6px 18px}
+  .product .spec dd{margin-bottom:0}
+}
+
+/* orders */
+.orders{padding:22px}
+.toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.seg{display:inline-flex;gap:4px;padding:4px;background:var(--muted);border-radius:var(--radius-control)}
+.seg .btn{background:transparent;color:var(--muted-foreground)}
+.seg .btn[aria-pressed="true"]{background:var(--background);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:560px}
+th{text-align:left;font-weight:600;color:var(--muted-foreground);padding:10px 14px;border-bottom:1px solid var(--border);background:var(--card)}
+td{padding:10px 14px;border-bottom:1px solid var(--border)}
+tr:last-child td{border-bottom:0}
+td.actions{text-align:right;white-space:nowrap}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.8rem;font-weight:600;background:var(--muted)}
+.pill.ok{background:color-mix(in srgb,var(--success) var(--status-tint),transparent);color:var(--success)}
+.pill.warn{background:color-mix(in srgb,var(--warning) var(--status-tint),transparent);color:color-mix(in srgb,var(--warning) 70%,var(--foreground))}
+.pill.info{background:color-mix(in srgb,var(--info) var(--status-tint),transparent);color:var(--info)}
+.pill.err{background:color-mix(in srgb,var(--destructive) var(--status-tint),transparent);color:var(--destructive)}
+.order-foot{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;flex-wrap:wrap}
+
+/* dialog */
+.dialog-demo{padding:28px;background:var(--muted);display:grid;place-items:center}
+.dialog{width:min(420px,100%);background:var(--background);border:1px solid var(--border);border-radius:14px;padding:22px;box-shadow:0 12px 32px rgba(0,0,0,.12)}
+.dialog .row{justify-content:flex-end;margin-top:18px}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;padding:22px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;display:grid;gap:10px;align-content:start}
+.card .meta{font-size:.85rem;color:var(--muted-foreground)}
+.card .row{margin-top:6px}
+.thumb{height:96px;border-radius:8px;background:linear-gradient(120deg,var(--brand-1),var(--brand-2) 55%,var(--brand-4))}
+.thumb.alt{background:linear-gradient(120deg,var(--brand-4),var(--brand-3) 60%,var(--brand-2))}
+.thumb.alt2{background:linear-gradient(120deg,var(--enviolo-900),var(--enviolo-600))}
+
+/* app */
+.app-demo{padding:28px;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;background:var(--muted)}
+.phone{width:280px;max-width:100%;grid-template-columns:minmax(0,1fr);border-radius:30px;background:var(--background);border:1px solid var(--border);padding:22px 18px;display:grid;gap:14px;min-height:440px;align-content:space-between}
+.phone .top{display:flex;justify-content:space-between;align-items:center}
+.phone .ring{width:130px;height:130px;border-radius:50%;margin:10px auto;border:2px dashed var(--border);display:grid;place-items:center;color:var(--muted-foreground);font-size:.85rem;text-align:center}
+.phone .stack{display:grid;gap:8px}
+.phone .stack .btn{width:100%}
+.phone .seg{max-width:100%}
+.phone .seg .btn{min-width:0;padding:0 6px;flex:1 1 0;font-size:.8rem}
+@media (max-width:420px){.app-demo{padding:16px}}
+
+/* migration */
+.map{display:grid;grid-template-columns:1fr auto 1fr;gap:12px 18px;align-items:center;max-width:620px;border:1px solid var(--border);border-radius:14px;padding:20px}
+.map .arrow{color:var(--muted-foreground)}
+.map > *{min-width:0}
+code{overflow-wrap:anywhere}
+.toolbar .seg{max-width:100%;overflow-x:auto;scrollbar-width:none}
+@media (max-width:560px){.map{grid-template-columns:auto 1fr}.map .arrow{display:none}}
+.map .note{grid-column:1/-1;font-size:.88rem;color:var(--muted-foreground);border-top:1px solid var(--border);padding-top:12px;margin-top:4px}
+
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.rule{border:1px solid var(--border);border-radius:12px;padding:16px}
+.rule p{font-size:.93rem;margin:0;color:var(--muted-foreground)}
+.rule h3{margin-bottom:6px}
+
+.settings{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:20;display:flex;gap:8px;align-items:center}
+.settings-trigger{box-shadow:0 2px 10px rgba(0,0,0,.08);background:var(--background)}
+.settings-trigger .chev{transition:transform .15s}
+.settings-trigger[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.menu{position:absolute;right:0;bottom:calc(100% + 8px);width:272px;padding:6px;
+  background:var(--background);color:var(--foreground);border:1px solid var(--border);border-radius:14px;
+  box-shadow:0 12px 32px rgba(0,0,0,.16);transform-origin:bottom right;max-height:calc(100dvh - 90px);overflow-y:auto}
+.menu[hidden]{display:none}
+.menu:not([hidden]){animation:menu-in .14s ease-out}
+@keyframes menu-in{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}
+.menu-label{font-size:.8rem;font-weight:600;color:var(--muted-foreground);padding:8px 10px 4px}
+.menu-sep{height:1px;background:var(--border);margin:6px 4px}
+.menu-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:0;border-radius:var(--radius-control);
+  background:transparent;color:inherit;font:500 .92rem var(--font);text-align:left;cursor:pointer}
+.menu-item:hover,.menu-item:focus-visible{background:var(--accent);outline:none}
+.menu-item .check{width:16px;height:16px;flex:none;opacity:0}
+.menu-item[aria-checked="true"] .check{opacity:1}
+.menu-item .def{font-size:.72rem;font-weight:500;color:var(--muted-foreground);margin-left:2px;white-space:nowrap}
+.menu-item .sample{margin-left:auto;color:var(--muted-foreground);font-size:.85rem;display:inline-flex}
+.menu-item .sample .ic{width:16px;height:16px}
+.menu-item .sub-chev{width:16px;height:16px;flex:none;color:var(--muted-foreground)}
+.menu-item.has-sub[aria-expanded="true"]{background:var(--accent)}
+.sub-val{gap:6px;align-items:center;font-size:.82rem;white-space:nowrap}
+.menu-item .ic{width:16px;height:16px;flex:none}
+.submenu{right:calc(272px + 8px);bottom:auto;width:250px;max-height:calc(100dvh - 40px)}
+.submenu .back{display:none}
+@media (max-width:560px){
+  .submenu{right:0;top:auto!important;bottom:calc(100% + 8px)!important;width:272px}
+  .submenu .back{display:flex}
+}
+.swatch{gap:2px}.swatch i{width:10px;height:14px;border-radius:3px;display:block;box-shadow:inset 0 0 0 1px var(--border)}
+
+
+/* ---------- Button types ---------- */
+.types{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.types.two{grid-template-columns:repeat(2,minmax(0,1fr));max-width:calc(50% + 7px)}
+.type-card{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--card);display:grid;grid-template-rows:auto 1fr;min-width:0}
+.type-stage{background:var(--background);border-bottom:1px solid var(--border);padding:28px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;align-content:center;height:128px}
+.type-body{padding:16px 18px;display:grid;gap:8px;align-content:start}
+.type-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.type-title h3{margin:0}
+.type-title .badge{margin:0}
+.type-body .chips{margin:0}
+.type-body p{margin:0;font-size:.9rem;color:var(--muted-foreground)}
+.type-body p b{color:var(--foreground);font-weight:600;margin-right:4px}
+@media (max-width:1000px){.types{grid-template-columns:repeat(2,minmax(0,1fr))}.types.two{max-width:none}}
+@media (max-width:600px){.types,.types.two{grid-template-columns:1fr}}
+.choose{list-style:none;counter-reset:q;margin:0;padding:0;display:grid;gap:10px;max-width:760px}
+.choose li{counter-increment:q;display:grid;grid-template-columns:36px 1fr;column-gap:12px;row-gap:2px;border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.choose li::before{content:counter(q);grid-row:span 2;width:28px;height:28px;border-radius:var(--radius-control);background:var(--muted);display:grid;place-items:center;font-weight:700;font-size:.85rem}
+.choose b{font-weight:600}
+.choose span{color:var(--muted-foreground);font-size:.93rem}
+.size-row{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end}
+.size-row div{display:grid;gap:10px;justify-items:start}
+.states table{min-width:520px}
+.states th[scope="row"]{font-weight:600;color:var(--foreground);background:transparent}
+.states td{padding:14px}
+.btn.is-hover{opacity:.88}
+.btn-secondary.is-hover{opacity:1;background:color-mix(in srgb,var(--secondary) 80%,var(--foreground) 8%)}
+.btn-outline.is-hover,.btn-ghost.is-hover{opacity:1;background:var(--accent)}
+.btn.is-focus{outline:2px solid var(--ring);outline-offset:2px}
+
+/* ---------- Site navigation ---------- */
+.topnav{position:sticky;top:0;z-index:15;background:color-mix(in srgb,var(--background) 86%,transparent);-webkit-backdrop-filter:saturate(1.4) blur(12px);backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid var(--border)}
+.topnav-inner{max-width:1080px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brandmark{display:inline-flex;align-items:center;gap:12px;color:var(--foreground);text-decoration:none;white-space:nowrap}
+.brandmark svg{height:18px;width:auto;display:block}
+.brandmark span{color:var(--muted-foreground);font-size:.95rem;font-weight:500;padding-left:12px;border-left:1px solid var(--border);line-height:1.2}
+.mainnav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0}
+.mainnav .btn{color:var(--muted-foreground)}
+.mainnav .btn[aria-current="page"]{background:var(--secondary);color:var(--secondary-foreground)}
+@media (max-width:640px){.topnav-inner{flex-wrap:wrap;gap:8px;padding:10px 16px}.mainnav{width:calc(100% + 12px);margin:0 -6px;justify-content:space-between;gap:0}.mainnav .btn{padding:0 10px;font-size:.84rem}}
+
+.nav-trigger{gap:4px}
+.nav-trigger .nav-chev{width:14px;height:14px;transition:transform .15s}
+.nav-trigger[aria-expanded="true"] .nav-chev{transform:rotate(180deg)}
+.nav-trigger[aria-expanded="true"]{background:var(--accent);color:var(--foreground)}
+@media (max-width:420px){.nav-trigger .nav-chev{display:none}.mainnav .btn{padding:0 8px}}
+.navdd{position:absolute;width:280px;max-width:calc(100vw - 16px);padding:6px;background:var(--background);color:var(--foreground);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 32px rgba(0,0,0,.16);z-index:25}
+.navdd[hidden]{display:none}
+.navdd:not([hidden]){animation:menu-in .14s ease-out}
+.navdd a{display:grid;gap:2px;padding:10px 12px;border-radius:10px;color:var(--foreground);text-decoration:none}
+.navdd a:hover,.navdd a:focus-visible{background:var(--accent);outline:none}
+.navdd a[aria-current="page"]{background:var(--secondary)}
+.navdd a b{font-weight:600;font-size:.95rem}
+.navdd a span{font-size:.82rem;color:var(--muted-foreground);line-height:1.35}
+.navdd .soon{padding:8px 12px 6px;font-size:.82rem;color:var(--muted-foreground)}
+.view[hidden]{display:none}
+.view-head{margin-bottom:8px}
+.topic-head{margin:0 0 12px;display:grid;gap:2px}
+.topic-head p{margin:0}
+.topic-name{font-weight:700;font-size:1.05rem}
+.topic-desc{color:var(--muted-foreground);font-size:.95rem;max-width:62ch}
+.subnav{margin:0 0 32px;max-width:100%;overflow-x:auto;scrollbar-width:none}
+.seg .btn[aria-current="page"]{background:var(--background);color:var(--foreground);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.subnav-row{display:flex;align-items:center;gap:6px 14px;flex-wrap:wrap;margin:0 0 32px}
+.subnav-row .subnav{margin:0}
+.subnav-row .soon{font-size:.85rem;color:var(--muted-foreground)}
+.badge{display:inline-flex;align-items:center;height:22px;padding:0 10px;border-radius:var(--radius-control);font-size:.78rem;font-weight:600;background:var(--muted);color:var(--muted-foreground);vertical-align:middle;margin-left:8px;letter-spacing:0}
+
+/* ---------- Overview ---------- */
+.ov-hero{position:relative;overflow:hidden;border-radius:18px;padding:56px 40px 64px;color:#fff;min-height:380px;display:grid;align-content:end;
+  background:
+    radial-gradient(70% 80% at 88% 8%, rgba(231,151,130,.62), transparent 60%),
+    radial-gradient(40% 45% at 96% 0%, rgba(250,234,192,.35), transparent 70%),
+    radial-gradient(85% 90% at 6% 104%, rgba(97,71,73,.9), transparent 62%),
+    linear-gradient(160deg,var(--enviolo-700) 0%,var(--enviolo-800) 35%,var(--enviolo-900) 70%,var(--enviolo-950) 100%)}
+.ov-hero > *:not(.hub){position:relative}
+.ov-hero .hub{position:absolute;right:48px;top:44px;width:210px;height:210px;border-radius:50%;
+  background:conic-gradient(from 210deg,var(--enviolo-50),var(--enviolo-200),var(--enviolo-400),var(--enviolo-600),var(--enviolo-50));
+  -webkit-mask:radial-gradient(circle,transparent 46%,#000 47%,#000 62%,transparent 63%,transparent 70%,#000 71%);
+          mask:radial-gradient(circle,transparent 46%,#000 47%,#000 62%,transparent 63%,transparent 70%,#000 71%);opacity:.9}
+@media (max-width:880px){.ov-hero .hub{width:150px;height:150px;right:28px;top:28px}}
+@media (max-width:600px){.ov-hero .hub{width:96px;height:96px;right:18px;top:18px}}
+.ov-hero h1{color:#fff;max-width:14ch}
+.ov-hero p{color:rgba(255,255,255,.78);max-width:52ch;font-size:1.15rem}
+.ov-hero .meta{font-size:.85rem;color:rgba(255,255,255,.6);margin-top:18px}
+@media (max-width:600px){.ov-hero{padding:120px 22px 32px;border-radius:14px;min-height:0}}
+.arch{display:grid;gap:10px}
+.arch-tier{border:1px solid var(--border);border-radius:14px;padding:18px 20px;background:var(--card);display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start}
+.arch-top{border-color:color-mix(in srgb,var(--ring) 55%,var(--border));background:color-mix(in srgb,var(--ring) 7%,var(--card))}
+.arch-label{display:grid;gap:2px}
+.arch-label b{font-size:1.05rem}
+.arch-label span{font-size:.85rem;color:var(--muted-foreground)}
+.arch-body p{margin:0;font-size:.95rem;color:var(--muted-foreground)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.arch-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.arch-split .arch-tier{grid-template-columns:1fr;gap:10px}
+@media (max-width:880px){.arch-tier{grid-template-columns:1fr;gap:10px}}
+@media (max-width:600px){.arch-split{grid-template-columns:1fr}}
+.explore{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.explore .card{padding:22px;gap:8px}
+.explore .card p{font-size:.95rem;color:var(--muted-foreground);margin:0}
+.explore .card .row{margin:8px 0 0;gap:6px;align-self:end}
+.explore .card{position:relative;cursor:pointer;grid-template-rows:auto auto 1fr;transition:border-color .15s,background-color .15s}
+.explore .card:hover{border-color:color-mix(in srgb,var(--foreground) 22%,var(--border));background:var(--accent)}
+.card-link{color:inherit;text-decoration:none}
+.card-link::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.card-link:focus-visible{outline:none}
+.explore .card:has(.card-link:focus-visible){outline:2px solid var(--ring);outline-offset:2px}
+.explore .card .row a{position:relative;z-index:1}
+.explore .card .row a:hover{background:var(--background)}
+@media (max-width:880px){.explore{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.explore{grid-template-columns:1fr}}
+.defaults{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.defaults div{padding:16px 18px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);margin:-1px -1px 0 0}
+.defaults dt{font-size:.82rem;color:var(--muted-foreground);font-weight:600}
+.defaults dd{margin:2px 0 0;font-weight:600}
+
+.rules.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:880px){.rules.four{grid-template-columns:repeat(2,minmax(0,1fr))}.defaults{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){.rules.four,.defaults{grid-template-columns:1fr}}
+.radii code{justify-self:start}
+/* ---------- Colour ---------- */
+.ramp{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:6px}
+.swatch-btn{all:unset;cursor:pointer;display:grid;gap:8px;align-content:start;border-radius:12px}
+.swatch-btn:focus-visible{outline:2px solid var(--ring);outline-offset:3px}
+.swatch-btn .chip{height:120px;border-radius:12px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06);display:flex;align-items:flex-end;padding:8px;font:600 .78rem var(--font-mono)}
+.swatch-btn .nm{font-weight:700;font-size:.9rem;line-height:1.2}
+.swatch-btn .mt{font:400 .74rem var(--font-mono);color:var(--muted-foreground);line-height:1.4}
+@media (max-width:880px){.ramp{grid-template-columns:repeat(6,minmax(0,1fr));row-gap:16px}}
+@media (max-width:600px){.ramp{grid-template-columns:repeat(3,minmax(0,1fr))}.swatch-btn .chip{height:80px}}
+.ramp-strip{height:28px;border-radius:var(--radius-control);margin-top:18px;background:linear-gradient(90deg,var(--enviolo-50),var(--enviolo-100),var(--enviolo-200),var(--enviolo-300),var(--enviolo-400),var(--enviolo-500),var(--enviolo-600),var(--enviolo-700),var(--enviolo-800),var(--enviolo-900),var(--enviolo-950));box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.grads{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.grad{border:1px solid var(--border);border-radius:14px;overflow:hidden;background:var(--card)}
+.grad .g{height:170px}
+.grad .info{padding:14px 16px;display:grid;gap:4px}
+.grad .info p{margin:0;font-size:.9rem;color:var(--muted-foreground)}
+.grad code{display:block;white-space:normal;line-height:1.5;padding:8px 10px;margin-top:6px}
+.g-sky{background:linear-gradient(180deg,var(--enviolo-950) 0%,var(--enviolo-900) 18%,var(--enviolo-800) 32%,var(--enviolo-700) 44%,var(--enviolo-600) 56%,var(--enviolo-500) 66%,var(--enviolo-300) 78%,var(--enviolo-200) 87%,var(--enviolo-100) 94%,var(--enviolo-50) 100%)}
+.g-glow{background:linear-gradient(120deg,var(--enviolo-50),var(--enviolo-100) 45%,var(--enviolo-200))}
+.g-dusk{background:linear-gradient(120deg,var(--enviolo-200),var(--enviolo-500) 55%,var(--enviolo-700))}
+.g-night{background:linear-gradient(180deg,var(--enviolo-800),var(--enviolo-900) 60%,var(--enviolo-950))}
+.g-volume{background:radial-gradient(120% 90% at 50% 120%,var(--enviolo-800),var(--enviolo-950) 70%);display:grid;place-items:center}
+.g-volume i{display:block;width:112px;height:112px;border-radius:50%;background:radial-gradient(circle at 34% 30%,var(--enviolo-50) 0,var(--enviolo-100) 10%,var(--enviolo-200) 24%,var(--enviolo-300) 38%,var(--enviolo-400) 52%,var(--enviolo-600) 70%,var(--enviolo-700) 84%,var(--enviolo-800) 94%,var(--enviolo-900) 100%);box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.chart{border:1px solid var(--border);border-radius:14px;padding:22px;display:grid;gap:14px;max-width:640px}
+.bar-row{display:grid;grid-template-columns:120px 1fr 44px;gap:12px;align-items:center;font-size:.92rem}
+.bar-row .track{height:22px;border-radius:var(--radius-control);background:var(--muted);overflow:hidden}
+.bar-row .fill{height:100%;border-radius:var(--radius-control)}
+.bar-row .v{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+@media (max-width:480px){.bar-row{grid-template-columns:88px 1fr 36px;font-size:.85rem}}
+.neutral-row{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:4px}
+.neutral-row div{height:56px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.neutral-steps{display:grid;grid-template-columns:repeat(11,minmax(0,1fr));gap:4px;font:400 .72rem var(--font-mono);color:var(--muted-foreground);margin-top:6px;text-align:center}
+.neutral-block{display:grid;gap:4px;margin-bottom:22px}
+.neutral-block h3{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.neutral-block h3 small{font-weight:500;font-size:.85rem;color:var(--muted-foreground)}
+.status-block{margin-bottom:22px}
+.status-block h3{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.status-block h3 small{font-weight:500;font-size:.85rem;color:var(--muted-foreground)}
+.neutral-row div.used span{display:block;font:600 .72rem var(--font);padding:6px 0 0 8px}
+.neutral-row div.used{box-shadow:inset 0 0 0 2px var(--foreground),inset 0 0 0 4px var(--background)}
+.status-demo{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.tokens{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.token{display:flex;gap:12px;align-items:center;border:1px solid var(--border);border-radius:12px;padding:10px 12px}
+.token i{width:36px;height:36px;border-radius:10px;flex:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.token b{display:block;font:600 .82rem var(--font-mono)}
+.token span{font-size:.8rem;color:var(--muted-foreground)}
+.toast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--primary);color:var(--primary-foreground);padding:8px 16px;border-radius:var(--radius-control);font-size:.9rem;font-weight:600;z-index:30;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.toast[hidden]{display:none}
+
+/* ---------- Typography ---------- */
+.families{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.family{border:1px solid var(--border);border-radius:14px;padding:22px;background:var(--card);display:grid;gap:6px;min-width:0}
+.family .big{font-size:4.5rem;line-height:1;font-weight:700;letter-spacing:-.03em}
+.family .abc{color:var(--muted-foreground);overflow-wrap:anywhere}
+@media (max-width:600px){.families{grid-template-columns:1fr}}
+.scale{border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.scale-row{display:grid;grid-template-columns:240px minmax(0,1fr);gap:32px;padding:24px;border-bottom:1px solid var(--border);align-items:center}
+.scale-row:last-child{border-bottom:0}
+.scale-row .tspec{font:400 .78rem/1.6 var(--font-mono);color:var(--muted-foreground);overflow-wrap:anywhere;min-width:0}
+.scale-row .tspec b{display:block;font:600 .9rem var(--font);color:var(--foreground);margin-bottom:2px}
+.scale-row .sample{min-width:0;overflow-wrap:anywhere;padding:4px 0}
+@media (max-width:880px){.scale-row{grid-template-columns:180px minmax(0,1fr);gap:24px;padding:20px}}
+@media (max-width:600px){.scale-row{grid-template-columns:1fr;gap:10px;padding:18px}}
+.weights{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.weights div{border:1px solid var(--border);border-radius:12px;padding:16px;font-size:1.6rem}
+.weights small{display:block;font:400 .75rem var(--font-mono);color:var(--muted-foreground);margin-top:4px}
+@media (max-width:600px){.weights{grid-template-columns:1fr 1fr}}
+
+/* ---------- Layout ---------- */
+.bp-now{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border:1px solid var(--border);border-radius:14px;padding:16px 18px;background:var(--card);margin-bottom:22px}
+.bp-now b{font-size:1.1rem}
+.bp-now .w{font:600 .9rem var(--font-mono);color:var(--muted-foreground)}
+.bp-now .row{margin-left:auto}
+.cols{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px}
+.cols .c{height:64px;border-radius:6px;background:color-mix(in srgb,var(--enviolo-200) 24%,transparent);display:grid;place-items:center;font:600 .75rem var(--font-mono);color:var(--muted-foreground)}
+.ex{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;margin-top:14px}
+.ex div{height:72px;border-radius:10px;background:var(--muted);border:1px solid var(--border);display:grid;place-items:center;font-size:.85rem;color:var(--muted-foreground);text-align:center;padding:0 6px}
+.ex .s5{grid-column:span 5}.ex .s7{grid-column:span 7}.ex .s4{grid-column:span 4}
+@media (max-width:879px){
+  .cols,.ex{grid-template-columns:repeat(8,minmax(0,1fr));gap:20px}
+  .cols .c:nth-child(n+9){display:none}
+  .ex .s5{grid-column:span 3}.ex .s7{grid-column:span 5}.ex .s4{grid-column:span 4}
+}
+@media (max-width:599px){
+  .cols,.ex{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+  .cols .c:nth-child(n+5){display:none}
+  .ex .s5,.ex .s7,.ex .s4{grid-column:span 4}
+}
+.ex-label{font-size:.85rem;color:var(--muted-foreground);margin-top:22px}
+.grid-overlay{position:fixed;inset:0;pointer-events:none;z-index:14}
+.grid-overlay[hidden]{display:none}
+.grid-overlay .cols{max-width:1080px;margin:0 auto;padding:0 24px;height:100%}
+.grid-overlay .c{height:100%;border-radius:0;background:color-mix(in srgb,var(--enviolo-200) 12%,transparent);color:transparent}
+@media (max-width:599px){.grid-overlay .cols{padding:0 16px}}
+.space{display:grid;gap:8px}
+.space div{display:grid;grid-template-columns:44px 1fr;align-items:center;gap:12px;font:600 .8rem var(--font-mono);color:var(--muted-foreground)}
+.space i{display:block;height:14px;border-radius:4px;background:var(--enviolo-200)}
+.radii{display:flex;gap:14px;flex-wrap:wrap}
+.radii div{display:grid;gap:8px;font-size:.85rem;color:var(--muted-foreground)}
+.radii span{display:block;width:150px;height:56px;border:1px solid var(--border);background:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="topnav">
+  <div class="topnav-inner">
+    <a class="brandmark" href="#/overview" aria-label="Enviolo Design System, overview"><svg viewBox="0 0 496.06 112.06" fill="currentColor" aria-hidden="true"><path d="M276.93,32.01c-4.39,0-7.98,3.56-7.98,8.02v64.02c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02V40.03c-.06-4.46-3.6-8.02-7.98-8.02Z"/><path d="M336.71,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.88-40.03-39.87-40.03ZM336.65,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M456.2,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.82-40.03-39.87-40.03ZM456.2,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M396.42,0c-4.39,0-7.98,3.56-7.98,8.02v96.03c0,4.4,3.54,8.02,7.98,8.02s7.98-3.61,7.98-8.02V8.02c0-4.4-3.54-8.02-7.98-8.02Z"/><path d="M131.47,32.01c-21.99,0-39.87,17.9-39.87,40.03v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01h0c0-13.27,10.68-23.99,23.9-23.99s23.9,10.73,23.95,23.99h0v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01c-.11-22.13-17.94-40.03-39.92-40.03Z"/><path d="M252.59,32.86c-3.94-1.98-8.72-.4-10.68,3.56l-24.74,49.68-24.74-49.68c-1.97-3.95-6.75-5.53-10.68-3.56s-5.57,6.77-3.6,10.73l31.88,64.02h0c1.29,2.6,3.99,4.4,7.14,4.4s5.79-1.81,7.14-4.46h0l31.88-64.02c1.91-3.9.34-8.69-3.6-10.67Z"/><path d="M71.52,81.18c-3.77-2.26-8.6-1.02-10.91,2.71-4.1,7.28-11.86,12.19-20.81,12.19-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05c8.72,0,16.31,4.69,20.52,11.69l-20.47,12.36h39.87c0-22.07-17.82-40.03-39.87-40.03-22.04,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03c14.73,0,27.61-8.02,34.53-19.98,2.14-3.84.9-8.69-2.87-10.9Z"/></svg><span>Design System</span></a>
+    <nav class="mainnav" aria-label="Main">
+      <a class="btn btn-ghost btn-sm" href="#/overview" data-nav="overview">Overview</a>
+      <a class="btn btn-ghost btn-sm nav-trigger" href="#/brand/colour" data-nav="brand" data-menu="brand" aria-expanded="false" aria-controls="navdd-brand">Brand<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
+      <a class="btn btn-ghost btn-sm nav-trigger" href="#/components/buttons" data-nav="components" data-menu="components" aria-expanded="false" aria-controls="navdd-components">Components<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
+      <a class="btn btn-ghost btn-sm nav-trigger" href="#/layout/grid" data-nav="layout" data-menu="layout" aria-expanded="false" aria-controls="navdd-layout">Layout<svg class="ic nav-chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></a>
+    </nav>
+  </div>
+  <div class="navdd" id="navdd-brand" hidden><a href="#/brand/colour" data-sub="brand/colour"><b>Colour</b><span>Enviolo ramp, gradients, neutrals, status</span></a><a href="#/brand/typography" data-sub="brand/typography"><b>Typography</b><span>Families, scale, weights, rules</span></a></div>
+  <div class="navdd" id="navdd-components" hidden><a href="#/components/buttons" data-sub="components/buttons"><b>Buttons</b><span>Hierarchy, variants and usage</span></a><div class="soon">More components soon</div></div>
+  <div class="navdd" id="navdd-layout" hidden><a href="#/layout/grid" data-sub="layout/grid"><b>Grid and breakpoints</b><span>Columns, breakpoints, spacing, radius</span></a></div>
+</header>
+<main class="wrap" id="main">
+<div class="view" data-view="overview">
+  <section class="ov-hero" aria-labelledby="ov-title" style="margin-top:0">
+    <div class="hub" aria-hidden="true"></div>
+    <h1 id="ov-title">Enviolo Design System</h1>
+    <p>One set of tokens, components and rules for web, app and AI-assisted development at Enviolo. Built on shadcn/ui conventions and shaped by Enviolo: warm days, cool nights. Introduced step by step, as each product is ready for it.</p>
+    <p class="meta">v0.3 · Draft · Updated October 2026</p>
+  </section>
+
+  <section aria-labelledby="ov-explore">
+    <div class="section-head"><h2 id="ov-explore">Explore</h2></div>
+    <div class="explore">
+      <article class="card">
+        <h3><a class="card-link" href="#/brand/colour">Brand</a></h3>
+        <p>The Enviolo colour ramp, gradients, neutrals and typography.</p>
+        <div class="row"><a class="btn btn-outline btn-sm" href="#/brand/colour">Colour</a><a class="btn btn-outline btn-sm" href="#/brand/typography">Typography</a></div>
+      </article>
+      <article class="card">
+        <h3><a class="card-link" href="#/components/buttons">Components</a></h3>
+        <p>Buttons today, more to come. Each component documents when to use it, not just how it looks.</p>
+        <div class="row"><a class="btn btn-outline btn-sm" href="#/components/buttons">Buttons</a></div>
+      </article>
+      <article class="card">
+        <h3><a class="card-link" href="#/layout/grid">Layout</a></h3>
+        <p>Grid, breakpoints, spacing and radius. How screens adapt from phone to desktop.</p>
+        <div class="row"><a class="btn btn-outline btn-sm" href="#/layout/grid">Grid and breakpoints</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="ov-principles">
+    <div class="section-head"><h2 id="ov-principles">Principles</h2></div>
+    <div class="rules four">
+      <div class="rule"><h3>One job per view</h3><p>Each screen has one primary action. If two feel equally important, split the screen.</p></div>
+      <div class="rule"><h3>Pills act, corners hold</h3><p>Based on the Luma style of shadcn/ui and Basecoat: controls are pill-shaped, while cards, panels and dialogs keep soft corners. Shape tells people what they can press.</p></div>
+      <div class="rule"><h3>Tokens, not values</h3><p>Components only use semantic tokens. Change a ramp or a mode and every screen follows.</p></div>
+      <div class="rule"><h3>Warm days, cool nights</h3><p>Light mode runs on Taupe, dark mode on Mist. The brand ramp moves like the sky, from sunset to midnight.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="ov-defaults">
+    <div class="section-head"><h2 id="ov-defaults">Default setup</h2><p class="small">Every setting can be changed from the Display menu to explore alternatives.</p></div>
+    <dl class="defaults">
+      <div><dt>Theme</dt><dd>Match system</dd></div>
+      <div><dt>Font</dt><dd>Source Sans 3</dd></div>
+      <div><dt>Code font</dt><dd>Source Code Pro</dd></div>
+      <div><dt>Icons</dt><dd>Tabler</dd></div>
+      <div><dt>Neutrals</dt><dd>Taupe light, Mist dark</dd></div>
+      <div><dt>Brand ramp</dt><dd>Enviolo, 11 steps (draft)</dd></div>
+    </dl>
+  </section>
+
+  <section aria-labelledby="ov-arch">
+    <div class="section-head"><h2 id="ov-arch">How the system is built</h2><p class="small">Three layers. Each layer only changes what sits below it, never how it's named.</p></div>
+    <div class="arch">
+      <div class="arch-tier arch-top">
+        <div class="arch-label"><b>Enviolo tokens</b><span>Brand layer, on top</span></div>
+        <div class="arch-body"><p>The values that make it Enviolo: the colour ramp, Taupe and Mist neutrals, status colours, accent and focus, Source Sans 3 and Tabler icons. It sets values and never renames anything, so every library underneath keeps working.</p>
+        <div class="chips"><code>--enviolo-*</code><code>--l-* / --d-*</code><code>--ring</code><code>--accent</code></div></div>
+      </div>
+      <div class="arch-tier">
+        <div class="arch-label"><b>Shared contract</b><span>shadcn token names, Luma style</span></div>
+        <div class="arch-body"><p>One vocabulary for every surface: the same token names in CSS, Tailwind and Figma variables. The Luma style supplies the pill-shaped controls and soft-cornered containers.</p>
+        <div class="chips"><code>--background</code><code>--primary</code><code>--muted</code><code>--border</code></div></div>
+      </div>
+      <div class="arch-split">
+        <div class="arch-tier">
+          <div class="arch-label"><b>shadcn/ui</b><span>Backbone for React apps</span></div>
+          <div class="arch-body"><p>React components that live in our own codebase, so we can adapt them freely.</p><div class="chips"><code>&lt;Button variant="secondary"&gt;</code></div></div>
+        </div>
+        <div class="arch-tier">
+          <div class="arch-label"><b>Basecoat</b><span>Backbone for the web</span></div>
+          <div class="arch-body"><p>The same components as plain HTML classes, for websites and CMS templates. No React needed.</p><div class="chips"><code>class="btn-secondary"</code></div></div>
+        </div>
+      </div>
+    </div>
+    <p class="small" style="margin-top:14px">Figma mirrors the same variables through the shadcncraft kit. For AI-assisted development, design.md describes all three layers, so Claude or Cursor picks the right backbone for each surface and only uses Enviolo tokens.</p>
+  </section>
+
+  <section aria-labelledby="ov-build" style="margin-top:48px">
+    <h2 id="ov-build" class="sr-only" style="position:absolute;left:-9999px">About this page</h2>
+    <button class="btn btn-ghost btn-sm about-toggle" id="aboutToggle" type="button" aria-expanded="false" aria-controls="aboutPanel">How this page is built<svg class="ic chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+    <div class="about" id="aboutPanel" hidden>
+      <p>Plain HTML, CSS and a little vanilla JavaScript, with no framework and no build step. No component library is loaded either: the CSS is hand-written to follow two conventions.</p>
+      <p>Class names follow <a class="btn btn-link" href="https://basecoatui.com" rel="noopener">Basecoat</a> (<code>btn</code>, <code>btn-secondary</code>, <code>btn-outline</code>, <code>btn-ghost</code>), which brings the shadcn/ui look to plain HTML. Colour and radius tokens use <a class="btn btn-link" href="https://ui.shadcn.com/docs/theming" rel="noopener">shadcn/ui</a> naming (<code>--primary</code>, <code>--secondary</code>, <code>--muted</code>, <code>--border</code>), so the same tokens drop into a React shadcn setup or a Figma variables file. The visual style is based on Luma, available in both shadcn/ui and Basecoat, which brings the pill-shaped controls. Enviolo-specific choices on top: a two-ramp neutral system for light and dark, and the Enviolo colour ramp.</p>
+    </div>
+  </section>
+</div>
+
+<div class="view" data-view="components/buttons" hidden>
+
+  <div class="view-head">
+    <div class="topic-head"><p class="topic-name">Components</p></div>
+    <div class="subnav-row"><nav class="subnav seg" aria-label="Components sections"><a class="btn btn-sm" href="#/components/buttons" data-sub="components/buttons">Buttons</a></nav><span class="soon">More components soon</span></div>
+    <h1>Buttons</h1>
+    <p class="lede">Four types cover almost every action: primary, secondary, outline and ghost. Each has one job, and together they show people what matters most on a screen.</p>
+  </div>
+
+  <!-- LADDER -->
+  <section aria-labelledby="types">
+    <div class="section-head"><h2 id="types">The four types</h2><p class="small">Ranked by emphasis. Secondary and outline share rank 2; the surface they sit on decides which one to use.</p></div>
+    <div class="types">
+      <article class="type-card">
+        <div class="type-stage"><button class="btn">Find a dealer</button><button class="btn btn-sm">Save</button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Primary</h3><span class="badge">Rank 1</span></div>
+          <div class="chips"><code>btn</code><code>variant="default"</code></div>
+          <p><b>Use for</b> the main job of the view, like Find a dealer, Place order or Start course.</p>
+          <p><b>Avoid</b> more than one per view. If two actions feel equally important, the view is doing two jobs.</p>
+        </div>
+      </article>
+      <article class="type-card">
+        <div class="type-stage"><button class="btn btn-secondary">Compare hubs</button><button class="btn btn-secondary btn-sm">Save draft</button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Secondary</h3><span class="badge">Rank 2</span></div>
+          <div class="chips"><code>btn-secondary</code><code>variant="secondary"</code></div>
+          <p><b>Use for</b> supporting actions on plain backgrounds, filters and toggles, and a second action with a consequence.</p>
+          <p><b>Avoid</b> cards, dialogs and imagery, where the muted fill blends into the surface.</p>
+        </div>
+      </article>
+      <article class="type-card">
+        <div class="type-stage"><button class="btn btn-outline">Preview</button><button class="btn btn-outline btn-sm"><svg class="ic" data-icon="download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Manual</button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Outline</h3><span class="badge">Rank 2</span></div>
+          <div class="chips"><code>btn-outline</code><code>variant="outline"</code></div>
+          <p><b>Use for</b> supporting actions on cards, panels, dialogs and imagery, and the safe way out of a dialog.</p>
+          <p><b>Avoid</b> full-width buttons in mobile forms, where a bordered pill reads like an empty input.</p>
+        </div>
+      </article>
+      <article class="type-card">
+        <div class="type-stage"><button class="btn btn-ghost">Show all</button><button class="btn btn-ghost btn-icon" aria-label="More options"><svg class="ic" data-icon="more" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Ghost</h3><span class="badge">Rank 3</span></div>
+          <div class="chips"><code>btn-ghost</code><code>variant="ghost"</code></div>
+          <p><b>Use for</b> repeated actions on rows and toolbars, skip or defer actions, and icon buttons.</p>
+          <p><b>Avoid</b> the only action on a screen, or anything people must not miss.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="extras">
+    <div class="section-head"><h2 id="extras">Also available</h2><p class="small">Two special-purpose variants outside the ranking.</p></div>
+    <div class="types two">
+      <article class="type-card">
+        <div class="type-stage"><a class="btn btn-link" href="#">Read the warranty terms</a></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Link</h3><span class="badge">Inline</span></div>
+          <div class="chips"><code>btn-link</code><code>variant="link"</code></div>
+          <p><b>Use for</b> navigation inside a sentence.</p>
+          <p><b>Avoid</b> standalone actions. If it does something, it should be a button.</p>
+        </div>
+      </article>
+      <article class="type-card">
+        <div class="type-stage"><button class="btn btn-destructive">Delete draft</button></div>
+        <div class="type-body">
+          <div class="type-title"><h3>Destructive</h3><span class="badge">Special</span></div>
+          <div class="chips"><code>btn-destructive</code><code>variant="destructive"</code></div>
+          <p><b>Use for</b> irreversible actions, always next to an outline way out.</p>
+          <p><b>Avoid</b> anything that can be undone, or as the default focus.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="choose">
+    <div class="section-head"><h2 id="choose">Choosing a type</h2><p class="small">Ask in this order and stop at the first yes.</p></div>
+    <ol class="choose">
+      <li><b>Is it the main thing people come here to do?</b><span>Primary. Only one per view.</span></li>
+      <li><b>Does it support the main job and change something?</b><span>Secondary on plain backgrounds, outline on cards, dialogs and imagery.</span></li>
+      <li><b>Is it repeated, optional or a way out?</b><span>Ghost.</span></li>
+      <li><b>Is it navigation inside a sentence?</b><span>Link. Irreversible instead? Destructive, next to an outline way out.</span></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="sizes">
+    <div class="section-head"><h2 id="sizes">Sizes</h2><p class="small">Same pill shape at every size. Mobile stacks use large; tablet can step large down to default.</p></div>
+    <div class="size-row">
+      <div><button class="btn btn-sm">Small</button><code>btn-sm · 32px</code></div>
+      <div><button class="btn">Default</button><code>default · 40px</code></div>
+      <div><button class="btn btn-lg">Large</button><code>btn-lg · 48px</code></div>
+      <div><button class="btn btn-icon" aria-label="Share"><svg class="ic" data-icon="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button><code>btn-icon · square</code></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="states">
+    <div class="section-head"><h2 id="states">States</h2><p class="small">Hover is subtle, focus uses the focus colour from the Display menu, disabled drops to 45% opacity.</p></div>
+    <div class="table-wrap states">
+      <table>
+        <thead><tr><th><span style="position:absolute;left:-9999px">Type</span></th><th>Default</th><th>Hover</th><th>Focus</th><th>Disabled</th></tr></thead>
+        <tbody><tr><th scope="row">Primary</th><td><button class="btn" tabindex="-1">Button</button></td><td><button class="btn is-hover" tabindex="-1">Button</button></td><td><button class="btn is-focus" tabindex="-1">Button</button></td><td><button class="btn" disabled>Button</button></td></tr><tr><th scope="row">Secondary</th><td><button class="btn btn-secondary" tabindex="-1">Button</button></td><td><button class="btn btn-secondary is-hover" tabindex="-1">Button</button></td><td><button class="btn btn-secondary is-focus" tabindex="-1">Button</button></td><td><button class="btn btn-secondary" disabled>Button</button></td></tr><tr><th scope="row">Outline</th><td><button class="btn btn-outline" tabindex="-1">Button</button></td><td><button class="btn btn-outline is-hover" tabindex="-1">Button</button></td><td><button class="btn btn-outline is-focus" tabindex="-1">Button</button></td><td><button class="btn btn-outline" disabled>Button</button></td></tr><tr><th scope="row">Ghost</th><td><button class="btn btn-ghost" tabindex="-1">Button</button></td><td><button class="btn btn-ghost is-hover" tabindex="-1">Button</button></td><td><button class="btn btn-ghost is-focus" tabindex="-1">Button</button></td><td><button class="btn btn-ghost" disabled>Button</button></td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="context" style="margin-bottom:-24px">
+    <div class="section-head"><h2 id="context">In context</h2><p class="small">The four types at work on real Enviolo screens.</p></div>
+  </section>
+
+  <section aria-labelledby="web">
+    <div class="section-head">
+      <h2 id="web">enviolo.com — hero on imagery</h2>
+      <p class="small">On photos or dark brand surfaces the muted fill gets lost. Outline, inverted, carries the second action.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>enviolo.com</div>
+      <div class="hero on-dark">
+        <div class="hub" aria-hidden="true"></div>
+        <h3>Stepless shifting for heavy loads</h3>
+        <p>Enviolo Utility handles cargo, speed pedelecs and SUV builds, with motors up to 120 Nm.</p>
+        <div class="row">
+          <a class="btn btn-lg" href="#">Find a dealer</a>
+          <a class="btn btn-lg btn-outline" href="#">How the hub works</a>
+        </div>
+      </div>
+    </div>
+    <div class="why">
+      <div><b>Primary, inverted</b>White solid is the strongest mark on a dark surface.</div>
+      <div><b>Outline, inverted</b>Present but quiet. A muted grey fill would read as a disabled button here.</div>
+    </div>
+  </section>
+
+  <!-- PRODUCT PAGE -->
+  <section aria-labelledby="product">
+    <div class="section-head">
+      <h2 id="product">enviolo.com — product page</h2>
+      <p class="small">Plain white page, two actions side by side. Secondary keeps the pair calm and equal in size.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>enviolo.com/utility</div>
+      <div class="product">
+        <div class="shot" aria-hidden="true"><span></span></div>
+        <div>
+          <h3 style="font-size:1.6rem;letter-spacing:-.02em">Enviolo Utility</h3>
+          <p class="small">Stepless hub for cargo and high-torque builds.</p>
+          <dl class="spec">
+            <dt>Max motor torque</dt><dd>120 Nm</dd>
+            <dt>Applications</dt><dd>Cargo, speed pedelec, SUV</dd>
+            <dt>Shifting</dt><dd>Manual or Automatic</dd>
+          </dl>
+          <div class="row">
+            <button class="btn btn-lg">Find a dealer</button>
+            <button class="btn btn-lg btn-secondary">Compare hubs</button>
+            <button class="btn btn-lg btn-ghost btn-icon" aria-label="Share"><svg class="ic" data-icon="share" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+          </div>
+          <p class="small" style="margin-top:14px">Building bikes? <a class="btn btn-link" href="#">Talk to our OEM team</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ORDERS -->
+  <section aria-labelledby="orders">
+    <div class="section-head">
+      <h2 id="orders">orders.enviolo.com — B2B portal</h2>
+      <p class="small">Dense screen. Filters are a secondary segmented control, row actions are ghost, and the order footer pairs primary with secondary.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>orders.enviolo.com/new</div>
+      <div class="orders">
+        <div class="toolbar">
+          <div class="seg" role="group" aria-label="Filter lines">
+            <button class="btn btn-sm" aria-pressed="true">All lines</button>
+            <button class="btn btn-sm" aria-pressed="false">Hubs</button>
+            <button class="btn btn-sm" aria-pressed="false">Shifters</button>
+            <button class="btn btn-sm" aria-pressed="false">Spare parts</button>
+          </div>
+          <div class="row">
+            <label class="search"><svg class="ic" data-icon="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><input class="input input-sm" type="search" placeholder="Search part number" aria-label="Search part number"></label>
+            <button class="btn btn-sm btn-outline">
+              <svg class="ic" data-icon="plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Add line
+            </button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Item</th><th>Qty</th><th>Availability</th><th><span class="sr-only" style="position:absolute;left:-9999px">Actions</span></th></tr></thead>
+            <tbody>
+              <tr><td>Utility hub, 36H, disc</td><td>40</td><td><span class="pill ok">In stock</span></td>
+                <td class="actions">
+                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                </td></tr>
+              <tr><td>Automatic shifter kit</td><td>40</td><td><span class="pill">Ships in 3 weeks</span></td>
+                <td class="actions">
+                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                </td></tr>
+              <tr><td>Cable set, 1800 mm</td><td>80</td><td><span class="pill ok">In stock</span></td>
+                <td class="actions">
+                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Duplicate line"><svg class="ic" data-icon="copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                  <button class="btn btn-ghost btn-icon btn-sm" aria-label="Remove line"><svg class="ic" data-icon="trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+                </td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="order-foot">
+          <button class="btn btn-secondary">Save draft</button>
+          <button class="btn">Place order</button>
+        </div>
+      </div>
+    </div>
+    <div class="why">
+      <div><b>Segmented secondary</b>Filters change the view, not the data. Selected state lifts to the page colour.</div>
+      <div><b>Outline for "Add line"</b>Sits in a toolbar next to a muted control; outline keeps it distinct from the filters.</div>
+      <div><b>Ghost row actions</b>Repeated on every row. Any fill would turn the table into a wall of buttons.</div>
+      <div><b>Primary last</b>Place order sits at the end of the reading path, right-aligned.</div>
+    </div>
+  </section>
+
+  <!-- DIALOG -->
+  <section aria-labelledby="dialog">
+    <div class="section-head">
+      <h2 id="dialog">Confirmations and destructive actions</h2>
+      <p class="small">Cancel is outline in dialogs: the dialog already sits on a dimmed surface, and outline reads as the safe exit.</p>
+    </div>
+    <div class="frame">
+      <div class="dialog-demo">
+        <div class="dialog" role="dialog" aria-labelledby="dlg-t">
+          <h3 id="dlg-t">Delete this draft order?</h3>
+          <p class="small" style="margin:0">The 3 lines in draft #10482 will be removed. This can't be undone.</p>
+          <div class="row">
+            <button class="btn btn-outline">Keep draft</button>
+            <button class="btn btn-destructive">Delete draft</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORT + UNIVERSITY CARDS -->
+  <section aria-labelledby="cards">
+    <div class="section-head">
+      <h2 id="cards">support.enviolo.com and University — cards</h2>
+      <p class="small">Cards already carry a fill. A muted button would sink into the card, so the card's own action is outline. Only the true next step gets primary.</p>
+    </div>
+    <div class="frame">
+      <div class="frame-bar"><span class="dots"><i></i><i></i><i></i></span>university.enviolo.com</div>
+      <div class="row" style="padding:22px 22px 0">
+        <label class="search" style="flex:1;max-width:420px"><svg class="ic" data-icon="search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><input class="input" style="width:100%" type="search" placeholder="Search courses and manuals" aria-label="Search courses and manuals"></label>
+        <button class="btn btn-secondary">Search</button>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="thumb" aria-hidden="true"></div>
+          <h3>Installing a Utility hub</h3>
+          <span class="meta">Workshop course, 25 min</span>
+          <div class="row">
+            <button class="btn">Start course</button>
+            <button class="btn btn-outline">Preview</button>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb alt" aria-hidden="true"></div>
+          <h3>Explaining stepless shifting</h3>
+          <span class="meta">Sales course, 12 min</span>
+          <div class="row">
+            <button class="btn btn-outline">Preview</button>
+            <button class="btn btn-ghost">Save for later</button>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb alt2" aria-hidden="true"></div>
+          <h3>Utility hub manual</h3>
+          <span class="meta">PDF, 4.2 MB, 9 languages</span>
+          <div class="row">
+            <button class="btn btn-outline">
+              <svg class="ic" data-icon="download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Download manual
+            </button>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="why">
+      <div><b>One primary on the page</b>Only the course the dealer is assigned gets "Start course". Others stay outline.</div>
+      <div><b>Ghost for "Save for later"</b>Optional, personal, reversible.</div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section aria-labelledby="app">
+    <div class="section-head">
+      <h2 id="app">Enviolo App — onboarding</h2>
+      <p class="small">Mobile stacks full-width. Primary on top, the escape hatch as ghost so it never competes.</p>
+    </div>
+    <div class="frame">
+      <div class="app-demo">
+        <div class="phone">
+          <div class="top">
+            <button class="btn btn-ghost btn-icon btn-sm" aria-label="Back"><svg class="ic" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+            <span class="small">Step 2 of 3</span>
+            <span style="width:32px"></span>
+          </div>
+          <div>
+            <div class="ring">Hold your phone near the shifter</div>
+            <h3 style="text-align:center">Connect your hub</h3>
+            <p class="small" style="text-align:center;margin:0 auto">Turn on the bike and keep Bluetooth on.</p>
+          </div>
+          <div class="stack">
+            <button class="btn btn-lg">Connect hub</button>
+            <button class="btn btn-lg btn-ghost">Set up later</button>
+          </div>
+        </div>
+        <div class="phone">
+          <div class="top">
+            <button class="btn btn-ghost btn-icon btn-sm" aria-label="Back"><svg class="ic" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+            <span class="small">Riding mode</span>
+            <button class="btn btn-ghost btn-icon btn-sm" aria-label="Settings"><svg class="ic" data-icon="settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+          </div>
+          <div>
+            <h3>Pedal cadence</h3>
+            <p class="small">Choose how fast you want to pedal. The hub shifts to keep it.</p>
+            <div class="seg" role="group" aria-label="Cadence preset" style="display:flex">
+              <button class="btn btn-sm" style="flex:1" aria-pressed="false">Relaxed</button>
+              <button class="btn btn-sm" style="flex:1" aria-pressed="true">Balanced</button>
+              <button class="btn btn-sm" style="flex:1" aria-pressed="false">Sporty</button>
+            </div>
+          </div>
+          <div class="stack">
+            <button class="btn btn-lg">Save cadence</button>
+            <button class="btn btn-lg btn-secondary">Reset to default</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MIGRATION -->
+  <section aria-labelledby="migrate">
+    <div class="section-head">
+      <h2 id="migrate">Migration from the current system</h2>
+    </div>
+    <div class="map">
+      <button class="btn">Old solid</button><span class="arrow" aria-hidden="true">becomes</span><code>btn</code>
+      <button class="btn btn-outline">Old outline</button><span class="arrow" aria-hidden="true">becomes</span><span><code>btn-outline</code> on cards and imagery, <code>btn-secondary</code> in groups on plain pages</span>
+      <button class="btn btn-ghost">Old ghost</button><span class="arrow" aria-hidden="true">becomes</span><code>btn-ghost</code>
+      <p class="note">Audit every page for more than one primary. Downgrade the extras to secondary or outline.</p>
+    </div>
+  </section>
+
+  <!-- RULES -->
+  <section aria-labelledby="rules">
+    <div class="section-head"><h2 id="rules">Rules of thumb</h2></div>
+    <div class="rules">
+      <div class="rule"><h3>One primary per view</h3><p>If two actions feel equally important, the view is doing two jobs. Split it.</p></div>
+      <div class="rule"><h3>Primary goes last</h3><p>Right-aligned on desktop footers, top of the stack on mobile.</p></div>
+      <div class="rule"><h3>Surface picks rank 2</h3><p>Secondary on plain backgrounds, outline on cards, dialogs and imagery. Never both in one group.</p></div>
+      <div class="rule"><h3>Repeated means ghost</h3><p>Anything shown on every row, card or toolbar slot drops to ghost.</p></div>
+      <div class="rule"><h3>Name the outcome</h3><p>"Place order", "Download manual", not "Submit" or "OK". Icon-only buttons always get a label for screen readers.</p></div>
+      <div class="rule"><h3>Destructive is its own variant</h3><p>Only for irreversible actions, and always next to an outline way out.</p></div>
+    </div>
+  </section>
+
+</div>
+
+<div class="view" data-view="brand/colour" hidden>
+  <div class="view-head">
+    <div class="topic-head"><p class="topic-name">Brand</p></div>
+    <nav class="subnav seg" aria-label="Brand sections"><a class="btn btn-sm" href="#/brand/colour" data-sub="brand/colour">Colour</a><a class="btn btn-sm" href="#/brand/typography" data-sub="brand/typography">Typography</a></nav>
+    <h1>Colour</h1>
+    <p class="lede">Two systems. Neutrals carry the interface; the Enviolo ramp carries the brand. Brand colours never go on buttons, text or borders.</p>
+  </div>
+
+  <section aria-labelledby="c-ramp" style="margin-top:40px">
+    <div class="section-head"><h2 id="c-ramp">Enviolo ramp <span class="badge">Draft</span></h2>
+    <p class="small">Light to dark, like the sky: warm at sunset, cold at midnight. Use it for gradients, chart bars and volumetric effects. Select a swatch to copy its hex.</p></div>
+    <div class="ramp"><button class="swatch-btn" type="button" data-copy="#FAEAC0" aria-label="Copy Ivory #FAEAC0"><span class="chip" style="background:var(--enviolo-50);color:#17181B">50</span><span><span class="nm">Ivory</span><br><span class="mt">#FAEAC0<br>L* 93</span></span></button><button class="swatch-btn" type="button" data-copy="#F5CAA8" aria-label="Copy Apricot #F5CAA8"><span class="chip" style="background:var(--enviolo-100);color:#17181B">100</span><span><span class="nm">Apricot</span><br><span class="mt">#F5CAA8<br>L* 84</span></span></button><button class="swatch-btn" type="button" data-copy="#E79782" aria-label="Copy Coral #E79782"><span class="chip" style="background:var(--enviolo-200);color:#17181B">200</span><span><span class="nm">Coral</span><br><span class="mt">#E79782<br>L* 70</span></span></button><button class="swatch-btn" type="button" data-copy="#C88273" aria-label="Copy Copper #C88273"><span class="chip" style="background:var(--enviolo-300);color:#17181B">300</span><span><span class="nm">Copper</span><br><span class="mt">#C88273<br>L* 61</span></span></button><button class="swatch-btn" type="button" data-copy="#A96D64" aria-label="Copy Clay #A96D64"><span class="chip" style="background:var(--enviolo-400);color:#FFFFFF">400</span><span><span class="nm">Clay</span><br><span class="mt">#A96D64<br>L* 52</span></span></button><button class="swatch-btn" type="button" data-copy="#865A56" aria-label="Copy Dusk #865A56"><span class="chip" style="background:var(--enviolo-500);color:#FFFFFF">500</span><span><span class="nm">Dusk</span><br><span class="mt">#865A56<br>L* 43</span></span></button><button class="swatch-btn" type="button" data-copy="#614749" aria-label="Copy Twilight #614749"><span class="chip" style="background:var(--enviolo-600);color:#FFFFFF">600</span><span><span class="nm">Twilight</span><br><span class="mt">#614749<br>L* 33</span></span></button><button class="swatch-btn" type="button" data-copy="#393339" aria-label="Copy Coffee #393339"><span class="chip" style="background:var(--enviolo-700);color:#FFFFFF">700</span><span><span class="nm">Coffee</span><br><span class="mt">#393339<br>L* 22</span></span></button><button class="swatch-btn" type="button" data-copy="#20262B" aria-label="Copy Nightfall #20262B"><span class="chip" style="background:var(--enviolo-800);color:#FFFFFF">800</span><span><span class="nm">Nightfall</span><br><span class="mt">#20262B<br>L* 15</span></span></button><button class="swatch-btn" type="button" data-copy="#05191E" aria-label="Copy Midnight #05191E"><span class="chip" style="background:var(--enviolo-900);color:#FFFFFF">900</span><span><span class="nm">Midnight</span><br><span class="mt">#05191E<br>L* 7</span></span></button><button class="swatch-btn" type="button" data-copy="#020D12" aria-label="Copy Pearl Black #020D12"><span class="chip" style="background:var(--enviolo-950);color:#FFFFFF">950</span><span><span class="nm">Pearl Black</span><br><span class="mt">#020D12<br>L* 3</span></span></button></div>
+    <div class="ramp-strip" aria-hidden="true"></div>
+  </section>
+
+  <section aria-labelledby="c-grad">
+    <div class="section-head"><h2 id="c-grad">Gradients</h2><p class="small">Numbers refer to ramp steps (<code>var(--enviolo-200)</code>). Use one gradient per view, for a brand moment.</p></div>
+    <div class="grads"><div class="grad"><div class="g g-sky"></div><div class="info"><h3>Sky, sunset to midnight</h3><p>Full span for hero moments. Night on top, horizon below.</p><code>linear-gradient(180deg, 950, 900, 800, 700, 600, 500, 300, 200, 100, 50)</code></div></div><div class="grad"><div class="g g-glow"></div><div class="info"><h3>Sunset glow</h3><p>Neighbouring warm steps. Soft, light backgrounds and highlights.</p><code>linear-gradient(120deg, 50, 100, 200)</code></div></div><div class="grad"><div class="g g-dusk"></div><div class="info"><h3>Dusk</h3><p>Mid span with depth. Section backgrounds, cards with imagery.</p><code>linear-gradient(120deg, 200, 500, 700)</code></div></div><div class="grad"><div class="g g-night"></div><div class="info"><h3>Night</h3><p>The cool end. Dark mode surfaces and footers.</p><code>linear-gradient(180deg, 800, 900, 950)</code></div></div><div class="grad"><div class="g g-volume"><i></i></div><div class="info"><h3>Volume</h3><p>Radial light source for volumetric effects: hubs, spheres, product glow.</p><code>radial-gradient(circle at 34% 30%, 50, 100, 200, 300, 400, 600, 700, 800, 900)</code></div></div></div>
+  </section>
+
+  <section aria-labelledby="c-chart">
+    <div class="section-head"><h2 id="c-chart">Charts</h2><p class="small">Pick spaced steps so bars separate by lightness, not just hue. Light mode uses 200, 400, 600, 900; dark mode shifts to 50, 200, 400, 500 so bars stay visible on dark surfaces.</p></div>
+    <div class="chart" role="img" aria-label="Example bar chart: share of hub sales by segment. Cargo 42%, speed pedelec 28%, SUV 19%, city 11%.">
+      <h3 style="margin:0">Share of hub sales by segment</h3>
+      <div class="bar-row"><span>Cargo</span><span class="track"><span class="fill" style="display:block;width:100.0%;background:var(--chart-1)"></span></span><span class="v">42%</span></div><div class="bar-row"><span>Speed pedelec</span><span class="track"><span class="fill" style="display:block;width:66.7%;background:var(--chart-2)"></span></span><span class="v">28%</span></div><div class="bar-row"><span>SUV</span><span class="track"><span class="fill" style="display:block;width:45.2%;background:var(--chart-3)"></span></span><span class="v">19%</span></div><div class="bar-row"><span>City</span><span class="track"><span class="fill" style="display:block;width:26.2%;background:var(--chart-4)"></span></span><span class="v">11%</span></div>
+      <p class="small" style="margin:0">Illustrative data.</p>
+    </div>
+  </section>
+
+  <section aria-labelledby="c-neutral">
+    <div class="section-head"><h2 id="c-neutral">Neutrals</h2><p class="small">Tailwind v4.3 ramps. Light and dark mode use different ramps; change them in the Display menu.</p></div>
+    <div class="neutral-block"><h3 id="nl-title">Light mode</h3><div class="neutral-row" id="neutralLight"></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div>
+    <div class="neutral-block"><h3 id="nd-title">Dark mode</h3><div class="neutral-row" id="neutralDark"></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div>
+  </section>
+
+  <section aria-labelledby="c-status">
+    <div class="section-head"><h2 id="c-status">Status colours</h2><p class="small">Tailwind v4.3 primitives, mapped to semantic status tokens. Outlined steps are the ones each token uses: the darker step in light mode, the lighter step in dark mode, so status colours keep their contrast on both backgrounds. Status colours carry meaning only: errors, warnings, success and information, never decoration.</p></div>
+    <div class="status-block"><h3>Red <small>Destructive · light 600, dark 500</small></h3><div class="neutral-row"><div class="" style="background:var(--red-50)" title="50 · oklch(97.1% 0.013 17.38)"></div><div class="" style="background:var(--red-100)" title="100 · oklch(93.6% 0.032 17.717)"></div><div class="" style="background:var(--red-200)" title="200 · oklch(88.5% 0.062 18.334)"></div><div class="" style="background:var(--red-300)" title="300 · oklch(80.8% 0.114 19.571)"></div><div class="" style="background:var(--red-400)" title="400 · oklch(70.4% 0.191 22.216)"></div><div class="used" style="background:var(--red-500);color:#FFFFFF" title="500 · oklch(63.7% 0.237 25.331)"><span>Dark</span></div><div class="used" style="background:var(--red-600);color:#FFFFFF" title="600 · oklch(57.7% 0.245 27.325)"><span>Light</span></div><div class="" style="background:var(--red-700)" title="700 · oklch(50.5% 0.213 27.518)"></div><div class="" style="background:var(--red-800)" title="800 · oklch(44.4% 0.177 26.899)"></div><div class="" style="background:var(--red-900)" title="900 · oklch(39.6% 0.141 25.723)"></div><div class="" style="background:var(--red-950)" title="950 · oklch(25.8% 0.092 26.042)"></div></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div><div class="status-block"><h3>Amber <small>Warning · light 500, dark 400</small></h3><div class="neutral-row"><div class="" style="background:var(--amber-50)" title="50 · oklch(98.7% 0.022 95.277)"></div><div class="" style="background:var(--amber-100)" title="100 · oklch(96.2% 0.059 95.617)"></div><div class="" style="background:var(--amber-200)" title="200 · oklch(92.4% 0.12 95.746)"></div><div class="" style="background:var(--amber-300)" title="300 · oklch(87.9% 0.169 91.605)"></div><div class="used" style="background:var(--amber-400);color:#1c1917" title="400 · oklch(82.8% 0.189 84.429)"><span>Dark</span></div><div class="used" style="background:var(--amber-500);color:#1c1917" title="500 · oklch(76.9% 0.188 70.08)"><span>Light</span></div><div class="" style="background:var(--amber-600)" title="600 · oklch(66.6% 0.179 58.318)"></div><div class="" style="background:var(--amber-700)" title="700 · oklch(55.5% 0.163 48.998)"></div><div class="" style="background:var(--amber-800)" title="800 · oklch(47.3% 0.137 46.201)"></div><div class="" style="background:var(--amber-900)" title="900 · oklch(41.4% 0.112 45.904)"></div><div class="" style="background:var(--amber-950)" title="950 · oklch(27.9% 0.077 45.635)"></div></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div><div class="status-block"><h3>Green <small>Success · light 600, dark 400</small></h3><div class="neutral-row"><div class="" style="background:var(--green-50)" title="50 · oklch(98.2% 0.018 155.826)"></div><div class="" style="background:var(--green-100)" title="100 · oklch(96.2% 0.044 156.743)"></div><div class="" style="background:var(--green-200)" title="200 · oklch(92.5% 0.084 155.995)"></div><div class="" style="background:var(--green-300)" title="300 · oklch(87.1% 0.15 154.449)"></div><div class="used" style="background:var(--green-400);color:#1c1917" title="400 · oklch(79.2% 0.209 151.711)"><span>Dark</span></div><div class="" style="background:var(--green-500)" title="500 · oklch(72.3% 0.219 149.579)"></div><div class="used" style="background:var(--green-600);color:#FFFFFF" title="600 · oklch(62.7% 0.194 149.214)"><span>Light</span></div><div class="" style="background:var(--green-700)" title="700 · oklch(52.7% 0.154 150.069)"></div><div class="" style="background:var(--green-800)" title="800 · oklch(44.8% 0.119 151.328)"></div><div class="" style="background:var(--green-900)" title="900 · oklch(39.3% 0.095 152.535)"></div><div class="" style="background:var(--green-950)" title="950 · oklch(26.6% 0.065 152.934)"></div></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div><div class="status-block"><h3>Blue <small>Info · light 600, dark 400</small></h3><div class="neutral-row"><div class="" style="background:var(--blue-50)" title="50 · oklch(97% 0.014 254.604)"></div><div class="" style="background:var(--blue-100)" title="100 · oklch(93.2% 0.032 255.585)"></div><div class="" style="background:var(--blue-200)" title="200 · oklch(88.2% 0.059 254.128)"></div><div class="" style="background:var(--blue-300)" title="300 · oklch(80.9% 0.105 251.813)"></div><div class="used" style="background:var(--blue-400);color:#1c1917" title="400 · oklch(70.7% 0.165 254.624)"><span>Dark</span></div><div class="" style="background:var(--blue-500)" title="500 · oklch(62.3% 0.214 259.815)"></div><div class="used" style="background:var(--blue-600);color:#FFFFFF" title="600 · oklch(54.6% 0.245 262.881)"><span>Light</span></div><div class="" style="background:var(--blue-700)" title="700 · oklch(48.8% 0.243 264.376)"></div><div class="" style="background:var(--blue-800)" title="800 · oklch(42.4% 0.199 265.638)"></div><div class="" style="background:var(--blue-900)" title="900 · oklch(37.9% 0.146 265.522)"></div><div class="" style="background:var(--blue-950)" title="950 · oklch(28.2% 0.091 267.935)"></div></div><div class="neutral-steps"><span>50</span><span>100</span><span>200</span><span>300</span><span>400</span><span>500</span><span>600</span><span>700</span><span>800</span><span>900</span><span>950</span></div></div>
+    <p class="small" style="margin:18px 0 6px">Backgrounds are the status token at <code>--status-tint</code> opacity: 15% in light mode, 22% in dark mode (lower contrast surfaces need a stronger tint). Text uses the token itself; warning text is mixed 70% with the foreground, because amber alone is too light to read.</p>
+    <div class="status-demo"><span class="pill err">Payment failed</span><span class="pill warn">Ships in 3 weeks</span><span class="pill ok">In stock</span><span class="pill info">New firmware</span></div>
+  </section>
+
+  <section aria-labelledby="c-tokens">
+    <div class="section-head"><h2 id="c-tokens">Semantic tokens</h2><p class="small">What components actually use. Swatches show the current mode; mapping reads light · dark.</p></div>
+    <div class="tokens"><div class="token"><i style="background:var(--background)"></i><div><b>--background</b><span>Set per mode (Display → Mode settings)</span></div></div><div class="token"><i style="background:var(--foreground)"></i><div><b>--foreground</b><span>n-950 · n-50</span></div></div><div class="token"><i style="background:var(--card)"></i><div><b>--card</b><span>n-50 · n-900</span></div></div><div class="token"><i style="background:var(--muted)"></i><div><b>--muted</b><span>n-100 · n-900</span></div></div><div class="token"><i style="background:var(--muted-foreground)"></i><div><b>--muted-foreground</b><span>n-500 · n-400</span></div></div><div class="token"><i style="background:var(--border)"></i><div><b>--border</b><span>n-200 · n-800</span></div></div><div class="token"><i style="background:var(--primary)"></i><div><b>--primary</b><span>n-900 · n-50</span></div></div><div class="token"><i style="background:var(--primary-foreground)"></i><div><b>--primary-foreground</b><span>n-50 · n-900</span></div></div><div class="token"><i style="background:var(--secondary)"></i><div><b>--secondary</b><span>n-100 · n-800</span></div></div><div class="token"><i style="background:var(--accent)"></i><div><b>--accent</b><span>Hover and muted fills, set per mode</span></div></div><div class="token"><i style="background:var(--ring)"></i><div><b>--ring</b><span>Focus and active fields, Coral by default</span></div></div><div class="token"><i style="background:var(--destructive)"></i><div><b>--destructive</b><span>red-600 · red-500</span></div></div><div class="token"><i style="background:var(--success)"></i><div><b>--success</b><span>green-600 · green-400</span></div></div><div class="token"><i style="background:var(--warning)"></i><div><b>--warning</b><span>amber-500 · amber-400</span></div></div><div class="token"><i style="background:var(--info)"></i><div><b>--info</b><span>blue-600 · blue-400</span></div></div></div>
+  </section>
+</div>
+
+<div class="view" data-view="brand/typography" hidden>
+  <div class="view-head">
+    <div class="topic-head"><p class="topic-name">Brand</p></div>
+    <nav class="subnav seg" aria-label="Brand sections"><a class="btn btn-sm" href="#/brand/colour" data-sub="brand/colour">Colour</a><a class="btn btn-sm" href="#/brand/typography" data-sub="brand/typography">Typography</a></nav>
+    <h1>Typography</h1>
+    <p class="lede">One sans family for everything people read, one mono for code and token names. Both come from Adobe's Source family, so they share proportions.</p>
+  </div>
+
+  <section aria-labelledby="t-fam" style="margin-top:40px">
+    <div class="section-head"><h2 id="t-fam">Families</h2></div>
+    <div class="families">
+      <div class="family"><span class="small">Interface and content</span><h3 data-font-label>Source Sans 3</h3><div class="big">Aa</div><div class="abc">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 € % Nm</div></div>
+      <div class="family" style="font-family:var(--font-mono)"><span class="small" style="font-family:var(--font)">Code and tokens</span><h3 data-mono-label style="font-family:var(--font)">Source Code Pro</h3><div class="big" style="font-weight:500">Aa</div><div class="abc">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 {} [] =&gt;</div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-scale">
+    <div class="section-head"><h2 id="t-scale">Scale</h2><p class="small">Size · weight · line height · tracking.</p></div>
+    <div class="scale"><div class="scale-row"><div class="tspec"><b>Display / H1</b>clamp(2.2rem,5vw,3.4rem) · 800 · 1.02 · -0.03em</div><div class="sample" style="font-size:clamp(2.2rem,5vw,3.4rem);font-weight:800;line-height:1.02;letter-spacing:-.03em">Stepless, wherever you ride</div></div><div class="scale-row"><div class="tspec"><b>H2</b>1.6rem · 700 · 1.15 · -0.02em</div><div class="sample" style="font-size:1.6rem;font-weight:700;line-height:1.15;letter-spacing:-.02em">Built for heavy loads</div></div><div class="scale-row"><div class="tspec"><b>H3</b>1.15rem · 700 · 1.3 · -0.01em</div><div class="sample" style="font-size:1.15rem;font-weight:700;line-height:1.3;letter-spacing:-.01em">Installing a Utility hub</div></div><div class="scale-row"><div class="tspec"><b>Lede</b>1.15rem · 400 · 1.5</div><div class="sample" style="font-size:1.15rem;line-height:1.5;color:var(--muted-foreground)">Enviolo Utility handles cargo, speed pedelecs and SUV builds, with motors up to 120 Nm.</div></div><div class="scale-row"><div class="tspec"><b>Body</b>1rem · 400 · 1.5</div><div class="sample" style="font-size:1rem;line-height:1.5">The hub changes ratio continuously, so riders always pedal at a comfortable cadence. No steps, no jumps, no missed shifts under load.</div></div><div class="scale-row"><div class="tspec"><b>Small / meta</b>0.875rem · 400 · 1.5</div><div class="sample" style="font-size:.875rem;line-height:1.5;color:var(--muted-foreground)">Workshop course, 25 min</div></div><div class="scale-row"><div class="tspec"><b>Button</b>0.95rem · 600</div><div class="sample" style="font-size:.95rem;font-weight:600">Find a dealer</div></div><div class="scale-row"><div class="tspec"><b>Menu label</b>0.8rem · 600</div><div class="sample" style="font-size:.8rem;font-weight:600;color:var(--muted-foreground)">Neutral colours</div></div><div class="scale-row"><div class="tspec"><b>Code</b>var(--font-mono) · 0.82em</div><div class="sample" style="font-family:var(--font-mono);font-size:.9rem">--enviolo-200: #E79782;</div></div></div>
+  </section>
+
+  <section aria-labelledby="t-weights">
+    <div class="section-head"><h2 id="t-weights">Weights</h2></div>
+    <div class="weights">
+      <div style="font-weight:400">Ride<small>400 Regular · body</small></div>
+      <div style="font-weight:600">Ride<small>600 Semibold · buttons, labels</small></div>
+      <div style="font-weight:700">Ride<small>700 Bold · headings</small></div>
+      <div style="font-weight:800">Ride<small>800 Extra bold · display</small></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-rules">
+    <div class="section-head"><h2 id="t-rules">Rules</h2></div>
+    <div class="rules">
+      <div class="rule"><h3>Sentence case</h3><p>Headings, buttons and labels. No all-caps eyebrows.</p></div>
+      <div class="rule"><h3>Readable lines</h3><p>Body copy stays under about 62 characters per line.</p></div>
+      <div class="rule"><h3>Mono for code only</h3><p>Token names, hex values and code. Tables and numbers use the sans with tabular figures.</p></div>
+      <div class="rule"><h3>No word highlights</h3><p>Don't colour or italicise single words in headlines. Hierarchy comes from size and weight.</p></div>
+    </div>
+  </section>
+</div>
+
+<div class="view" data-view="layout/grid" hidden>
+  <div class="view-head">
+    <div class="topic-head"><p class="topic-name">Layout</p></div>
+    <nav class="subnav seg" aria-label="Layout sections"><a class="btn btn-sm" href="#/layout/grid" data-sub="layout/grid">Grid and breakpoints</a></nav>
+    <h1>Grid and breakpoints</h1>
+    <p class="lede">Three layouts: mobile, tablet and desktop. Content sits in a 1080px container; columns and gutters grow with the screen.</p>
+  </div>
+
+  <div class="bp-now" style="margin-top:32px" aria-live="polite">
+    <span class="small">You're viewing</span><b id="bpName">Desktop</b><span class="w" id="bpWidth"></span>
+    <div class="row"><button class="btn btn-secondary btn-sm" type="button" id="overlayToggle" aria-pressed="false">Show grid overlay</button></div>
+  </div>
+
+  <section aria-labelledby="l-bp" style="margin-top:24px">
+    <div class="section-head"><h2 id="l-bp">Breakpoints</h2></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Layout</th><th>Width</th><th>Columns</th><th>Gutter</th><th>Margin</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td><b>Mobile</b></td><td>320–599px</td><td>4</td><td>16px</td><td>16px</td><td>One column. Actions stack full width, primary on top.</td></tr>
+          <tr><td><b>Tablet</b></td><td>600–879px</td><td>8</td><td>20px</td><td>24px</td><td>Two-column layouts hold. Large buttons step down to default size.</td></tr>
+          <tr><td><b>Desktop</b></td><td>880px and up</td><td>12</td><td>24px</td><td>24px</td><td>Container caps at 1080px and centres.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:14px">Tailwind's defaults are 640, 768 and 1024px. Enviolo uses content-driven breakpoints, set as custom tokens:</p>
+    <code style="display:block;padding:12px 14px;line-height:1.6;white-space:pre-wrap">@theme {
+  --breakpoint-sm: 37.5rem;   /* 600px, tablet */
+  --breakpoint-md: 55rem;     /* 880px, desktop */
+  --container-content: 67.5rem; /* 1080px */
+}</code>
+  </section>
+
+  <section aria-labelledby="l-grid">
+    <div class="section-head"><h2 id="l-grid">Columns</h2><p class="small">Resize the window: 12 columns become 8, then 4.</p></div>
+    <div class="cols" aria-hidden="true"><div class="c">1</div><div class="c">2</div><div class="c">3</div><div class="c">4</div><div class="c">5</div><div class="c">6</div><div class="c">7</div><div class="c">8</div><div class="c">9</div><div class="c">10</div><div class="c">11</div><div class="c">12</div></div>
+    <p class="ex-label">Product page: 5 + 7 on desktop, 3 + 5 on tablet, stacked on mobile.</p>
+    <div class="ex" aria-hidden="true"><div class="s5">Image</div><div class="s7">Details and actions</div></div>
+    <p class="ex-label">Cards: three across on desktop, two on tablet, one on mobile.</p>
+    <div class="ex" aria-hidden="true"><div class="s4">Card</div><div class="s4">Card</div><div class="s4">Card</div></div>
+  </section>
+
+  <section aria-labelledby="l-space">
+    <div class="section-head"><h2 id="l-space">Spacing</h2><p class="small">4px base unit. These steps cover almost everything.</p></div>
+    <div class="space"><div><span>4</span><i style="width:4px"></i></div><div><span>8</span><i style="width:8px"></i></div><div><span>12</span><i style="width:12px"></i></div><div><span>16</span><i style="width:16px"></i></div><div><span>24</span><i style="width:24px"></i></div><div><span>32</span><i style="width:32px"></i></div><div><span>48</span><i style="width:48px"></i></div><div><span>72</span><i style="width:72px"></i></div></div>
+  </section>
+
+  <section aria-labelledby="l-radius">
+    <div class="section-head"><h2 id="l-radius">Radius</h2><p class="small">Shape signals role: pills act, corners hold.</p></div>
+    <div class="radii">
+      <div><span style="border-radius:var(--radius-control)"></span><code>--radius-control</code>999px · buttons, inputs</div>
+      <div><span style="border-radius:14px"></span><code>14px</code>cards, menus, dialogs</div>
+      <div><span style="border-radius:var(--radius)"></span><code>--radius</code>10px · small containers</div>
+    </div>
+  </section>
+</div>
+<div class="grid-overlay" id="gridOverlay" hidden aria-hidden="true"><div class="cols"><div class="c">1</div><div class="c">2</div><div class="c">3</div><div class="c">4</div><div class="c">5</div><div class="c">6</div><div class="c">7</div><div class="c">8</div><div class="c">9</div><div class="c">10</div><div class="c">11</div><div class="c">12</div></div></div>
+</main>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<div class="settings" id="settings">
+  <div class="menu" id="settingsMenu" role="menu" aria-label="Display settings" hidden>
+    <div class="menu-label" id="lbl-theme">Theme</div>
+    <div role="group" aria-labelledby="lbl-theme">
+      <button class="menu-item" role="menuitemradio" aria-checked="false" data-group="theme" data-value="light"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span>Light</span></button>
+      <button class="menu-item" role="menuitemradio" aria-checked="false" data-group="theme" data-value="dark"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span>Dark</span></button>
+      <button class="menu-item" role="menuitemradio" aria-checked="false" data-group="theme" data-value="system"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span>Match system</span><span class="def">Default</span></button>
+    </div>
+    <div class="menu-sep" role="separator"></div>
+    <div class="menu-label" id="lbl-font">Font</div>
+    <div role="group" aria-labelledby="lbl-font">
+      <button class="menu-item" role="menuitemradio" aria-checked="false" data-group="font" data-value="source"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span style="font-family:"Source Sans 3",sans-serif">Source Sans 3</span><span class="def">Default</span><span class="sample" style="font-family:"Source Sans 3",sans-serif">Aa</span></button><button class="menu-item" role="menuitemradio" aria-checked="false" data-group="font" data-value="urbanist"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span style="font-family:"Urbanist",sans-serif">Urbanist</span><span class="sample" style="font-family:"Urbanist",sans-serif">Aa</span></button><button class="menu-item" role="menuitemradio" aria-checked="false" data-group="font" data-value="plex"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span style="font-family:"IBM Plex Sans",sans-serif">IBM Plex Sans</span><span class="sample" style="font-family:"IBM Plex Sans",sans-serif">Aa</span></button><button class="menu-item" role="menuitemradio" aria-checked="false" data-group="font" data-value="system"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span style="font-family:system-ui,sans-serif">System</span><span class="sample" style="font-family:system-ui,sans-serif">Aa</span></button>
+    </div>
+    <div class="menu-sep" role="separator"></div>
+    <div class="menu-label" id="lbl-icons">Icons</div>
+    <div role="group" aria-labelledby="lbl-icons">
+      <button class="menu-item" role="menuitemradio" aria-checked="false" data-group="icons" data-value="lucide"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span>Lucide</span><span class="sample"><svg class="ic" data-icon="settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-set="lucide"></svg></span></button>
+      <button class="menu-item" role="menuitemradio" aria-checked="false" data-group="icons" data-value="tabler"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span>Tabler</span><span class="def">Default</span><span class="sample"><svg class="ic" data-icon="settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-set="tabler"></svg></span></button>
+    </div>
+    <div class="menu-sep" role="separator"></div>
+    <div class="menu-label" id="lbl-mono">Code font</div>
+    <div role="group" aria-labelledby="lbl-mono">
+      <button class="menu-item" role="menuitemradio" aria-checked="false" data-group="mono" data-value="system"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span style="font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86rem">System mono</span></button>
+      <button class="menu-item" role="menuitemradio" aria-checked="false" data-group="mono" data-value="sourcecode"><svg class="ic check" data-icon="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span style="font-family:'Source Code Pro',monospace;font-size:.86rem">Source Code Pro</span><span class="def">Default</span></button>
+    </div>
+    <div class="menu-sep" role="separator"></div>
+    <div class="menu-label" id="lbl-ramp">Mode settings</div>
+    <div role="group" aria-labelledby="lbl-ramp">
+      <button class="menu-item has-sub" role="menuitem" aria-haspopup="menu" aria-expanded="false" aria-controls="subMenu" data-sub="light"><svg class="ic sub-chev" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span>Light mode</span><span class="sample sub-val" data-val="light"></span></button>
+      <button class="menu-item has-sub" role="menuitem" aria-haspopup="menu" aria-expanded="false" aria-controls="subMenu" data-sub="dark"><svg class="ic sub-chev" data-icon="chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg><span>Dark mode</span><span class="sample sub-val" data-val="dark"></span></button>
+    </div>
+  </div>
+  <div class="menu submenu" id="subMenu" role="menu" aria-labelledby="subLabel" hidden></div>
+  <button class="btn btn-outline btn-sm btn-icon settings-trigger" id="modeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><svg class="ic" data-icon="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+  <button class="btn btn-outline btn-sm settings-trigger" id="settingsTrigger" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
+    <svg class="ic" data-icon="sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Display
+    <svg class="ic chev" data-icon="chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+  </button>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  var FONTS={source:'"Source Sans 3"',urbanist:'"Urbanist"',plex:'"IBM Plex Sans"',system:'system-ui'};
+  var MONO={system:'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',sourcecode:'"Source Code Pro", ui-monospace, monospace'};
+  var RAMPS={"slate": ["oklch(98.4% 0.003 247.858)", "oklch(96.8% 0.007 247.896)", "oklch(92.9% 0.013 255.508)", "oklch(86.9% 0.022 252.894)", "oklch(70.4% 0.04 256.788)", "oklch(55.4% 0.046 257.417)", "oklch(44.6% 0.043 257.281)", "oklch(37.2% 0.044 257.287)", "oklch(27.9% 0.041 260.031)", "oklch(20.8% 0.042 265.755)", "oklch(12.9% 0.042 264.695)"], "gray": ["oklch(98.5% 0.002 247.839)", "oklch(96.7% 0.003 264.542)", "oklch(92.8% 0.006 264.531)", "oklch(87.2% 0.01 258.338)", "oklch(70.7% 0.022 261.325)", "oklch(55.1% 0.027 264.364)", "oklch(44.6% 0.03 256.802)", "oklch(37.3% 0.034 259.733)", "oklch(27.8% 0.033 256.848)", "oklch(21% 0.034 264.665)", "oklch(13% 0.028 261.692)"], "zinc": ["oklch(98.5% 0 none)", "oklch(96.7% 0.001 286.375)", "oklch(92% 0.004 286.32)", "oklch(87.1% 0.006 286.286)", "oklch(70.5% 0.015 286.067)", "oklch(55.2% 0.016 285.938)", "oklch(44.2% 0.017 285.786)", "oklch(37% 0.013 285.805)", "oklch(27.4% 0.006 286.033)", "oklch(21% 0.006 285.885)", "oklch(14.1% 0.005 285.823)"], "neutral": ["oklch(98.5% 0 none)", "oklch(97% 0 none)", "oklch(92.2% 0 none)", "oklch(87% 0 none)", "oklch(70.8% 0 none)", "oklch(55.6% 0 none)", "oklch(43.9% 0 none)", "oklch(37.1% 0 none)", "oklch(26.9% 0 none)", "oklch(20.5% 0 none)", "oklch(14.5% 0 none)"], "stone": ["oklch(98.5% 0.001 106.423)", "oklch(97% 0.001 106.424)", "oklch(92.3% 0.003 48.717)", "oklch(86.9% 0.005 56.366)", "oklch(70.9% 0.01 56.259)", "oklch(55.3% 0.013 58.071)", "oklch(44.4% 0.011 73.639)", "oklch(37.4% 0.01 67.558)", "oklch(26.8% 0.007 34.298)", "oklch(21.6% 0.006 56.043)", "oklch(14.7% 0.004 49.25)"], "mauve": ["oklch(98.5% 0 none)", "oklch(96% 0.003 325.6)", "oklch(92.2% 0.005 325.62)", "oklch(86.5% 0.012 325.68)", "oklch(71.1% 0.019 323.02)", "oklch(54.2% 0.034 322.5)", "oklch(43.5% 0.029 321.78)", "oklch(36.4% 0.029 323.89)", "oklch(26.3% 0.024 320.12)", "oklch(21.2% 0.019 322.12)", "oklch(14.5% 0.008 326)"], "olive": ["oklch(98.8% 0.003 106.5)", "oklch(96.6% 0.005 106.5)", "oklch(93% 0.007 106.5)", "oklch(88% 0.011 106.6)", "oklch(73.7% 0.021 106.9)", "oklch(58% 0.031 107.3)", "oklch(46.6% 0.025 107.3)", "oklch(39.4% 0.023 107.4)", "oklch(28.6% 0.016 107.4)", "oklch(22.8% 0.013 107.4)", "oklch(15.3% 0.006 107.1)"], "mist": ["oklch(98.7% 0.002 197.1)", "oklch(96.3% 0.002 197.1)", "oklch(92.5% 0.005 214.3)", "oklch(87.2% 0.007 219.6)", "oklch(72.3% 0.014 214.4)", "oklch(56% 0.021 213.5)", "oklch(45% 0.017 213.2)", "oklch(37.8% 0.015 216)", "oklch(27.5% 0.011 216.9)", "oklch(21.8% 0.008 223.9)", "oklch(14.8% 0.004 228.8)"], "taupe": ["oklch(98.6% 0.002 67.8)", "oklch(96% 0.002 17.2)", "oklch(92.2% 0.005 34.3)", "oklch(86.8% 0.007 39.5)", "oklch(71.4% 0.014 41.2)", "oklch(54.7% 0.021 43.1)", "oklch(43.8% 0.017 39.3)", "oklch(36.7% 0.016 35.7)", "oklch(26.8% 0.011 36.5)", "oklch(21.4% 0.009 43.1)", "oklch(14.7% 0.004 49.3)"]};
+  var RAMP_LABELS={"slate": "Slate", "gray": "Gray", "zinc": "Zinc", "neutral": "Neutral", "stone": "Stone", "mauve": "Mauve", "olive": "Olive", "mist": "Mist", "taupe": "Taupe"};
+  var STEPS=[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+  var ICONS={
+    lucide:{
+      'chevron-down':'<path d="m6 9 6 6 6-6"/>',
+      sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
+      moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+      check:'<path d="M20 6 9 17l-5-5"/>',
+      'chevron-up':'<path d="m18 15-6-6-6 6"/>',
+      'chevron-left':'<path d="m15 18-6-6 6-6"/>',
+      more:'<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
+      download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/>',
+      share:'<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" x2="12" y1="2" y2="15"/>',
+      search:'<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+      plus:'<path d="M5 12h14"/><path d="M12 5v14"/>',
+      sliders:'<line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>',
+      trash:'<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>',
+      settings:'<path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/>',
+      copy:'<rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>'
+    },
+    tabler:{
+      'chevron-down':'<path d="M6 9l6 6l6 -6"/>',
+      sun:'<path d="M8 12a4 4 0 1 0 8 0a4 4 0 1 0 -8 0"/><path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7"/>',
+      moon:'<path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"/>',
+      check:'<path d="M5 12l5 5l10 -10"/>',
+      'chevron-up':'<path d="M6 15l6 -6l6 6"/>',
+      'chevron-left':'<path d="M15 6l-6 6l6 6"/>',
+      more:'<path d="M4 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M11 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M18 12a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/>',
+      download:'<path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"/><path d="M7 11l5 5l5 -5"/><path d="M12 4l0 12"/>',
+      share:'<path d="M8 9h-1a2 2 0 0 0 -2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-8a2 2 0 0 0 -2 -2h-1"/><path d="M12 14v-11"/><path d="M9 6l3 -3l3 3"/>',
+      search:'<path d="M3 10a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"/><path d="M21 21l-6 -6"/>',
+      plus:'<path d="M12 5l0 14"/><path d="M5 12l14 0"/>',
+      sliders:'<path d="M12 6a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M4 6l8 0"/><path d="M16 6l4 0"/><path d="M6 12a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M4 12l2 0"/><path d="M10 12l10 0"/><path d="M15 18a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"/><path d="M4 18l11 0"/><path d="M19 18l1 0"/>',
+      trash:'<path d="M4 7l16 0"/><path d="M10 11l0 6"/><path d="M14 11l0 6"/><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"/><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"/>',
+      settings:'<path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z"/><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0"/>',
+      copy:'<path d="M7 9.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z"/><path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1"/>'
+    }
+  };
+  function renderIcons(){
+    document.querySelectorAll('svg[data-icon]').forEach(function(el){
+      var set=el.getAttribute('data-set')||state.icons;
+      el.innerHTML=(ICONS[set]&&ICONS[set][el.getAttribute('data-icon')])||'';
+    });
+  }
+
+
+  var MODE_OPTS={
+    light:{
+      bg:{white:['White','#FFFFFF',null],neutral:['Neutral 50','var(--l-50)','var(--l-50)'],ivory:['Ivory tint','color-mix(in srgb,var(--enviolo-50) 35%,#fff)','color-mix(in srgb,var(--enviolo-50) 35%,#fff)']},
+      accent:{neutral:['Neutral 100','var(--l-100)',null],ivory:['Ivory','color-mix(in srgb,var(--enviolo-50) 70%,#fff)','color-mix(in srgb,var(--enviolo-50) 70%,#fff)'],coral:['Coral tint','color-mix(in srgb,var(--enviolo-200) 18%,#fff)','color-mix(in srgb,var(--enviolo-200) 18%,transparent)']},
+      focus:{coral:['Coral','var(--enviolo-200)',null,'2.3:1 · low'],copper:['Copper','var(--enviolo-300)','var(--enviolo-300)','3.1:1'],clay:['Clay','var(--enviolo-400)','var(--enviolo-400)','4.2:1']}
+    },
+    dark:{
+      bg:{neutral:['Neutral 950','var(--d-950)',null],pearl:['Pearl Black','var(--enviolo-950)','var(--enviolo-950)'],midnight:['Midnight','var(--enviolo-900)','var(--enviolo-900)']},
+      accent:{neutral:['Neutral 800','var(--d-800)',null],nightfall:['Nightfall','var(--enviolo-800)','var(--enviolo-800)'],coral:['Coral tint','color-mix(in srgb,var(--enviolo-200) 22%,#05191E)','color-mix(in srgb,var(--enviolo-200) 20%,transparent)']},
+      focus:{coral:['Coral','var(--enviolo-200)',null,'8.6:1'],ivory:['Ivory','var(--enviolo-50)','var(--enviolo-50)','16:1'],apricot:['Apricot','var(--enviolo-100)','var(--enviolo-100)','13:1']}
+    }
+  };
+  var state={theme:'system',font:'source',icons:'tabler',mono:'sourcecode',rampLight:'taupe',rampDark:'mist',bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'coral',focusDark:'coral'};
+  try{var saved=JSON.parse(localStorage.getItem('enviolo-display')||'{}'); if(saved.theme) state.theme=saved.theme; if(saved.font&&FONTS[saved.font]) state.font=saved.font; if(saved.icons==='lucide'||saved.icons==='tabler') state.icons=saved.icons; if(saved.mono&&MONO[saved.mono]) state.mono=saved.mono; if(saved.rampLight&&RAMPS[saved.rampLight]) state.rampLight=saved.rampLight; if(saved.rampDark&&RAMPS[saved.rampDark]) state.rampDark=saved.rampDark; if(saved.darkbg==='pearl') state.bgDark='pearl'; ['bg','accent','focus'].forEach(function(t){['Light','Dark'].forEach(function(m){var k=t+m; if(saved[k]&&MODE_OPTS[m.toLowerCase()][t][saved[k]]) state[k]=saved[k];});});}catch(e){}
+  var settings=document.getElementById('settings');
+  var trigger=document.getElementById('settingsTrigger'), menu=document.getElementById('settingsMenu'), sub=document.getElementById('subMenu');
+  var radios=[].slice.call(menu.querySelectorAll('.menu-item[data-group]'));
+  var subTriggers=[].slice.call(menu.querySelectorAll('.has-sub'));
+  var openSubFor=null;
+
+  function swatch(r){var v=RAMPS[r];return '<i style="background:'+v[1]+'"></i><i style="background:'+v[5]+'"></i><i style="background:'+v[9]+'"></i>';}
+  function iconSvg(n,c){return '<svg class="'+(c||'ic')+'" data-icon="'+n+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>';}
+
+  var modeToggle=document.getElementById('modeToggle');
+  var darkMQ=window.matchMedia('(prefers-color-scheme: dark)');
+  function isDark(){return state.theme==='dark'||(state.theme==='system'&&darkMQ.matches);}
+  function syncModeToggle(){
+    var d=isDark(), label=d?'Switch to light mode':'Switch to dark mode';
+    modeToggle.querySelector('svg').setAttribute('data-icon',d?'sun':'moon');
+    modeToggle.setAttribute('aria-label',label); modeToggle.setAttribute('title',label);
+  }
+  modeToggle.addEventListener('click',function(){state.theme=isDark()?'light':'dark';apply();});
+  if(darkMQ.addEventListener) darkMQ.addEventListener('change',function(){if(state.theme==='system'){syncModeToggle();renderIcons();}});
+  function apply(){
+    if(state.theme==='system') root.removeAttribute('data-theme'); else root.setAttribute('data-theme',state.theme);
+    root.style.setProperty('--font',FONTS[state.font]+', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif');
+    root.style.setProperty('--font-mono',MONO[state.mono]);
+    RAMPS[state.rampLight].forEach(function(v,i){root.style.setProperty('--l-'+STEPS[i],v);});
+    RAMPS[state.rampDark].forEach(function(v,i){root.style.setProperty('--d-'+STEPS[i],v);});
+    [['--light-bg','light','bg','bgLight'],['--dark-bg','dark','bg','bgDark'],['--light-accent','light','accent','accentLight'],['--dark-accent','dark','accent','accentDark'],['--light-ring','light','focus','focusLight'],['--dark-ring','dark','focus','focusDark']].forEach(function(x){
+      var v=MODE_OPTS[x[1]][x[2]][state[x[3]]][2]; if(v) root.style.setProperty(x[0],v); else root.style.removeProperty(x[0]);
+    });
+    radios.forEach(function(i){i.setAttribute('aria-checked',String(state[i.dataset.group]===i.dataset.value));});
+    menu.querySelectorAll('.sub-val').forEach(function(el){
+      var m=el.dataset.val, r=m==='light'?state.rampLight:state.rampDark;
+      var bg=MODE_OPTS[m].bg[state[m==='light'?'bgLight':'bgDark']], ac=MODE_OPTS[m].accent[state[m==='light'?'accentLight':'accentDark']], fc=MODE_OPTS[m].focus[state[m==='light'?'focusLight':'focusDark']];
+      el.innerHTML='<span>'+RAMP_LABELS[r]+'</span><span class="swatch" style="display:inline-flex"><i style="background:'+bg[1]+'" title="Background"></i><i style="background:'+ac[1]+'" title="Accent"></i>'+swatch(r)+'</span>';
+    });
+    if(openSubFor) buildSub(openSubFor,false);
+    syncModeToggle();
+    renderDocs();
+    renderIcons();
+    try{localStorage.setItem('enviolo-display',JSON.stringify(state));}catch(e){}
+  }
+
+  function buildSub(mode,focus){
+    var sfx=mode==='light'?'Light':'Dark';
+    var DEF={bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'coral',focusDark:'coral',rampLight:'taupe',rampDark:'mist'};
+    function item(key,val,label,sw,checked){return '<button class="menu-item" role="menuitemradio" aria-checked="'+checked+'" data-key="'+key+'" data-value="'+val+'">'+iconSvg('check','ic check')+'<span>'+label+'</span>'+(DEF[key]===val?'<span class="def">Default</span>':'')+'<span class="sample swatch">'+sw+'</span></button>';}
+    var html='<button class="menu-item back" role="menuitem" data-back="1">'+iconSvg('chevron-left')+'<span>Back</span></button>'+
+      '<div class="menu-label" id="subLabel">'+sfx+' mode · Background</div>';
+    Object.keys(MODE_OPTS[mode].bg).forEach(function(k){var o=MODE_OPTS[mode].bg[k];html+=item('bg'+sfx,k,o[0],'<i style="background:'+o[1]+'"></i>',state['bg'+sfx]===k);});
+    html+='<div class="menu-sep" role="separator"></div><div class="menu-label">Accent · hover and muted</div>';
+    Object.keys(MODE_OPTS[mode].accent).forEach(function(k){var o=MODE_OPTS[mode].accent[k];html+=item('accent'+sfx,k,o[0],'<i style="background:'+o[1]+'"></i>',state['accent'+sfx]===k);});
+    html+='<div class="menu-sep" role="separator"></div><div class="menu-label">Focus · active fields</div>';
+    Object.keys(MODE_OPTS[mode].focus).forEach(function(k){var o=MODE_OPTS[mode].focus[k];html+=item('focus'+sfx,k,o[0]+' <span class="def">'+o[3]+'</span>','<i style="background:'+o[1]+'"></i>',state['focus'+sfx]===k);});
+    html+='<div class="menu-sep" role="separator"></div><div class="menu-label">Neutrals</div>';
+    Object.keys(RAMPS).forEach(function(r){html+=item('ramp'+sfx,r,RAMP_LABELS[r],swatch(r),state['ramp'+sfx]===r);});
+    var ae=document.activeElement, prev=ae&&sub.contains(ae)?[ae.dataset.key,ae.dataset.value]:null;
+    sub.innerHTML=html;
+    renderIcons();
+    if(prev){var f=sub.querySelector('[data-key="'+prev[0]+'"][data-value="'+prev[1]+'"]');if(f)f.focus();}
+    if(focus){(sub.querySelector('[aria-checked="true"]')||sub.querySelector('[data-key]')).focus();}
+  }
+  function openSub(btn,focus){
+    var mode=btn.dataset.sub; openSubFor=mode;
+    subTriggers.forEach(function(t){t.setAttribute('aria-expanded',String(t===btn));});
+    buildSub(mode,false);
+    sub.hidden=false;
+    sub.style.minHeight=window.matchMedia('(max-width:560px)').matches?menu.offsetHeight+'px':'';
+    // align submenu bottom with the trigger item's bottom, kept inside viewport
+    var sRect=settings.getBoundingClientRect(), bRect=btn.getBoundingClientRect();
+    sub.style.top='auto';
+    var bottom=sRect.bottom-bRect.bottom-6;
+    sub.style.bottom=bottom+'px';
+    var r=sub.getBoundingClientRect();
+    if(r.top<8){sub.style.bottom=(bottom-(8-r.top))+'px';}
+    if(focus)(sub.querySelector('[aria-checked="true"]')||sub.querySelector('[data-ramp]')).focus();
+  }
+  function closeSub(focusBack){
+    if(sub.hidden) return;
+    sub.hidden=true;
+    var t=menu.querySelector('.has-sub[aria-expanded="true"]');
+    subTriggers.forEach(function(x){x.setAttribute('aria-expanded','false');});
+    openSubFor=null;
+    if(focusBack&&t)t.focus();
+  }
+  function open(){menu.hidden=false;trigger.setAttribute('aria-expanded','true');(menu.querySelector('[aria-checked="true"]')||radios[0]).focus();}
+  function close(focus){closeSub(false);menu.hidden=true;trigger.setAttribute('aria-expanded','false');if(focus)trigger.focus();}
+
+  trigger.addEventListener('click',function(){menu.hidden?open():close(false);});
+  radios.forEach(function(i){i.addEventListener('click',function(){state[i.dataset.group]=i.dataset.value;closeSub(false);apply();});});
+  subTriggers.forEach(function(t){
+    t.addEventListener('click',function(){ if(!sub.hidden&&openSubFor===t.dataset.sub) closeSub(false); else openSub(t,true); });
+    t.addEventListener('mouseenter',function(){ if(window.matchMedia('(hover:hover) and (min-width:561px)').matches) openSub(t,false); });
+  });
+  radios.forEach(function(i){i.addEventListener('mouseenter',function(){ if(window.matchMedia('(hover:hover)').matches) closeSub(false); });});
+  sub.addEventListener('click',function(e){
+    var b=e.target.closest('.menu-item'); if(!b) return;
+    if(b.dataset.back){closeSub(true);return;}
+    if(!b.dataset.key) return;
+    state[b.dataset.key]=b.dataset.value;
+    // preview the mode being edited
+    if(state.theme==='system'){var dark=window.matchMedia('(prefers-color-scheme: dark)').matches; if((openSubFor==='dark')!==dark){state.theme=openSubFor;}}
+    else if(state.theme!==openSubFor){state.theme=openSubFor;}
+    apply();
+  });
+
+  function navKeys(container,e,onLeft,onRight){
+    var list=[].slice.call(container.querySelectorAll('.menu-item')).filter(function(x){return x.offsetParent!==null;});
+    var idx=list.indexOf(document.activeElement);
+    if(e.key==='ArrowDown'){e.preventDefault();list[(idx+1)%list.length].focus();}
+    else if(e.key==='ArrowUp'){e.preventDefault();list[(idx-1+list.length)%list.length].focus();}
+    else if(e.key==='Home'){e.preventDefault();list[0].focus();}
+    else if(e.key==='End'){e.preventDefault();list[list.length-1].focus();}
+    else if(e.key==='ArrowLeft'&&onLeft){e.preventDefault();onLeft();}
+    else if(e.key==='ArrowRight'&&onRight){e.preventDefault();onRight();}
+  }
+  menu.addEventListener('keydown',function(e){
+    var cur=document.activeElement;
+    if(e.key==='Escape'){close(true);return;}
+    if(e.key==='Tab'){close(false);return;}
+    navKeys(menu,e,function(){ if(cur.classList.contains('has-sub')) openSub(cur,true); },null);
+  });
+  sub.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){e.stopPropagation();closeSub(true);return;}
+    if(e.key==='Tab'){close(false);return;}
+    navKeys(sub,e,null,function(){closeSub(true);});
+  });
+  document.addEventListener('click',function(e){if(!menu.hidden&&e.composedPath().indexOf(settings)===-1)close(false);});
+  apply();
+  var aboutToggle=document.getElementById('aboutToggle'), aboutPanel=document.getElementById('aboutPanel');
+  aboutToggle.addEventListener('click',function(){var o=aboutToggle.getAttribute('aria-expanded')==='true';aboutToggle.setAttribute('aria-expanded',String(!o));aboutPanel.hidden=o;});
+  document.querySelectorAll('.seg').forEach(function(g){
+    g.addEventListener('click',function(ev){
+      var b=ev.target.closest('button'); if(!b) return;
+      g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false')});
+      b.setAttribute('aria-pressed','true');
+    });
+  });
+
+  /* ---------- Docs: router ---------- */
+  var ROUTES=['overview','components/buttons','brand/colour','brand/typography','layout/grid'];
+  var TITLES={'overview':'Overview','components/buttons':'Buttons','brand/colour':'Colour','brand/typography':'Typography','layout/grid':'Grid and breakpoints'};
+  function route(scroll){
+    var h=location.hash.replace(/^#\/?/,'');
+    if(ROUTES.indexOf(h)===-1) h='overview';
+    document.querySelectorAll('.view').forEach(function(v){v.hidden=v.dataset.view!==h;});
+    var top=h.split('/')[0];
+    document.querySelectorAll('.mainnav [data-nav]').forEach(function(a){ if(a.dataset.nav===top) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    document.querySelectorAll('.subnav a, .navdd a').forEach(function(a){ if(a.dataset.sub===h) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+    document.title=(h==='overview'?'':TITLES[h]+' · ')+'Enviolo Design System';
+    if(scroll) window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',function(){route(true);});
+  document.addEventListener('click',function(e){var a=e.target.closest('a[href="#"]'); if(a) e.preventDefault();});
+  route(false);
+
+  /* ---------- Docs: live bits ---------- */
+  function renderDocs(){
+    function row(id,titleId,key,mode){
+      var el=document.getElementById(id); if(!el) return;
+      el.innerHTML=RAMPS[state[key]].map(function(v,i){return '<div style="background:'+v+'" title="'+STEPS[i]+' · '+v+'"></div>';}).join('');
+      document.getElementById(titleId).innerHTML=mode+' <small>'+RAMP_LABELS[state[key]]+'</small>';
+    }
+    row('neutralLight','nl-title','rampLight','Light mode');
+    row('neutralDark','nd-title','rampDark','Dark mode');
+    var fontNames={source:'Source Sans 3',urbanist:'Urbanist',plex:'IBM Plex Sans',system:'System font'};
+    var monoNames={system:'System mono',sourcecode:'Source Code Pro'};
+    document.querySelectorAll('[data-font-label]').forEach(function(el){el.textContent=fontNames[state.font];});
+    document.querySelectorAll('[data-mono-label]').forEach(function(el){el.textContent=monoNames[state.mono];});
+  }
+
+  var toast=document.getElementById('toast'), toastT;
+  function showToast(msg){toast.textContent=msg;toast.hidden=false;clearTimeout(toastT);toastT=setTimeout(function(){toast.hidden=true;},1600);}
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=b.dataset.copy;
+      try{navigator.clipboard.writeText(v).then(function(){showToast('Copied '+v);},function(){showToast(v);});}catch(e){showToast(v);}
+    });
+  });
+
+  var bpName=document.getElementById('bpName'), bpWidth=document.getElementById('bpWidth');
+  function bp(){var w=window.innerWidth;bpName.textContent=w<600?'Mobile':(w<880?'Tablet':'Desktop');bpWidth.textContent=w+'px';}
+  window.addEventListener('resize',bp); bp();
+
+  var ovBtn=document.getElementById('overlayToggle'), ov=document.getElementById('gridOverlay');
+  ovBtn.addEventListener('click',function(){var on=ovBtn.getAttribute('aria-pressed')!=='true';ovBtn.setAttribute('aria-pressed',String(on));ov.hidden=!on;ovBtn.textContent=on?'Hide grid overlay':'Show grid overlay';});
+
+  /* ---------- Top nav dropdowns ---------- */
+  var topnav=document.querySelector('.topnav'), navTriggers=[].slice.call(document.querySelectorAll('.nav-trigger')), openDD=null, ddTimer;
+  function ddPanel(t){return document.getElementById('navdd-'+t.dataset.menu);}
+  function placeDD(t,p){
+    var tr=t.getBoundingClientRect(), nr=topnav.getBoundingClientRect();
+    p.style.top=(tr.bottom-nr.top+6)+'px';
+    var w=Math.min(280,window.innerWidth-16), left=Math.min(tr.left,window.innerWidth-w-8);
+    p.style.left=Math.max(8,left)-nr.left+'px';
+  }
+  function showDD(t,focus){
+    clearTimeout(ddTimer);
+    if(openDD&&openDD!==t) hideDD(false);
+    var p=ddPanel(t); placeDD(t,p); p.hidden=false; t.setAttribute('aria-expanded','true'); openDD=t;
+    if(focus){var f=p.querySelector('a'); if(f) f.focus();}
+  }
+  function hideDD(focusBack){
+    if(!openDD) return; var t=openDD; ddPanel(t).hidden=true; t.setAttribute('aria-expanded','false'); openDD=null;
+    if(focusBack) t.focus();
+  }
+  var canHover=window.matchMedia('(hover:hover) and (pointer:fine)');
+  navTriggers.forEach(function(t){
+    var p=ddPanel(t);
+    t.addEventListener('click',function(){ hideDD(false); });
+    t.addEventListener('keydown',function(e){ if(e.key==='ArrowDown'){e.preventDefault();showDD(t,true);} else if(e.key==='Escape'){hideDD(true);} });
+    [t,p].forEach(function(el){
+      el.addEventListener('mouseenter',function(){ if(canHover.matches) showDD(t,false); });
+      el.addEventListener('mouseleave',function(){ if(canHover.matches){clearTimeout(ddTimer);ddTimer=setTimeout(function(){if(openDD===t)hideDD(false);},160);} });
+    });
+    p.addEventListener('keydown',function(e){
+      var links=[].slice.call(p.querySelectorAll('a')), i=links.indexOf(document.activeElement);
+      if(e.key==='ArrowDown'){e.preventDefault();links[(i+1)%links.length].focus();}
+      else if(e.key==='ArrowUp'){e.preventDefault();links[(i-1+links.length)%links.length].focus();}
+      else if(e.key==='Escape'){e.preventDefault();hideDD(true);}
+      else if(e.key==='Tab'){hideDD(false);}
+    });
+    p.addEventListener('click',function(e){ if(e.target.closest('a')) hideDD(false); });
+  });
+  document.addEventListener('click',function(e){ if(openDD&&!e.target.closest('.nav-trigger')&&!e.target.closest('.navdd')) hideDD(false); });
+  window.addEventListener('resize',function(){ if(openDD) placeDD(openDD,ddPanel(openDD)); });
+  window.addEventListener('hashchange',function(){hideDD(false);});
+})();
+</script>
+</body>
+</html>

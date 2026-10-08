@@ -1,194 +1,480 @@
-# Design tokens & principles
+# Enviolo Design System — design.md
 
-Enviolo's design system and design language
+The single reference for designing and building Enviolo interfaces across **web, app and AI-assisted development**. Written for people and for AI tools (Claude, Cursor, Claude Code). When generating UI, follow this file before any default habit.
 
-Version v0.2
+The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
-Light and dark mode.
-
----
-
-## Summary
-
-- Enviolo uses **[shadcn/ui](https://ui.shadcn.com/)** or **[BasecoatUI](https://basecoatui.com/)** – Luma style – as a foundation for the design system.
-- It sets its own brand flavoring through specific color tokens and font family in this file.
-- It uses Tailwind utilities where possible, and `Taupe` color ramp for grayscales.
-
-The token names below are the ones **shadcn/ui** (React/Tailwind projects) and **BasecoatUI**  
-(plain-HTML/CSS projects) both already use, so this maps directly onto  
-whichever one a given build uses — no component markup or class names here,  
-just the tokens and the reasoning behind them.
-
-## Philosophy
-
-- **Two layers: a brand layer** (fixed Enviolo colors) **and a neutral layer**
-(a swappable grayscale ramp). Only the neutral layer should change between
-projects or visual refreshes — brand colors stay constant.
-- **Prefer the underlying system's own components and defaults.** Override at the
-*token* layer (colors, radius, spacing) — restyling individual component
-selectors defeats the point of adopting a design system in the first place.
-- **No bespoke hex literals in application code.** Everything routes through a  
-token, so a rebrand is a one-file edit, not a find-and-replace.
-- **Tailwind-first: utility over hardcoded value;** scale/style-pack swap (incl.
-Basecoat/shadcn radius & spacing, Luma pill treatment) over bespoke
-per-component overrides. Reaching for a literal or one-off tweak is a signal
-something's missing upstream, not a green light.
-
-## Deployment
-
-1. Check which stack will be used, to choose design system:
-  - React app → **shadcn/ui**
-  - Vanilla HTML/CSS/JS → **BasecoatUI**
-  - Anything else → confirm with the user before proceeding.
-2. shadcn: `npx shadcn@latest init`, then `npx shadcn@latest add <component>` as needed — don't hand-write the boilerplate.
-3. BasecoatUI: vendor the CSS into `vendor/`, no CDN calls. Confirm the style pack (e.g. Luma) first.
-4. Load order: base library CSS first, this project's token overrides second.
-5. Wire tokens in one `:root` block: brand colors → neutral ramp → semantic mapping. No second block elsewhere.
-6. Smoke-test one button + one input before building the full UI.
-7. Adding a new dependency (Tailwind, a framework) is a decision — confirm with the user, don't default into it.
+- **Version:** v0.3 (draft), October 2026
+- **Live reference:** Enviolo Design System artifact (Overview, Brand, Components, Layout)
+- **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
 ---
 
-## Brand colors
+## 0. Rules for AI-assisted development (read first)
 
-Almost identical between light and dark — swaps noted below.
+1. **Pick the backbone by surface.** React app → shadcn/ui components. Website, CMS template or plain HTML → Basecoat classes. Never mix both in one surface.
+2. **Use semantic tokens only** (`--background`, `--primary`, `--muted`, `--border`, `--ring`, `--accent`, status tokens). Never hard-code hex, oklch or Tailwind palette classes such as `bg-stone-100` in components.
+3. **Never rename tokens.** Enviolo changes values, not names. Keep shadcn naming so components stay drop-in.
+4. **One primary action per view.** Choose the second rank by surface: secondary on plain backgrounds, outline on cards, dialogs and imagery. Repeated actions are ghost.
+5. **Pills act, corners hold.** Controls use `--radius-control` (pill). Containers use soft corners.
+6. **Icons by semantic name**, Tabler by default. Label icon-only buttons.
+7. **Brand colour is for brand moments only.** The Enviolo ramp goes into gradients, charts and illustrations, never on buttons, text or borders.
+8. **Must work in light and dark** with any neutral ramp, with no horizontal scroll from 320px.
+9. **Sentence case**, and actions named by their outcome ("Place order", not "Submit").
+10. When unsure, check the open decisions (section 15) and ask rather than invent a new token.
 
+---
 
-| Token        | Value     | Role                                         |
-| ------------ | --------- | -------------------------------------------- |
-| `--midnight` | `#03161c` | Primary actions, dark text on light surfaces |
-| `--coral`    | `#ed9b85` | Secondary accent                             |
-| `--dusk`     | `#99635d` | Focus ring, mid-weight accent (light mode)   |
-| `--gold`     | `#cec0aa` | Focus ring, mid-weight accent (dark mode)    |
-| `--orange`   | `#f2bb9d` | Tertiary accent                              |
-| `--white`    | `#FFFFFF` | Base light surface                           |
-| `--positive` | `#3FA772` | Success state                                |
-| `--negative` | `#E0523F` | Error / destructive state                    |
+## 1. Architecture
 
+Three layers. Each layer only changes values in the layer below it, never names.
 
-`--gold` replaces `--dusk` in dark mode — same role, different token. Swap it
-in the semantic mapping (e.g. `--ring`), not by redefining `--dusk` itself.
+```
+┌─────────────────────────────────────────────────────────┐
+│ 3. Enviolo tokens (brand layer)                         │
+│    Enviolo ramp · Taupe/Mist neutrals · status ·         │
+│    accent & focus · Source Sans 3 · Tabler               │
+├─────────────────────────────────────────────────────────┤
+│ 2. Shared contract                                      │
+│    shadcn token names + Luma style                       │
+│    --background --primary --muted --border --ring …      │
+├────────────────────────────┬────────────────────────────┤
+│ 1a. shadcn/ui              │ 1b. Basecoat               │
+│     React apps             │     Web (HTML, CMS)        │
+│     <Button variant=…>     │     class="btn-…"          │
+└────────────────────────────┴────────────────────────────┘
+        Figma: shadcncraft kit, same variable names
+```
 
-`--primary`/`--primary-foreground` also swap in dark mode: midnight/white
-becomes white/midnight, so the primary button stays legible on a dark page
-(midnight-on-dark reads as near-invisible). Swap in the semantic mapping, not
-by redefining `--midnight`.
+| Layer | What it is | Used for |
+|---|---|---|
+| **shadcn/ui** | React components copied into our codebase and owned by us | React apps |
+| **Basecoat** | shadcn's look and token names as plain HTML/CSS classes, plus a little JS for interactive parts | Websites, CMS templates, static pages |
+| **Shared contract** | shadcn token names and the **Luma** style (pill controls, soft containers) | Every surface, CSS, Tailwind, Figma |
+| **Enviolo tokens** | Values: ramps, modes, status, accent, focus, type, icons | Everything Enviolo-specific |
+| **Figma** | shadcncraft kit; variables named exactly like the CSS tokens | Design, handoff |
 
-An `--ivory` (`#faeac0`) exists only for chart use in dark mode
-(`--chart-gradient-a` and `--chart-1`) — treat it as chart-scoped, not a
-token to reach for generally.
+**Implementation notes**
+- Both backbones run on **Tailwind v4**. Tokens live in one `globals.css` / `tokens.css`, mapped into Tailwind with `@theme inline`.
+- Dark mode in production: use the **`.dark` class** on `<html>` (what shadcn and Basecoat expect). The prototype uses `data-theme`; don't copy that.
+- Basecoat combines size and variant into single classes (e.g. `btn-sm-outline`), as far as known. Verify against the Basecoat docs before copying markup from the prototype, which uses separate `btn btn-sm btn-outline` classes.
 
-## Neutral ramp (swappable, per mode)
+---
 
-One ramp per mode, both Tailwind v4.2 families, 50→950. This is the layer
-expected to change on a reskin — brand colors above stay put.
+## 2. Default setup
 
+| Setting | Enviolo default | Alternatives (exploration only) |
+|---|---|---|
+| Theme | Match system | Light, dark |
+| UI font | Source Sans 3 | Urbanist, IBM Plex Sans, system |
+| Code font | Source Code Pro | System mono |
+| Icons | Tabler (outline) | Lucide (shadcn's default) |
+| Style | Luma | — |
+| Light mode | Background White · Accent Neutral 100 · Focus Coral · Neutrals Taupe | see section 10 |
+| Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Coral · Neutrals Mist | see section 10 |
 
-| Step | Light — `Taupe` | Dark — `Mist` |
-| ---- | --------------- | ------------- |
-| 50   | `#fbfaf9`       | `#f9fbfb`     |
-| 100  | `#f3f1f1`       | `#f1f3f3`     |
-| 200  | `#e8e4e3`       | `#e3e7e8`     |
-| 300  | `#d8d2d0`       | `#d0d6d8`     |
-| 400  | `#aba09c`       | `#9ca8ab`     |
-| 500  | `#7c6d67`       | `#67787c`     |
-| 600  | `#5b4f4b`       | `#4b585b`     |
-| 700  | `#473c39`       | `#394447`     |
-| 800  | `#2b2422`       | `#22292b`     |
-| 900  | `#1d1816`       | `#161b1d`     |
-| 950  | `#0c0a09`       | `#090b0c`     |
+---
 
+## 3. Tokens
 
-Swap either ramp for a different Tailwind neutral family (`stone`, `zinc`,
-`neutral`...) to reskin without touching the semantic mapping below. In dark
-mode, the mapping direction inverts: `--background`/`--foreground` point to
-the opposite ends of the ramp (near-950 for background, near-50 for
-foreground) instead of near-50/near-950.
+### 3.1 Flow
 
-## Semantic token contract
+```
+primitives                     mode layer                    semantic                    components
+--l-50…950 (Taupe)   ─┐
+                      ├─►  --n-50…950  ─────────────►  --background, --primary,  ─►  shadcn / Basecoat
+--d-50…950 (Mist)    ─┘   (light → --l, dark → --d)    --muted, --border, …
+--enviolo-50…950 ──────────────────────────────────►  --ring, --chart-*, gradients
+--red/amber/green/blue-50…950 ─────────────────────►  --destructive, --success, --warning, --info
+per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --accent, --ring
+```
 
-Both shadcn/ui and basecoatui systems consume identical variable names — this is the layer that makes the tokens portable between them. Wire brand + neutral onto these once, per project:
+- Components only ever read **semantic** tokens.
+- Light and dark mode can use **different** neutral ramps (Taupe light, Mist dark).
+- Per-mode overrides are optional variables with fallbacks. Removing one restores the default.
 
+### 3.2 Semantic tokens
 
-| Token                                    | Points at                 | Role                                                   |
-| ---------------------------------------- | ------------------------- | ------------------------------------------------------ |
-| `--background`                           | neutral-50                | Page background                                        |
-| `--foreground`                           | neutral-950               | Default text                                           |
-| `--card` / `--card-foreground`           | white / neutral-950       | Card surface                                           |
-| `--popover` / `--popover-foreground`     | white / neutral-950       | Popovers, tooltips                                     |
-| `--primary` / `--primary-foreground`     | brand dark / white        | Primary buttons                                        |
-| `--secondary` / `--secondary-foreground` | neutral-100 / neutral-950 | Secondary buttons                                      |
-| `--muted` / `--muted-foreground`         | neutral-100 / neutral-500 | De-emphasized surfaces & text                          |
-| `--accent` / `--accent-foreground`       | neutral-100 / neutral-950 | Hover/active backgrounds                               |
-| `--destructive`                          | `--negative`              | Errors, destructive actions                            |
-| `--border` / `--input`                   | neutral-200               | Borders, input outlines                                |
-| `--ring`                                 | brand mid-accent          | Focus ring                                             |
-| `--radius`                               | `0.625rem`                | Shared base radius both systems build their scale from |
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--background` | `var(--light-bg, #FFFFFF)` | `var(--dark-bg, n-950)` | Page |
+| `--foreground` | n-950 | n-50 | Body text |
+| `--card` | n-50 | n-900 | Cards, panels |
+| `--muted` | n-100 | n-900 | Quiet surfaces, segmented track |
+| `--muted-foreground` | n-500 | n-400 | Secondary text |
+| `--border` | n-200 | n-800 | Borders, dividers, input outlines |
+| `--primary` | n-900 | n-50 | Primary button fill |
+| `--primary-foreground` | n-50 | n-900 | Text on primary |
+| `--secondary` | n-100 | n-800 | Secondary (muted) button fill |
+| `--secondary-foreground` | n-900 | n-50 | Text on secondary |
+| `--accent` | `var(--light-accent, n-100)` | `var(--dark-accent, n-800)` | Hover and muted/selected fills |
+| `--ring` | `var(--light-ring, Enviolo 200)` | `var(--dark-ring, Enviolo 200)` | Focus rings, active fields |
+| `--destructive` | red-600 | red-500 | Irreversible actions, errors |
+| `--success` | green-600 | green-400 | Confirmations |
+| `--warning` | amber-500 | amber-400 | Caution (text on it: amber-950) |
+| `--info` | blue-600 | blue-400 | Notices |
+| `--status-tint` | 15% | 22% | Opacity of status backgrounds |
+| `--chart-1…4` | Enviolo 200, 400, 600, 900 | Enviolo 50, 200, 400, 500 | Chart series |
+| `--radius-control` | 999px | 999px | Buttons, inputs, chips |
+| `--radius` | 10px | 10px | Small containers |
+| `--font` / `--font-mono` | Source Sans 3 / Source Code Pro | same | Type |
 
+Not yet defined but part of shadcn's full theme; add them when the matching components arrive: `--popover`, `--input`, `--card-foreground`, `--accent-foreground`, `--sidebar-*`.
 
-shadcn also defines `--destructive-foreground`, which Basecoat's CDN build
-doesn't ship — add it for shadcn projects (usually `--white` or near-white).
+### 3.3 Example (Tailwind v4, shared by shadcn and Basecoat)
 
-## Typography
+```css
+@import "tailwindcss";
 
-- Source Sans 3 (Google Fonts), weights 400 (normal) / 500 (medium) / 600
-(semibold) — matches both systems' medium/semibold scale, nothing bespoke.
-- Fallback stack: `Arial, sans-serif`.
-- Use the host system's own type scale (`--text-xs`…`--text-lg` in Basecoat,
-Tailwind's `text-*` utilities in shadcn) instead of inventing pixel values.
+@theme {
+  --color-enviolo-50: #FAEAC0;  --color-enviolo-100: #F5CAA8; --color-enviolo-200: #E79782;
+  --color-enviolo-300: #C88273; --color-enviolo-400: #A96D64; --color-enviolo-500: #865A56;
+  --color-enviolo-600: #614749; --color-enviolo-700: #393339; --color-enviolo-800: #20262B;
+  --color-enviolo-900: #05191E; --color-enviolo-950: #020D12;
+}
 
-## Spacing
+:root {
+  --background: var(--light-bg, #ffffff);
+  --foreground: var(--color-taupe-950);
+  --primary: var(--color-taupe-900);
+  --primary-foreground: var(--color-taupe-50);
+  --secondary: var(--color-taupe-100);
+  --muted: var(--color-taupe-100);
+  --muted-foreground: var(--color-taupe-500);
+  --accent: var(--light-accent, var(--color-taupe-100));
+  --border: var(--color-taupe-200);
+  --ring: var(--light-ring, var(--color-enviolo-200));
+  --destructive: var(--color-red-600);
+  --radius: 0.625rem;
+  --radius-control: 9999px;
+}
 
-Both systems share Tailwind's base spacing unit, `--spacing: .25rem` (4px),
-referenced as `calc(var(--spacing) * N)`. Express spacing as a multiple of
-this unit rather than hardcoding pixel gaps, so it scales with the rest of
-the system.
+.dark {
+  --background: var(--dark-bg, var(--color-mist-950));
+  --foreground: var(--color-mist-50);
+  --primary: var(--color-mist-50);
+  --primary-foreground: var(--color-mist-900);
+  --secondary: var(--color-mist-800);
+  --muted: var(--color-mist-900);
+  --muted-foreground: var(--color-mist-400);
+  --accent: var(--dark-accent, var(--color-mist-800));
+  --border: var(--color-mist-800);
+  --ring: var(--dark-ring, var(--color-enviolo-200));
+  --destructive: var(--color-red-500);
+}
 
-## Radius
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+```
 
-- Base: `--radius: 0.625rem` — shadcn's own default, inherited as-is.
-- Both systems derive a scale off it (`--radius-sm`, `-lg`, `-xl`, `-2xl`, …).
-- A "fully rounded" pill treatment (BasecoatUI's "Luma" style pack) pushes
-components' radius up to `--radius-4xl` (2rem) without touching the base
-`--radius` value — prefer swapping the style pack / radius scale over
-hand-tuning individual component corners.
+Illustrative only; it shows the pattern, not a complete file.
 
-## Status colors
+---
 
-Neither system ships a built-in "success" variant out of the box —
-`--positive` / `--negative` are an Enviolo-specific addition layered on top of
-the standard `--destructive` token, used for badges and inline validation.
-Keep them in the brand layer (not the neutral one), since they shouldn't
-change on a reskin.
+## 4. Colour
 
-## Buttons
+### 4.1 Neutrals
 
-Use Basecoat/shadcn's own button component and variant classes as shipped —
-don't layer a separate emphasis scale on top, and don't hand-roll what the
-official build already provides (its own outline button, `rounded-full` for
-a pill shape, etc.).
+Tailwind v4.3 ramps (oklch). In Tailwind projects reference `var(--color-taupe-*)` and `var(--color-mist-*)` instead of copying values.
 
-## Icons
+| Step | Light mode: **Taupe** | Dark mode: **Mist** |
+|---|---|---|
+| 50 | `oklch(98.6% 0.002 67.8)` | `oklch(98.7% 0.002 197.1)` |
+| 100 | `oklch(96% 0.002 17.2)` | `oklch(96.3% 0.002 197.1)` |
+| 200 | `oklch(92.2% 0.005 34.3)` | `oklch(92.5% 0.005 214.3)` |
+| 300 | `oklch(86.8% 0.007 39.5)` | `oklch(87.2% 0.007 219.6)` |
+| 400 | `oklch(71.4% 0.014 41.2)` | `oklch(72.3% 0.014 214.4)` |
+| 500 | `oklch(54.7% 0.021 43.1)` | `oklch(56% 0.021 213.5)` |
+| 600 | `oklch(43.8% 0.017 39.3)` | `oklch(45% 0.017 213.2)` |
+| 700 | `oklch(36.7% 0.016 35.7)` | `oklch(37.8% 0.015 216)` |
+| 800 | `oklch(26.8% 0.011 36.5)` | `oklch(27.5% 0.011 216.9)` |
+| 900 | `oklch(21.4% 0.009 43.1)` | `oklch(21.8% 0.008 223.9)` |
+| 950 | `oklch(14.7% 0.004 49.3)` | `oklch(14.8% 0.004 228.8)` |
 
-[Tabler Icons](https://tabler.io/icons) — inline SVG (24×24, `stroke="currentColor"`,
-`stroke-width="2"`), not a font/sprite. Place as a direct child using the
-host system's own slot attribute: `data-icon="inline-start"`/`"inline-end"`
-on a button, `data-align="start"` on an `.input-group` icon `<span>`.
+- Warm days, cool nights: light mode reads warm (Taupe), dark mode reads cool (Mist). The split is deliberate.
+- All other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) stay available for exploration only.
 
-## Charts
+### 4.2 Enviolo colour ramp *(draft, not yet published)*
 
-BasecoatUI (and shadcn's equivalent) expose `--chart-1`…`--chart-5` +
-`--chart-bar-radius` for chart/tooltip components. Enviolo wires these onto
-the brand layer, not the neutral one:
+For gradients, chart bars and volumetric effects. Light → dark (50 → 950). It imitates the sky, warm at sunset and cold at midnight, so the hue shifts from warm to teal at the dark end on purpose.
 
-- `--chart-1` — flat accent for small marks (line strokes, dots, sparklines,
-legend/tooltip swatches). `--coral` (light) / `--ivory` (dark) — its own
-pair, kept separate from `--ring`'s `--dusk` / `--gold`.
-- `--chart-gradient-a` / `--chart-gradient-b` — two-stop gradient for large
-fills only (bars, area washes); `a` is the brighter stop, `b` the deeper
-one. Light: `--coral` / `--dusk`. Dark: `--ivory` / `--gold`.
-- Don't build multi-hue categorical charts straight off the brand ramp — it's
-warm and low-diversity, and hasn't been run through a colorblind-safety
-check. A single flat accent, or the gradient pair above, is the safe
-default per chart.
+| Step | Name | Hex | L* |
+|---|---|---|---|
+| 50 | Ivory | `#FAEAC0` | 93 |
+| 100 | Apricot | `#F5CAA8` | 84 |
+| 200 | Coral | `#E79782` | 70 |
+| 300 | Copper | `#C88273` | 61 |
+| 400 | Clay | `#A96D64` | 52 |
+| 500 | Dusk | `#865A56` | 43 |
+| 600 | Twilight | `#614749` | 33 |
+| 700 | Coffee | `#393339` | 22 |
+| 800 | Nightfall *(name TBC)* | `#20262B` | 15 |
+| 900 | Midnight | `#05191E` | 7 |
+| 950 | Pearl Black | `#020D12` | 3 |
 
+Nightfall is the OKLab midpoint between Coffee and Midnight; it closes the 22 → 7 lightness jump. Tokens: `--enviolo-50…950`, Tailwind `--color-enviolo-*`, with name aliases (`--enviolo-coral`, …).
+
+**Gradient recipes** (numbers = ramp steps)
+- **Organic hero** (preferred brand moment): dark base `linear-gradient(160deg, 700, 800, 900, 950)` with a Coral radial glow top-right, a soft Ivory light at the corner and a Twilight pool bottom-left. Optional hub ring: conic gradient 50 → 200 → 400 → 600.
+- **Sky, sunset to midnight**: `linear-gradient(180deg, 950, 900, 800, 700, 600, 500, 300, 200, 100, 50)`
+- **Sunset glow**: `linear-gradient(120deg, 50, 100, 200)`
+- **Dusk**: `linear-gradient(120deg, 200, 500, 700)`
+- **Night**: `linear-gradient(180deg, 800, 900, 950)`
+- **Volume**: `radial-gradient(circle at 34% 30%, 50, 100, 200, 300, 400, 600, 700, 800, 900)` for hubs, spheres and product glow
+
+**Charts**: spaced steps so series separate by lightness. Light 200 / 400 / 600 / 900; dark 50 / 200 / 400 / 500.
+
+**Rules**
+- One gradient per view, for a brand moment.
+- Never on buttons, text, borders or UI chrome. Primary buttons stay neutral (ink in light, near-white in dark).
+- The cool end (Nightfall, Midnight, Pearl Black) pairs with Mist in dark mode.
+
+### 4.3 Status colours
+
+Primitives: Tailwind v4.3 `red`, `amber`, `green`, `blue` (50–950). Each status token takes a darker step in light mode and a lighter step in dark mode, so contrast holds on both backgrounds (see the table in 3.2).
+
+- Meaning only: errors, warnings, success, information. Never decoration.
+- Background: `color-mix(in srgb, var(--success) var(--status-tint), transparent)`. Text: the token itself; warning text is mixed 70% with `--foreground`.
+- Always pair colour with text or an icon.
+- shadcn only ships `--destructive`. `--success`, `--warning` and `--info` are Enviolo additions in the same naming pattern.
+
+---
+
+## 5. Typography
+
+| Role | Family | Fallback |
+|---|---|---|
+| Interface and content | **Source Sans 3** | `ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif` |
+| Code and token names | **Source Code Pro** | `ui-monospace, SFMono-Regular, Menlo, Consolas, monospace` |
+
+Both come from Adobe's Source family, so proportions match.
+
+| Style | Size | Weight | Line height | Tracking |
+|---|---|---|---|---|
+| Display / H1 | `clamp(2.2rem, 5vw, 3.4rem)` | 800 | 1.02 | -0.03em |
+| H2 | 1.6rem | 700 | 1.15 | -0.02em |
+| H3 | 1.15rem | 700 | 1.3 | -0.01em |
+| Lede | 1.15rem | 400 | 1.5 | 0 |
+| Body | 1rem | 400 | 1.5 | 0 |
+| Small / meta | 0.875rem | 400 | 1.5 | 0 |
+| Button | 0.95rem (sm 0.85, lg 1) | 600 | 1 | 0.005em |
+| Menu / group label | 0.8rem | 600 | — | 0 |
+
+- Sentence case everywhere; no all-caps eyebrows.
+- Body copy ≤ ~62 characters per line.
+- Mono only for code, hex values and token names. Numbers in tables use the sans with tabular figures.
+- No colour or italics on single words in headlines; hierarchy comes from size and weight.
+
+---
+
+## 6. Shape, spacing, elevation
+
+**Radius.** Pills act, corners hold (from the Luma style).
+
+| Token | Value | Applies to |
+|---|---|---|
+| `--radius-control` | 999px | Buttons, inputs, segmented controls, menu items, chips |
+| `--radius` | 10px | Small containers |
+| — | 12–14px | Cards, menus, dialogs, frames |
+| — | 18px | Hero blocks |
+
+Never give a container a pill radius, and never give a control a container radius.
+
+**Spacing.** 4px base. Core steps: 4, 8, 12, 16, 24, 32, 48, 72. Button groups: 8–10px gap. Sections: 72px. Card padding 18–22px.
+
+**Elevation.** Borders by default. Menus and popovers: `0 12px 32px rgba(0,0,0,.16)`. Dialogs: `0 12px 32px rgba(0,0,0,.12)`. Selected segment: `0 1px 2px rgba(0,0,0,.08)`.
+
+**Motion.** 150ms colour transitions; menus enter with 140ms fade + 4px rise. Respect `prefers-reduced-motion`.
+
+---
+
+## 7. Layout and breakpoints
+
+| Layout | Width | Columns | Gutter | Margin | Behaviour |
+|---|---|---|---|---|---|
+| Mobile | 320–599px | 4 | 16px | 16px | One column; actions stack full width, primary on top |
+| Tablet | 600–879px | 8 | 20px | 24px | Two-column layouts hold; large buttons step down to default |
+| Desktop | ≥ 880px | 12 | 24px | 24px | Container caps at 1080px and centres |
+
+```css
+@theme {
+  --breakpoint-sm: 37.5rem;      /* 600px  tablet  */
+  --breakpoint-md: 55rem;        /* 880px  desktop */
+  --container-content: 67.5rem;  /* 1080px */
+}
+```
+
+- Product page: 5 + 7 (desktop), 3 + 5 (tablet), stacked (mobile). Cards: 3 / 2 / 1 across.
+- Two-column grids use `minmax(0, …)` tracks and `min-width: 0` children.
+- No horizontal page scroll from 320px. Wide content (tables, filters, code) scrolls in its own container.
+- Left-aligned content; centre only short, focused moments.
+- Respect `env(safe-area-inset-*)` for fixed elements.
+- Component tweaks (menus, small grids) may use 560 / 480 / 420px, but layout follows the three breakpoints.
+
+---
+
+## 8. Components
+
+### 8.1 Buttons
+
+| Rank | Variant | shadcn | Basecoat | Use |
+|---|---|---|---|---|
+| 1 | Primary (solid) | `variant="default"` | `btn` | The main job of the view. One per view. |
+| 2 | Secondary (muted) **or** outline | `secondary` / `outline` | `btn-secondary` / `btn-outline` | Supporting action. Same rank, pick by surface. |
+| 3 | Ghost | `ghost` | `btn-ghost` | Repeated, low-stakes, skip/defer, icon actions |
+| 4 | Link | `link` | `btn-link` | Inline navigation in text |
+| — | Destructive | `destructive` | `btn-destructive` | Irreversible only, next to an outline way out |
+
+**Choosing a type** (ask in order, stop at the first yes)
+1. Is it the main thing people come here to do? → Primary, one per view.
+2. Does it support the main job and change something? → Secondary on plain backgrounds, outline on cards, dialogs and imagery.
+3. Is it repeated, optional or a way out? → Ghost.
+4. Is it navigation inside a sentence? → Link. Irreversible? → Destructive, next to an outline way out.
+
+**Secondary or outline: the surface decides**
+- Secondary: plain page background, groups next to primary, filters and toggles, mobile second actions with a consequence ("Reset to default").
+- Outline: on cards, panels, sheets, dialogs and imagery (inverted); dialog cancel; a toolbar action next to a muted control.
+- Avoid full-width outline buttons in mobile forms, because they read like empty inputs.
+
+**Ghost or secondary for the second action**: has a consequence → secondary; skips or defers ("Set up later", "Back") → ghost.
+
+**Hard rules**
+1. One primary per view; two primaries means two jobs, so split the view.
+2. Never mix secondary and outline in one group.
+3. Repeated actions (every row, card, toolbar slot) are ghost.
+4. Primary goes last: right-aligned on desktop, top of the stack on mobile.
+5. Destructive is never the default focus.
+
+**Sizes**: sm 32px / 14px padding · default 40px / 18px · lg 48px / 22px · icon square. Icons 18px (16px in sm). Mobile stacks use lg; tablet may step lg down to default.
+
+**States**: hover (primary −12% opacity; secondary slightly darker; outline and ghost get `--accent`) · focus-visible `2px solid var(--ring)`, offset 2px · disabled 45% opacity.
+
+**On dark imagery**: primary white with ink text; outline transparent, white text, `rgba(255,255,255,.45)` border.
+
+**Migration from the legacy system**: solid → primary; outline → outline on cards and imagery, secondary in plain-page groups; ghost → ghost. Audit pages for extra primaries.
+
+### 8.2 Inputs and controls
+
+- **Input**: pill, 40px (sm 32px), 1px `--border`, `--background` fill, 18px padding; on focus the ring replaces the border.
+- **Search**: leading icon 14px from the left, padding-left 38px.
+- **Segmented control**: pill track in `--muted`, 4px inset; the selected segment gets `--background`, foreground text and a 1px shadow (`aria-pressed` or `aria-current`). For view switches and filters, not actions. Segments share width evenly when tight, or the track scrolls.
+- **Status pill**: 999px, 0.8rem, weight 600, tinted background (see 4.3).
+
+### 8.3 Navigation and menus
+
+- **Top navigation**: logo + product name left, topics right. A topic link goes to its **first subtopic**; hovering (or ↓ on the keyboard) opens a **dropdown** listing every subtopic with a one-line description. Current page is highlighted there and its topic marked in the bar.
+- **Topic page header**: topic name, then a segmented **sub-nav** of subtopics, then the page title. Non-navigational notes ("More components soon") sit outside the pill as plain text.
+- **Cards as links**: overview cards are fully clickable (stretched link), with secondary sub-links layered on top.
+- **Dropdown menus**: 272px, 6px padding, 14px radius, menu shadow. Rows are pills: 16px leading slot (checkmark for radio items), label, optional "Default" tag, trailing preview.
+- **Direction**: menus anchored bottom-right open **upward**; submenus open **to the side**; on narrow screens submenus overlay the parent with a Back item.
+- **Keyboard**: ↑/↓ move, Home/End jump, Esc closes and returns focus, ← opens a side submenu, → returns.
+- **Disclosure**: secondary information hides behind a ghost button with a rotating chevron (`aria-expanded`).
+
+---
+
+## 9. Icons
+
+- **Tabler** (outline) by default; Lucide is the supported alternative.
+- Stroke 2, round caps and joins, 24px viewBox, `currentColor`.
+- Reference icons by semantic name (`share`, `trash`, `download`, `search`, `plus`, `copy`, `settings`, `sliders`, `more`, `check`, `chevron-*`, `sun`, `moon`), never by set. Swapping sets is a one-file change.
+- Decorative icons get `aria-hidden="true"`; icon-only buttons get `aria-label` (and `title`).
+- No arrow glyphs appended to button text.
+
+---
+
+## 10. Theming and display preferences
+
+- **Theme**: match system by default; users can force light or dark. A quick toggle shows the destination (moon in light mode, sun in dark mode).
+- **Display menu** (one place for all preferences, saved locally): theme, font, icons, code font, **Mode settings**. Default options carry a "Default" tag.
+- **Mode settings**: one submenu per mode, four groups each.
+
+| Group | Token | Light mode options | Dark mode options |
+|---|---|---|---|
+| Background | `--light-bg` / `--dark-bg` | **White**, Neutral 50, Ivory tint | **Neutral 950**, Pearl Black, Midnight |
+| Accent (hover and muted) | `--light-accent` / `--dark-accent` | **Neutral 100**, Ivory, Coral tint | **Neutral 800**, Nightfall, Coral tint |
+| Focus (active fields) | `--light-ring` / `--dark-ring` | **Coral** 2.3:1, Copper 3.1:1, Clay 4.2:1 | **Coral** 8.6:1, Ivory 16:1, Apricot 13:1 |
+| Neutrals | `--l-*` / `--d-*` | **Taupe** + all Tailwind neutrals | **Mist** + all Tailwind neutrals |
+
+Bold = default. Contrast ratios are against the default background.
+
+---
+
+## 11. Accessibility
+
+- Visible focus on every interactive element (`:focus-visible` + `--ring`). Focus indicators need ≥ 3:1 against their background; **Coral fails on white** (see section 15).
+- Text contrast WCAG AA. Check `--muted-foreground` on card and muted surfaces for every neutral ramp and both modes.
+- Touch targets ≥ 40px (32px allowed for icon buttons in dense tables).
+- Respect `prefers-reduced-motion`.
+- ARIA: menus `role="menu"` with `menuitem` / `menuitemradio` + `aria-checked`; toggles `aria-pressed`; disclosures `aria-expanded`; current page `aria-current="page"`.
+- Never use colour alone to carry meaning.
+
+---
+
+## 12. Copy
+
+- Sentence case, active voice, plain verbs.
+- Buttons say what happens: "Place order", "Save draft", "Download manual", not "Submit" or "OK".
+- An action keeps its name through the flow ("Delete draft" → "Draft deleted").
+- Escape hatches say what they defer: "Set up later", "Keep draft".
+- Destructive confirmations state the consequence and that it can't be undone.
+- Errors say what went wrong and how to fix it.
+- Audiences: riders, dealers, mechanics, OEMs. Product terms (stepless, CVP, Automatic, Utility) come from a shared glossary and stay consistent across languages.
+
+---
+
+## 13. Context examples
+
+| Surface | Primary | Second rank | Ghost |
+|---|---|---|---|
+| Website hero on imagery | Find a dealer (inverted) | How the hub works (inverted outline) | — |
+| Website product page | Find a dealer | Compare hubs (secondary) | Share (icon) |
+| Ordering portal | Place order | Save draft (secondary), Add line (outline in toolbar), filters (segmented) | Row actions |
+| Dialog | Delete draft (destructive) | Keep draft (outline) | — |
+| Course / support cards | Start course (assigned only) | Preview, Download manual (outline on card) | Save for later |
+| App onboarding | Connect hub / Save cadence | Reset to default (secondary) | Set up later, Back |
+
+---
+
+## 14. Checklist for any new screen
+
+- [ ] Right backbone for the surface (shadcn/ui in React, Basecoat on the web)
+- [ ] Only semantic tokens; no raw colours or palette classes
+- [ ] One primary action, placed last on desktop, top on mobile
+- [ ] Second rank chosen by surface; repeated actions are ghost
+- [ ] Pill controls, soft-cornered containers
+- [ ] Works in light and dark, with Taupe/Mist and any other neutral ramp
+- [ ] Icons by semantic name; icon-only buttons labelled
+- [ ] No horizontal scroll at 320px; two columns hold on tablet where content allows
+- [ ] Focus visible and ≥ 3:1; reduced motion respected; text contrast AA
+- [ ] Sentence case; actions named by outcome
+- [ ] Brand gradient at most once, never on controls
+
+---
+
+## 15. Open decisions
+
+| Topic | Question | Current state |
+|---|---|---|
+| Light-mode focus | Coral is 2.3:1 on white (below 3:1). Switch the default to Copper (3.1:1)? | Coral default, Copper recommended |
+| Dark-mode focus | Make Ivory the default (mirrors Coral in light)? | Coral default |
+| Status backgrounds | Transparent tints (current) or solid ramp steps (50 bg / 700 text light, 950 bg / 300–400 text dark) for Figma parity? | Tints; solids recommended |
+| Nightfall | Final name for Enviolo 800 | Name TBC |
+| Enviolo ramp | Publish to Enviolo brand guidelines | Draft |
+| Rollout | Which product adopts the system first | Step by step, per product readiness |
+| Basecoat markup | Confirm class naming (combined size + variant) before production | To verify |
+
+---
+
+## 16. Changelog
+
+- **v0.3.4**: architecture (shadcn/ui for React apps, Basecoat for web, Enviolo token layer on top); AI rules up front; per-mode background, accent and focus; status colours from Tailwind primitives with `--status-tint`; navigation patterns (topic dropdowns, sub-nav, cards as links); open decisions.
+- **v0.3.3**: Enviolo ramp (11 steps, Nightfall added), gradients, chart steps; grid and breakpoints.
+- **v0.3.2**: confirmed defaults (Source Sans 3, Tabler, Source Code Pro, Taupe/Mist).
+- **v0.3.1**: button hierarchy, tokens and Basecoat/shadcn conventions from the button prototype.
