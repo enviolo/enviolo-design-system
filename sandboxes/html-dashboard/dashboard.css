@@ -142,6 +142,23 @@ body {
   overflow: visible;
 }
 
+.chart-legend {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.chart-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .chart-grid-line {
   stroke: var(--border);
   stroke-width: 1;
@@ -210,12 +227,19 @@ body {
   gap: 8px;
 }
 
-.chart-tooltip-indicator {
+.chart-swatch {
   width: 10px;
   height: 10px;
   border-radius: 3px;
   background-color: var(--chart-indicator-color);
   flex-shrink: 0;
+}
+
+.chart-tooltip-total {
+  margin-top: 4px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-weight: 600;
 }
 
 .chart-tooltip-value {

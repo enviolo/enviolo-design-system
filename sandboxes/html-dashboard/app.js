@@ -23,8 +23,9 @@
     return n.toLocaleString("en-US");
   }
 
-  // Charts use flat fills in --chart-3: the first step that clears 3:1 against the
-  // background in both modes (design.md 4.2). Gradients are reserved for brand moments.
+  // Charts use flat fills from the Enviolo ramp (--chart-1 .. --chart-5). The sparklines are
+  // single-series, so they use --chart-3, the first step that clears 3:1 in both modes
+  // (design.md 4.2). Gradients are reserved for brand moments.
 
   // --- Theme toggle -------------------------------------------------------
 
@@ -101,17 +102,87 @@
     tooltip.style.top = rect.top + ySvg * scaleY + "px";
   }
 
-  // --- Line chart -----------------------------------------------------------
+  // --- Segments: the Enviolo ramp as chart series ---------------------------------
+  // design.md 4.2: series follow the ramp order, lightest first (--chart-1 .. --chart-5),
+  // and every series is labelled, because the pale steps are weak on their own.
+
+  var SEGMENTS = [
+    { name: "Cargo", share: 0.38 },
+    { name: "Speed pedelec", share: 0.26 },
+    { name: "SUV", share: 0.18 },
+    { name: "City", share: 0.11 },
+    { name: "Other", share: 0.07 },
+  ];
+
+  function seriesColor(k) {
+    return "var(--chart-" + (k + 1) + ")";
+  }
+
+  // Split a daily total across the segments. A small deterministic wobble keeps the
+  // lines from running parallel; the parts always add back up to the total.
+  function splitTotal(total, i) {
+    var weights = SEGMENTS.map(function (s, k) {
+      return s.share * (1 + 0.06 * Math.sin(i * 1.7 + k * 2.3));
+    });
+    var sum = weights.reduce(function (a, b) { return a + b; }, 0);
+    var parts = weights.map(function (w) { return Math.round(total * w / sum); });
+    var drift = total - parts.reduce(function (a, b) { return a + b; }, 0);
+    parts[parts.length - 1] += drift;
+    return parts;
+  }
+
+  function renderLegend(list) {
+    SEGMENTS.forEach(function (s, k) {
+      var item = document.createElement("li");
+      var swatch = document.createElement("span");
+      swatch.className = "chart-swatch";
+      swatch.style.setProperty("--chart-indicator-color", seriesColor(k));
+      item.appendChild(swatch);
+      item.appendChild(document.createTextNode(s.name));
+      list.appendChild(item);
+    });
+  }
+
+  function tooltipRow(name, value, color, isTotal) {
+    var row = document.createElement("div");
+    row.className = "chart-tooltip-item" + (isTotal ? " chart-tooltip-total" : "");
+    if (color) {
+      var swatch = document.createElement("span");
+      swatch.className = "chart-swatch";
+      swatch.style.setProperty("--chart-indicator-color", color);
+      row.appendChild(swatch);
+    }
+    var label = document.createElement("span");
+    label.textContent = name;
+    var amount = document.createElement("span");
+    amount.className = "chart-tooltip-value";
+    amount.textContent = formatNumber(value);
+    row.appendChild(label);
+    row.appendChild(amount);
+    return row;
+  }
+
+  function fillTooltip(tooltip, point) {
+    tooltip.querySelector(".chart-tooltip-label").textContent = point.label;
+    var items = tooltip.querySelector(".chart-tooltip-items");
+    items.textContent = "";
+    SEGMENTS.forEach(function (s, k) {
+      items.appendChild(tooltipRow(s.name, point.parts[k], seriesColor(k), false));
+    });
+    items.appendChild(tooltipRow("Total", point.total, null, true));
+  }
+
+  // --- Line chart: one line per segment -----------------------------------------
 
   function renderLineChart(config) {
     var svg = config.svg;
     var tooltip = config.tooltip;
-    var data = config.data; // [{ label, value }]
+    var data = config.data; // [{ label, total, parts }]
     var axisMax = config.axisMax;
     var axisStep = config.axisStep;
 
     var viewBoxW = 640, viewBoxH = 280;
-    var margin = { top: 16, right: 54, bottom: 30, left: 46 };
+    var margin = { top: 16, right: 24, bottom: 30, left: 46 };
     var innerW = viewBoxW - margin.left - margin.right;
     var innerH = viewBoxH - margin.top - margin.bottom;
 
@@ -138,17 +209,17 @@
       svg.appendChild(label);
     }
 
-    // Area + line
-    var linePoints = data.map(function (d, i) { return [xAt(i), yAt(d.value)]; });
-    var areaPath = "M" + linePoints.map(function (p) { return p.join(","); }).join("L") +
-      "L" + xAt(data.length - 1) + "," + yAt(0) + "L" + xAt(0) + "," + yAt(0) + "Z";
-
-    svg.appendChild(el("path", { d: areaPath, fill: "var(--chart-3)", "fill-opacity": "0.14", stroke: "none" }));
-    svg.appendChild(el("polyline", {
-      points: linePoints.map(function (p) { return p.join(","); }).join(" "),
-      fill: "none", stroke: "var(--chart-3)", "stroke-width": "2",
-      "stroke-linecap": "round", "stroke-linejoin": "round",
-    }));
+    // One polyline per segment, plus a dot on the last point
+    SEGMENTS.forEach(function (s, k) {
+      var pts = data.map(function (d, i) { return [xAt(i), yAt(d.parts[k])]; });
+      svg.appendChild(el("polyline", {
+        points: pts.map(function (p) { return p.join(","); }).join(" "),
+        fill: "none", stroke: seriesColor(k), "stroke-width": "2.5",
+        "stroke-linecap": "round", "stroke-linejoin": "round",
+      }));
+      var last = pts[pts.length - 1];
+      svg.appendChild(el("circle", { cx: last[0], cy: last[1], r: "3.5", fill: seriesColor(k), stroke: "var(--card)", "stroke-width": "2" }));
+    });
 
     // x-axis labels (sparse)
     data.forEach(function (d, i) {
@@ -160,15 +231,6 @@
       svg.appendChild(xl);
     });
 
-    // End marker + direct label (value at the end)
-    var last = linePoints[linePoints.length - 1];
-    svg.appendChild(el("circle", { cx: last[0], cy: last[1], r: "4", fill: "var(--chart-3)", stroke: "var(--card)", "stroke-width": "2" }));
-    var endLabel = el("text", {
-      x: last[0] + 10, y: last[1] + 4, "text-anchor": "start", class: "chart-value-label",
-    });
-    endLabel.textContent = formatNumber(data[data.length - 1].value);
-    svg.appendChild(endLabel);
-
     // Crosshair
     var crosshair = el("line", {
       x1: 0, x2: 0, y1: margin.top, y2: viewBoxH - margin.bottom, class: "chart-crosshair",
@@ -176,10 +238,7 @@
     svg.appendChild(crosshair);
 
     // Hover targets (one column per point)
-    var tooltipLabel = tooltip.querySelector(".chart-tooltip-label");
-    var tooltipValue = tooltip.querySelector(".chart-tooltip-value");
     var colWidth = innerW / data.length;
-
     data.forEach(function (d, i) {
       var target = el("rect", {
         x: margin.left + i * colWidth, y: margin.top, width: colWidth, height: innerH,
@@ -190,10 +249,9 @@
         crosshair.setAttribute("x1", cx);
         crosshair.setAttribute("x2", cx);
         crosshair.style.opacity = "1";
-        tooltipLabel.textContent = d.label;
-        tooltipValue.textContent = formatNumber(d.value);
+        fillTooltip(tooltip, d);
         tooltip.hidden = false;
-        positionTooltip(tooltip, svg, viewBoxW, viewBoxH, cx, yAt(d.value));
+        positionTooltip(tooltip, svg, viewBoxW, viewBoxH, cx, yAt(Math.max.apply(null, d.parts)));
       });
       target.addEventListener("mouseleave", function () {
         crosshair.style.opacity = "0";
@@ -203,12 +261,12 @@
     });
   }
 
-  // --- Bar chart --------------------------------------------------------------
+  // --- Stacked bar chart: one block per segment, lightest at the bottom -----------
 
   function renderBarChart(config) {
     var svg = config.svg;
     var tooltip = config.tooltip;
-    var data = config.data; // [{ label, value }]
+    var data = config.data; // [{ label, total, parts }]
     var axisMax = config.axisMax;
     var axisStep = config.axisStep;
 
@@ -239,31 +297,28 @@
 
     var slot = innerW / data.length;
     var barWidth = Math.min(barMax, slot * 0.5);
-    var peakValue = Math.max.apply(null, data.map(function (d) { return d.value; }));
-
-    var tooltipLabel = tooltip.querySelector(".chart-tooltip-label");
-    var tooltipValue = tooltip.querySelector(".chart-tooltip-value");
+    var peakTotal = Math.max.apply(null, data.map(function (d) { return d.total; }));
 
     data.forEach(function (d, i) {
       var cx = margin.left + slot * i + slot / 2;
-      var barTop = yAt(d.value);
-      var barHeight = baselineY - barTop;
+      var stacked = 0;
+      d.parts.forEach(function (part, k) {
+        var top = yAt(stacked + part);
+        var bottom = yAt(stacked);
+        // 1px card-coloured stroke separates neighbouring segments
+        svg.appendChild(el("rect", {
+          x: cx - barWidth / 2, y: top, width: barWidth, height: Math.max(bottom - top, 0),
+          fill: seriesColor(k), stroke: "var(--card)", "stroke-width": "1",
+        }));
+        stacked += part;
+      });
+      var barTop = yAt(d.total);
 
-      svg.appendChild(el("rect", {
-        x: cx - barWidth / 2, y: barTop, width: barWidth, height: barHeight,
-        rx: "4", fill: "var(--chart-3)",
-      }));
-      // square the baseline corners: cover the bottom rounded corners with a flat
-      // 4px patch in the same colour
-      svg.appendChild(el("rect", {
-        x: cx - barWidth / 2, y: baselineY - 4, width: barWidth, height: "4", fill: "var(--chart-3)",
-      }));
-
-      if (d.value === peakValue) {
+      if (d.total === peakTotal) {
         var peakLabel = el("text", {
           x: cx, y: barTop - 8, "text-anchor": "middle", class: "chart-value-label",
         });
-        peakLabel.textContent = formatNumber(d.value);
+        peakLabel.textContent = formatNumber(d.total);
         svg.appendChild(peakLabel);
       }
 
@@ -278,8 +333,7 @@
         class: "chart-hover-target",
       });
       target.addEventListener("mouseenter", function () {
-        tooltipLabel.textContent = d.label;
-        tooltipValue.textContent = formatNumber(d.value);
+        fillTooltip(tooltip, d);
         tooltip.hidden = false;
         positionTooltip(tooltip, svg, viewBoxW, viewBoxH, cx, barTop);
       });
@@ -292,32 +346,28 @@
 
   // --- Boot -----------------------------------------------------------------
 
+  function withParts(rows) {
+    return rows.map(function (r, i) {
+      return { label: r[0], total: r[1], parts: splitTotal(r[1], i) };
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initThemeToggle();
 
     document.querySelectorAll(".sparkline").forEach(renderSparkline);
+    document.querySelectorAll(".chart-legend").forEach(renderLegend);
 
     renderLineChart({
       svg: document.getElementById("line-chart"),
       tooltip: document.getElementById("line-tooltip"),
-      axisMax: 10000,
-      axisStep: 2000,
-      data: [
-        { label: "Aug 5", value: 6120 },
-        { label: "Aug 6", value: 6480 },
-        { label: "Aug 7", value: 6300 },
-        { label: "Aug 8", value: 6900 },
-        { label: "Aug 9", value: 7200 },
-        { label: "Aug 10", value: 7050 },
-        { label: "Aug 11", value: 7480 },
-        { label: "Aug 12", value: 7300 },
-        { label: "Aug 13", value: 7900 },
-        { label: "Aug 14", value: 8100 },
-        { label: "Aug 15", value: 7950 },
-        { label: "Aug 16", value: 8400 },
-        { label: "Aug 17", value: 8700 },
-        { label: "Aug 18", value: 9840 },
-      ],
+      axisMax: 4000,
+      axisStep: 1000,
+      data: withParts([
+        ["Aug 5", 6120], ["Aug 6", 6480], ["Aug 7", 6300], ["Aug 8", 6900], ["Aug 9", 7200],
+        ["Aug 10", 7050], ["Aug 11", 7480], ["Aug 12", 7300], ["Aug 13", 7900], ["Aug 14", 8100],
+        ["Aug 15", 7950], ["Aug 16", 8400], ["Aug 17", 8700], ["Aug 18", 9840],
+      ]),
     });
 
     renderBarChart({
@@ -325,15 +375,10 @@
       tooltip: document.getElementById("bar-tooltip"),
       axisMax: 12000,
       axisStep: 3000,
-      data: [
-        { label: "Mon", value: 8200 },
-        { label: "Tue", value: 8600 },
-        { label: "Wed", value: 8900 },
-        { label: "Thu", value: 9100 },
-        { label: "Fri", value: 10400 },
-        { label: "Sat", value: 11240 },
-        { label: "Sun", value: 9700 },
-      ],
+      data: withParts([
+        ["Mon", 8200], ["Tue", 8600], ["Wed", 8900], ["Thu", 9100],
+        ["Fri", 10400], ["Sat", 11240], ["Sun", 9700],
+      ]),
     });
   });
 })();

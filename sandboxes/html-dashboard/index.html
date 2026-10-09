@@ -89,21 +89,16 @@
     <section class="chart-grid" aria-label="Trends">
       <article class="card chart-card">
         <header>
-          <h2 class="card-title">Rides — last 14 days</h2>
-          <p class="card-description">Daily completed rides across the fleet</p>
+          <h2 class="card-title">Rides by segment — last 14 days</h2>
+          <p class="card-description">Daily completed rides, split by hub segment</p>
         </header>
         <section>
+          <ul class="chart-legend" aria-label="Segments"></ul>
           <div class="chart" id="line-chart-wrap">
-            <svg id="line-chart" viewBox="0 0 640 280" role="img" aria-label="Line chart of daily rides over the last 14 days, rising from 6,120 on August 5 to 9,840 on August 18."></svg>
+            <svg id="line-chart" viewBox="0 0 640 280" role="img" aria-label="Line chart of daily rides over the last 14 days, one line per segment: Cargo, Speed pedelec, SUV, City and Other. Total rides rise from 6,120 on August 5 to 9,840 on August 18."></svg>
             <div class="chart-tooltip" id="line-tooltip" hidden>
               <p class="chart-tooltip-label"></p>
-              <div class="chart-tooltip-items">
-                <div class="chart-tooltip-item">
-                  <span class="chart-tooltip-indicator" style="--chart-indicator-color: var(--chart-3)"></span>
-                  <span>Rides</span>
-                  <span class="chart-tooltip-value"></span>
-                </div>
-              </div>
+              <div class="chart-tooltip-items"></div>
             </div>
           </div>
         </section>
@@ -111,21 +106,16 @@
 
       <article class="card chart-card">
         <header>
-          <h2 class="card-title">Rides by weekday</h2>
-          <p class="card-description">Aggregate over the last 8 weeks</p>
+          <h2 class="card-title">Rides by weekday and segment</h2>
+          <p class="card-description">Aggregate over the last 8 weeks, stacked by segment</p>
         </header>
         <section>
+          <ul class="chart-legend" aria-label="Segments"></ul>
           <div class="chart" id="bar-chart-wrap">
-            <svg id="bar-chart" viewBox="0 0 640 280" role="img" aria-label="Bar chart of rides by weekday, ranging from 8,200 on Monday to a peak of 11,240 on Saturday."></svg>
+            <svg id="bar-chart" viewBox="0 0 640 280" role="img" aria-label="Stacked bar chart of rides by weekday and segment, ranging from 8,200 on Monday to a peak of 11,240 on Saturday."></svg>
             <div class="chart-tooltip" id="bar-tooltip" hidden>
               <p class="chart-tooltip-label"></p>
-              <div class="chart-tooltip-items">
-                <div class="chart-tooltip-item">
-                  <span class="chart-tooltip-indicator" style="--chart-indicator-color: var(--chart-3)"></span>
-                  <span>Rides</span>
-                  <span class="chart-tooltip-value"></span>
-                </div>
-              </div>
+              <div class="chart-tooltip-items"></div>
             </div>
           </div>
         </section>
