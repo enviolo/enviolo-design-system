@@ -1,2 +1,2 @@
-/* Applies the saved theme before first paint, so pages don't flash light in dark mode. Full logic lives in docs.js. */
-(function(){try{var t=(JSON.parse(localStorage.getItem('enviolo-display')||'{}')).theme||'system';if(t!=='system')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+/* Applies the saved theme before first paint, so pages don't flash light in dark mode. Full logic lives in display.js. */
+(function(){try{var t=(JSON.parse(localStorage.getItem('enviolo-display')||'{}')).theme||'system';var d=t==='dark'||(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;if(t!=='system')r.setAttribute('data-theme',t);r.classList.toggle('dark',d);}catch(e){}})();
