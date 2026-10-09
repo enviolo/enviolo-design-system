@@ -12,7 +12,7 @@ This repo is the design system itself. `design.md` is the single source of the r
 ## Workflow
 
 - Work on `dev`. `main` holds released versions only. Merge to `main` and tag (`vX.Y.Z`) only when asked. Commit and push only when asked.
-- A version bump touches: the `design.md` header and §16 changelog, the header comments in `tokens/tokens.css` and `tokens/components.css`, the README version log and status line, and the meta line in the root `index.html`.
+- A version bump touches: the `design.md` header and §16 changelog, the header comments in `tokens/tokens.css` and `tokens/components.css`, the README version log and status line, the meta line in the root `index.html`, and the footer line in the dashboard sandbox.
 - On release, move the previous version's `design.md`, `tokens/`, `index.html`, `docs/` and `sandboxes/` into `versions/vX.Y/` and replace the root files.
 
 

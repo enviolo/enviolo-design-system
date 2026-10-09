@@ -27,7 +27,7 @@ Developing in an IDE browser? Cursor's, for one, doesn't follow links between lo
 
 | Sandbox | Version | What it is |
 | ------- | ------- | ---------- |
-| [html-dashboard](sandboxes/html-dashboard/index.html) | v0.3 (current) | The fleet dashboard rebuilt on the v0.3 rules: shared `tokens/` files, `components.css` for buttons, inputs, pills and cards, flat-fill charts. |
+| [html-dashboard](sandboxes/html-dashboard/index.html) | v0.3 (current) | The fleet dashboard rebuilt on the v0.3 rules: shared `tokens/` files, `components.css` for buttons, inputs, pills, cards and the segmented control, a time-range filter that drives the stats and the ramp-coloured charts, and the Display personalizer. |
 | [html-dashboard](versions/v0.2/sandboxes/html-dashboard/index.html) | v0.2 | The original fleet dashboard, on top of BasecoatUI. |
 
 ## Use it in a project
@@ -60,14 +60,14 @@ Versions are git tags. `main` holds released versions only; work in progress liv
 
 | Version | Tag | design.md | Sandbox | Summary |
 | ------- | --- | --------- | ------- | ------- |
-| v0.3 | _pending_ | [design.md](design.md) | [docs site](index.html), [html-dashboard](sandboxes/html-dashboard/index.html) | Architecture (shadcn/ui for React apps, Enviolo CSS for web, Enviolo token layer on top); AI rules up front; Enviolo ramp (11 steps); per-mode background, accent and focus; status colours; gradients and chart steps; layout grid and breakpoints; navigation patterns. Adds `tokens/tokens.css` and `tokens/components.css`. Current: v0.3.10. |
+| v0.3 | _pending_ | [design.md](design.md) | [docs site](index.html), [html-dashboard](sandboxes/html-dashboard/index.html) | Architecture (shadcn/ui for React apps, Enviolo CSS for web, Enviolo token layer on top); AI rules up front; Enviolo ramp (11 steps); per-mode background, accent and focus; status colours; gradients and chart steps; layout grid and breakpoints; navigation patterns. Adds `tokens/tokens.css` and `tokens/components.css`. Current: v0.3.11. |
 | v0.2 | `v0.2` | [versions/v0.2/design.md](versions/v0.2/design.md) | [html-dashboard](versions/v0.2/sandboxes/html-dashboard/index.html) | Brand and semantic colour tokens, Taupe/Mist neutral ramps, light and dark mode, shadcn and BasecoatUI routers. (v0.1 was earlier BasecoatUI testing.) |
 
-The detailed history inside v0.3 is in design.md §16, numbered v0.3.1 to v0.3.10.
+The detailed history inside v0.3 is in design.md §16, numbered v0.3.1 to v0.3.11.
 
 ## Status
 
-Work in progress (currently v0.3.10). Tokens and guidelines may change.
+Work in progress (currently v0.3.11). Tokens and guidelines may change.
 
 ## Contact
 

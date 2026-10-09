@@ -11,6 +11,18 @@
   box-sizing: border-box;
 }
 
+/* native pickers (the date inputs) follow the theme */
+:root {
+  color-scheme: light;
+}
+:root.dark {
+  color-scheme: dark;
+}
+
+.pill[hidden] {
+  display: none;
+}
+
 body {
   margin: 0;
   background-color: var(--background);
@@ -58,6 +70,39 @@ body {
   padding-left: 12px;
   border-left: 1px solid var(--border);
   line-height: 1.2;
+}
+
+/* Filters */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.filter-group .input[type="date"] {
+  width: 10.5rem;
+}
+
+.filter-summary {
+  margin: 0 0 0 auto;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Stat cards */
