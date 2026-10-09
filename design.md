@@ -4,7 +4,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
-- **Version:** v0.3.9 (draft), October 2026
+- **Version:** v0.3.10 (draft), October 2026
 - **Live reference:** the knowledge base, a docs site: open `index.html` at the repo root (Overview, Foundations, Components; pages in `knowledge-base/`)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
@@ -244,7 +244,7 @@ Nightfall is the OKLab midpoint between Coffee and Midnight; it closes the 22 â†
 - **Night**: `linear-gradient(180deg, 800, 900, 950)`
 - **Volume**: `radial-gradient(circle at 34% 30%, 50, 100, 200, 300, 400, 600, 700, 800, 900)` for hubs, spheres and product glow
 
-**Charts**: series follow the ramp order, lightest first, up to five. Light 100 / 200 / 400 / 600 / 900; dark 50 / 100 / 200 / 400 / 500. The pale steps (Ivory, Apricot) have weak contrast against their background and sit close together in dark mode, so label every bar and don't rely on colour alone.
+**Charts**: series follow the ramp order, lightest first, up to five. Light 100 / 200 / 400 / 600 / 900; dark 50 / 100 / 200 / 400 / 500. The pale steps (Ivory, Apricot) have weak contrast against their background and sit close together in dark mode, so label every bar and don't rely on colour alone. A **single series** uses `--chart-3` (Clay in light, Coral in dark), the first step that clears 3:1 in both modes. Charts use flat fills; the one gradient per view is for brand moments.
 
 **Rules**
 - One gradient per view, for a brand moment.
@@ -337,7 +337,7 @@ Never give a container a pill radius, and never give a control a container radiu
 
 ## 8. Components
 
-Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search and status pills**. The segmented control, menus, cards and navigation below are specified here but built only in the docs site (`knowledge-base/assets/docs.css`) for now; use them as the reference until they move into `components.css`.
+Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search, status pills and cards**. The segmented control, menus and navigation below are specified here but built only in the docs site (`knowledge-base/assets/docs.css`) for now; use them as the reference until they move into `components.css`.
 
 ### 8.1 Buttons
 
@@ -382,7 +382,8 @@ Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search
 - **Input**: pill, 40px (sm 32px), 1px `--border`, `--background` fill, 18px padding; on focus the ring replaces the border.
 - **Search**: leading icon 14px from the left, padding-left 38px.
 - **Segmented control**: pill track in `--muted`, 4px inset; the selected segment gets `--background`, foreground text and a 1px shadow (`aria-pressed` or `aria-current`). For view switches and filters, not actions. Segments share width evenly when tight, or the track scrolls.
-- **Status pill**: 999px, 0.8rem, weight 600; solid `--{status}-bg` background with `--{status}-text` (see 4.3).
+- **Status pill**: `<span class="pill" data-variant="success">` (also `warning`, `info`, `error`); 999px, 0.8rem, weight 600; solid `--{status}-bg` background with `--{status}-text` (see 4.3).
+- **Card**: `class="card"` with optional `card-title` and `card-description`; `--card` fill, 1px `--border`, 14px radius, 22px padding, 16px between parts. A card is a container, so it never gets a pill radius.
 
 ### 8.3 Navigation and menus
 
@@ -493,6 +494,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
+- **v0.3.10**: cards (`card`, `card-title`, `card-description`) added to `components.css`; status pills follow the base-plus-attribute convention (`class="pill" data-variant="success|warning|info|error"`, was `pill ok`); single-series charts use `--chart-3` and flat fills. Found by building the dashboard sandbox on the v0.3 rules.
 - **v0.3.9**: chart series follow the ramp order and take up to five steps (`--chart-1â€¦5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500), so Apricot is included. Docs site: one page per topic with shared `assets/`; Colour, Typography and Layout grouped under Foundations (the usual industry term); every value on Foundations can be copied; neutral steps and the status background and text colours are labelled for the current mode; the Display menu lists defaults first.
 - **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split and Basecoat's convention. No visual change.
 - **v0.3.7**: added the shadcn tokens `--input`, `--popover`, `--popover-foreground`, `--card-foreground` and `--accent-foreground`, which shadcn/ui components read and v0.3 was missing. Hand-written Enviolo CSS stays the web backbone; Basecoat was evaluated and not adopted.
