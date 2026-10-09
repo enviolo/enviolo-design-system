@@ -166,7 +166,16 @@ enviolo-calendar td[data-end] .ec-day {
   font-weight: 600;
 }
 
+/* Hover follows the button rules (design.md 8.1): a solid fill from a token, never a colour mix.
+   The ends of the range are primary pills, so they hover like the primary button; days on the accent
+   band go one step further, like the secondary button; every other day hovers like a ghost button. */
+
+enviolo-calendar td[data-start] .ec-day:hover:not(:disabled),
+enviolo-calendar td[data-end] .ec-day:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+
 enviolo-calendar td[data-inrange] .ec-day:hover:not(:disabled),
 enviolo-calendar td[data-preview]:not([data-start]) .ec-day:hover:not(:disabled) {
-  background-color: color-mix(in srgb, var(--foreground) 12%, var(--accent));
+  background-color: var(--secondary-hover);
 }
