@@ -18,6 +18,7 @@ Nothing yet.
 - **Dashboard sandbox:** a React test card using react-day-picker for comparison. The filter summary now shows only the day count.
 - **Dashboard sandbox:** the stat-card sparklines are redrawn at their real pixel size (they were stretched, which warped the stroke and squashed the end dot). Each is now one smooth line with a gradient stroke (`--chart-4` to `--chart-3`) over a fade, as a deliberate exception to flat chart fills (design.md 4.2).
 - **Docs:** added `docs/BACKLOG.md` and `docs/CHANGELOG.md`, linked from `CLAUDE.md`.
+- **Docs:** the Overview's backbone cards are shorter, and the shadcn/ui card now links to shadcn/ui.
 - **Version:** every header now says v0.3.12. A `v0.3` tag pushed earlier the same day was removed; use `v0.3.12`.
 
 ## v0.3.1 to v0.3.11
