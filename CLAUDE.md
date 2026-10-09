@@ -5,6 +5,7 @@ This repo is the design system itself. `design.md` is the single source of the r
 ## What's where
 
 - `design.md`: rules and spec. `tokens/tokens.css`: tokens. `tokens/components.css`: web components, written as a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`).
+- `docs/BACKLOG.md`: work still to do. Check it before starting something new, and update it when an item ships or a new one turns up. `docs/CHANGELOG.md`: what changed, newest first; add a line for every change that ships.
 - `index.html` (Overview) and `docs/` (Foundations and Components pages, shared `assets/`): the docs site. `sandboxes/`: example apps built with the system. `versions/vX.Y/`: archived releases, each with its own `design.md`, tokens, docs site and sandboxes.
 
 
@@ -12,7 +13,7 @@ This repo is the design system itself. `design.md` is the single source of the r
 ## Workflow
 
 - Work on `dev`. `main` holds released versions only. Merge to `main` and tag (`vX.Y.Z`) only when asked. Commit and push only when asked.
-- A version bump touches: the `design.md` header and §16 changelog, the header comments in `tokens/tokens.css` and `tokens/components.css`, the README version log and status line, the meta line in the root `index.html`, and the footer line in the dashboard sandbox.
+- A version bump touches: the `design.md` header and §16 changelog, `docs/CHANGELOG.md`, the header comments in `tokens/tokens.css` and `tokens/components.css`, the README version log and status line, the meta line in the root `index.html`, and the footer line in the dashboard sandbox.
 - On release, move the previous version's `design.md`, `tokens/`, `index.html`, `docs/` and `sandboxes/` into `versions/vX.Y/` and replace the root files.
 
 

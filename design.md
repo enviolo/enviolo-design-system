@@ -4,7 +4,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
-- **Version:** v0.3.11 (draft), October 2026
+- **Version:** v0.3.12 (draft), October 2026
 - **Live reference:** the docs site: open `index.html` at the repo root (Overview, Foundations, Components; pages in `docs/`)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
@@ -496,6 +496,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
+- **v0.3.12**: the dark-mode focus ring defaults to Apricot (Enviolo 100, 13:1 on Neutral 950), was Coral; Coral and Ivory stay as options in the Display menu, and light mode stays Copper. The dashboard sandbox gained one date-range field that opens a vanilla `<enviolo-calendar>` popover (a test build, not yet part of `components.css`) and a React comparison card. `docs/BACKLOG.md` and `docs/CHANGELOG.md` added.
 - **v0.3.11**: the segmented control (`seg`) moved into `components.css`, since the docs site and the dashboard both use it; icon names `filter`, `x` and `calendar` added. The dashboard sandbox gained a time-range filter (presets plus a custom From and To) that drives its stat cards and charts, and its Display menu now includes the icon-style selector.
 - **v0.3.10**: cards (`card`, `card-title`, `card-description`) added to `components.css`; status pills follow the base-plus-attribute convention (`class="pill" data-variant="success|warning|info|error"`, was `pill ok`); single-series charts use `--chart-3` and flat fills. The solid focus ring is documented as a deliberate deviation from shadcn's halo. Found by rebuilding the `html-dashboard` sandbox on the v0.3 rules (`sandboxes/html-dashboard/`, shared `tokens/` files, no Basecoat).
 - **v0.3.9**: chart series follow the ramp order and take up to five steps (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500), so Apricot is included. Docs site: one page per topic with shared `assets/`; Colour, Typography and Layout grouped under Foundations (the usual industry term); every value on Foundations can be copied; neutral steps and the status background and text colours are labelled for the current mode; the Display menu lists defaults first.

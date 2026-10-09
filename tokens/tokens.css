@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Enviolo Design System: tokens.css  (v0.3.11, draft)
+   Enviolo Design System: tokens.css  (v0.3.12, draft)
    Framework-agnostic: works with Enviolo CSS (components.css, web) and shadcn/ui (React).
    Load BEFORE components.css, and AFTER Tailwind base styles if used. Dark mode = `.dark` on <html>.
    Layers: 1 primitives -> 2 mode layer -> 3 semantic -> 4 Tailwind mapping.
