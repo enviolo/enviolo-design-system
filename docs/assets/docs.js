@@ -3,13 +3,13 @@
   var root=document.documentElement;
   /* ---------- Site shell: nav, toast and Display menu are built here so every page stays small ---------- */
   var PAGE=document.body.dataset.page||'overview';
-  /* The Overview is the repo's root index.html; every other page lives in knowledge-base/<topic>/.
+  /* The Overview is the repo's root index.html; every other page lives in docs/<topic>/.
      Links are relative, so the site works from a folder, a local server or an embedded browser. */
-  var IN_KB=PAGE!=='overview', DEPTH=PAGE.split('/').length;
-  var TO_ROOT=IN_KB?new Array(DEPTH+1).join('../'):'';
-  var TO_KB=IN_KB?new Array(DEPTH).join('../'):'knowledge-base/';
+  var IN_DOCS=PAGE!=='overview', DEPTH=PAGE.split('/').length;
+  var TO_ROOT=IN_DOCS?new Array(DEPTH+1).join('../'):'';
+  var TO_DOCS=IN_DOCS?new Array(DEPTH).join('../'):'docs/';
   function homeHref(){return TO_ROOT+'index.html';}
-  function href(p){return TO_KB+p;} /* p is relative to knowledge-base/ */
+  function href(p){return TO_DOCS+p;} /* p is relative to docs/ */
   var TOPICS=[
     {key:'foundations',label:'Foundations',items:[
       {path:'foundations/colour.html',label:'Colour',desc:'Enviolo ramp, gradients, neutrals, status'},

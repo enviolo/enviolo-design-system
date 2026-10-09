@@ -5,7 +5,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
 - **Version:** v0.3.10 (draft), October 2026
-- **Live reference:** the knowledge base, a docs site: open `index.html` at the repo root (Overview, Foundations, Components; pages in `knowledge-base/`)
+- **Live reference:** the docs site: open `index.html` at the repo root (Overview, Foundations, Components; pages in `docs/`)
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 
 ---
@@ -337,7 +337,7 @@ Never give a container a pill radius, and never give a control a container radiu
 
 ## 8. Components
 
-Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search, status pills and cards**. The segmented control, menus and navigation below are specified here but built only in the docs site (`knowledge-base/assets/docs.css`) for now; use them as the reference until they move into `components.css`.
+Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search, status pills and cards**. The segmented control, menus and navigation below are specified here but built only in the docs site (`docs/assets/docs.css`) for now; use them as the reference until they move into `components.css`.
 
 ### 8.1 Buttons
 

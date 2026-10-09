@@ -14,14 +14,14 @@ It is a lightweight, token-first system. It doesn't ship its own component libra
 | [design.md](design.md) | The source of truth for the current version: rules, tokens, components, layout, accessibility and open decisions. |
 | [tokens/tokens.css](tokens/tokens.css) | Production-ready token file built from design.md, for Tailwind v4 projects. |
 | [tokens/components.css](tokens/components.css) | Plain-HTML component styles (buttons, inputs, status pills) built on the tokens. The web backbone; used by the docs site. |
-| [index.html](index.html), [knowledge-base/](knowledge-base/) | The knowledge base: the design system's documentation site. Open `index.html` for the Overview; Foundations and Components pages live in the folder. |
+| [index.html](index.html), [docs/](docs/) | The documentation site. Open `index.html` for the Overview; the Foundations and Components pages live in `docs/`. |
 | [sandboxes/](sandboxes/) | Working references for the current version. |
 | [versions/](versions/) | Previous versions, each in its own folder with its design.md and sandboxes. |
 | [CLAUDE.md](CLAUDE.md) | Instructions for AI-assisted work on this repo itself (workflow, versions, docs site). Not for projects that use the system. |
 
 ### Sandboxes
 
-Sandboxes show the tokens applied to real UI. Open a sandbox's `index.html` in a browser; no build step is needed. The knowledge base itself is the `index.html` at the repo root.
+Sandboxes show the tokens applied to real UI. Open a sandbox's `index.html` in a browser; no build step is needed. The documentation site itself is the `index.html` at the repo root.
 
 Developing in an IDE browser? Cursor's, for one, doesn't follow links between local files. Serve the repo root with `python3 -m http.server 8765` and open `http://localhost:8765/`. More in [CLAUDE.md](CLAUDE.md).
 
@@ -60,7 +60,7 @@ Versions are git tags. `main` holds released versions only; work in progress liv
 
 | Version | Tag | design.md | Sandbox | Summary |
 | ------- | --- | --------- | ------- | ------- |
-| v0.3 | _pending_ | [design.md](design.md) | [knowledge base](index.html), [html-dashboard](sandboxes/html-dashboard/index.html) | Architecture (shadcn/ui for React apps, Enviolo CSS for web, Enviolo token layer on top); AI rules up front; Enviolo ramp (11 steps); per-mode background, accent and focus; status colours; gradients and chart steps; layout grid and breakpoints; navigation patterns. Adds `tokens/tokens.css` and `tokens/components.css`. Current: v0.3.10. |
+| v0.3 | _pending_ | [design.md](design.md) | [docs site](index.html), [html-dashboard](sandboxes/html-dashboard/index.html) | Architecture (shadcn/ui for React apps, Enviolo CSS for web, Enviolo token layer on top); AI rules up front; Enviolo ramp (11 steps); per-mode background, accent and focus; status colours; gradients and chart steps; layout grid and breakpoints; navigation patterns. Adds `tokens/tokens.css` and `tokens/components.css`. Current: v0.3.10. |
 | v0.2 | `v0.2` | [versions/v0.2/design.md](versions/v0.2/design.md) | [html-dashboard](versions/v0.2/sandboxes/html-dashboard/index.html) | Brand and semantic colour tokens, Taupe/Mist neutral ramps, light and dark mode, shadcn and BasecoatUI routers. (v0.1 was earlier BasecoatUI testing.) |
 
 The detailed history inside v0.3 is in design.md §16, numbered v0.3.1 to v0.3.10.
