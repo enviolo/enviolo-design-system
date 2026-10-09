@@ -27,26 +27,6 @@
   // single-series, so they use --chart-3, the first step that clears 3:1 in both modes
   // (design.md 4.2). Gradients are reserved for brand moments.
 
-  // --- Theme toggle -------------------------------------------------------
-
-  function initThemeToggle() {
-    var toggle = document.getElementById("theme-toggle");
-    var root = document.documentElement;
-
-    function sync() {
-      var isDark = root.classList.contains("dark");
-      toggle.setAttribute("aria-pressed", String(isDark));
-    }
-
-    toggle.addEventListener("click", function () {
-      var isDark = root.classList.toggle("dark");
-      localStorage.setItem("enviolo-theme", isDark ? "dark" : "light");
-      sync();
-    });
-
-    sync();
-  }
-
   // --- Sparklines -----------------------------------------------------------
 
   function renderSparkline(svg) {
@@ -353,8 +333,6 @@
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-    initThemeToggle();
-
     document.querySelectorAll(".sparkline").forEach(renderSparkline);
     document.querySelectorAll(".chart-legend").forEach(renderLegend);
 
