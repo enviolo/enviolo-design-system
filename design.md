@@ -80,7 +80,7 @@ Three layers. Each layer only changes values in the layer below it, never names.
 | Icons | Tabler (outline) | Lucide (shadcn's default) |
 | Style | Luma | — |
 | Light mode | Background White · Accent Neutral 100 · Focus Copper · Neutrals Taupe | see section 10 |
-| Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Coral · Neutrals Mist | see section 10 |
+| Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Apricot · Neutrals Mist | see section 10 |
 
 ---
 
@@ -120,7 +120,7 @@ per-mode overrides (--light-bg, --dark-accent, …) ──►  --background, --a
 | `--accent-foreground`, `--card-foreground`, `--popover-foreground` | foreground | foreground | Text on accent, card and popover surfaces |
 | `--popover` | background | n-900 | Menus, popovers, dialogs |
 | `--input` | n-200 | n-800 | Input borders (shadcn reads it) |
-| `--ring` | `var(--light-ring, Enviolo 300)` | `var(--dark-ring, Enviolo 200)` | Focus rings, active fields |
+| `--ring` | `var(--light-ring, Enviolo 300)` | `var(--dark-ring, Enviolo 100)` | Focus rings, active fields |
 | `--destructive` | red-600 | red-500 | Irreversible actions, errors |
 | `--success` | green-600 | green-400 | Confirmations |
 | `--warning` | amber-500 | amber-400 | Caution (text on it: amber-950) |
@@ -174,7 +174,7 @@ Not yet defined but part of shadcn's full theme; add them when the matching comp
   --muted-foreground: var(--color-mist-400);
   --accent: var(--dark-accent, var(--color-mist-800));
   --border: var(--color-mist-800);
-  --ring: var(--dark-ring, var(--color-enviolo-200));
+  --ring: var(--dark-ring, var(--color-enviolo-100));
   --destructive: var(--color-red-500);
 }
 
@@ -419,7 +419,7 @@ Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search
 |---|---|---|---|
 | Background | `--light-bg` / `--dark-bg` | **White**, Neutral 50, Ivory tint | **Neutral 950**, Pearl Black, Midnight |
 | Accent (hover and muted) | `--light-accent` / `--dark-accent` | **Neutral 100**, Ivory, Coral tint | **Neutral 800**, Nightfall, Coral tint |
-| Focus (active fields) | `--light-ring` / `--dark-ring` | **Copper** 3.05:1, Coral 2.3:1, Clay 4.15:1 | **Coral** 8.6:1, Ivory 16:1, Apricot 13:1 |
+| Focus (active fields) | `--light-ring` / `--dark-ring` | **Copper** 3.05:1, Coral 2.3:1, Clay 4.15:1 | **Apricot** 13:1, Coral 8.6:1, Ivory 16:1 |
 | Neutrals | `--l-*` / `--d-*` | **Taupe** + all Tailwind neutrals | **Mist** + all Tailwind neutrals |
 
 Bold = default. Contrast ratios are against the default background.
@@ -487,7 +487,7 @@ Bold = default. Contrast ratios are against the default background.
 
 **Decided (v0.3.5)**
 - Light-mode focus is **Copper** (3.05:1 on white, a narrow pass). Coral stays an option in the mode settings.
-- Dark-mode focus stays **Coral** (8.6:1).
+- Dark-mode focus is **Apricot** (13:1 on Neutral 950). It was Coral (8.6:1) up to v0.3.11; Coral stays an option in the mode settings.
 - Status backgrounds use **solid ramp steps** (50 / 700 light, 950 / 300 dark), not transparent tints.
 - **Nightfall** is the final name for Enviolo 800.
 - Websites use **Enviolo CSS** (`tokens/components.css`), not the Basecoat library. Basecoat stays a reference for new components (it sets variants with `data-variant` and `data-size`).

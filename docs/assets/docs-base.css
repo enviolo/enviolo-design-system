@@ -46,7 +46,7 @@
     --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
     --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
     --card:var(--n-900); --border:var(--n-800); --primary:var(--n-50); --primary-foreground:var(--n-900);
-    --secondary:var(--n-800); --secondary-foreground:var(--n-50); --accent:var(--dark-accent,var(--n-800)); --ring:var(--dark-ring,var(--enviolo-200));
+    --secondary:var(--n-800); --secondary-foreground:var(--n-50); --accent:var(--dark-accent,var(--n-800)); --ring:var(--dark-ring,var(--enviolo-100));
   }
 }
 :root[data-theme="dark"]{
@@ -55,7 +55,7 @@
   --n-50:var(--d-50); --n-100:var(--d-100); --n-200:var(--d-200); --n-300:var(--d-300); --n-400:var(--d-400); --n-500:var(--d-500); --n-600:var(--d-600); --n-700:var(--d-700); --n-800:var(--d-800); --n-900:var(--d-900); --n-950:var(--d-950);
   --background:var(--dark-bg,var(--n-950)); --foreground:var(--n-50); --muted:var(--n-900); --muted-foreground:var(--n-400);
   --card:var(--n-900); --border:var(--n-800); --primary:var(--n-50); --primary-foreground:var(--n-900);
-  --secondary:var(--n-800); --secondary-foreground:var(--n-50); --accent:var(--dark-accent,var(--n-800)); --ring:var(--dark-ring,var(--enviolo-200));
+  --secondary:var(--n-800); --secondary-foreground:var(--n-50); --accent:var(--dark-accent,var(--n-800)); --ring:var(--dark-ring,var(--enviolo-100));
 }
 
 /* ---------- Base ---------- */

@@ -128,11 +128,11 @@
     dark:{
       bg:{neutral:['Neutral 950','var(--d-950)',null],pearl:['Pearl Black','var(--enviolo-950)','var(--enviolo-950)'],midnight:['Midnight','var(--enviolo-900)','var(--enviolo-900)']},
       accent:{neutral:['Neutral 800','var(--d-800)',null],nightfall:['Nightfall','var(--enviolo-800)','var(--enviolo-800)'],coral:['Coral tint','color-mix(in srgb,var(--enviolo-200) 22%,#05191E)','color-mix(in srgb,var(--enviolo-200) 20%,transparent)']},
-      focus:{coral:['Coral','var(--enviolo-200)',null,'8.6:1'],ivory:['Ivory','var(--enviolo-50)','var(--enviolo-50)','16:1'],apricot:['Apricot','var(--enviolo-100)','var(--enviolo-100)','13:1']}
+      focus:{apricot:['Apricot','var(--enviolo-100)',null,'13:1'],coral:['Coral','var(--enviolo-200)','var(--enviolo-200)','8.6:1'],ivory:['Ivory','var(--enviolo-50)','var(--enviolo-50)','16:1']}
     }
   };
-  var state={theme:'system',font:'source',icons:'tabler',mono:'sourcecode',rampLight:'taupe',rampDark:'mist',bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'copper',focusDark:'coral'};
-  try{var saved=JSON.parse(localStorage.getItem('enviolo-display')||'{}'); if(saved.theme) state.theme=saved.theme; if(saved.font&&FONTS[saved.font]) state.font=saved.font; if(saved.icons==='lucide'||saved.icons==='tabler') state.icons=saved.icons; if(saved.mono&&MONO[saved.mono]) state.mono=saved.mono; if(saved.rampLight&&RAMPS[saved.rampLight]) state.rampLight=saved.rampLight; if(saved.rampDark&&RAMPS[saved.rampDark]) state.rampDark=saved.rampDark; if(saved.darkbg==='pearl') state.bgDark='pearl'; ['bg','accent','focus'].forEach(function(t){['Light','Dark'].forEach(function(m){var k=t+m; if(saved[k]&&MODE_OPTS[m.toLowerCase()][t][saved[k]]) state[k]=saved[k];});});}catch(e){}
+  var state={theme:'system',font:'source',icons:'tabler',mono:'sourcecode',rampLight:'taupe',rampDark:'mist',bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'copper',focusDark:'apricot',ringApricot:true};
+  try{var saved=JSON.parse(localStorage.getItem('enviolo-display')||'{}'); if(saved.theme) state.theme=saved.theme; if(saved.font&&FONTS[saved.font]) state.font=saved.font; if(saved.icons==='lucide'||saved.icons==='tabler') state.icons=saved.icons; if(saved.mono&&MONO[saved.mono]) state.mono=saved.mono; if(saved.rampLight&&RAMPS[saved.rampLight]) state.rampLight=saved.rampLight; if(saved.rampDark&&RAMPS[saved.rampDark]) state.rampDark=saved.rampDark; if(saved.darkbg==='pearl') state.bgDark='pearl'; ['bg','accent','focus'].forEach(function(t){['Light','Dark'].forEach(function(m){var k=t+m; if(saved[k]&&MODE_OPTS[m.toLowerCase()][t][saved[k]]) state[k]=saved[k];});}); if(saved.focusDark==='coral'&&!saved.ringApricot) state.focusDark='apricot'; /* Coral was the old default and got saved with the rest: move it to the new default once */}catch(e){}
   var settings=document.getElementById('settings');
   var trigger=document.getElementById('settingsTrigger'), menu=document.getElementById('settingsMenu'), sub=document.getElementById('subMenu');
   var radios=[].slice.call(menu.querySelectorAll('.menu-item[data-group]'));
@@ -177,7 +177,7 @@
 
   function buildSub(mode,focus){
     var sfx=mode==='light'?'Light':'Dark';
-    var DEF={bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'copper',focusDark:'coral',rampLight:'taupe',rampDark:'mist'};
+    var DEF={bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'copper',focusDark:'apricot',rampLight:'taupe',rampDark:'mist'};
     function defFirst(keys,key){return keys.slice().sort(function(a,b){return (b===DEF[key])-(a===DEF[key]);});} /* default option always first */
     function item(key,val,label,sw,checked){return '<button class="menu-item" role="menuitemradio" aria-checked="'+checked+'" data-key="'+key+'" data-value="'+val+'">'+iconSvg('check','ic check')+'<span>'+label+'</span>'+(DEF[key]===val?'<span class="def">Default</span>':'')+'<span class="sample swatch">'+sw+'</span></button>';}
     var html='<button class="menu-item back" role="menuitem" data-back="1">'+iconSvg('chevron-left')+'<span>Back</span></button>'+

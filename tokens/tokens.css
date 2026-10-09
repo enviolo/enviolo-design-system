@@ -215,7 +215,7 @@
   --popover: var(--n-900);
   --popover-foreground: var(--foreground);
   --input: var(--n-800);
-  --ring: var(--dark-ring, var(--enviolo-200));
+  --ring: var(--dark-ring, var(--enviolo-100)); /* Apricot, 13:1 on Neutral 950 */
 
   --destructive: var(--red-500);
   --success: var(--green-400);    --success-foreground: var(--green-950);
