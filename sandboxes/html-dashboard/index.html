@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="../../tokens/tokens.css" />
 <link rel="stylesheet" href="../../tokens/components.css" />
 <link rel="stylesheet" href="../../docs/assets/display.css" />
+<!-- test only: react-day-picker's stylesheet, themed with the Enviolo tokens in dashboard.css -->
+<link rel="stylesheet" href="https://esm.sh/react-day-picker@9/style.css" />
 <link rel="stylesheet" href="dashboard.css" />
 
 <script src="../../docs/assets/theme-init.js"></script>
@@ -184,6 +186,14 @@
       </div>
     </article>
 
+    <article class="card" aria-label="React calendar test">
+      <header>
+        <h2 class="card-title">Calendar <span class="pill" data-variant="info">React test</span></h2>
+        <p class="card-description">shadcn's Calendar in range mode (react-day-picker 9), themed with the Enviolo tokens. Picking a range here sets the time range at the top. Test only: the page itself stays plain HTML, and this card loads React from a CDN.</p>
+      </header>
+      <div class="calendar-test" id="calendar-test">Loading the React calendar…</div>
+    </article>
+
     <footer class="dashboard-footer">
       <p>Sample data · tokens per design.md v0.3.11 · Enviolo</p>
     </footer>
@@ -192,5 +202,51 @@
   <script>window.EnvioloDisplayConfig = { hide: ["mono"] };</script>
   <script src="../../docs/assets/display.js"></script>
   <script src="app.js"></script>
+  <script type="module">
+    // Test only. No build step: React and react-day-picker come straight from esm.sh.
+    var host = document.getElementById("calendar-test");
+    try {
+      var react = await import("https://esm.sh/react@18.3.1");
+      var dom = await import("https://esm.sh/react-dom@18.3.1/client?deps=react@18.3.1");
+      var rdp = await import("https://esm.sh/react-day-picker@9?deps=react@18.3.1");
+      var React = react.default, h = React.createElement, DayPicker = rdp.DayPicker;
+
+      function RangeCalendar() {
+        var api = window.EnvioloDashboard;
+        var initial = api.getRange();
+        var state = React.useState({ from: initial.from, to: initial.to });
+        var selected = state[0], setSelected = state[1];
+
+        React.useEffect(function () {
+          function onRange(e) { setSelected({ from: e.detail.from, to: e.detail.to }); }
+          document.addEventListener("dashboard:range", onRange);
+          return function () { document.removeEventListener("dashboard:range", onRange); };
+        }, []);
+
+        return h(DayPicker, {
+          mode: "range",
+          numberOfMonths: 2,
+          weekStartsOn: 1,
+          showOutsideDays: true,
+          resetOnSelect: true, // with a range selected, a click starts a new one instead of extending it
+          selected: selected,
+          defaultMonth: new Date(initial.to.getFullYear(), initial.to.getMonth() - 1, 1),
+          startMonth: initial.start,
+          endMonth: initial.end,
+          disabled: { before: initial.start, after: initial.end },
+          onSelect: function (next) {
+            setSelected(next);
+            // a half-finished range (only the start picked) waits for the second click
+            if (next && next.from && next.to) api.setRange(next.from, next.to);
+          },
+        });
+      }
+
+      host.textContent = "";
+      dom.createRoot(host).render(h(RangeCalendar));
+    } catch (error) {
+      host.textContent = "The React calendar could not load (it needs network access to esm.sh).";
+    }
+  </script>
 </body>
 </html>

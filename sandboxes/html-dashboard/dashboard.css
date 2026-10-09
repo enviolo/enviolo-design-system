@@ -328,3 +328,77 @@ body {
     gap: 16px;
   }
 }
+
+/* React calendar test: react-day-picker's own stylesheet, themed with the Enviolo tokens.
+   Days are pills ("pills act"); the selected range uses the accent fill. */
+
+.calendar-test {
+  overflow-x: auto;
+  color: var(--foreground);
+  font-size: 0.875rem;
+}
+
+.calendar-test .rdp-root {
+  --rdp-accent-color: var(--primary);
+  --rdp-accent-background-color: var(--accent);
+  --rdp-day-height: 40px;
+  --rdp-day-width: 40px;
+  --rdp-day_button-height: 36px;
+  --rdp-day_button-width: 36px;
+  --rdp-day_button-border-radius: 999px;
+  --rdp-selected-border: 2px solid var(--primary);
+  --rdp-today-color: var(--foreground);
+  --rdp-range_middle-background-color: var(--accent);
+  --rdp-range_start-color: var(--primary-foreground);
+  --rdp-range_end-color: var(--primary-foreground);
+  --rdp-months-gap: 32px;
+  --rdp-weekday-opacity: 1;
+  font: inherit;
+  width: max-content;
+}
+
+.calendar-test .rdp-caption_label {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.calendar-test .rdp-weekday {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.calendar-test .rdp-button_previous,
+.calendar-test .rdp-button_next {
+  color: var(--foreground);
+  border-radius: 999px;
+}
+
+.calendar-test .rdp-button_previous:hover,
+.calendar-test .rdp-button_next:hover {
+  background-color: var(--accent);
+}
+
+.calendar-test .rdp-day_button:hover:not(:disabled) {
+  background-color: var(--accent);
+}
+
+.calendar-test .rdp-day_button:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.calendar-test .rdp-chevron {
+  fill: currentColor;
+}
+
+/* the library bolds and enlarges every selected day; only the two ends of the range should stand out */
+.calendar-test .rdp-selected {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+.calendar-test .rdp-range_start .rdp-day_button,
+.calendar-test .rdp-range_end .rdp-day_button {
+  font-weight: 600;
+}

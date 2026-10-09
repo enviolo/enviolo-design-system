@@ -565,9 +565,31 @@
     var days = slice.length;
     renderStats(slice, days);
     renderCharts(slice);
-    summary.textContent = fmtDayYear(slice[0].date) + " – " + fmtDayYear(slice[days - 1].date) +
-      " · " + days + (days === 1 ? " day" : " days") + (presetDays ? "" : " · custom range");
+    // the From and To fields already show the dates, so the summary only counts the days
+    summary.textContent = days + (days === 1 ? " day" : " days");
+    document.dispatchEvent(new CustomEvent("dashboard:range", { detail: currentRange() }));
   }
+
+  function currentRange() {
+    return {
+      from: HISTORY[range.i0].date, to: HISTORY[range.i1].date,
+      start: HISTORY[0].date, end: HISTORY[DAYS - 1].date,
+    };
+  }
+
+  function indexOfDate(d) {
+    var day = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    return DAYS - 1 - Math.round((END - day) / 86400000);
+  }
+
+  // Bridge for the React calendar test at the bottom of the page: it reads the range,
+  // listens for "dashboard:range" and sets a new one.
+  window.EnvioloDashboard = {
+    getRange: currentRange,
+    setRange: function (from, to) {
+      setRange(indexOfDate(from), indexOfDate(to), null);
+    },
+  };
 
   // --- Boot -----------------------------------------------------------------
 
