@@ -16,6 +16,7 @@ Nothing yet.
 - **Dashboard sandbox:** one "Dates" field replaces the From and To inputs and the separate calendar button. One click opens the range calendar.
 - **Dashboard sandbox:** `<enviolo-calendar>`, a dependency-free range calendar web component (test build), used as the date picker popover. It has a keyboard-navigable grid, pill days, a rounded range band, and hover that follows the button hover rules (primary ends, secondary on the band, accent elsewhere).
 - **Dashboard sandbox:** a React test card using react-day-picker for comparison. The filter summary now shows only the day count.
+- **Dashboard sandbox:** the stat-card sparklines are redrawn at their real pixel size (they were stretched, which warped the stroke and squashed the end dot). Each is now one smooth line with a gradient stroke (`--chart-4` to `--chart-3`) over a fade, as a deliberate exception to flat chart fills (design.md 4.2).
 - **Docs:** added `docs/BACKLOG.md` and `docs/CHANGELOG.md`, linked from `CLAUDE.md`.
 - **Version:** every header now says v0.3.12. A `v0.3` tag pushed earlier the same day was removed; use `v0.3.12`.
 

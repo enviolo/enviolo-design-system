@@ -23,9 +23,9 @@
     return Math.round(n).toLocaleString("en-US");
   }
 
-  // Charts use flat fills from the Enviolo ramp (--chart-1 .. --chart-5). The sparklines are
+  // Bars use flat fills from the Enviolo ramp (--chart-1 .. --chart-5). The sparklines are
   // single-series, so they use --chart-3, the first step that clears 3:1 in both modes
-  // (design.md 4.2). Gradients are reserved for brand moments.
+  // (design.md 4.2). They also carry a gradient, a deliberate exception noted in design.md.
 
   // --- Sample data ----------------------------------------------------------------
   // Seven months of daily history, generated deterministically so the filters have real
@@ -122,39 +122,110 @@
 
   // --- Sparklines -----------------------------------------------------------
 
-  function renderSparkline(svg, values) {
+  var sparkCount = 0;
+  var sparkObserver = "ResizeObserver" in window ? new ResizeObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.target._values) drawSparkline(e.target, e.target._values);
+    });
+  }) : null;
+
+  // Monotone cubic through the points: a smooth line that never overshoots a real value.
+  function smoothPath(p) {
+    var n = p.length, dx = [], m = [], t = [], i;
+    for (i = 0; i < n - 1; i++) {
+      dx[i] = p[i + 1][0] - p[i][0];
+      m[i] = (p[i + 1][1] - p[i][1]) / dx[i];
+    }
+    t[0] = m[0];
+    t[n - 1] = m[n - 2];
+    for (i = 1; i < n - 1; i++) t[i] = m[i - 1] * m[i] <= 0 ? 0 : (m[i - 1] + m[i]) / 2;
+    for (i = 0; i < n - 1; i++) {
+      if (m[i] === 0) { t[i] = t[i + 1] = 0; continue; }
+      var a = t[i] / m[i], b = t[i + 1] / m[i], s = a * a + b * b;
+      if (s > 9) {
+        var k = 3 / Math.sqrt(s);
+        t[i] = k * a * m[i];
+        t[i + 1] = k * b * m[i];
+      }
+    }
+    var d = "M" + p[0][0] + "," + p[0][1];
+    for (i = 0; i < n - 1; i++) {
+      var h = dx[i] / 3;
+      d += " C" + (p[i][0] + h) + "," + (p[i][1] + t[i] * h) + " " +
+        (p[i + 1][0] - h) + "," + (p[i + 1][1] - t[i + 1] * h) + " " + p[i + 1][0] + "," + p[i + 1][1];
+    }
+    return d;
+  }
+
+  function gradientStop(offset, color, opacity) {
+    var attrs = { offset: offset, "stop-color": color };
+    if (opacity !== undefined) attrs["stop-opacity"] = String(opacity);
+    return el("stop", attrs);
+  }
+
+  // Drawn at the element's real pixel size, so the stroke stays even and the end dot stays round.
+  // The stroke runs --chart-4 to --chart-3 (older to newer) over a fade of --chart-3 to transparent.
+  function drawSparkline(svg, values) {
     svg.textContent = "";
-    if (values.length < 2) return;
+    var w = Math.round(svg.getBoundingClientRect().width), h = 40;
+    if (values.length < 2 || w < 8) return;
     var min = Math.min.apply(null, values);
     var max = Math.max.apply(null, values);
     var range = max - min || 1;
-    var w = 100, h = 32, pad2 = 3;
+    var padX = 4, padY = 6;
+    svg.setAttribute("viewBox", "0 0 " + w + " " + h);
 
-    function point(value, i) {
-      var x = (i / (values.length - 1)) * w;
-      var y = pad2 + (1 - (value - min) / range) * (h - pad2 * 2);
-      return [x, y];
-    }
+    var points = values.map(function (value, i) {
+      return [
+        padX + (i / (values.length - 1)) * (w - padX * 2),
+        padY + (1 - (value - min) / range) * (h - padY * 2),
+      ];
+    });
+    var line = smoothPath(points);
+    var first = points[0], last = points[points.length - 1];
 
-    var points = values.map(point);
-    svg.appendChild(el("polyline", {
-      points: points.map(function (p) { return p.join(","); }).join(" "),
-      fill: "none",
-      stroke: "var(--muted-foreground)",
-      "stroke-width": "1.5",
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
+    var id = svg._id || (svg._id = "spark" + (++sparkCount));
+    var defs = el("defs", {});
+    var strokeGradient = el("linearGradient", { id: id + "-line", gradientUnits: "userSpaceOnUse", x1: "0", y1: "0", x2: String(w), y2: "0" });
+    strokeGradient.appendChild(gradientStop("0", "var(--chart-4)"));
+    strokeGradient.appendChild(gradientStop("1", "var(--chart-3)"));
+    var fillGradient = el("linearGradient", { id: id + "-fill", x1: "0", y1: "0", x2: "0", y2: "1" });
+    fillGradient.appendChild(gradientStop("0", "var(--chart-3)", 0.3));
+    fillGradient.appendChild(gradientStop("1", "var(--chart-3)", 0));
+    defs.appendChild(strokeGradient);
+    defs.appendChild(fillGradient);
+    svg.appendChild(defs);
+
+    svg.appendChild(el("path", {
+      d: line + " L" + last[0] + "," + h + " L" + first[0] + "," + h + " Z",
+      fill: "url(#" + id + "-fill)",
+      stroke: "none",
     }));
-    svg.appendChild(el("polyline", {
-      points: points.slice(-3).map(function (p) { return p.join(","); }).join(" "),
+    svg.appendChild(el("path", {
+      d: line,
       fill: "none",
-      stroke: "var(--chart-3)",
+      stroke: "url(#" + id + "-line)",
       "stroke-width": "2",
       "stroke-linecap": "round",
       "stroke-linejoin": "round",
     }));
-    var lastPoint = points[points.length - 1];
-    svg.appendChild(el("circle", { cx: lastPoint[0], cy: lastPoint[1], r: "2.4", fill: "var(--chart-3)" }));
+    svg.appendChild(el("circle", {
+      cx: last[0],
+      cy: last[1],
+      r: "3.5",
+      fill: "var(--chart-3)",
+      stroke: "var(--card)",
+      "stroke-width": "2",
+    }));
+  }
+
+  function renderSparkline(svg, values) {
+    svg._values = values;
+    drawSparkline(svg, values);
+    if (sparkObserver && !svg._observed) {
+      svg._observed = true;
+      sparkObserver.observe(svg); // redraw when the card changes width
+    }
   }
 
   // --- Legend and tooltip -------------------------------------------------------
