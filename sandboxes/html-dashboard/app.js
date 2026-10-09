@@ -50,11 +50,6 @@
   function iso(d) {
     return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
   }
-  function indexOfIso(s) {
-    var p = s.split("-").map(Number);
-    var d = new Date(p[0], p[1] - 1, p[2]);
-    return DAYS - 1 - Math.round((END - d) / 86400000);
-  }
   function fmtDay(d) {
     return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
   }
@@ -411,8 +406,7 @@
   var presetDays = 14;
 
   var presetButtons = [].slice.call(document.querySelectorAll("[data-range]"));
-  var fromInput = document.getElementById("range-from");
-  var toInput = document.getElementById("range-to");
+  var rangeText = document.getElementById("range-text");
   var resetButton = document.getElementById("range-reset");
   var summary = document.getElementById("range-summary");
 
@@ -429,36 +423,19 @@
   }
 
   function syncControls() {
-    fromInput.value = iso(HISTORY[range.i0].date);
-    toInput.value = iso(HISTORY[range.i1].date);
+    rangeText.textContent = fmtDayYear(HISTORY[range.i0].date) + " – " + fmtDayYear(HISTORY[range.i1].date);
     presetButtons.forEach(function (b) {
       b.setAttribute("aria-pressed", String(presetDays === Number(b.dataset.range)));
     });
   }
 
   function initFilters() {
-    fromInput.min = toInput.min = iso(HISTORY[0].date);
-    fromInput.max = toInput.max = iso(HISTORY[DAYS - 1].date);
-
     presetButtons.forEach(function (b) {
       b.addEventListener("click", function () {
         var n = Number(b.dataset.range);
         setRange(DAYS - n, DAYS - 1, n);
       });
     });
-
-    function onDateChange(changed) {
-      if (!fromInput.value || !toInput.value) return;
-      var i0 = indexOfIso(fromInput.value);
-      var i1 = indexOfIso(toInput.value);
-      // a start after the end drags the other date along instead of rejecting the choice
-      if (i0 > i1) {
-        if (changed === "from") i1 = i0; else i0 = i1;
-      }
-      setRange(i0, i1, null);
-    }
-    fromInput.addEventListener("change", function () { onDateChange("from"); });
-    toInput.addEventListener("change", function () { onDateChange("to"); });
 
     resetButton.addEventListener("click", function () {
       setRange(DAYS - 14, DAYS - 1, 14);
@@ -565,7 +542,7 @@
     var days = slice.length;
     renderStats(slice, days);
     renderCharts(slice);
-    // the From and To fields already show the dates, so the summary only counts the days
+    // the date field already shows the range, so the summary only counts the days
     summary.textContent = days + (days === 1 ? " day" : " days");
     document.dispatchEvent(new CustomEvent("dashboard:range", { detail: currentRange() }));
   }

@@ -38,16 +38,18 @@
           <button type="button" class="btn" data-size="sm" data-range="90" aria-pressed="false">90 days</button>
         </div>
       </div>
-      <div class="filter-group filter-dates">
-        <label class="filter-label" for="range-from">From</label>
-        <input class="input" type="date" id="range-from" />
-        <label class="filter-label" for="range-to">To</label>
-        <input class="input" type="date" id="range-to" />
-        <button type="button" class="btn" data-variant="outline" data-size="icon" id="range-open" aria-haspopup="dialog" aria-expanded="false" aria-controls="range-popover" aria-label="Choose dates in a calendar"><svg data-icon="calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
-        <button type="button" class="btn" data-variant="ghost" data-size="sm" id="range-reset"><svg data-icon="x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Reset</button>
-        <div class="popover" id="range-popover" role="dialog" aria-label="Choose a date range" hidden>
-          <enviolo-calendar id="picker-calendar" months="2" week-start="1"></enviolo-calendar>
+      <div class="filter-group">
+        <span class="filter-label" id="dates-label">Dates</span>
+        <div class="range-anchor">
+          <div class="search">
+            <svg data-icon="calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
+            <button type="button" class="input range-field" id="range-open" aria-labelledby="dates-label range-text" aria-haspopup="dialog" aria-expanded="false" aria-controls="range-popover"><span id="range-text"></span></button>
+          </div>
+          <div class="popover" id="range-popover" role="dialog" aria-label="Choose a date range" hidden>
+            <enviolo-calendar id="picker-calendar" months="2" week-start="1"></enviolo-calendar>
+          </div>
         </div>
+        <button type="button" class="btn" data-variant="ghost" data-size="sm" id="range-reset"><svg data-icon="x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Reset</button>
       </div>
       <p class="filter-summary" id="range-summary" aria-live="polite"></p>
     </section>

@@ -11,7 +11,7 @@
   box-sizing: border-box;
 }
 
-/* native pickers (the date inputs) follow the theme */
+/* native form controls follow the theme */
 :root {
   color-scheme: light;
 }
@@ -94,17 +94,34 @@ body {
   color: var(--muted-foreground);
 }
 
-.filter-group .input[type="date"] {
-  width: 10.5rem;
-}
+/* One field for the whole range. It is a button that looks like an input (components.css .search
+   + .input, calendar icon on the left); hover and expanded follow the outline button (--accent). */
 
-/* the calendar button replaces the browser's own picker icon */
-.filter-group .input[type="date"]::-webkit-calendar-picker-indicator {
-  display: none;
-}
-
-.filter-dates {
+.range-anchor {
   position: relative;
+}
+
+.range-field {
+  display: inline-flex;
+  align-items: center;
+  min-width: 17rem;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .range-field:hover {
+    background-color: var(--accent);
+  }
+}
+
+.range-field[aria-expanded="true"] {
+  background-color: var(--accent);
+}
+
+.range-field:focus-visible {
+  border-color: var(--border);
 }
 
 /* Popover (design.md 6: popover shadow, soft corners) */
