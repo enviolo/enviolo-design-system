@@ -15,6 +15,7 @@
 <!-- test only: react-day-picker's stylesheet, themed with the Enviolo tokens in dashboard.css -->
 <link rel="stylesheet" href="https://esm.sh/react-day-picker@9/style.css" />
 <link rel="stylesheet" href="dashboard.css" />
+<link rel="stylesheet" href="enviolo-calendar.css" />
 
 <script src="../../docs/assets/theme-init.js"></script>
 </head>
@@ -194,6 +195,14 @@
       <div class="calendar-test" id="calendar-test">Loading the React calendar…</div>
     </article>
 
+    <article class="card" aria-label="Vanilla calendar test">
+      <header>
+        <h2 class="card-title">Calendar <span class="pill" data-variant="success">Vanilla test</span></h2>
+        <p class="card-description">The same range calendar as a plain web component, <code>&lt;enviolo-calendar&gt;</code>: no React, no dependencies, themed with the tokens. It sets the time range at the top and follows the presets. Keyboard: arrows move by a day or a week, Page Up and Down by a month, Home and End to the ends of the week, Esc cancels a half-picked range.</p>
+      </header>
+      <enviolo-calendar id="vanilla-calendar" months="2" week-start="1"></enviolo-calendar>
+    </article>
+
     <footer class="dashboard-footer">
       <p>Sample data · tokens per design.md v0.3.11 · Enviolo</p>
     </footer>
@@ -201,7 +210,26 @@
 
   <script>window.EnvioloDisplayConfig = { hide: ["mono"] };</script>
   <script src="../../docs/assets/display.js"></script>
+  <script src="enviolo-calendar.js"></script>
   <script src="app.js"></script>
+  <script>
+    // Wire the vanilla calendar to the dashboard's time range (the React test card does the same).
+    (function () {
+      var cal = document.getElementById("vanilla-calendar");
+      function iso(d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
+      var r = window.EnvioloDashboard.getRange();
+      cal.setAttribute("min", iso(r.start));
+      cal.setAttribute("max", iso(r.end));
+      cal.setAttribute("today", iso(r.end)); // the sandbox's fixed "today"
+      cal.range = { from: r.from, to: r.to };
+      cal.addEventListener("change", function (e) {
+        window.EnvioloDashboard.setRange(e.detail.from, e.detail.to);
+      });
+      document.addEventListener("dashboard:range", function (e) {
+        cal.range = { from: e.detail.from, to: e.detail.to };
+      });
+    })();
+  </script>
   <script type="module">
     // Test only. No build step: React and react-day-picker come straight from esm.sh.
     var host = document.getElementById("calendar-test");

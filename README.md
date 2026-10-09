@@ -27,7 +27,7 @@ Developing in an IDE browser? Cursor's, for one, doesn't follow links between lo
 
 | Sandbox | Version | What it is |
 | ------- | ------- | ---------- |
-| [html-dashboard](sandboxes/html-dashboard/index.html) | v0.3 (current) | The fleet dashboard rebuilt on the v0.3 rules: shared `tokens/` files, `components.css` for buttons, inputs, pills, cards and the segmented control, a time-range filter that drives the stats and the ramp-coloured charts, the Display personalizer, and a test card with shadcn's React calendar (react-day-picker from a CDN) driving the time range. |
+| [html-dashboard](sandboxes/html-dashboard/index.html) | v0.3 (current) | The fleet dashboard rebuilt on the v0.3 rules: shared `tokens/` files, `components.css` for buttons, inputs, pills, cards and the segmented control, a time-range filter that drives the stats and the ramp-coloured charts, the Display personalizer, and and two calendar tests driving the time range: shadcn's React calendar (react-day-picker from a CDN) and a dependency-free `<enviolo-calendar>` web component. |
 | [html-dashboard](versions/v0.2/sandboxes/html-dashboard/index.html) | v0.2 | The original fleet dashboard, on top of BasecoatUI. |
 
 ## Use it in a project
