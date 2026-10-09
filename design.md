@@ -373,6 +373,8 @@ Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search
 
 **States**: hover is a solid fill from a token, never an opacity change or a computed mix (primary `--primary-hover`, two ramp steps; secondary `--secondary-hover`, one step; outline and ghost `--accent`; destructive `--destructive-hover`; link fades to 70%) · focus-visible `2px solid var(--ring)`, offset 2px · disabled 45% opacity.
 
+**Focus ring**: a solid 2px ring with a 2px offset, not shadcn's border plus 3px halo at 50% opacity. Copper only clears 3:1 on white at full opacity (3.05:1, against about 1.7:1 as a 50% halo), and the gap keeps the ring clear of the button's own fill and border. Treat it as a deliberate deviation; don't "fix" it to match shadcn.
+
 **On dark imagery**: primary white with ink text; outline transparent, white text, `rgba(255,255,255,.45)` border.
 
 **Migration from the legacy system**: solid → primary; outline → outline on cards and imagery, secondary in plain-page groups; ghost → ghost. Audit pages for extra primaries.
@@ -494,7 +496,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
-- **v0.3.10**: cards (`card`, `card-title`, `card-description`) added to `components.css`; status pills follow the base-plus-attribute convention (`class="pill" data-variant="success|warning|info|error"`, was `pill ok`); single-series charts use `--chart-3` and flat fills. Found by rebuilding the `html-dashboard` sandbox on the v0.3 rules (`sandboxes/html-dashboard/`, shared `tokens/` files, no Basecoat).
+- **v0.3.10**: cards (`card`, `card-title`, `card-description`) added to `components.css`; status pills follow the base-plus-attribute convention (`class="pill" data-variant="success|warning|info|error"`, was `pill ok`); single-series charts use `--chart-3` and flat fills. The solid focus ring is documented as a deliberate deviation from shadcn's halo. Found by rebuilding the `html-dashboard` sandbox on the v0.3 rules (`sandboxes/html-dashboard/`, shared `tokens/` files, no Basecoat).
 - **v0.3.9**: chart series follow the ramp order and take up to five steps (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500), so Apricot is included. Docs site: one page per topic with shared `assets/`; Colour, Typography and Layout grouped under Foundations (the usual industry term); every value on Foundations can be copied; neutral steps and the status background and text colours are labelled for the current mode; the Display menu lists defaults first.
 - **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split and Basecoat's convention. No visual change.
 - **v0.3.7**: added the shadcn tokens `--input`, `--popover`, `--popover-foreground`, `--card-foreground` and `--accent-foreground`, which shadcn/ui components read and v0.3 was missing. Hand-written Enviolo CSS stays the web backbone; Basecoat was evaluated and not adopted.
