@@ -403,7 +403,7 @@ Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search
 
 - **Tabler** (outline) by default; Lucide is the supported alternative.
 - Stroke 2, round caps and joins, 24px viewBox, `currentColor`.
-- Reference icons by semantic name (`share`, `trash`, `download`, `search`, `plus`, `copy`, `filter`, `x`, `settings`, `sliders`, `more`, `check`, `chevron-*`, `sun`, `moon`), never by set. Swapping sets is a one-file change.
+- Reference icons by semantic name (`share`, `trash`, `download`, `search`, `plus`, `calendar`, `copy`, `filter`, `x`, `settings`, `sliders`, `more`, `check`, `chevron-*`, `sun`, `moon`), never by set. Swapping sets is a one-file change.
 - Decorative icons get `aria-hidden="true"`; icon-only buttons get `aria-label` (and `title`).
 - No arrow glyphs appended to button text.
 
@@ -496,7 +496,7 @@ Bold = default. Contrast ratios are against the default background.
 
 ## 16. Changelog
 
-- **v0.3.11**: the segmented control (`seg`) moved into `components.css`, since the docs site and the dashboard both use it; icon names `filter` and `x` added. The dashboard sandbox gained a time-range filter (presets plus a custom From and To) that drives its stat cards and charts, and its Display menu now includes the icon-style selector.
+- **v0.3.11**: the segmented control (`seg`) moved into `components.css`, since the docs site and the dashboard both use it; icon names `filter`, `x` and `calendar` added. The dashboard sandbox gained a time-range filter (presets plus a custom From and To) that drives its stat cards and charts, and its Display menu now includes the icon-style selector.
 - **v0.3.10**: cards (`card`, `card-title`, `card-description`) added to `components.css`; status pills follow the base-plus-attribute convention (`class="pill" data-variant="success|warning|info|error"`, was `pill ok`); single-series charts use `--chart-3` and flat fills. The solid focus ring is documented as a deliberate deviation from shadcn's halo. Found by rebuilding the `html-dashboard` sandbox on the v0.3 rules (`sandboxes/html-dashboard/`, shared `tokens/` files, no Basecoat).
 - **v0.3.9**: chart series follow the ramp order and take up to five steps (`--chart-1…5`: light 100, 200, 400, 600, 900; dark 50, 100, 200, 400, 500), so Apricot is included. Docs site: one page per topic with shared `assets/`; Colour, Typography and Layout grouped under Foundations (the usual industry term); every value on Foundations can be copied; neutral steps and the status background and text colours are labelled for the current mode; the Display menu lists defaults first.
 - **v0.3.8**: Enviolo CSS now uses a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`) instead of `btn-secondary btn-sm`, matching shadcn's component and variant split and Basecoat's convention. No visual change.

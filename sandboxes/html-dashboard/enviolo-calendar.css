@@ -147,6 +147,18 @@ enviolo-calendar td[data-end]:not([data-start]) {
   background: linear-gradient(90deg, var(--accent) 50%, transparent 50%);
 }
 
+/* Rounded caps: pill-shaped wherever a run of band days begins or ends (see _paintBand in the script) */
+
+enviolo-calendar td[data-edge-left] {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+enviolo-calendar td[data-edge-right] {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
 enviolo-calendar td[data-start] .ec-day,
 enviolo-calendar td[data-end] .ec-day {
   background-color: var(--primary);

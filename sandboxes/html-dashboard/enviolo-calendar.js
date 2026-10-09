@@ -261,7 +261,7 @@
       );
     }
 
-    // the hover preview while a start is picked: updated in place so the hovered button isn't replaced
+    // The hover preview while a start is picked: updated in place so the hovered button isn't replaced.
     _paintPreview() {
       var from = this._from, hover = this._hover, active = this._pending && from && hover;
       var lo = null, hi = null;
@@ -269,6 +269,33 @@
       this.querySelectorAll("td[data-date]").forEach(function (td) {
         var d = parseIso(td.dataset.date);
         if (active && d >= lo && d <= hi) td.setAttribute("data-preview", ""); else td.removeAttribute("data-preview");
+      });
+      this._paintBand();
+    }
+
+    // The band behind a range gets rounded caps wherever a run of days begins or ends: at the two ends
+    // of the range, at the start and end of each week row, and at the edges of a month. CSS can't tell
+    // where a run starts, so each cell gets data-edge-left / data-edge-right.
+    _paintBand() {
+      var lo = null, hi = null;
+      if (this._from && this._to) { lo = this._from; hi = this._to; }
+      else if (this._pending && this._from && this._hover) {
+        lo = this._from < this._hover ? this._from : this._hover;
+        hi = this._from < this._hover ? this._hover : this._from;
+      }
+      function inBand(d) { return !!lo && d >= lo && d <= hi; }
+      this.querySelectorAll("td[data-date]").forEach(function (td) {
+        var d = parseIso(td.dataset.date);
+        if (!inBand(d)) {
+          td.removeAttribute("data-edge-left");
+          td.removeAttribute("data-edge-right");
+          return;
+        }
+        var col = td.cellIndex, next = addDays(d, 1);
+        var left = col === 0 || d.getDate() === 1 || !inBand(addDays(d, -1));
+        var right = col === 6 || next.getMonth() !== d.getMonth() || !inBand(next);
+        if (left) td.setAttribute("data-edge-left", ""); else td.removeAttribute("data-edge-left");
+        if (right) td.setAttribute("data-edge-right", ""); else td.removeAttribute("data-edge-right");
       });
     }
 

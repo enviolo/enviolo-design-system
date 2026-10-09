@@ -38,12 +38,16 @@
           <button type="button" class="btn" data-size="sm" data-range="90" aria-pressed="false">90 days</button>
         </div>
       </div>
-      <div class="filter-group">
+      <div class="filter-group filter-dates">
         <label class="filter-label" for="range-from">From</label>
         <input class="input" type="date" id="range-from" />
         <label class="filter-label" for="range-to">To</label>
         <input class="input" type="date" id="range-to" />
+        <button type="button" class="btn" data-variant="outline" data-size="icon" id="range-open" aria-haspopup="dialog" aria-expanded="false" aria-controls="range-popover" aria-label="Choose dates in a calendar"><svg data-icon="calendar" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
         <button type="button" class="btn" data-variant="ghost" data-size="sm" id="range-reset"><svg data-icon="x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Reset</button>
+        <div class="popover" id="range-popover" role="dialog" aria-label="Choose a date range" hidden>
+          <enviolo-calendar id="picker-calendar" months="2" week-start="1"></enviolo-calendar>
+        </div>
       </div>
       <p class="filter-summary" id="range-summary" aria-live="polite"></p>
     </section>
@@ -213,20 +217,72 @@
   <script src="enviolo-calendar.js"></script>
   <script src="app.js"></script>
   <script>
-    // Wire the vanilla calendar to the dashboard's time range (the React test card does the same).
+    // Wire the vanilla calendars to the dashboard's time range: the test card, and the date picker
+    // popover at the top. (The React test card does the same through the same bridge.)
     (function () {
-      var cal = document.getElementById("vanilla-calendar");
+      var api = window.EnvioloDashboard;
       function iso(d) { return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2); }
-      var r = window.EnvioloDashboard.getRange();
-      cal.setAttribute("min", iso(r.start));
-      cal.setAttribute("max", iso(r.end));
-      cal.setAttribute("today", iso(r.end)); // the sandbox's fixed "today"
-      cal.range = { from: r.from, to: r.to };
-      cal.addEventListener("change", function (e) {
-        window.EnvioloDashboard.setRange(e.detail.from, e.detail.to);
+      var r = api.getRange();
+
+      function wire(cal, onPick) {
+        cal.setAttribute("min", iso(r.start));
+        cal.setAttribute("max", iso(r.end));
+        cal.setAttribute("today", iso(r.end)); // the sandbox's fixed "today"
+        cal.range = { from: r.from, to: r.to };
+        cal.addEventListener("change", function (e) {
+          api.setRange(e.detail.from, e.detail.to);
+          if (onPick) onPick();
+        });
+        document.addEventListener("dashboard:range", function (e) {
+          cal.range = { from: e.detail.from, to: e.detail.to };
+        });
+      }
+
+      // 1. the test card
+      wire(document.getElementById("vanilla-calendar"));
+
+      // 2. the date picker popover
+      var openButton = document.getElementById("range-open");
+      var popover = document.getElementById("range-popover");
+      var picker = document.getElementById("picker-calendar");
+      var narrow = window.matchMedia("(max-width: 720px)");
+
+      function place() {
+        popover.style.left = "";
+        var box = popover.getBoundingClientRect();
+        var overflow = box.right - (window.innerWidth - 16);
+        if (overflow > 0) popover.style.left = -overflow + "px"; // keep it on screen
+      }
+      function openPopover() {
+        picker.setAttribute("months", narrow.matches ? "1" : "2");
+        popover.hidden = false;
+        openButton.setAttribute("aria-expanded", "true");
+        place();
+        var stop = picker.querySelector('.ec-day[tabindex="0"]');
+        if (stop) stop.focus();
+      }
+      function closePopover(returnFocus) {
+        if (popover.hidden) return;
+        popover.hidden = true;
+        openButton.setAttribute("aria-expanded", "false");
+        if (returnFocus) openButton.focus();
+      }
+
+      wire(picker, function () { closePopover(true); }); // a complete range closes the popover
+      openButton.addEventListener("click", function () {
+        if (popover.hidden) openPopover(); else closePopover(true);
       });
-      document.addEventListener("dashboard:range", function (e) {
-        cal.range = { from: e.detail.from, to: e.detail.to };
+      document.addEventListener("keydown", function (e) {
+        // the calendar uses Esc to cancel a half-picked range first; a second Esc closes the popover
+        if (e.key === "Escape" && !popover.hidden && !e.defaultPrevented) closePopover(true);
+      });
+      // Capture phase: the calendar re-renders on every click, which detaches the clicked day from
+      // the page before a normal listener would run, and it would look like a click outside.
+      document.addEventListener("click", function (e) {
+        if (!popover.hidden && !popover.contains(e.target) && !openButton.contains(e.target)) closePopover(false);
+      }, true);
+      popover.addEventListener("focusout", function (e) {
+        if (e.relatedTarget && !popover.contains(e.relatedTarget) && e.relatedTarget !== openButton) closePopover(false);
       });
     })();
   </script>
