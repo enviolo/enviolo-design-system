@@ -1,4 +1,6 @@
-# Working on the Enviolo design system
+# Enviolo design system
+
+Note: [CLAUDE.md](CLAUDE.md) is for AI and Claude agents. Use [README.md](README.md) for human read.
 
 This repo is the design system itself. `design.md` is the single source of the rules; don't restate them elsewhere, because copies drift. Other projects use the system by copying `design.md` and the token files (see "Use it in a project" in the README), so this file is only for developing it.
 
@@ -6,14 +8,14 @@ This repo is the design system itself. `design.md` is the single source of the r
 
 - `design.md`: rules and spec. `tokens/tokens.css`: tokens. `tokens/components.css`: web components, written as a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`).
 - `docs/BACKLOG.md`: work still to do. Check it before starting something new, and update it when an item ships or a new one turns up. `docs/CHANGELOG.md`: what changed, newest first; add a line for every change that ships.
-- `index.html` (Overview) and `site/` (Foundations and Components pages, shared `assets/`): the docs site, the frontend. `docs/`: project notes (backlog, changelog), not served. `sandboxes/`: example apps built with the system. `versions/vX.Y/`: archived releases, each with its own `design.md`, tokens, docs site and sandboxes.
+- `index.html` (Overview) and `site/` (Foundations and Components pages, shared `assets/`): the docs site, the frontend. `docs/`: project notes (backlog, changelog, research), not served. `sandboxes/`: example apps built with the system. `versions/vX.Y/`: archived releases, each with its own `design.md`, tokens, docs site and sandboxes.
 
 
 
 ## Workflow
 
 - Work on `dev`. `main` holds released versions only. Merge to `main` and tag (`vX.Y.Z`) only when asked. Commit and push only when asked.
-- A version bump touches: the `design.md` header and §16 changelog, `docs/CHANGELOG.md`, the header comments in `tokens/tokens.css` and `tokens/components.css`, the README version log and status line, the meta line in the root `index.html`, and the footer line in the dashboard sandbox.
+- A version bump touches: the `design.md` header, `docs/CHANGELOG.md`, the header comments in `tokens/tokens.css` and `tokens/components.css`, the README version log and status line, the meta line in the root `index.html`, and the footer line in the dashboard sandbox. (`design.md` §16 is a reference index, not a changelog — it doesn't change on a bump.)
 - On release, move the previous version's `design.md`, `tokens/`, `index.html`, `site/` and `sandboxes/` into `versions/vX.Y/` and replace the root files.
 
 
@@ -22,6 +24,14 @@ This repo is the design system itself. `design.md` is the single source of the r
 
 - Components use semantic tokens only; never hard-code colours.
 - The docs site keeps its own copy of the tokens in `site/assets/docs-base.css` (the neutral ramps swap at runtime). When you change a token, change it in both `tokens/tokens.css` and there.
+
+
+
+## Adding a web component
+
+- Basecoat is a reference, not a dependency. Start from its markup and CSS, then port it into `components.css` with tokens only, in the shadcn vocabulary, and check it in light and dark with any neutral ramp.
+- States follow one rule: a solid fill from a token (design.md 8.1), never an opacity change or a computed colour mix.
+- Watch for colour mixes in polar spaces (oklch, lch, hsl): Basecoat's secondary hover mixes in OKLCH and turns brown in dark mode, so don't copy that recipe.
 
 
 

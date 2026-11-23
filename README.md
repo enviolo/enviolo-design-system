@@ -1,5 +1,11 @@
 # Enviolo Design System
 
+---
+
+> Note: [README.md](README.md) is overview for humans. Use [CLAUDE.md](CLAUDE.md) for AI and Claude auto-load.
+
+---
+
 The design language behind Enviolo's digital products: brand colors, neutral color ramps, typography, components and the rules for applying them in light and dark mode.
 
 It is a lightweight, token-first system. It doesn't ship its own component library. It builds on established open-source foundations and layers Enviolo's brand on top:
@@ -63,7 +69,7 @@ Versions are git tags. `main` holds released versions only; work in progress liv
 | v0.3.12 | `v0.3.12` | [design.md](design.md) | [docs site](index.html), [html-dashboard](sandboxes/html-dashboard/index.html) | Architecture (shadcn/ui for React apps, Enviolo CSS for web, Enviolo token layer on top); AI rules up front; Enviolo ramp (11 steps); per-mode background, accent and focus; status colours; gradients and chart steps; layout grid and breakpoints; navigation patterns. Adds `tokens/tokens.css` and `tokens/components.css`. Current: v0.3.11. |
 | v0.2 | `v0.2` | [versions/v0.2/design.md](versions/v0.2/design.md) | [html-dashboard](versions/v0.2/sandboxes/html-dashboard/index.html) | Brand and semantic colour tokens, Taupe/Mist neutral ramps, light and dark mode, shadcn and BasecoatUI routers. (v0.1 was earlier BasecoatUI testing.) |
 
-The detailed history inside v0.3 is in design.md §16, numbered v0.3.1 to v0.3.12.
+The detailed history inside v0.3 is in [docs/CHANGELOG.md](docs/CHANGELOG.md), numbered v0.3.1 to v0.3.12.
 
 ## Status
 

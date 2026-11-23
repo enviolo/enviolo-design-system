@@ -16,6 +16,8 @@ Work still to do on the design system. Rules and decisions live in `design.md` (
 - [ ] **Move shared pieces out of the sandbox.** The popover (`.popover`) and the range field (`.range-field`, a button styled as an input) live in `sandboxes/html-dashboard/dashboard.css`. If another page needs them, they belong in `tokens/components.css`, per the rule in CLAUDE.md.
 - [ ] **React calendar test card.** Keep it as the shadcn comparison or remove it. It loads React and react-day-picker from esm.sh, so the dashboard needs internet for that card.
 - [ ] **Components missing from `components.css`.** Check which of select, tooltip, dialog, tabs and table the web side needs before the first product adopts the system.
+- [ ] **Lint design.md rule 0.** `design.md` research (`docs/research/design-md-best-practices.md`) flags that several AI rules are checkable: no hex/oklch/palette classes in components, one `btn` without `data-variant` per view, `aria-label` on icon-only buttons. Turn these into a stylelint rule, a grep pre-commit hook, or a Claude Code hook, so violations don't rely on prose alone.
+- [ ] **Confirm docs-site-only vs product patterns.** `design.md` 8.3 and 10 were trimmed (Nov 2026) to keep only general menu/theming rules; the docs site's top nav, topic dropdown, cards-as-links and the Display menu UI stayed site/sandbox-only (`site/assets/docs.js`, `display.js`). Decide if any of these should become real components in `components.css` before the first product needs them.
 
 ## Org-wide skill: `/enviolo-design`
 
