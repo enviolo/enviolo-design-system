@@ -14,7 +14,7 @@ It is a lightweight, token-first system. It doesn't ship its own component libra
 | [design.md](design.md) | The source of truth for the current version: rules, tokens, components, layout, accessibility and open decisions. |
 | [tokens/tokens.css](tokens/tokens.css) | Production-ready token file built from design.md, for Tailwind v4 projects. |
 | [tokens/components.css](tokens/components.css) | Plain-HTML component styles (buttons, inputs, status pills) built on the tokens. The web backbone; used by the docs site. |
-| [index.html](index.html), [docs/](docs/) | The documentation site. Open `index.html` for the Overview; the Foundations and Components pages live in `docs/`. |
+| [index.html](index.html), [site/](site/) | The documentation site. Open `index.html` for the Overview; Foundations and Components pages live in `site/`. Backlog and changelog are in [docs/](docs/). |
 | [sandboxes/](sandboxes/) | Working references for the current version. |
 | [versions/](versions/) | Previous versions, each in its own folder with its design.md and sandboxes. |
 | [CLAUDE.md](CLAUDE.md) | Instructions for AI-assisted work on this repo itself (workflow, versions, docs site). Not for projects that use the system. |

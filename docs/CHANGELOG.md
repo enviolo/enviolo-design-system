@@ -8,7 +8,7 @@ Planned work is in [BACKLOG.md](BACKLOG.md).
 
 ## Unreleased
 
-Nothing yet.
+- **Docs pages moved to `site/`:** `assets/`, `foundations/` and `components/` now live in `site/`; `index.html` stays at the root (GitHub Pages and AWS friendly), and `docs/` holds only project notes (backlog, changelog). Paths in `CLAUDE.md`, `README.md`, `design.md` and the dashboard sandbox updated.
 
 ## v0.3.12 (tag `v0.3.12`, 2026-10-09)
 

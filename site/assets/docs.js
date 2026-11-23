@@ -5,13 +5,13 @@
   var D=window.EnvioloDisplay, state=D.state, isDark=D.isDark, STEPS=D.STEPS, RAMPS=D.RAMPS, RAMP_LABELS=D.RAMP_LABELS;
   /* ---------- Site shell: nav and toast are built here so every page stays small ---------- */
   var PAGE=document.body.dataset.page||'overview';
-  /* The Overview is the repo's root index.html; every other page lives in docs/<topic>/.
+  /* The Overview is the repo's root index.html; every other page lives in site/<topic>/.
      Links are relative, so the site works from a folder, a local server or an embedded browser. */
   var IN_DOCS=PAGE!=='overview', DEPTH=PAGE.split('/').length;
-  var TO_ROOT=IN_DOCS?new Array(DEPTH+1).join('../'):'';
-  var TO_DOCS=IN_DOCS?new Array(DEPTH).join('../'):'docs/';
+  var TO_ROOT=IN_DOCS?new Array(DEPTH+1).join('../'):'site/';
+  var TO_DOCS=IN_DOCS?new Array(DEPTH).join('../'):'site/';
   function homeHref(){return TO_ROOT+'index.html';}
-  function href(p){return TO_DOCS+p;} /* p is relative to docs/ */
+  function href(p){return TO_DOCS+p;} /* p is relative to site/ */
   var TOPICS=[
     {key:'foundations',label:'Foundations',items:[
       {path:'foundations/colour.html',label:'Colour',desc:'Enviolo ramp, gradients, neutrals, status'},
@@ -65,7 +65,7 @@
         if(!b.dataset.baseTitle){b.dataset.baseTitle=b.title;b.dataset.baseLabel=b.getAttribute('aria-label');}
         var step=parseInt(b.dataset.baseTitle,10), role=r[1]===mode?ROLES[step]:null;
         b.classList.toggle('used',!!role);
-        b.innerHTML=role?role[0].map(function(t){return '<span>'+t+'</span>';}).join(''):'';
+        b.innerHTML=role?role[0].map(function(t){return '<span>'+t+'</span>';}).join(''):'site/';
         b.style.color='';
         if(role){var hx=toHex(b), rr=parseInt(hx.substr(1,2),16), gg=parseInt(hx.substr(3,2),16), bb=parseInt(hx.substr(5,2),16); b.style.color=(0.299*rr+0.587*gg+0.114*bb)>150?'#1c1917':'#FFFFFF';}
         b.title=b.dataset.baseTitle+(role?' · '+role[1]:'');
@@ -83,7 +83,7 @@
       if(!b.dataset.base) b.dataset.base=b.getAttribute('aria-label');
       var step=parseInt(b.title,10), role=step===m.bg?'Bg':(step===m.text?'Text':'');
       b.classList.toggle('used',!!role);
-      b.innerHTML=role?'<span>'+role+'</span>':'';
+      b.innerHTML=role?'<span>'+role+'</span>':'site/';
       b.style.color='';
       if(role){var hx=toHex(b), r=parseInt(hx.substr(1,2),16), g=parseInt(hx.substr(3,2),16), bl=parseInt(hx.substr(5,2),16); b.style.color=(0.299*r+0.587*g+0.114*bl)>150?'#1c1917':'#FFFFFF';}
       b.setAttribute('aria-label',b.dataset.base+(role?(role==='Bg'?', background colour':', text colour')+' in '+mode+' mode':''));
