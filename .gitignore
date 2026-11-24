@@ -39,6 +39,9 @@ build/
 .turbo/
 coverage/
 
+# Local example apps (not shipped with the system)
+sandboxes/
+
 # Temp files
 *.tmp
 *.bak

@@ -28,7 +28,17 @@
   var navPanels=TOPICS.map(function(t){
     return '<div class="navdd" id="navdd-'+t.key+'" hidden>'+t.items.map(function(i){return '<a href="'+href(i.path)+'" data-sub="'+pageKey(i)+'"><b>'+i.label+'</b><span>'+i.desc+'</span></a>';}).join('')+(t.soon?'<div class="soon">More components soon</div>':'')+'</div>';}).join('');
   var BRAND=`<a class="brandmark" href="{{HOME}}" aria-label="Enviolo Design System, overview"><svg viewBox="0 0 496.06 112.06" fill="currentColor" aria-hidden="true"><path d="M276.93,32.01c-4.39,0-7.98,3.56-7.98,8.02v64.02c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02V40.03c-.06-4.46-3.6-8.02-7.98-8.02Z"/><path d="M336.71,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.88-40.03-39.87-40.03ZM336.65,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M456.2,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.82-40.03-39.87-40.03ZM456.2,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M396.42,0c-4.39,0-7.98,3.56-7.98,8.02v96.03c0,4.4,3.54,8.02,7.98,8.02s7.98-3.61,7.98-8.02V8.02c0-4.4-3.54-8.02-7.98-8.02Z"/><path d="M131.47,32.01c-21.99,0-39.87,17.9-39.87,40.03v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01h0c0-13.27,10.68-23.99,23.9-23.99s23.9,10.73,23.95,23.99h0v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01c-.11-22.13-17.94-40.03-39.92-40.03Z"/><path d="M252.59,32.86c-3.94-1.98-8.72-.4-10.68,3.56l-24.74,49.68-24.74-49.68c-1.97-3.95-6.75-5.53-10.68-3.56s-5.57,6.77-3.6,10.73l31.88,64.02h0c1.29,2.6,3.99,4.4,7.14,4.4s5.79-1.81,7.14-4.46h0l31.88-64.02c1.91-3.9.34-8.69-3.6-10.67Z"/><path d="M71.52,81.18c-3.77-2.26-8.6-1.02-10.91,2.71-4.1,7.28-11.86,12.19-20.81,12.19-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05c8.72,0,16.31,4.69,20.52,11.69l-20.47,12.36h39.87c0-22.07-17.82-40.03-39.87-40.03-22.04,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03c14.73,0,27.61-8.02,34.53-19.98,2.14-3.84.9-8.69-2.87-10.9Z"/></svg><span>Design System</span></a>`.replace('{{HOME}}',homeHref());
+  var INFO_PANEL='<div class="info-panel" id="infoPanel" role="dialog" aria-label="About this site" hidden>'
+    +'<h3>About this site</h3>'
+    +'<p>Plain HTML, CSS and a little vanilla JavaScript, with no framework and no build step. No component library is loaded. Buttons, inputs and status pills come from <code>tokens/components.css</code>, the same stylesheet websites use; the rest of this site\'s CSS is documentation only.</p>'
+    +'<p>Markup is a base class plus attributes (<code>class="btn" data-variant="secondary"</code>), the same split shadcn/ui makes with <code>&lt;Button variant="secondary"&gt;</code>. Colour and radius tokens use <a class="btn" data-variant="link" href="https://ui.shadcn.com/docs/theming" rel="noopener">shadcn/ui</a> naming (<code>--primary</code>, <code>--secondary</code>, <code>--muted</code>, <code>--border</code>), so the same tokens drop into a React shadcn setup or a Figma variables file. The visual style is based on Luma, which brings the pill-shaped controls. Enviolo-specific choices on top: a two-ramp neutral system for light and dark, and the Enviolo colour ramp.</p>'
+    +'<p>New components start from <a class="btn" data-variant="link" href="https://basecoatui.com" rel="noopener">Basecoat</a> as a reference, then get ported into our own stylesheet and checked in both modes, so every state follows the same rules.</p>'
+    +'</div>';
+  var INFO_TOGGLE='<button class="btn settings-trigger" data-variant="outline" data-size="icon-sm" id="infoToggle" type="button" aria-expanded="false" aria-controls="infoPanel" aria-label="About this site" title="About this site"><svg class="ic" data-icon="info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>';
   document.body.insertAdjacentHTML('afterbegin','<header class="topnav"><div class="topnav-inner">'+BRAND+'<nav class="mainnav" aria-label="Main">'+navLinks+'</nav></div>'+navPanels+'</header>');
+  /* The "about this site" info toggle lives in the bottom-right settings cluster display.js builds, not the top nav. */
+  var modeToggleEl=document.getElementById('modeToggle');
+  if(modeToggleEl) modeToggleEl.insertAdjacentHTML('beforebegin',INFO_TOGGLE+INFO_PANEL);
   document.body.insertAdjacentHTML('beforeend','<div class="toast" id="toast" role="status" hidden></div>');
   var top=PAGE.split('/')[0];
   /* Left sidebar: the pages inside the current topic. Flush to the viewport edge, sticky under the top nav. */
@@ -47,8 +57,17 @@
     document.querySelectorAll('.navdd a').forEach(function(a){ if(a.dataset.sub===PAGE) a.setAttribute('aria-current','page'); });
   })();
   D.renderIcons(); /* the nav chevrons were just added */
-  var aboutToggle=document.getElementById('aboutToggle'), aboutPanel=document.getElementById('aboutPanel');
-  if(aboutToggle) aboutToggle.addEventListener('click',function(){var o=aboutToggle.getAttribute('aria-expanded')==='true';aboutToggle.setAttribute('aria-expanded',String(!o));aboutPanel.hidden=o;});
+  /* ---------- Info panel: "About this site", a dropdown off the i icon in the bottom-right settings cluster ---------- */
+  (function(){
+    var toggle=document.getElementById('infoToggle'), panel=document.getElementById('infoPanel');
+    if(!toggle) return;
+    function show(){ panel.hidden=false; toggle.setAttribute('aria-expanded','true'); }
+    function hide(focusBack){ panel.hidden=true; toggle.setAttribute('aria-expanded','false'); if(focusBack) toggle.focus(); }
+    toggle.addEventListener('click',function(){ panel.hidden?show():hide(false); });
+    toggle.addEventListener('keydown',function(e){ if(e.key==='Escape') hide(true); });
+    panel.addEventListener('keydown',function(e){ if(e.key==='Escape') hide(true); });
+    document.addEventListener('click',function(e){ if(!panel.hidden&&!e.target.closest('#infoToggle')&&!e.target.closest('#infoPanel')) hide(false); });
+  })();
   document.querySelectorAll('.seg').forEach(function(g){
     g.addEventListener('click',function(ev){
       var b=ev.target.closest('button'); if(!b) return;
@@ -73,7 +92,7 @@
         if(!b.dataset.baseTitle){b.dataset.baseTitle=b.title;b.dataset.baseLabel=b.getAttribute('aria-label');}
         var step=parseInt(b.dataset.baseTitle,10), role=r[1]===mode?ROLES[step]:null;
         b.classList.toggle('used',!!role);
-        b.innerHTML=role?role[0].map(function(t){return '<span>'+t+'</span>';}).join(''):'site/';
+        b.innerHTML=role?role[0].map(function(t){return '<span>'+t+'</span>';}).join(''):'';
         b.style.color='';
         if(role){var hx=toHex(b), rr=parseInt(hx.substr(1,2),16), gg=parseInt(hx.substr(3,2),16), bb=parseInt(hx.substr(5,2),16); b.style.color=(0.299*rr+0.587*gg+0.114*bb)>150?'#1c1917':'#FFFFFF';}
         b.title=b.dataset.baseTitle+(role?' · '+role[1]:'');
@@ -86,12 +105,12 @@
     }
   }
   function markStatus(){
-    var mode=isDark()?'dark':'light', m=mode==='dark'?{bg:950,text:300}:{bg:50,text:700}; /* --{status}-bg / -text steps, design.md 4.3 */
+    var mode=isDark()?'dark':'light', m=mode==='dark'?{bg:950,text:300}:{bg:50,text:700}; /* --{status}-bg / -text steps, design.md 3.3 */
     document.querySelectorAll('.status-block .neutral-row button').forEach(function(b){
       if(!b.dataset.base) b.dataset.base=b.getAttribute('aria-label');
       var step=parseInt(b.title,10), role=step===m.bg?'Bg':(step===m.text?'Text':'');
       b.classList.toggle('used',!!role);
-      b.innerHTML=role?'<span>'+role+'</span>':'site/';
+      b.innerHTML=role?'<span>'+role+'</span>':'';
       b.style.color='';
       if(role){var hx=toHex(b), r=parseInt(hx.substr(1,2),16), g=parseInt(hx.substr(3,2),16), bl=parseInt(hx.substr(5,2),16); b.style.color=(0.299*r+0.587*g+0.114*bl)>150?'#1c1917':'#FFFFFF';}
       b.setAttribute('aria-label',b.dataset.base+(role?(role==='Bg'?', background colour':', text colour')+' in '+mode+' mode':''));

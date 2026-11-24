@@ -1,5 +1,5 @@
 /*
-  Enviolo components.css (v0.4, draft)
+  Enviolo components.css (v0.4.1, draft)
   Plain-HTML component styles for websites and CMS templates: buttons, inputs, search, status pills, cards, segmented control, calendar.
   Uses semantic tokens only (tokens/tokens.css). No hard-coded colours except the inverted
   `.on-dark` variants, which sit on imagery.
@@ -105,7 +105,7 @@ enviolo-calendar td[data-end]:not([data-start]){background:linear-gradient(90deg
 enviolo-calendar td[data-edge-left]{border-top-left-radius:20px;border-bottom-left-radius:20px}
 enviolo-calendar td[data-edge-right]{border-top-right-radius:20px;border-bottom-right-radius:20px}
 enviolo-calendar td[data-start] .ec-day,enviolo-calendar td[data-end] .ec-day{background-color:var(--primary);color:var(--primary-foreground);font-weight:600}
-/* Hover follows the button rules (design.md 8.1): a solid fill from a token, never a colour mix. The ends
+/* Hover follows the button rules (design.md 7.1): a solid fill from a token, never a colour mix. The ends
    of the range are primary pills, so they hover like the primary button; days on the accent band go one
    step further, like the secondary button; every other day hovers like a ghost button. */
 enviolo-calendar td[data-start] .ec-day:hover:not(:disabled),enviolo-calendar td[data-end] .ec-day:hover:not(:disabled){background-color:var(--primary-hover)}

@@ -1,7 +1,7 @@
 /*
   <enviolo-calendar>: a range calendar as a plain web component. No React, no dependencies.
 
-  Part of the Enviolo CSS component set (design.md 8.4). It renders into the light DOM, so the
+  Part of the Enviolo CSS component set (design.md 7.4). It renders into the light DOM, so the
   page's tokens apply directly (see tokens/components.css).
 
   Attributes

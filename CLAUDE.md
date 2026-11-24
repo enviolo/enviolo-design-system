@@ -8,15 +8,15 @@ This repo is the design system itself. `design.md` is the single source of the r
 
 - `design.md`: rules and spec. `tokens/tokens.css`: tokens. `tokens/components.css`: web components, written as a base class plus attributes (`class="btn" data-variant="secondary" data-size="sm"`).
 - `docs/BACKLOG.md`: work still to do. Check it before starting something new, and update it when an item ships or a new one turns up. `docs/CHANGELOG.md`: what changed, newest first; add a line for every change that ships.
-- `index.html` (Overview) and `site/` (Foundations and Components pages, shared `assets/`): the docs site, the frontend. `docs/`: project notes (backlog, changelog, research), not served. `sandboxes/`: example apps built with the system. `versions/vX.Y/`: archived releases, each with its own `design.md`, tokens, docs site and sandboxes.
+- `index.html` (Overview) and `site/` (Foundations and Components pages, shared `assets/`): the docs site, the frontend. `docs/`: project notes (backlog, changelog, research), not served. `sandboxes/`: example apps built with the system, gitignored — local only, not part of the shipped repo.
 
 
 
 ## Workflow
 
 - Work on `dev`. `main` holds released versions only. Merge to `main` and tag (`vX.Y.Z`) only when asked. Commit and push only when asked.
-- A version bump touches: the `design.md` header, `docs/CHANGELOG.md`, the header comments in `tokens/tokens.css` and `tokens/components.css`, the README version log and status line, the meta line in the root `index.html`, and the footer line in the dashboard sandbox. (`design.md` §16 is a reference index, not a changelog — it doesn't change on a bump.)
-- On release, move the previous version's `design.md`, `tokens/`, `index.html`, `site/` and `sandboxes/` into `versions/vX.Y/` and replace the root files.
+- A version bump touches: the `design.md` header, `docs/CHANGELOG.md`, the header comments in `tokens/tokens.css` and `tokens/components.css`, the meta line in the root `index.html`, and the footer line in the dashboard sandbox.
+- Old versions are not archived in folders: read them from their git tag (`git show v0.2:design.md`).
 
 
 
@@ -30,7 +30,7 @@ This repo is the design system itself. `design.md` is the single source of the r
 ## Adding a web component
 
 - Basecoat is a reference, not a dependency. Start from its markup and CSS, then port it into `components.css` with tokens only, in the shadcn vocabulary, and check it in light and dark with any neutral ramp.
-- States follow one rule: a solid fill from a token (design.md 8.1), never an opacity change or a computed colour mix.
+- States follow one rule: a solid fill from a token (design.md 7.1), never an opacity change or a computed colour mix.
 - Watch for colour mixes in polar spaces (oklch, lch, hsl): Basecoat's secondary hover mixes in OKLCH and turns brown in dark mode, so don't copy that recipe.
 
 

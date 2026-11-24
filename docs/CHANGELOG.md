@@ -2,13 +2,24 @@
 
 What changed in the repo, newest first: the spec, the tokens, the docs site and the sandboxes. Versions are git tags (see the README version log).
 
-The spec-level history for v0.3.1 to v0.3.11 is kept in full in `design.md` section 16, so it travels with `design.md` into other projects. The entries below summarise it and link there for the detail.
+The spec-level history for v0.3.1 to v0.3.11 used to live in `design.md` and is now in git history (see the tags). The entries below summarise it.
 
 Planned work is in [BACKLOG.md](BACKLOG.md).
 
-## Unreleased
+## v0.4.1
 
-Nothing yet.
+Released 2026-11-24.
+
+Patch: no rule or path changes since v0.4, only a refactor, a docs-site fix pass and an info panel.
+
+- **`design.md` refactored (414 to about 350 lines, no rule changes).** Sections merged and renumbered: architecture and defaults are 1, tokens 2, colour 3, typography 4, shape and motion 5, layout 6, components 7 (buttons 7.1, calendar 7.4), icons 8, accessibility and theming 9, copy 10, checklist 11, open decisions 12, reference 13. Token tables compressed, the context examples moved under 7.1, the legacy migration note and duplicated button guidance removed. References in README, `CLAUDE.md`, backlog, changelog, sandboxes and docs site updated.
+- **`versions/` folder removed.** Old versions are read from their git tags (`git show v0.2:design.md`). The v0.1 folder, which was never tagged, stays in git history. README and `CLAUDE.md` updated.
+- **`sandboxes/` is now local-only, gitignored.** It's an example app, not part of the shipped system; README and `CLAUDE.md` updated.
+- **Docs site: Colour page now fills the width** like every other page. A grid item with `width:auto` and auto margins shrinks to its content's natural width instead of the column's; `.wrap` now sets `width:100%` so it always fills then caps at 1080px regardless of a page's content.
+- **Docs site: "About this site" moves from an Overview-only accordion to an info icon** in the bottom-right corner, next to the theme toggle and Display button. Opens a small card (with a heading) instead of an inline disclosure, and now describes the whole site, not just the Overview page. New `info` icon (Tabler and Lucide), design.md 8 updated.
+- **Fixed:** empty colour swatches (Neutrals, Status colours) showed a stray `site/` instead of being blank, left over from a bad find-and-replace. `site/assets/docs.js`.
+- **Fixed:** the new info icon button had no background fill; it was missing the `settings-trigger` class its neighbours use.
+- **README:** Principles section restored after the v0.4 rewrite dropped it; Contact moved to the top.
 
 ## v0.4
 
@@ -16,8 +27,8 @@ Released 2026-11-24.
 
 Minor bump because file paths moved: projects that copy files by path need to update them (`site/` for docs assets, `tokens/enviolo-calendar.js` for the calendar).
 
-- **Style decided: Luma stays.** Rhea was tried as a replacement and dropped, so v0.4 has no style change. design.md section 15.
-- **Calendar promoted to a real component.** `<enviolo-calendar>` moves out of the dashboard sandbox into `tokens/components.css` plus `tokens/enviolo-calendar.js`, with a spec (design.md 8.4) and a docs page (`site/components/calendar.html`). The sandbox now loads the shared files instead of its own copies.
+- **Style decided: Luma stays.** Rhea was tried as a replacement and dropped, so v0.4 has no style change. design.md section 12.
+- **Calendar promoted to a real component.** `<enviolo-calendar>` moves out of the dashboard sandbox into `tokens/components.css` plus `tokens/enviolo-calendar.js`, with a spec (design.md 7.4) and a docs page (`site/components/calendar.html`). The sandbox now loads the shared files instead of its own copies.
 - **Docs site: topic pages (Foundations, Components) get a left sidebar.** Replaces the horizontal pill subnav. Flush to the viewport edge, sticky under the top nav, collapses to a horizontal strip under 880px. `site/assets/docs.js`, `site/assets/docs.css`.
 - **Docs site: top nav bar spans the full width** instead of a centred 1080px container.
 - **`design.md` trimmed (about 260 lines changed).** Duplicated values and docs-site-only content removed, so tokens and the docs site hold the detail. No rule changes. Research in `docs/research/design-md-best-practices.md`.
@@ -39,7 +50,7 @@ Released 2026-10-09.
 
 ## v0.3.1 to v0.3.11
 
-The design system rebuilt around shadcn/ui for React apps and hand-written Enviolo CSS for the web, with the Enviolo token layer on top. Details in `design.md` section 16.
+The design system rebuilt around shadcn/ui for React apps and hand-written Enviolo CSS for the web, with the Enviolo token layer on top. Older detail is in git history.
 
 - **v0.3.11:** segmented control moved into `components.css`; icon names `filter`, `x`, `calendar`; dashboard time-range filter and icon-style selector.
 - **v0.3.10:** cards in `components.css`; status pills use `class="pill" data-variant="…"`; single-series charts use `--chart-3` with flat fills; the solid focus ring documented as a deliberate deviation from shadcn. Dashboard sandbox rebuilt on the v0.3 rules.
@@ -57,4 +68,4 @@ The design system rebuilt around shadcn/ui for React apps and hand-written Envio
 
 Released 2026-10-08.
 
-Brand and semantic colour tokens, Taupe and Mist neutral ramps, light and dark mode, shadcn and Basecoat routers. v0.1 was earlier Basecoat testing. Archived in `versions/v0.2/`.
+Brand and semantic colour tokens, Taupe and Mist neutral ramps, light and dark mode, shadcn and Basecoat routers. v0.1 was earlier Basecoat testing. Read it from the `v0.2` tag.

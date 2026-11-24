@@ -20,7 +20,7 @@
     <div class="hub" aria-hidden="true"></div>
     <h1 id="ov-title">Enviolo Design System</h1>
     <p>One set of tokens, components and rules for web, app and AI-assisted development at Enviolo. Built on shadcn/ui conventions and shaped by Enviolo: warm days, cool nights. Introduced step by step, as each product is ready for it.</p>
-    <p class="meta">v0.4 · Draft · Updated November 2026</p>
+    <p class="meta">v0.4.1 · Updated November 2026</p>
   </section>
 
   <section aria-labelledby="ov-explore">
@@ -86,16 +86,6 @@
       </div>
     </div>
     <p class="small" style="margin-top:14px">Figma mirrors the same variables through the shadcncraft kit. For AI-assisted development, design.md describes all three layers, so Claude or Cursor picks the right backbone for each surface and only uses Enviolo tokens. A component the web stylesheet doesn't have yet is not part of the system until it is added.</p>
-  </section>
-
-  <section aria-labelledby="ov-build" style="margin-top:48px">
-    <h2 id="ov-build" class="sr-only" style="position:absolute;left:-9999px">About this page</h2>
-    <button class="btn about-toggle" data-variant="ghost" data-size="sm" id="aboutToggle" type="button" aria-expanded="false" aria-controls="aboutPanel">How this page is built<svg class="ic chev" data-icon="chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
-    <div class="about" id="aboutPanel" hidden>
-      <p>Plain HTML, CSS and a little vanilla JavaScript, with no framework and no build step. No component library is loaded. Buttons, inputs and status pills come from <code>tokens/components.css</code>, the same stylesheet websites use; the rest of this page's CSS is documentation only.</p>
-      <p>Markup is a base class plus attributes (<code>class="btn" data-variant="secondary"</code>), the same split shadcn/ui makes with <code>&lt;Button variant="secondary"&gt;</code>. Colour and radius tokens use <a class="btn" data-variant="link" href="https://ui.shadcn.com/docs/theming" rel="noopener">shadcn/ui</a> naming (<code>--primary</code>, <code>--secondary</code>, <code>--muted</code>, <code>--border</code>), so the same tokens drop into a React shadcn setup or a Figma variables file. The visual style is based on Luma, which brings the pill-shaped controls. Enviolo-specific choices on top: a two-ramp neutral system for light and dark, and the Enviolo colour ramp.</p>
-      <p>New components start from <a class="btn" data-variant="link" href="https://basecoatui.com" rel="noopener">Basecoat</a> as a reference, then get ported into our own stylesheet and checked in both modes, so every state follows the same rules.</p>
-    </div>
   </section>
 </div>
 </main>

@@ -1,24 +1,24 @@
 # Backlog
 
-Work still to do on the design system. Rules and decisions live in `design.md` (open decisions: section 15); this file only tracks the work. Tick an item when it ships on `dev`, and add it to [CHANGELOG.md](CHANGELOG.md) under the version that carries it.
+Work still to do on the design system. Rules and decisions live in `design.md` (open decisions: section 12); this file only tracks the work. Tick an item when it ships on `dev`, and add it to [CHANGELOG.md](CHANGELOG.md) under the version that carries it.
 
 ## Decide first
 
 - [x] **Version label.** Settled: the release is tagged `v0.3.12` and every header says v0.3.12. If Rhea replaces Luma, the next release is v0.4.
-- [ ] **Enviolo ramp.** Publish it to the brand guidelines (design.md section 15: planned, still draft).
-- [ ] **Rollout.** Which product adopts the system first (section 15: not decided).
-- [x] **Style: try Rhea against Luma.** Decided: stays Luma. See design.md section 15.
-- [x] **Calendar.** Promoted: `<enviolo-calendar>` is now in the web component set (`tokens/components.css` plus `tokens/enviolo-calendar.js`), specified in design.md 8.4, with a docs page at `site/components/calendar.html`. React apps still use react-day-picker.
+- [ ] **Enviolo ramp.** Publish it to the brand guidelines (design.md section 12: planned, still draft).
+- [ ] **Rollout.** Which product adopts the system first (section 12: not decided).
+- [x] **Style: try Rhea against Luma.** Decided: stays Luma. See design.md section 12.
+- [x] **Calendar.** Promoted: `<enviolo-calendar>` is now in the web component set (`tokens/components.css` plus `tokens/enviolo-calendar.js`), specified in design.md 7.4, with a docs page at `site/components/calendar.html`. React apps still use react-day-picker.
 
 ## Next
 
-- [ ] **Double-check the promoted calendar.** `<enviolo-calendar>` (design.md 8.4, `tokens/components.css` + `tokens/enviolo-calendar.js`) was only verified in headless Chrome screenshots so far. Confirm for real before calling the promotion done: Safari/Firefox, a real phone, a screen reader on the grid, and the Cursor in-IDE browser (see "Not yet verified" below).
-- [ ] **Date-range field in the spec.** The calendar has a design.md section now (8.4); the field that opens it (`.range-field`, a button styled as an input, in `sandboxes/html-dashboard/dashboard.css`) still doesn't.
+- [ ] **Double-check the promoted calendar.** `<enviolo-calendar>` (design.md 7.4, `tokens/components.css` + `tokens/enviolo-calendar.js`) was only verified in headless Chrome screenshots so far. Confirm for real before calling the promotion done: Safari/Firefox, a real phone, a screen reader on the grid, and the Cursor in-IDE browser (see "Not yet verified" below).
+- [ ] **Date-range field in the spec.** The calendar has a design.md section now (7.4); the field that opens it (`.range-field`, a button styled as an input, in `sandboxes/html-dashboard/dashboard.css`) still doesn't.
 - [ ] **Move shared pieces out of the sandbox.** The popover (`.popover`) and the range field (`.range-field`, a button styled as an input) live in `sandboxes/html-dashboard/dashboard.css`. If another page needs them, they belong in `tokens/components.css`, per the rule in CLAUDE.md.
 - [ ] **React calendar test card.** Keep it as the shadcn comparison or remove it. It loads React and react-day-picker from esm.sh, so the dashboard needs internet for that card.
 - [ ] **Components missing from `components.css`.** Check which of select, tooltip, dialog, tabs and table the web side needs before the first product adopts the system.
 - [ ] **Lint design.md rule 0.** `design.md` research (`docs/research/design-md-best-practices.md`) flags that several AI rules are checkable: no hex/oklch/palette classes in components, one `btn` without `data-variant` per view, `aria-label` on icon-only buttons. Turn these into a stylelint rule, a grep pre-commit hook, or a Claude Code hook, so violations don't rely on prose alone.
-- [ ] **Confirm docs-site-only vs product patterns.** `design.md` 8.3 and 10 were trimmed (Nov 2026) to keep only general menu/theming rules; the docs site's top nav, topic dropdown, cards-as-links and the Display menu UI stayed site/sandbox-only (`site/assets/docs.js`, `display.js`). Decide if any of these should become real components in `components.css` before the first product needs them.
+- [ ] **Confirm docs-site-only vs product patterns.** `design.md` 7.3 and 9.2 were trimmed (Nov 2026) to keep only general menu/theming rules; the docs site's top nav, topic dropdown, cards-as-links and the Display menu UI stayed site/sandbox-only (`site/assets/docs.js`, `display.js`). Decide if any of these should become real components in `components.css` before the first product needs them.
 
 ## Org-wide skill: `/enviolo-design`
 
