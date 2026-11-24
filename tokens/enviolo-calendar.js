@@ -1,8 +1,8 @@
 /*
   <enviolo-calendar>: a range calendar as a plain web component. No React, no dependencies.
 
-  Test build in the dashboard sandbox. It renders into the light DOM, so the page's tokens apply
-  directly (see enviolo-calendar.css).
+  Part of the Enviolo CSS component set (design.md 8.4). It renders into the light DOM, so the
+  page's tokens apply directly (see tokens/components.css).
 
   Attributes
     months      1 or 2 visible months (default 2)

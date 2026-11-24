@@ -245,7 +245,7 @@ Never give a container a pill radius, and never give a control a container radiu
 
 ## 8. Components
 
-Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search, status pills, cards and the segmented control**. Menus and navigation below are specified here but built only in the docs site (`site/assets/docs.css`) for now; use them as the reference until they move into `components.css`.
+Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search, status pills, cards, the segmented control and the calendar**. Menus and navigation below are specified here but built only in the docs site (`site/assets/docs.css`) for now; use them as the reference until they move into `components.css`.
 
 ### 8.1 Buttons
 
@@ -304,6 +304,15 @@ Shared CSS in `tokens/components.css` currently covers **buttons, inputs, search
 - **Cards as links**: overview cards are fully clickable (stretched link), with secondary sub-links layered on top.
 
 The docs site's own top nav (topic dropdowns, sub-nav) is a site-specific pattern built in `site/assets/docs.css`, not yet promoted here — reuse it only if a product needs the same topic-dropdown shape.
+
+### 8.4 Calendar
+
+- **`<enviolo-calendar>`**: a dependency-free range-calendar web component (`tokens/enviolo-calendar.js`), styled in `tokens/components.css`. Attributes: `months` (1 or 2, default 2), `week-start` (0 Sun / 1 Mon, default 1), `locale`, `min` / `max` (ISO dates, days outside disabled), `today`. Property `range = {from, to}`; fires `change` once both ends are picked.
+- **Days are pills**, same radius language as buttons. The two ends of a range are solid `--primary` pills; the days between sit on an `--accent` band painted on the table cell, with rounded caps wherever a run of band days starts or ends, so the band reads as one continuous shape across a week.
+- **Hover follows the button rules (8.1)**: a solid fill from a token, never an opacity change. Range ends hover like primary (`--primary-hover`); band days hover like secondary (`--secondary-hover`); every other day hovers like ghost (`--accent`).
+- **Today** gets a quiet 1px `--border` ring, not a fill, so it never competes with the range.
+- **Keyboard** (WAI-ARIA grid pattern): one day holds a roving tabindex. Arrows move a day or a week, Home/End to the week's ends, Page Up/Down a month, Shift+Page Up/Down a year, Esc cancels a half-picked range and restores the previous one. Click or Enter: the first pick starts a range, the second ends it (an earlier second pick swaps the ends).
+- React apps use shadcn's `Calendar` (react-day-picker) instead; both read the same tokens.
 
 ---
 
@@ -389,6 +398,7 @@ The docs site's own top nav (topic dropdowns, sub-nav) is a site-specific patter
 - Status backgrounds use **solid ramp steps**, not transparent tints.
 - **Nightfall** is the final name for Enviolo 800.
 - Websites use **Enviolo CSS** (`tokens/components.css`), not the Basecoat library. Basecoat stays a reference for new components (it sets variants with `data-variant` and `data-size`).
+- **Luma** stays the style. Rhea was considered as a replacement and dropped.
 
 ---
 

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calendar · Enviolo Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&family=Urbanist:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/docs-base.css">
+<link rel="stylesheet" href="../../tokens/components.css">
+<link rel="stylesheet" href="../assets/display.css">
+<link rel="stylesheet" href="../assets/docs.css">
+<script src="../assets/theme-init.js"></script>
+</head>
+<body data-page="components/calendar">
+<main class="wrap" id="main">
+<div class="view" data-view="components/calendar">
+
+  <div class="view-head">
+    <h1>Calendar</h1>
+    <p class="lede">A dependency-free range calendar, <code>&lt;enviolo-calendar&gt;</code>: no React, themed entirely with tokens. Days are pills; the range between them is a solid band with rounded caps.</p>
+  </div>
+
+  <section aria-labelledby="demo">
+    <div class="section-head"><h2 id="demo">Live</h2><p class="small">Click a day to start a range, click again to end it. Arrow keys move the roving focus.</p></div>
+    <div class="cal-demo">
+      <enviolo-calendar id="demo-calendar" months="2" week-start="1"></enviolo-calendar>
+    </div>
+  </section>
+
+  <section aria-labelledby="anatomy">
+    <div class="section-head"><h2 id="anatomy">Anatomy</h2></div>
+    <div class="rules">
+      <div class="rule"><h3>Pill days</h3><p>Each day is a 36px circular button, the same radius language as buttons. Selected ends are solid <code>--primary</code> pills.</p></div>
+      <div class="rule"><h3>Accent band</h3><p>Days between the two ends sit on an <code>--accent</code> band painted on the table cell, not the button, so it stays unbroken across a week.</p></div>
+      <div class="rule"><h3>Rounded caps</h3><p>The band gets rounded corners wherever a run of days starts or ends: at the range ends, week edges and month edges.</p></div>
+      <div class="rule"><h3>Quiet today</h3><p>Today gets a 1px <code>--border</code> ring, never a fill, so it never competes with a selected range.</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="states">
+    <div class="section-head"><h2 id="states">Hover follows the button rules</h2><p class="small">A solid fill from a token, never an opacity change (design.md 8.1).</p></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Day</th><th>Hovers like</th><th>Token</th></tr></thead>
+        <tbody>
+          <tr><td>Range start / end</td><td>Primary button</td><td><code>--primary-hover</code></td></tr>
+          <tr><td>On the band</td><td>Secondary button</td><td><code>--secondary-hover</code></td></tr>
+          <tr><td>Every other day</td><td>Ghost button</td><td><code>--accent</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="keyboard">
+    <div class="section-head"><h2 id="keyboard">Keyboard</h2><p class="small">WAI-ARIA grid pattern. One day holds a roving tabindex.</p></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Key</th><th>Does</th></tr></thead>
+        <tbody>
+          <tr><td><code>↑ ↓ ← →</code></td><td>Move focus by a day or a week</td></tr>
+          <tr><td><code>Home</code> / <code>End</code></td><td>Jump to the week's first / last day</td></tr>
+          <tr><td><code>Page Up</code> / <code>Page Down</code></td><td>Step a month; with <code>Shift</code>, a year</td></tr>
+          <tr><td><code>Enter</code> / <code>Space</code></td><td>Pick: first press starts the range, second ends it</td></tr>
+          <tr><td><code>Esc</code></td><td>Cancel a half-picked range and restore the previous one</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="api">
+    <div class="section-head"><h2 id="api">API</h2></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Attribute</th><th>Values</th></tr></thead>
+        <tbody>
+          <tr><td><code>months</code></td><td>1 or 2 visible months (default 2)</td></tr>
+          <tr><td><code>week-start</code></td><td>0 Sunday, 1 Monday (default 1)</td></tr>
+          <tr><td><code>locale</code></td><td>BCP 47 tag for month and weekday names</td></tr>
+          <tr><td><code>min</code> / <code>max</code></td><td>ISO dates; days outside are disabled</td></tr>
+          <tr><td><code>today</code></td><td>ISO date to mark as today (default: the real today)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small" style="margin-top:14px">Property <code>range = {from, to}</code> (setting it never fires <code>change</code>). Event <code>change</code> fires once a complete range is picked, with <code>detail = {from, to}</code>.</p>
+    <p class="small">React apps use shadcn's <code>Calendar</code> (react-day-picker) instead; both read the same tokens.</p>
+  </section>
+
+</div>
+</main>
+<script src="../../tokens/enviolo-calendar.js"></script>
+<script src="../assets/display.js"></script>
+<script src="../assets/docs.js"></script>
+</body>
+</html>

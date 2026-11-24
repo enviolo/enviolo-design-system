@@ -7,12 +7,13 @@ Work still to do on the design system. Rules and decisions live in `design.md` (
 - [x] **Version label.** Settled: the release is tagged `v0.3.12` and every header says v0.3.12. If Rhea replaces Luma, the next release is v0.4.
 - [ ] **Enviolo ramp.** Publish it to the brand guidelines (design.md section 15: planned, still draft).
 - [ ] **Rollout.** Which product adopts the system first (section 15: not decided).
-- [ ] **Style: try Rhea against Luma.** Luma is the current style in the shared contract (pill controls, soft containers; design.md sections 1, 2 and 6). Try Rhea on the dashboard sandbox in light and dark, then decide whether it replaces Luma. It would touch the radius rule, the component CSS and the docs copy that names Luma. If it succeeds, that is the v0.4 release.
-- [ ] **Calendar.** `<enviolo-calendar>` is a test build in the dashboard sandbox. Promote it into the web component set (`tokens/components.css` plus a script), or keep it sandbox-only and use react-day-picker in React apps.
+- [x] **Style: try Rhea against Luma.** Decided: stays Luma. See design.md section 15.
+- [x] **Calendar.** Promoted: `<enviolo-calendar>` is now in the web component set (`tokens/components.css` plus `tokens/enviolo-calendar.js`), specified in design.md 8.4, with a docs page at `site/components/calendar.html`. React apps still use react-day-picker.
 
 ## Next
 
-- [ ] **Calendar and date-range field in the spec.** Neither has a design.md section or a docs page yet. Cover the pill days, the rounded range band, the button-style hover and the keyboard model.
+- [ ] **Double-check the promoted calendar.** `<enviolo-calendar>` (design.md 8.4, `tokens/components.css` + `tokens/enviolo-calendar.js`) was only verified in headless Chrome screenshots so far. Confirm for real before calling the promotion done: Safari/Firefox, a real phone, a screen reader on the grid, and the Cursor in-IDE browser (see "Not yet verified" below).
+- [ ] **Date-range field in the spec.** The calendar has a design.md section now (8.4); the field that opens it (`.range-field`, a button styled as an input, in `sandboxes/html-dashboard/dashboard.css`) still doesn't.
 - [ ] **Move shared pieces out of the sandbox.** The popover (`.popover`) and the range field (`.range-field`, a button styled as an input) live in `sandboxes/html-dashboard/dashboard.css`. If another page needs them, they belong in `tokens/components.css`, per the rule in CLAUDE.md.
 - [ ] **React calendar test card.** Keep it as the shadcn comparison or remove it. It loads React and react-day-picker from esm.sh, so the dashboard needs internet for that card.
 - [ ] **Components missing from `components.css`.** Check which of select, tooltip, dialog, tabs and table the web side needs before the first product adopts the system.

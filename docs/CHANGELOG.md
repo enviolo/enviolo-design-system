@@ -8,6 +8,9 @@ Planned work is in [BACKLOG.md](BACKLOG.md).
 
 ## Unreleased
 
+- **Style decided: Luma stays.** Rhea was tried as a replacement and dropped; no v0.4 style change. design.md section 15.
+- **Calendar promoted to a real component.** `<enviolo-calendar>` moves out of the dashboard sandbox into `tokens/components.css` plus `tokens/enviolo-calendar.js`, with a spec (design.md 8.4) and a docs page (`site/components/calendar.html`). The sandbox now loads the shared files instead of its own copies.
+- **Docs site: topic pages (Foundations, Components) get a left sidebar.** Replaces the horizontal pill subnav. Flush to the viewport edge, sticky under the top nav, collapses to a horizontal strip under 880px. `site/assets/docs.js`, `site/assets/docs.css`.
 - **Docs pages moved to `site/`:** `assets/`, `foundations/` and `components/` now live in `site/`; `index.html` stays at the root (GitHub Pages and AWS friendly), and `docs/` holds only project notes (backlog, changelog). Paths in `CLAUDE.md`, `README.md`, `design.md` and the dashboard sandbox updated.
 
 ## v0.3.12 (tag `v0.3.12`, 2026-10-09)
