@@ -4,7 +4,7 @@ The single reference for designing and building Enviolo interfaces across **web,
 
 The system is introduced **step by step**: apply it where a product is ready, and don't force it onto existing sites in one go.
 
-- **Version:** v0.3.12 (draft), October 2026
+- **Version:** v0.4 (draft), November 2026
 - **Visual reference:** the docs site lives in this repo (`index.html`, `site/`), not hosted yet — copying this file into another project doesn't bring it along. See §16.
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published
 

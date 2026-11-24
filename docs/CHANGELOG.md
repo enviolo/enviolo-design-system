@@ -8,12 +8,25 @@ Planned work is in [BACKLOG.md](BACKLOG.md).
 
 ## Unreleased
 
-- **Style decided: Luma stays.** Rhea was tried as a replacement and dropped; no v0.4 style change. design.md section 15.
+Nothing yet.
+
+## v0.4
+
+Released 2026-11-24.
+
+Minor bump because file paths moved: projects that copy files by path need to update them (`site/` for docs assets, `tokens/enviolo-calendar.js` for the calendar).
+
+- **Style decided: Luma stays.** Rhea was tried as a replacement and dropped, so v0.4 has no style change. design.md section 15.
 - **Calendar promoted to a real component.** `<enviolo-calendar>` moves out of the dashboard sandbox into `tokens/components.css` plus `tokens/enviolo-calendar.js`, with a spec (design.md 8.4) and a docs page (`site/components/calendar.html`). The sandbox now loads the shared files instead of its own copies.
 - **Docs site: topic pages (Foundations, Components) get a left sidebar.** Replaces the horizontal pill subnav. Flush to the viewport edge, sticky under the top nav, collapses to a horizontal strip under 880px. `site/assets/docs.js`, `site/assets/docs.css`.
+- **Docs site: top nav bar spans the full width** instead of a centred 1080px container.
+- **`design.md` trimmed (about 260 lines changed).** Duplicated values and docs-site-only content removed, so tokens and the docs site hold the detail. No rule changes. Research in `docs/research/design-md-best-practices.md`.
+- **`CLAUDE.md`:** updated for the `site/` layout and the release workflow. Backlog gains items for linting design.md rule 0, deciding which trimmed docs-site patterns become real components, a spec section for the date-range field, and re-checking the calendar outside headless Chrome.
 - **Docs pages moved to `site/`:** `assets/`, `foundations/` and `components/` now live in `site/`; `index.html` stays at the root (GitHub Pages and AWS friendly), and `docs/` holds only project notes (backlog, changelog). Paths in `CLAUDE.md`, `README.md`, `design.md` and the dashboard sandbox updated.
 
-## v0.3.12 (tag `v0.3.12`, 2026-10-09)
+## v0.3.12
+
+Released 2026-10-09.
 
 - **Tokens:** the dark-mode focus ring now defaults to **Apricot** (Enviolo 100, 13:1 on Neutral 950), was Coral. Coral and Ivory stay as options in the Display menu. Light mode is unchanged (Copper). Saved Display state with the old Coral default moves to Apricot once.
 - **Dashboard sandbox:** one "Dates" field replaces the From and To inputs and the separate calendar button. One click opens the range calendar.
@@ -40,6 +53,8 @@ The design system rebuilt around shadcn/ui for React apps and hand-written Envio
 - **v0.3.2:** confirmed defaults (Source Sans 3, Tabler, Source Code Pro, Taupe and Mist).
 - **v0.3.1:** button hierarchy, tokens and Basecoat/shadcn conventions from the button prototype.
 
-## v0.2 (tag `v0.2`, 2026-10-08)
+## v0.2
+
+Released 2026-10-08.
 
 Brand and semantic colour tokens, Taupe and Mist neutral ramps, light and dark mode, shadcn and Basecoat routers. v0.1 was earlier Basecoat testing. Archived in `versions/v0.2/`.
