@@ -2,7 +2,7 @@
 
 The single reference for designing and building Enviolo interfaces across **web, app and AI-assisted development**. Written for people and for AI tools (Claude, Cursor, Claude Code). When generating UI, follow this file before any default habit. Adopt it step by step, per product, as each is ready.
 
-- **Version:** v0.4.1 (draft), November 2026
+- **Version:** v0.5 (draft), November 2026
 - **Repository:** [github.com/enviolo/enviolo-design-system](https://github.com/enviolo/enviolo-design-system). Latest tokens, components, docs site and changelog; released versions are git tags.
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published.
 
@@ -60,7 +60,7 @@ Each layer only changes values in the layer below it, never names.
 | Code font | Source Code Pro | System mono |
 | Icons | Tabler (outline) | Lucide (shadcn's default) |
 | Style | Luma | — |
-| Light mode | Background White · Accent Neutral 100 · Focus Copper · Neutrals Taupe | see 9.2 |
+| Light mode | Background White · Accent Neutral 100 · Focus Copper · Neutrals Dawn | see 9.2 |
 | Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Orange · Neutrals Nocturne | see 9.2 |
 
 ---
@@ -69,7 +69,7 @@ Each layer only changes values in the layer below it, never names.
 
 ### 2.1 Flow
 
-Primitives (neutral, Enviolo and status ramps) feed a per-mode layer (light reads `--l-*` Taupe, dark reads `--d-*` Nocturne), which feeds the semantic tokens. **Components only ever read semantic tokens.** Per-mode overrides (`--light-bg`, `--dark-accent`, …) are optional variables with fallbacks; removing one restores the default. Definitions and a full Tailwind v4 `@theme` example: `tokens/tokens.css`.
+Primitives (neutral, Enviolo and status ramps) feed a per-mode layer (light reads `--l-*` Dawn, dark reads `--d-*` Nocturne), which feeds the semantic tokens. **Components only ever read semantic tokens.** Per-mode overrides (`--light-bg`, `--dark-accent`, …) are optional variables with fallbacks; removing one restores the default. Definitions and a full Tailwind v4 `@theme` example: `tokens/tokens.css`.
 
 ### 2.2 Semantic tokens
 
@@ -102,10 +102,10 @@ Names are the contract.
 
 ### 3.1 Neutrals
 
-Tailwind v4.3 ramps (oklch), 11 steps each. Reference `var(--taupe-*)` (light) and `var(--nocturne-*)` (dark), never the values (rule 2).
+Enviolo's own ramps (OKLCH), 11 steps each, with evenly stepped lightness: **Dawn** (light) and **Nocturne** (dark). Reference `var(--dawn-*)` and `var(--nocturne-*)`, never the values (rule 2).
 
-- Warm days, cool nights: light mode reads warm (Taupe), dark mode reads cool (Nocturne). The split is deliberate.
-- The other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) are for exploration only.
+- Warm days, cool nights: light mode reads warm (Dawn), dark mode reads cool (Nocturne). The split is deliberate.
+- Taupe and Mist (the previous defaults) and the other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) are for exploration only.
 
 ### 3.2 Enviolo colour ramp *(draft, not yet published)*
 
@@ -323,7 +323,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 - [ ] Only semantic tokens; no raw colours or palette classes
 - [ ] One primary action, placed last on desktop, top on mobile; second rank by surface; repeated actions ghost
 - [ ] Pill controls, soft-cornered containers
-- [ ] Works in light and dark, with Taupe/Nocturne and any other neutral ramp
+- [ ] Works in light and dark, with Dawn/Nocturne and any other neutral ramp
 - [ ] Icons by semantic name; icon-only buttons labelled
 - [ ] No horizontal scroll at 320px; two columns hold on tablet where content allows
 - [ ] Focus visible and ≥ 3:1; reduced motion respected; text contrast AA

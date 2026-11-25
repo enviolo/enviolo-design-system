@@ -12,6 +12,8 @@ Work still to do on the design system. Rules and decisions live in `design.md` (
 
 ## Next
 
+- [x] **Light-mode colour exercise.** Done: "Dawn" (Taupe's lightness, warm Enviolo tint) is the default light ramp, alongside Nocturne for dark.
+- [ ] **Remove the Tailwind neutral ramps.** Dawn and Nocturne are the defaults now. Still to do: decide whether Taupe, Mist and the other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) stay in the Display menu as exploration options or go, and if they go, remove their primitives from `tokens.css` and `docs-base.css`. The status colours (red, amber, green, blue) are also Tailwind primitives; decide separately whether they stay.
 - [ ] **Double-check the promoted calendar.** `<enviolo-calendar>` (design.md 7.4, `tokens/components.css` + `tokens/enviolo-calendar.js`) was only verified in headless Chrome screenshots so far. Confirm for real before calling the promotion done: Safari/Firefox, a real phone, a screen reader on the grid, and the Cursor in-IDE browser (see "Not yet verified" below).
 - [ ] **Date-range field in the spec.** The calendar has a design.md section now (7.4); the field that opens it (`.range-field`, a button styled as an input, in `sandboxes/html-dashboard/dashboard.css`) still doesn't.
 - [ ] **Move shared pieces out of the sandbox.** The popover (`.popover`) and the range field (`.range-field`, a button styled as an input) live in `sandboxes/html-dashboard/dashboard.css`. If another page needs them, they belong in `tokens/components.css`, per the rule in CLAUDE.md.

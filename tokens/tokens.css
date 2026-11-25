@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Enviolo Design System: tokens.css  (v0.4.1, draft)
+   Enviolo Design System: tokens.css  (v0.5, draft)
    Framework-agnostic: works with Enviolo CSS (components.css, web) and shadcn/ui (React).
    Load BEFORE components.css, and AFTER Tailwind base styles if used. Dark mode = `.dark` on <html>.
    Layers: 1 primitives -> 2 mode layer -> 3 semantic -> 4 Tailwind mapping.
@@ -44,6 +44,17 @@
   --taupe-800: oklch(26.8% 0.011 36.5);
   --taupe-900: oklch(21.4% 0.009 43.1);
   --taupe-950: oklch(14.7% 0.004 49.3);
+  --dawn-50: oklch(98.6% 0.006 85);
+  --dawn-100: oklch(96% 0.008 70);
+  --dawn-200: oklch(92.2% 0.011 55);
+  --dawn-300: oklch(86.8% 0.015 48);
+  --dawn-400: oklch(71.4% 0.024 40);
+  --dawn-500: oklch(54.7% 0.03 36);
+  --dawn-600: oklch(43.8% 0.027 30);
+  --dawn-700: oklch(36.7% 0.022 25);
+  --dawn-800: oklch(26.8% 0.016 20);
+  --dawn-900: oklch(21.4% 0.012 15);
+  --dawn-950: oklch(14.7% 0.008 15);
   --mist-50: oklch(98.7% 0.002 197.1);
   --mist-100: oklch(96.3% 0.002 197.1);
   --mist-200: oklch(92.5% 0.005 214.3);
@@ -114,19 +125,19 @@
   --blue-950: oklch(28.2% 0.091 267.935);
 }
 
-/* 2. Mode layer: light uses Taupe, dark uses Nocturne (swap ramps here) ----- */
+/* 2. Mode layer: light uses Dawn, dark uses Nocturne (swap ramps here) ------ */
 :root {
-  --l-50: var(--taupe-50);
-  --l-100: var(--taupe-100);
-  --l-200: var(--taupe-200);
-  --l-300: var(--taupe-300);
-  --l-400: var(--taupe-400);
-  --l-500: var(--taupe-500);
-  --l-600: var(--taupe-600);
-  --l-700: var(--taupe-700);
-  --l-800: var(--taupe-800);
-  --l-900: var(--taupe-900);
-  --l-950: var(--taupe-950);
+  --l-50: var(--dawn-50);
+  --l-100: var(--dawn-100);
+  --l-200: var(--dawn-200);
+  --l-300: var(--dawn-300);
+  --l-400: var(--dawn-400);
+  --l-500: var(--dawn-500);
+  --l-600: var(--dawn-600);
+  --l-700: var(--dawn-700);
+  --l-800: var(--dawn-800);
+  --l-900: var(--dawn-900);
+  --l-950: var(--dawn-950);
   --d-50: var(--nocturne-50);
   --d-100: var(--nocturne-100);
   --d-200: var(--nocturne-200);
