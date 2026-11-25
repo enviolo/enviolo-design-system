@@ -89,7 +89,7 @@ Names are the contract.
 | `--destructive`, `--success`, `--warning`, `--info` | Fills, icons and borders for status |
 | `--{status}-foreground` | Text and icons on solid status fills |
 | `--{status}-bg` / `--{status}-text` | Solid background and text of status pills and alerts |
-| `--primary-hover`, `--secondary-hover`, `--destructive-hover` | Button hover fills |
+| `--primary-hover`, `--secondary-hover`, `--destructive-hover` | Button hover fills (destructive hovers from `--destructive-bg` to `--destructive-hover`) |
 | `--chart-1…5` | Chart series, in ramp order |
 | `--radius-control` / `--radius` | Controls (pill); small containers |
 | `--font` / `--font-mono` | Type |
@@ -215,7 +215,7 @@ Tailwind: `--breakpoint-sm: 37.5rem` (600px), `--breakpoint-md: 55rem` (880px), 
 | 2 | Secondary (muted) **or** outline | `secondary` / `outline` | `data-variant="secondary"` / `"outline"` | Supporting action. Same rank; the surface decides. |
 | 3 | Ghost | `ghost` | `data-variant="ghost"` | Repeated, low-stakes, skip or defer, icon actions |
 | 4 | Link | `link` | `data-variant="link"` | Inline navigation in text |
-| — | Destructive | `destructive` | `data-variant="destructive"` | Irreversible only, next to an outline way out |
+| — | Destructive | `destructive` | `data-variant="destructive"` | Irreversible only, next to an outline way out. Muted: red text on a pale red fill (`--destructive-bg`, `--destructive-text`), like shadcn's base-nova style and Basecoat, not a solid red |
 
 **Choosing** (ask in order, stop at the first yes): main job → primary. Supports the job and changes something → secondary or outline. Repeated, optional or a way out → ghost. Navigation inside a sentence → link. Irreversible → destructive.
 
@@ -284,7 +284,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 ## 8. Icons
 
 - **Tabler** (outline) by default; Lucide is the supported alternative. Stroke 2, round caps and joins, 24px viewBox, `currentColor`.
-- Reference icons by semantic name (`share`, `trash`, `download`, `search`, `plus`, `calendar`, `copy`, `filter`, `x`, `settings`, `sliders`, `more`, `check`, `chevron-*`, `sun`, `moon`, `info`, `menu`), never by set. Swapping sets is a one-file change.
+- Reference icons by semantic name (`share`, `trash`, `download`, `search`, `plus`, `calendar`, `copy`, `filter`, `x`, `settings`, `sliders`, `more`, `check`, `chevron-*`, `sun`, `moon`, `info`, `menu`, `github`), never by set. Swapping sets is a one-file change.
 - Decorative icons get `aria-hidden="true"`; icon-only buttons get `aria-label` (and `title`).
 - No arrow glyphs appended to button text.
 

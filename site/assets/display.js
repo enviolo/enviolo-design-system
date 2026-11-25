@@ -49,7 +49,7 @@
     </div>
   </div>
   <div class="menu submenu" id="subMenu" role="menu" aria-labelledby="subLabel" hidden></div>
-  <button class="btn settings-trigger" data-variant="outline" data-size="icon-sm" id="modeToggle" type="button" aria-label="Switch to dark mode" title="Switch to dark mode"><svg class="ic" data-icon="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
+  <button class="btn settings-trigger" data-variant="outline" data-size="icon-sm" id="modeToggle" type="button" aria-label="Switch to dark mode"><svg class="ic" data-icon="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>
   <button class="btn settings-trigger" data-variant="outline" data-size="sm" id="settingsTrigger" aria-haspopup="menu" aria-expanded="false" aria-controls="settingsMenu">
     <svg class="ic" data-icon="sliders" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>Display
     <svg class="ic chev" data-icon="chevron-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>
@@ -90,7 +90,8 @@
       filter:'<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>',
       x:'<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
       menu:'<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>',
-      info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>'
+      info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+      github:'<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>'
     },
     tabler:{
       'chevron-down':'<path d="M6 9l6 6l6 -6"/>',
@@ -112,7 +113,8 @@
       filter:'<path d="M4 4h16v2.172a2 2 0 0 1 -.586 1.414l-4.414 4.414v7l-6 2v-8.5l-4.48 -4.928a2 2 0 0 1 -.52 -1.345v-2.227"/>',
       x:'<path d="M18 6l-12 12"/><path d="M6 6l12 12"/>',
       menu:'<path d="M4 6l16 0"/><path d="M4 12l16 0"/><path d="M4 18l16 0"/>',
-      info:'<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/><path d="M12 9h.01"/><path d="M11 12h1v4h1"/>'
+      info:'<path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0"/><path d="M12 9h.01"/><path d="M11 12h1v4h1"/>',
+      github:'<path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"/>'
     }
   };
   function renderIcons(){
@@ -152,7 +154,7 @@
   function syncModeToggle(){
     var d=isDark(), label=d?'Switch to light mode':'Switch to dark mode';
     modeToggle.querySelector('svg').setAttribute('data-icon',d?'sun':'moon');
-    modeToggle.setAttribute('aria-label',label); modeToggle.setAttribute('title',label);
+    modeToggle.setAttribute('aria-label',label);
   }
   modeToggle.addEventListener('click',function(){state.theme=isDark()?'light':'dark';apply();});
   if(darkMQ.addEventListener) darkMQ.addEventListener('change',function(){if(state.theme==='system'){root.classList.toggle('dark',isDark());syncModeToggle();renderIcons();runHooks();}});

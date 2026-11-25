@@ -25,10 +25,8 @@ The docs site is plain HTML, CSS and JS. There is nothing to install or build.
 - In a IDE, run the CLI below inn terminal, then open  [http://localhost:8765/](http://localhost:8765/).
 
 ```sh
-python3 serve.py
+nohup python3 serve.py > serve.log 2>&1 &
 ```
-
-This serves the repo on port 8765 and opens the browser. Same as `python3 -m http.server 8765` from the repo root, without opening a browser.
 
 ## What's in this repo
 

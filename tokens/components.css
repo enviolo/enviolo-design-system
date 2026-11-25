@@ -29,7 +29,7 @@
 .btn:where([data-variant="ghost"]){background:transparent;color:var(--foreground);--btn-hover:var(--accent)}
 .btn:where([data-variant="link"]){background:transparent;color:var(--foreground);padding:0;height:auto;text-decoration:underline;text-underline-offset:4px;--btn-hover:transparent}
 .btn:where([data-variant="link"]):not(:disabled):hover{opacity:.7}
-.btn:where([data-variant="destructive"]){background:var(--destructive);color:var(--destructive-foreground);--btn-hover:var(--destructive-hover)}
+.btn:where([data-variant="destructive"]){background:var(--destructive-bg);color:var(--destructive-text);--btn-hover:var(--destructive-hover)}
 .btn:where([data-size="sm"]){--h:32px;padding:0 14px;font-size:.85rem}
 .btn:where([data-size="lg"]){--h:48px;padding:0 22px;font-size:1rem}
 .btn:where([data-size="icon"]){width:var(--h);padding:0}
