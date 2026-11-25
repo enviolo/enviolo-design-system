@@ -61,7 +61,7 @@ Each layer only changes values in the layer below it, never names.
 | Icons | Tabler (outline) | Lucide (shadcn's default) |
 | Style | Luma | — |
 | Light mode | Background White · Accent Neutral 100 · Focus Copper · Neutrals Taupe | see 9.2 |
-| Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Apricot · Neutrals Mist | see 9.2 |
+| Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Orange · Neutrals Nocturne | see 9.2 |
 
 ---
 
@@ -69,7 +69,7 @@ Each layer only changes values in the layer below it, never names.
 
 ### 2.1 Flow
 
-Primitives (neutral, Enviolo and status ramps) feed a per-mode layer (light reads `--l-*` Taupe, dark reads `--d-*` Mist), which feeds the semantic tokens. **Components only ever read semantic tokens.** Per-mode overrides (`--light-bg`, `--dark-accent`, …) are optional variables with fallbacks; removing one restores the default. Definitions and a full Tailwind v4 `@theme` example: `tokens/tokens.css`.
+Primitives (neutral, Enviolo and status ramps) feed a per-mode layer (light reads `--l-*` Taupe, dark reads `--d-*` Nocturne), which feeds the semantic tokens. **Components only ever read semantic tokens.** Per-mode overrides (`--light-bg`, `--dark-accent`, …) are optional variables with fallbacks; removing one restores the default. Definitions and a full Tailwind v4 `@theme` example: `tokens/tokens.css`.
 
 ### 2.2 Semantic tokens
 
@@ -102,9 +102,9 @@ Names are the contract.
 
 ### 3.1 Neutrals
 
-Tailwind v4.3 ramps (oklch), 11 steps each. Reference `var(--color-taupe-*)` (light) and `var(--color-mist-*)` (dark), never the values (rule 2).
+Tailwind v4.3 ramps (oklch), 11 steps each. Reference `var(--taupe-*)` (light) and `var(--nocturne-*)` (dark), never the values (rule 2).
 
-- Warm days, cool nights: light mode reads warm (Taupe), dark mode reads cool (Mist). The split is deliberate.
+- Warm days, cool nights: light mode reads warm (Taupe), dark mode reads cool (Nocturne). The split is deliberate.
 - The other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) are for exploration only.
 
 ### 3.2 Enviolo colour ramp *(draft, not yet published)*
@@ -113,7 +113,7 @@ For gradients, chart bars and volumetric effects. It imitates the sky, so the hu
 
 | Step | 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| Name | Ivory | Apricot | Coral | Copper | Clay | Dusk | Twilight | Coffee | Nightfall | Midnight | Pearl Black |
+| Name | Ivory | Orange | Coral | Copper | Clay | Dusk | Twilight | Coffee | Nightfall | Midnight | Pearl Black |
 
 Tokens: `--enviolo-50…950`, Tailwind `--color-enviolo-*`, name aliases (`--enviolo-coral`, …). Hex values: `tokens/tokens.css`.
 
@@ -128,7 +128,7 @@ Tokens: `--enviolo-50…950`, Tailwind `--color-enviolo-*`, name aliases (`--env
 
 - One gradient per view, for a brand moment.
 - Never on buttons, text, borders or UI chrome. Primary buttons stay neutral (ink in light, near-white in dark).
-- The cool end (Nightfall, Midnight, Pearl Black) pairs with Mist in dark mode.
+- The cool end (Nightfall, Midnight, Pearl Black) pairs with Nocturne in dark mode.
 
 **Charts.** Series follow the ramp, lightest first, up to five: light 100 / 200 / 400 / 600 / 900, dark 50 / 100 / 200 / 400 / 500. The pale steps have weak contrast and sit close together in dark mode, so label every bar and don't rely on colour alone. A single series uses `--chart-3`, the first step that clears 3:1 in both modes. Bars are flat fills. **Sparklines** in stat cards are the exception: one smooth line stroked `--chart-4` to `--chart-3` over a fade from `--chart-3` to transparent. They are decorative; the value is always in text beside them.
 
@@ -294,7 +294,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 
 ### 9.1 Accessibility
 
-- Visible focus on every interactive element (`:focus-visible` + `--ring`), at ≥ 3:1 against its background. **Coral fails on white** (2.3:1), so the light-mode default is Copper (3.05:1, a narrow pass).
+- Visible focus on every interactive element (`:focus-visible` + `--ring`), at ≥ 3:1 against its background. **Coral fails on white** (2.2:1), so the light-mode default is Copper (3.05:1, a narrow pass).
 - Text contrast WCAG AA. Check `--muted-foreground` on card and muted surfaces for every neutral ramp and both modes.
 - Touch targets ≥ 40px (32px allowed for icon buttons in dense tables).
 - ARIA: menus `role="menu"` with `menuitem` / `menuitemradio` + `aria-checked`; toggles `aria-pressed`; disclosures `aria-expanded`; current page `aria-current="page"`.
@@ -323,7 +323,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 - [ ] Only semantic tokens; no raw colours or palette classes
 - [ ] One primary action, placed last on desktop, top on mobile; second rank by surface; repeated actions ghost
 - [ ] Pill controls, soft-cornered containers
-- [ ] Works in light and dark, with Taupe/Mist and any other neutral ramp
+- [ ] Works in light and dark, with Taupe/Nocturne and any other neutral ramp
 - [ ] Icons by semantic name; icon-only buttons labelled
 - [ ] No horizontal scroll at 320px; two columns hold on tablet where content allows
 - [ ] Focus visible and ≥ 3:1; reduced motion respected; text contrast AA
@@ -341,7 +341,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 
 **Decided — don't reverse**
 
-- Light-mode focus is **Copper**, dark-mode focus is **Apricot** (13:1 on Neutral 950). Coral stays an option in the mode settings.
+- Light-mode focus is **Copper**, dark-mode focus is **Orange** (12.3:1 on Neutral 950). Coral stays an option in the mode settings.
 - Status backgrounds use **solid ramp steps**, not transparent tints.
 - **Nightfall** is the final name for Enviolo 800.
 - Websites use **Enviolo CSS** (`tokens/components.css`), not the Basecoat library. Basecoat stays a reference for new components.

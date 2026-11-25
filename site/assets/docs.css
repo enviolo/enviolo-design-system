@@ -20,8 +20,8 @@
 /* enviolo.com hero */
 .hero{position:relative;min-height:340px;padding:40px 36px;display:grid;align-content:end;gap:18px;color:#fff;
   background:
-    radial-gradient(120% 90% at 85% 10%, rgba(231,151,130,.55), transparent 55%),
-    radial-gradient(90% 80% at 10% 100%, rgba(97,71,73,.85), transparent 60%),
+    radial-gradient(120% 90% at 85% 10%, rgba(237,155,133,.55), transparent 55%),
+    radial-gradient(90% 80% at 10% 100%, rgba(103,76,78,.85), transparent 60%),
     linear-gradient(160deg,var(--enviolo-700) 0%,var(--enviolo-800) 35%,var(--enviolo-900) 70%,var(--enviolo-950) 100%);}
 .hero .hub{position:absolute;right:36px;top:34px;width:150px;height:150px;border-radius:50%;
   background:conic-gradient(from 210deg,var(--brand-1),var(--brand-2),var(--brand-3),var(--brand-4),var(--brand-1));
@@ -127,6 +127,7 @@ a.ghost-card:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
 
 .view section > h3{margin:32px 0 10px}
 .view section > h3 + .small{margin-top:-4px}
+.view section > .table-wrap + .small{margin-top:12px}
 /* ---------- Component examples: a rendered stage with its code underneath ---------- */
 .example{border:1px solid var(--border);border-radius:14px;overflow:hidden;margin:0 0 24px}
 .example-stage{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;padding:36px 24px;background:var(--background)}
@@ -205,9 +206,9 @@ body.has-sidenav>.topnav{grid-column:1/-1}
 /* ---------- Overview ---------- */
 .ov-hero{position:relative;overflow:hidden;border-radius:18px;padding:56px 40px 64px;color:#fff;min-height:380px;display:grid;align-content:end;
   background:
-    radial-gradient(70% 80% at 88% 8%, rgba(231,151,130,.62), transparent 60%),
+    radial-gradient(70% 80% at 88% 8%, rgba(237,155,133,.62), transparent 60%),
     radial-gradient(40% 45% at 96% 0%, rgba(250,234,192,.35), transparent 70%),
-    radial-gradient(85% 90% at 6% 104%, rgba(97,71,73,.9), transparent 62%),
+    radial-gradient(85% 90% at 6% 104%, rgba(103,76,78,.9), transparent 62%),
     linear-gradient(160deg,var(--enviolo-700) 0%,var(--enviolo-800) 35%,var(--enviolo-900) 70%,var(--enviolo-950) 100%)}
 .ov-hero > *:not(.hub){position:relative}
 .ov-hero .hub{position:absolute;right:48px;top:44px;width:210px;height:210px;border-radius:50%;

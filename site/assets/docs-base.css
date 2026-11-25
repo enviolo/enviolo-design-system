@@ -3,7 +3,7 @@
 :root{
   /* two neutral ramps: one feeds light mode, one feeds dark mode. Swapped at runtime. */
   --l-50:oklch(98.6% 0.002 67.8); --l-100:oklch(96% 0.002 17.2); --l-200:oklch(92.2% 0.005 34.3); --l-300:oklch(86.8% 0.007 39.5); --l-400:oklch(71.4% 0.014 41.2); --l-500:oklch(54.7% 0.021 43.1); --l-600:oklch(43.8% 0.017 39.3); --l-700:oklch(36.7% 0.016 35.7); --l-800:oklch(26.8% 0.011 36.5); --l-900:oklch(21.4% 0.009 43.1); --l-950:oklch(14.7% 0.004 49.3);
-  --d-50:oklch(98.7% 0.002 197.1); --d-100:oklch(96.3% 0.002 197.1); --d-200:oklch(92.5% 0.005 214.3); --d-300:oklch(87.2% 0.007 219.6); --d-400:oklch(72.3% 0.014 214.4); --d-500:oklch(56% 0.021 213.5); --d-600:oklch(45% 0.017 213.2); --d-700:oklch(37.8% 0.015 216); --d-800:oklch(27.5% 0.011 216.9); --d-900:oklch(21.8% 0.008 223.9); --d-950:oklch(14.8% 0.004 228.8);
+  --d-50:oklch(98.7% 0.003 205); --d-100:oklch(96.3% 0.004 205); --d-200:oklch(92.5% 0.006 212); --d-300:oklch(87.2% 0.008 217); --d-400:oklch(72.3% 0.015 214); --d-500:oklch(56% 0.021 213.5); --d-600:oklch(45% 0.019 214); --d-700:oklch(37.8% 0.018 216); --d-800:oklch(27.5% 0.018 218); --d-900:#0B1D22; --d-950:#020D12;
   --n-50:var(--l-50); --n-100:var(--l-100); --n-200:var(--l-200); --n-300:var(--l-300); --n-400:var(--l-400); --n-500:var(--l-500); --n-600:var(--l-600); --n-700:var(--l-700); --n-800:var(--l-800); --n-900:var(--l-900); --n-950:var(--l-950);
 
   --background:var(--light-bg,#FFFFFF);
@@ -31,7 +31,7 @@
   --destructive-bg:var(--red-50); --destructive-text:var(--red-700); --success-bg:var(--green-50); --success-text:var(--green-700); --warning-bg:var(--amber-50); --warning-text:var(--amber-700); --info-bg:var(--blue-50); --info-text:var(--blue-700); /* status pills: solid ramp steps */
   --ring:var(--light-ring,var(--enviolo-300));
   /* Enviolo brand ramp (draft): light to dark, sunset to midnight */
-  --enviolo-50:#FAEAC0; --enviolo-100:#F5CAA8; --enviolo-200:#E79782; --enviolo-300:#C88273; --enviolo-400:#A96D64; --enviolo-500:#865A56; --enviolo-600:#614749; --enviolo-700:#393339; --enviolo-800:#20262B; --enviolo-900:#05191E; --enviolo-950:#020D12;
+  --enviolo-50:#FAEAC0; --enviolo-100:#F9C1A3; --enviolo-200:#ED9B85; --enviolo-300:#C88273; --enviolo-400:#AA6E65; --enviolo-500:#895D58; --enviolo-600:#674C4E; --enviolo-700:#443E44; --enviolo-800:#272D32; --enviolo-900:#0B1D22; --enviolo-950:#020D12;
   --brand-1:var(--enviolo-50); --brand-2:var(--enviolo-200); --brand-3:var(--enviolo-400); --brand-4:var(--enviolo-600);
   --chart-1:var(--enviolo-100); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-600); --chart-5:var(--enviolo-900);
   --radius:10px;
