@@ -39,6 +39,6 @@ This repo is the design system itself. `design.md` is the single source of the r
 
 - One HTML file per page, no build step. New page: create the file under `site/<topic>/`, copy the `<head>` and script tags from an existing page there, set `data-page` on `<body>`, and add an entry to `TOPICS` in `site/assets/docs.js`. The nav and sub-nav are built from that list.
 - The Display personalizer (theme, font, per-mode settings) is shared: `site/assets/display.js` and `display.css`. A sandbox adds it with `theme-init.js` in the head, `display.css` after `components.css`, and `display.js` before its own script; set `window.EnvioloDisplayConfig = { hide: ["icons", "mono"] }` first to drop groups that don't apply. Sandboxes use the `.dark` class (tokens.css); the docs site also sets `data-theme`, and `display.js` sets both.
-- To view it, serve the **repo root**: `python3 -m http.server 8765`, then open `http://localhost:8765/`. Serving only the site folder breaks it, because pages load `tokens/components.css` from outside.
+- To view it, run `python3 serve.py` from the **repo root**: it serves on `http://localhost:8765/` and opens the browser. Serving only the site folder breaks it, because pages load `tokens/components.css` from outside.
 - IDE-embedded browsers (Cursor) don't follow `file://` links between pages, so use localhost there. Check `lsof -i :8765` before starting, run the server in the background, and stop it when done.
 

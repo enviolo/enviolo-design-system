@@ -147,7 +147,18 @@ code{overflow-wrap:anywhere}
 .mainnav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0}
 .mainnav .btn{color:var(--muted-foreground)}
 .mainnav .btn[aria-current="page"]{background:var(--secondary);color:var(--secondary-foreground)}
-@media (max-width:640px){.topnav-inner{flex-wrap:wrap;gap:8px;padding:10px 16px}.mainnav{width:calc(100% + 12px);margin:0 -6px;justify-content:space-between;gap:0}.mainnav .btn{padding:0 10px;font-size:.84rem}}
+.menu-toggle{display:none}
+.mobile-menu{display:none}
+@media (max-width:640px){
+  .topnav-inner{padding:10px 16px}
+  .mainnav{display:none}
+  .menu-toggle{display:inline-flex}
+  .mobile-menu:not([hidden]){display:grid;gap:2px;padding:6px 16px 16px;border-bottom:1px solid var(--border);background:var(--background)}
+  .mobile-label{margin:10px 0 0;padding:0 12px;font-size:.78rem;font-weight:600;color:var(--muted-foreground)}
+  .mobile-link{display:block;padding:10px 12px;border-radius:10px;color:var(--foreground);text-decoration:none;font-size:.95rem;font-weight:500}
+  .mobile-link:hover,.mobile-link:focus-visible{background:var(--accent);outline:none}
+  .mobile-link[aria-current="page"]{background:var(--secondary)}
+}
 
 .nav-trigger{gap:4px}
 .nav-trigger .nav-chev{width:14px;height:14px;transition:transform .15s}

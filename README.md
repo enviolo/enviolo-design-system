@@ -21,20 +21,14 @@ See [docs/changelog.md]() and github tags for versions.
 
 The docs site is plain HTML, CSS and JS. There is nothing to install or build.
 
-#### In a browser (Chrome, Safari, Firefox)
-
-1. Clone the repo.
-2. Open `index.html` in the repo root. This is the Overview.
-
-#### In an IDE browser (Cursor, VS Code)
-
-Serve the repo root first, to be able to follow navigation links:
+- In a browser, just open `index.html`.
+- In a IDE, run the CLI below inn terminal, then open  [http://localhost:8765/](http://localhost:8765/).
 
 ```sh
-python3 -m http.server 8765
+python3 serve.py
 ```
 
-Then open [http://localhost:8765/](http://localhost:8765/)
+This serves the repo on port 8765 and opens the browser. Same as `python3 -m http.server 8765` from the repo root, without opening a browser.
 
 ## What's in this repo
 

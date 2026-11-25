@@ -6,6 +6,11 @@ The spec-level history for v0.3.1 to v0.3.11 used to live in `design.md` and is 
 
 Planned work is in [BACKLOG.md](BACKLOG.md).
 
+## Unreleased
+
+- **`serve.py`:** `python3 serve.py` serves the repo root on port 8765 and opens the browser (`python3 -m http.server 8765` still works, without opening it). README, `CLAUDE.md` and design.md 13 updated.
+- **Docs site: mobile menu.** Under 640px the top nav's topic links fold into a menu button (`menu` icon) that opens a panel listing every page, grouped by topic. Desktop nav unchanged. `site/assets/docs.js`, `site/assets/docs.css`, `site/assets/display.js`. design.md 8 updated for the new icon.
+
 ## v0.4.1
 
 Released 2026-11-24.

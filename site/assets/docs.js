@@ -35,7 +35,9 @@
     +'<p>New components start from <a class="btn" data-variant="link" href="https://basecoatui.com" rel="noopener">Basecoat</a> as a reference, then get ported into our own stylesheet and checked in both modes, so every state follows the same rules.</p>'
     +'</div>';
   var INFO_TOGGLE='<button class="btn settings-trigger" data-variant="outline" data-size="icon-sm" id="infoToggle" type="button" aria-expanded="false" aria-controls="infoPanel" aria-label="About this site" title="About this site"><svg class="ic" data-icon="info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>';
-  document.body.insertAdjacentHTML('afterbegin','<header class="topnav"><div class="topnav-inner">'+BRAND+'<nav class="mainnav" aria-label="Main">'+navLinks+'</nav></div>'+navPanels+'</header>');
+  var MENU_TOGGLE='<button class="btn menu-toggle" data-variant="outline" data-size="icon-sm" id="menuToggle" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" title="Menu"><svg class="ic" data-icon="menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg></button>';
+  var mobileMenu='<div class="mobile-menu" id="mobileMenu" hidden><a class="mobile-link" href="'+homeHref()+'" data-sub="overview">Overview</a>'+TOPICS.map(function(t){return '<p class="mobile-label">'+t.label+'</p>'+t.items.map(function(i){return '<a class="mobile-link" href="'+href(i.path)+'" data-sub="'+pageKey(i)+'">'+i.label+'</a>';}).join('');}).join('')+'</div>';
+  document.body.insertAdjacentHTML('afterbegin','<header class="topnav"><div class="topnav-inner">'+BRAND+'<nav class="mainnav" aria-label="Main">'+navLinks+'</nav>'+MENU_TOGGLE+'</div>'+mobileMenu+navPanels+'</header>');
   /* The "about this site" info toggle lives in the bottom-right settings cluster display.js builds, not the top nav. */
   var modeToggleEl=document.getElementById('modeToggle');
   if(modeToggleEl) modeToggleEl.insertAdjacentHTML('beforebegin',INFO_TOGGLE+INFO_PANEL);
@@ -55,8 +57,17 @@
   (function(){
     document.querySelectorAll('.mainnav [data-nav]').forEach(function(a){ if(a.dataset.nav===top) a.setAttribute('aria-current','page'); });
     document.querySelectorAll('.navdd a').forEach(function(a){ if(a.dataset.sub===PAGE) a.setAttribute('aria-current','page'); });
+    document.querySelectorAll('.mobile-menu a').forEach(function(a){ if(a.dataset.sub===PAGE) a.setAttribute('aria-current','page'); });
   })();
   D.renderIcons(); /* the nav chevrons were just added */
+  /* ---------- Mobile menu: the topic links, behind a menu button under 640px ---------- */
+  (function(){
+    var toggle=document.getElementById('menuToggle'), panel=document.getElementById('mobileMenu');
+    if(!toggle) return;
+    function set(open){ panel.hidden=!open; toggle.setAttribute('aria-expanded',String(open)); toggle.setAttribute('aria-label',open?'Close menu':'Open menu'); setTopnavH(); }
+    toggle.addEventListener('click',function(){ set(panel.hidden); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!panel.hidden){ set(false); toggle.focus(); } });
+  })();
   /* ---------- Info panel: "About this site", a dropdown off the i icon in the bottom-right settings cluster ---------- */
   (function(){
     var toggle=document.getElementById('infoToggle'), panel=document.getElementById('infoPanel');

@@ -284,7 +284,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 ## 8. Icons
 
 - **Tabler** (outline) by default; Lucide is the supported alternative. Stroke 2, round caps and joins, 24px viewBox, `currentColor`.
-- Reference icons by semantic name (`share`, `trash`, `download`, `search`, `plus`, `calendar`, `copy`, `filter`, `x`, `settings`, `sliders`, `more`, `check`, `chevron-*`, `sun`, `moon`, `info`), never by set. Swapping sets is a one-file change.
+- Reference icons by semantic name (`share`, `trash`, `download`, `search`, `plus`, `calendar`, `copy`, `filter`, `x`, `settings`, `sliders`, `more`, `check`, `chevron-*`, `sun`, `moon`, `info`, `menu`), never by set. Swapping sets is a one-file change.
 - Decorative icons get `aria-hidden="true"`; icon-only buttons get `aria-label` (and `title`).
 - No arrow glyphs appended to button text.
 
@@ -352,5 +352,5 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 ## 13. Reference
 
 - **Token values:** `tokens/tokens.css` · **Web component CSS:** `tokens/components.css`
-- **Visual examples:** the docs site, in the repository only (copying this file into another project doesn't bring it along). Serve the repo root, e.g. `python3 -m http.server 8765`, and open `index.html`; Foundations and Components pages are in `site/`.
+- **Visual examples:** the docs site, in the repository only (copying this file into another project doesn't bring it along). Serve the repo root with `python3 serve.py` (opens the browser), then open `index.html`; Foundations and Components pages are in `site/`.
 - **History:** `docs/CHANGELOG.md` · **Planned work:** `docs/BACKLOG.md`
