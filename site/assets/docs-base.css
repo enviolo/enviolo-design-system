@@ -35,7 +35,8 @@
   --brand-1:var(--enviolo-50); --brand-2:var(--enviolo-200); --brand-3:var(--enviolo-400); --brand-4:var(--enviolo-600);
   --chart-1:var(--enviolo-100); --chart-2:var(--enviolo-200); --chart-3:var(--enviolo-400); --chart-4:var(--enviolo-600); --chart-5:var(--enviolo-900);
   --radius:10px;
-  --radius-control:999px;
+  --radius-xl:calc(var(--radius) + 4px);
+  --radius-4xl:2rem;
   --font-mono:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font:"Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }

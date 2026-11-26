@@ -16,7 +16,7 @@ Values (token definitions, hex, ramps) live in `tokens/tokens.css` and are not r
 2. **Use semantic tokens only** (`--background`, `--primary`, `--muted`, `--border`, `--ring`, `--accent`, status tokens). Never hard-code hex, oklch or Tailwind palette classes such as `bg-stone-100` in components.
 3. **Never rename tokens.** Enviolo changes values, not names. Keep shadcn naming so components stay drop-in.
 4. **One primary action per view.** Choose the second rank by surface: secondary on plain backgrounds, outline on cards, dialogs and imagery. Repeated actions are ghost.
-5. **Pills act, corners hold.** Controls use `--radius-control` (pill). Containers use soft corners.
+5. **Pills act, corners hold.** Controls use `--radius-4xl` (pill). Containers use soft corners.
 6. **Icons by semantic name**, Tabler by default. Label icon-only buttons.
 7. **Brand colour is for brand moments only.** The Enviolo ramp goes into gradients, charts and illustrations, never on buttons, text or borders.
 8. **Must work in light and dark** with any neutral ramp, with no horizontal scroll from 320px.
@@ -91,7 +91,7 @@ Names are the contract.
 | `--{status}-bg` / `--{status}-text` | Solid background and text of status pills and alerts |
 | `--primary-hover`, `--secondary-hover`, `--destructive-hover` | Button hover fills (destructive hovers from `--destructive-bg` to `--destructive-hover`) |
 | `--chart-1…5` | Chart series, in ramp order |
-| `--radius-control` / `--radius` | Controls (pill); small containers |
+| `--radius-4xl` / `--radius` / `--radius-xl` | Controls (pill); small containers; cards, menus and dialogs |
 | `--font` / `--font-mono` | Type |
 
 `--sidebar-*` is part of shadcn's full theme but not defined yet; add it when sidebar components arrive.
@@ -172,9 +172,9 @@ Primitives: Tailwind v4.3 `red`, `amber`, `green`, `blue`. Each status token tak
 
 | Token | Value | Applies to |
 |---|---|---|
-| `--radius-control` | 999px | Buttons, inputs, segmented controls, menu items, chips |
+| `--radius-4xl` | 2rem (32px; a full pill at our control heights, as in Basecoat's Luma `.btn`) | Buttons, inputs, segmented controls, menu items, chips |
 | `--radius` | 10px | Small containers |
-| — | 12–14px | Cards, menus, dialogs, frames |
+| `--radius-xl` | 14px (`--radius` + 4px, shadcn's `rounded-xl`) | Cards, menus, dialogs, frames |
 | — | 18px | Hero blocks |
 
 **Spacing.** 4px base; steps 4, 8, 12, 16, 24, 32, 48, 72. Button groups 8–10px gap, sections 72px, card padding 18–22px.
@@ -257,12 +257,12 @@ Tailwind: `--breakpoint-sm: 37.5rem` (600px), `--breakpoint-md: 55rem` (880px), 
 - **Input:** pill, 40px (sm 32px), 1px `--border`, `--background` fill, 18px padding; on focus the ring replaces the border.
 - **Search:** leading icon 14px from the left, padding-left 38px.
 - **Segmented control:** pill track in `--muted`, 4px inset; the selected segment gets `--background`, foreground text and a 1px shadow (`aria-pressed` or `aria-current`). For view switches and filters, not actions. Segments share width evenly when tight, or the track scrolls.
-- **Status pill:** `<span class="pill" data-variant="success">` (also `warning`, `info`, `error`); 999px, 0.8rem, weight 600; `--{status}-bg` with `--{status}-text` (3.3).
-- **Card:** `class="card"` with optional `card-title` and `card-description`; `--card` fill, 1px `--border`, 14px radius, 22px padding, 16px between parts.
+- **Status pill:** `<span class="pill" data-variant="success">` (also `warning`, `info`, `error`); pill radius (`--radius-4xl`), 0.8rem, weight 600; `--{status}-bg` with `--{status}-text` (3.3).
+- **Card:** `class="card"` with optional `card-title` and `card-description`; `--card` fill, 1px `--border`, `--radius-xl` (14px), 22px padding, 16px between parts.
 
 ### 7.3 Navigation and menus
 
-- **Dropdown menus:** 272px, 6px padding, 14px radius, menu shadow. Rows are pills: 16px leading slot (checkmark for radio items), label, optional "Default" tag, trailing preview.
+- **Dropdown menus:** 272px, 6px padding, `--radius-xl` (14px), menu shadow. Rows are pills: 16px leading slot (checkmark for radio items), label, optional "Default" tag, trailing preview.
 - **Direction:** menus anchored bottom-right open **upward**; submenus open **to the side**; on narrow screens submenus overlay the parent with a Back item.
 - **Keyboard:** ↑/↓ move, Home/End jump, Esc closes and returns focus, ← opens a side submenu, → returns.
 - **Disclosure:** secondary information hides behind a ghost button with a rotating chevron (`aria-expanded`).

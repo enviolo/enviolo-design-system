@@ -214,7 +214,8 @@
   --chart-5: var(--enviolo-900);
 
   --radius: 0.625rem;        /* 10px, small containers */
-  --radius-control: 999px;   /* pill: buttons, inputs, chips (Luma) */
+  --radius-xl: calc(var(--radius) + 4px); /* 14px, cards, menus, dialogs (shadcn's rounded-xl) */
+  --radius-4xl: 2rem;        /* 32px, a full pill at control heights: buttons, inputs, chips (Luma, standard Tailwind scale) */
 
   --font: "Source Sans 3", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -282,6 +283,7 @@
   --color-warning-bg: var(--warning-bg);          --color-warning-text: var(--warning-text);
   --color-info-bg: var(--info-bg);                --color-info-text: var(--info-text);
   --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
   --font-sans: var(--font);
 }
 

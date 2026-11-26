@@ -10,9 +10,12 @@ Planned work is in [BACKLOG.md](BACKLOG.md).
 
 Released 2026-11-26.
 
-Patch: a docs-site fix. No token, rule or path changes.
+Patch: docs-site fixes, a right-hand table of contents and one new token for a value that was already in use. No rule or path changes.
 
 - **Layout page: the grid overlay now lines up with the page.** It was centred on the whole window, so the 232px sidebar threw it off. It now starts where the content area starts (desktop, 880px and up) and fills the width when the sidebar collapses. The sidebar now collapses at 879px, so 880px is desktop, as the breakpoints specify. The breakpoint spec itself (600, 880, 1080px) is unchanged. `site/assets/docs.css`.
+- **Docs site: "On this page" table of contents on the right,** like Linear Docs. It's built from each page's headings (h2 and h3, no markup to add), highlights the section you're reading as you scroll, and jumps with smooth scroll. It shows from 1280px up and is hidden below, where the sidebar and content already fill the width; index pages (fewer than two headings) don't get one. The Layout page's grid overlay stops at the TOC. `site/assets/docs.js`, `site/assets/docs.css`.
+- **New token `--radius-xl` (14px) for cards, menus, dialogs and frames,** defined as `--radius` + 4px, which is shadcn's `rounded-xl`, so React and vanilla now share one named value. It was a hard-coded `14px` in `.card` and about 17 places in the docs CSS, and design.md listed it as an unnamed "12–14px". The shared `.card` is the same 14px; the docs site had been overriding it with 12px, so docs cards (Explore, Patterns) now match the component. Native apps can take the value from the token dictionary. `tokens/tokens.css`, `tokens/components.css`, `site/assets/docs-base.css`, `site/assets/docs.css`, `site/assets/display.css`, design.md 5, 7 and the Layout page's Radius section.
+- **`--radius-control` is replaced by the standard `--radius-4xl` (2rem).** That's the value Basecoat's Luma `.btn` and the shadcn/Tailwind scale use for pills, so our name no longer diverges from the standard. It is a full pill at all our control heights, so nothing changes visually. Buttons, inputs, the segmented control, status pills, the calendar's day and arrow buttons and the docs site all use it. **Breaking if you referenced `--radius-control`** (it shipped in v0.5 and earlier): switch to `--radius-4xl`. `tokens/tokens.css`, `tokens/components.css`, `site/assets/docs-base.css`, `site/assets/docs.css`, `site/assets/display.css`, design.md 0, 5 and 7.
 
 ## v0.5
 

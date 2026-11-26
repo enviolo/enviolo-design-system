@@ -10,14 +10,14 @@
 .settings-trigger .chev{transition:transform .15s}
 .settings-trigger[aria-expanded="true"] .chev{transform:rotate(180deg)}
 .menu{position:absolute;right:0;bottom:calc(100% + 8px);width:272px;padding:6px;
-  background:var(--background);color:var(--foreground);border:1px solid var(--border);border-radius:14px;
+  background:var(--background);color:var(--foreground);border:1px solid var(--border);border-radius:var(--radius-xl);
   box-shadow:0 12px 32px rgba(0,0,0,.16);transform-origin:bottom right;max-height:calc(100dvh - 90px);overflow-y:auto}
 .menu[hidden]{display:none}
 .menu:not([hidden]){animation:menu-in .14s ease-out}
 @keyframes menu-in{from{opacity:0;transform:translateY(4px) scale(.98)}to{opacity:1;transform:none}}
 .menu-label{font-size:.8rem;font-weight:600;color:var(--muted-foreground);padding:8px 10px 4px}
 .menu-sep{height:1px;background:var(--border);margin:6px 4px}
-.menu-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:0;border-radius:var(--radius-control);
+.menu-item{display:flex;align-items:center;gap:10px;width:100%;padding:8px 10px;border:0;border-radius:var(--radius-4xl);
   background:transparent;color:inherit;font:500 .92rem var(--font);text-align:left;cursor:pointer}
 .menu-item:hover,.menu-item:focus-visible{background:var(--accent);outline:none}
 .menu-item .check{width:16px;height:16px;flex:none;opacity:0}
