@@ -4,7 +4,6 @@ The single reference for designing and building Enviolo interfaces across **web,
 
 - **Version:** v0.6 (draft), November 2026
 - **Repository:** [github.com/enviolo/enviolo-design-system](https://github.com/enviolo/enviolo-design-system). Latest tokens, components, docs site and changelog; released versions are git tags.
-- **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published.
 
 Values (token definitions, hex, ramps) live in `tokens/tokens.css`, which holds only decided tokens, and are not repeated here. Ramps still being explored live in `tokens/explore.css`, which products do not copy. Visual examples are on the docs site in the repository (see section 13).
 
@@ -21,7 +20,7 @@ Values (token definitions, hex, ramps) live in `tokens/tokens.css`, which holds 
 7. **Brand colour is for brand moments only.** The Enviolo ramp goes into gradients, charts and illustrations, never on buttons, text or borders.
 8. **Must work in light and dark** with any neutral ramp, with no horizontal scroll from 320px.
 9. **Sentence case**, and actions named by their outcome ("Place order", not "Submit").
-10. When unsure, check the open decisions (section 12) and ask rather than invent a new token.
+10. When unsure, ask rather than invent a new token.
 
 ---
 
@@ -107,7 +106,7 @@ Enviolo's own ramps (OKLCH), 11 steps each, with evenly stepped lightness: **Daw
 - Warm days, cool nights: light mode reads warm (Dawn), dark mode reads cool (Nocturne). The split is deliberate.
 - Taupe and Mist (the previous defaults) and the other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) are not part of the system. They live in `tokens/explore.css` for the docs site's Display menu, which previews them as the light or dark neutrals. A ramp that is decided moves from `explore.css` into `tokens.css`.
 
-### 3.2 Enviolo colour ramp *(draft, not yet published)*
+### 3.2 Enviolo colour ramp
 
 For gradients, chart bars and volumetric effects. It imitates the sky, so the hue shifts from warm at the light end to teal at the dark end on purpose.
 
@@ -332,14 +331,9 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 
 ---
 
-## 12. Open decisions
+## 12. Settled choices
 
-| Topic | Question | Current state |
-|---|---|---|
-| Enviolo ramp | Publish to the Enviolo brand guidelines | Planned, still draft |
-| Rollout | Which product adopts the system first | Not decided; step by step, per product readiness |
-
-**Decided — don't reverse**
+These are decided. Don't reverse them.
 
 - Light-mode focus is **Copper**, dark-mode focus is **Orange** (12.3:1 on Neutral 950). Coral stays an option in the mode settings.
 - Status backgrounds use **solid ramp steps**, not transparent tints.

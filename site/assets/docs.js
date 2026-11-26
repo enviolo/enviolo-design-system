@@ -14,7 +14,7 @@
   function href(p){return TO_DOCS+p;} /* p is relative to site/ */
   var TOPICS=[
     {key:'foundations',label:'Foundations',items:[
-      {path:'foundations/colour.html',label:'Colour',desc:'Enviolo ramp, gradients, neutrals, status'},
+      {path:'foundations/colour.html',label:'Colour',desc:'Brand ramp, gradients, brand neutrals, status'},
       {path:'foundations/typography.html',label:'Typography',desc:'Families, scale, weights, rules'},
       {path:'foundations/layout.html',label:'Layout',desc:'Grid, breakpoints, spacing, radius'}]},
     {key:'components',label:'Components',soon:true,items:[

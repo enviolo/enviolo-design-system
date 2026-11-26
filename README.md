@@ -49,7 +49,7 @@ nohup python3 serve.py > serve.log 2>&1 &
 ## Design system
 - Follow `design.md` for all UI work. Its section 0 lists the hard rules.
 - Tokens live in `tokens/tokens.css`; web pages also use `tokens/components.css`. Use semantic tokens only; never hard-code colours.
-- When a rule is unclear, check design.md §12 (open decisions) and ask instead of inventing tokens.
+- When a rule is unclear, check design.md and ask instead of inventing tokens.
 ```
 
 The snippet points at `design.md` and doesn't restate the rules, so it can't go stale.

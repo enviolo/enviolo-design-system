@@ -1,13 +1,13 @@
 # Backlog
 
-Work still to do on the design system. Rules and decisions live in `design.md` (open decisions: section 12); this file only tracks the work. Tick an item when it ships on `dev`, and add it to [CHANGELOG.md](CHANGELOG.md) under the version that carries it.
+Work still to do on the design system. Rules and settled choices live in `design.md` (section 12); this file only tracks the work, including every open decision. Tick an item when it ships on `dev`, and add it to [CHANGELOG.md](CHANGELOG.md) under the version that carries it.
 
 ## Decide first
 
 - [x] **Version label.** Settled: the release is tagged `v0.3.12` and every header says v0.3.12. If Rhea replaces Luma, the next release is v0.4.
-- [ ] **Enviolo ramp.** Publish it to the brand guidelines (design.md section 12: planned, still draft).
-- [ ] **Rollout.** Which product adopts the system first (section 12: not decided).
-- [x] **Style: try Rhea against Luma.** Decided: stays Luma. See design.md section 12.
+- [ ] **Brand system.** The brand guidelines will be merged into this design system, which then becomes the brand system (logo, colour, voice and so on alongside the product rules). Not scoped yet: decide what moves in, where it lives (Foundations topic or a new Brand topic) and what happens to the current guidelines. This replaces "publish the Enviolo ramp to the brand guidelines": the ramp is final and already lives here.
+- [ ] **Rollout.** Which product adopts the system first (not decided).
+- [x] **Style: try Rhea against Luma.** Decided: stays Luma. Recorded in design.md section 12 (settled choices).
 - [x] **Calendar.** Promoted: `<enviolo-calendar>` is now in the web component set (`tokens/components.css` plus `tokens/enviolo-calendar.js`), specified in design.md 7.4, with a docs page at `site/components/calendar.html`. React apps still use react-day-picker.
 
 ## Next

@@ -9,7 +9,7 @@
 
 /* 1. Primitives ------------------------------------------------------------ */
 :root {
-  /* Brand ramp (draft): sunset -> midnight. Named steps are aliases of the numbered ones. */
+  /* Brand ramp: sunset -> midnight. Named steps are aliases of the numbered ones. */
   --brand-50: #FAEAC0;
   --brand-100: #F9C1A3;
   --brand-200: #ED9B85;
