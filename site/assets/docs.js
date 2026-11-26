@@ -17,7 +17,7 @@
       {path:'foundations/colour.html',label:'Colour',desc:'Brand ramp, gradients, brand neutrals, status'},
       {path:'foundations/typography.html',label:'Typography',desc:'Families, scale, weights, rules'},
       {path:'foundations/layout.html',label:'Layout',desc:'Grid, breakpoints, spacing, radius'}]},
-    {key:'components',label:'Components',soon:true,items:[
+    {key:'components',label:'Components',items:[
       {path:'components/buttons.html',label:'Buttons',desc:'Variants, sizes, states and usage'},
       {path:'components/calendar.html',label:'Calendar',desc:'Range picker, pill days and keyboard model'}]},
     {key:'patterns',label:'Patterns',items:[
@@ -28,7 +28,7 @@
   var navLinks=TOPICS.map(function(t){
     return '<a class="btn nav-trigger" data-variant="ghost" data-size="sm" href="'+href(t.key+'/index.html')+'" data-nav="'+t.key+'" data-menu="'+t.key+'" aria-expanded="false" aria-controls="navdd-'+t.key+'">'+t.label+CHEV+'</a>';}).join('');
   var navPanels=TOPICS.map(function(t){
-    return '<div class="navdd" id="navdd-'+t.key+'" hidden>'+t.items.map(function(i){return '<a href="'+href(i.path)+'" data-sub="'+pageKey(i)+'"><b>'+i.label+'</b><span>'+i.desc+'</span></a>';}).join('')+(t.soon?'<div class="soon">More components soon</div>':'')+'</div>';}).join('');
+    return '<div class="navdd" id="navdd-'+t.key+'" hidden>'+t.items.map(function(i){return '<a href="'+href(i.path)+'" data-sub="'+pageKey(i)+'"><b>'+i.label+'</b><span>'+i.desc+'</span></a>';}).join('')+'</div>';}).join('');
   var BRAND=`<a class="brandmark" href="{{HOME}}" aria-label="Enviolo Design System, overview"><svg viewBox="0 0 496.06 112.06" fill="currentColor" aria-hidden="true"><path d="M276.93,32.01c-4.39,0-7.98,3.56-7.98,8.02v64.02c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02V40.03c-.06-4.46-3.6-8.02-7.98-8.02Z"/><path d="M336.71,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.88-40.03-39.87-40.03ZM336.65,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M456.2,32.01c-21.99,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03,39.87-17.9,39.87-40.03-17.82-40.03-39.87-40.03ZM456.2,96.09c-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05,23.95,10.78,23.95,24.05-10.74,24.05-23.95,24.05Z"/><path d="M396.42,0c-4.39,0-7.98,3.56-7.98,8.02v96.03c0,4.4,3.54,8.02,7.98,8.02s7.98-3.61,7.98-8.02V8.02c0-4.4-3.54-8.02-7.98-8.02Z"/><path d="M131.47,32.01c-21.99,0-39.87,17.9-39.87,40.03v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01h0c0-13.27,10.68-23.99,23.9-23.99s23.9,10.73,23.95,23.99h0v32.01c0,4.4,3.6,8.02,7.98,8.02s7.98-3.61,7.98-8.02v-32.01c-.11-22.13-17.94-40.03-39.92-40.03Z"/><path d="M252.59,32.86c-3.94-1.98-8.72-.4-10.68,3.56l-24.74,49.68-24.74-49.68c-1.97-3.95-6.75-5.53-10.68-3.56s-5.57,6.77-3.6,10.73l31.88,64.02h0c1.29,2.6,3.99,4.4,7.14,4.4s5.79-1.81,7.14-4.46h0l31.88-64.02c1.91-3.9.34-8.69-3.6-10.67Z"/><path d="M71.52,81.18c-3.77-2.26-8.6-1.02-10.91,2.71-4.1,7.28-11.86,12.19-20.81,12.19-13.21,0-23.95-10.78-23.95-24.05s10.68-24.05,23.95-24.05c8.72,0,16.31,4.69,20.52,11.69l-20.47,12.36h39.87c0-22.07-17.82-40.03-39.87-40.03-22.04,0-39.87,17.9-39.87,40.03s17.82,40.03,39.87,40.03c14.73,0,27.61-8.02,34.53-19.98,2.14-3.84.9-8.69-2.87-10.9Z"/></svg><span>Design System</span></a>`.replace('{{HOME}}',homeHref());
   var INFO_PANEL='<div class="info-panel" id="infoPanel" role="dialog" aria-label="About this site" hidden>'
     +'<h3>About this site</h3>'
@@ -51,13 +51,13 @@
   var topicList=document.querySelector('[data-topic-grid]');
   if(topicList){
     var listTopic=TOPICS.filter(function(t){return t.key===topicList.dataset.topicGrid;})[0];
-    topicList.innerHTML=listTopic.items.map(function(i){return '<li><a class="ghost-card" href="'+href(i.path)+'"><b>'+i.label+'</b><span>'+i.desc+'</span></a></li>';}).join('')+(listTopic.soon?'<li><div class="ghost-card muted"><b>More components soon</b></div></li>':'');
+    topicList.innerHTML=listTopic.items.map(function(i){return '<li><a class="ghost-card" href="'+href(i.path)+'"><b>'+i.label+'</b><span>'+i.desc+'</span></a></li>';}).join('');
   }
   if(IN_DOCS&&topic){
     document.body.classList.add('has-sidenav');
     var sidenavHTML='<nav class="sidenav" aria-label="'+topic.label+' pages"><p class="sidenav-label">'+topic.label+'</p><ul class="sidenav-list">'+topic.items.map(function(i){
       return '<li><a href="'+href(i.path)+'" data-sub="'+pageKey(i)+'"'+(pageKey(i)===PAGE?' aria-current="page"':'')+'>'+i.label+'</a></li>';
-    }).join('')+'</ul>'+(topic.soon?'<p class="sidenav-soon">More '+topic.label.toLowerCase()+' soon</p>':'')+'</nav>';
+    }).join('')+'</ul>'+'</nav>';
     document.querySelector('.topnav').insertAdjacentHTML('afterend',sidenavHTML);
   }
   /* ---------- "On this page": a right-hand table of contents built from the page's headings ---------- */

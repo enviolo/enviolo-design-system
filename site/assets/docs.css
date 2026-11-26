@@ -112,7 +112,6 @@ code{overflow-wrap:anywhere}
 .ghost-card span{font-size:.9rem;color:var(--muted-foreground);line-height:1.45}
 a.ghost-card:hover{background:var(--accent)}
 a.ghost-card:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
-.ghost-card.muted{color:var(--muted-foreground)}
 @media (max-width:600px){.topic-list{grid-template-columns:1fr}}
 
 .code-block{margin:0 0 20px;padding:16px 18px;border:1px solid var(--border);border-radius:12px;background:var(--card);overflow-x:auto;font:400 .85rem/1.6 var(--font-mono);color:var(--foreground)}
@@ -199,7 +198,6 @@ a.ghost-card:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
 .navdd a[aria-current="page"]{background:var(--secondary)}
 .navdd a b{font-weight:600;font-size:.95rem}
 .navdd a span{font-size:.82rem;color:var(--muted-foreground);line-height:1.35}
-.navdd .soon{padding:8px 12px 6px;font-size:.82rem;color:var(--muted-foreground)}
 .view[hidden]{display:none}
 .view-head{margin-bottom:8px}
 .badge{display:inline-flex;align-items:center;height:22px;padding:0 10px;border-radius:var(--radius-4xl);font-size:.78rem;font-weight:600;background:var(--muted);color:var(--muted-foreground);vertical-align:middle;margin-left:8px;letter-spacing:0}
@@ -213,14 +211,12 @@ body.has-sidenav>.topnav{grid-column:1/-1}
 .sidenav-list a{display:block;padding:8px 12px;border-radius:10px;color:var(--muted-foreground);text-decoration:none;font-size:.92rem;font-weight:500}
 .sidenav-list a:hover,.sidenav-list a:focus-visible{background:var(--accent);color:var(--foreground);outline:none}
 .sidenav-list a[aria-current="page"]{background:var(--secondary);color:var(--secondary-foreground)}
-.sidenav-soon{margin:6px 0 0;padding:6px 12px 0;font-size:.82rem;color:var(--muted-foreground)}
 @media (max-width:879px){
   body.has-sidenav{display:block}
   .sidenav{position:static;height:auto;overflow:visible;border-right:0;border-bottom:1px solid var(--border);padding:16px 24px}
   .sidenav-label{padding:0;margin:0 0 8px}
   .sidenav-list{grid-auto-flow:column;grid-auto-columns:max-content;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
   .sidenav-list a{padding:6px 12px;background:var(--muted);white-space:nowrap}
-  .sidenav-soon{padding:8px 0 0;margin:0}
 }
 
 /* ---------- Overview ---------- */
