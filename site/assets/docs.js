@@ -63,7 +63,7 @@
   /* ---------- "On this page": a right-hand table of contents built from the page's headings ---------- */
   (function(){
     if(!IN_DOCS||topicList||!document.body.classList.contains('has-sidenav')) return;
-    var heads=[].slice.call(document.querySelectorAll('.view section > .section-head > h2, .view section > h3'));
+    var heads=[].slice.call(document.querySelectorAll('.view section > .section-head > h2, .view section section > .section-head > h3, .view section > h3'));
     if(heads.length<2) return;
     var used={};
     var items=heads.map(function(h){
@@ -78,7 +78,6 @@
       return {el:h,id:h.id,label:label,level:h.tagName==='H3'?3:2};
     });
     var aside=document.createElement('aside'); aside.className='toc'; aside.setAttribute('aria-label','On this page');
-    var lab=document.createElement('p'); lab.className='toc-label'; lab.textContent='On this page'; aside.appendChild(lab);
     var ul=document.createElement('ul'); aside.appendChild(ul);
     var links=items.map(function(it){
       var li=document.createElement('li'), a=document.createElement('a');

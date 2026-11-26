@@ -123,11 +123,14 @@ a.ghost-card:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
 /* ---------- On this page: right-hand table of contents (wide screens only) ---------- */
 .toc{display:none}
 @media (min-width:1280px){
-  body.has-sidenav.has-toc{--toc-w:224px;grid-template-columns:var(--sidenav-w) minmax(0,1fr) var(--toc-w)}
-  body.has-toc>.toc{display:block;position:sticky;top:var(--topnav-h,56px);align-self:start;height:calc(100vh - var(--topnav-h,56px));overflow-y:auto;padding:44px 24px 40px 8px}
-  body.has-toc .grid-overlay{right:var(--toc-w)}
+  /* The content column (max 1080px) and the TOC sit side by side as one group, centred between two flexible tracks */
+  body.has-sidenav.has-toc{--toc-w:224px;grid-template-columns:var(--sidenav-w) minmax(0,1fr) minmax(0,1080px) var(--toc-w) minmax(0,1fr)}
+  body.has-toc>.sidenav{grid-column:1;grid-row:2}
+  body.has-toc>main{grid-column:3;grid-row:2}
+  body.has-toc>.toc{grid-column:4;grid-row:2;display:block;position:sticky;top:var(--topnav-h,56px);align-self:start;height:calc(100vh - var(--topnav-h,56px));overflow-y:auto;padding:44px 24px 40px 16px}
+  /* The grid overlay follows the content column, not the whole area */
+  body.has-sidenav.has-toc .grid-overlay{--toc-gap:max(0px,(100% - var(--sidenav-w) - 1080px - var(--toc-w))/2);left:calc(var(--sidenav-w) + var(--toc-gap));right:calc(var(--toc-w) + var(--toc-gap))}
 }
-.toc-label{margin:0 0 12px;font-size:.78rem;font-weight:600;color:var(--foreground)}
 .toc ul{list-style:none;margin:0;padding:0;border-left:1px solid var(--border)}
 .toc a{display:block;margin-left:-1px;padding:5px 0 5px 14px;border-left:2px solid transparent;font-size:.85rem;line-height:1.4;color:var(--muted-foreground);text-decoration:none}
 .toc .toc-l3 a{padding-left:28px}
@@ -141,6 +144,7 @@ a.ghost-card:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
 
 
 
+.view section section{margin-top:48px}
 .view section > h3{margin:32px 0 10px}
 .view section > h3 + .small{margin-top:-4px}
 .view section > .table-wrap + .small{margin-top:12px}
