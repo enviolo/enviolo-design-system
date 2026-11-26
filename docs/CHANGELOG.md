@@ -6,6 +6,15 @@ The spec-level history for v0.3.1 to v0.3.11 used to live in `design.md` and is 
 
 Planned work is in [BACKLOG.md](BACKLOG.md).
 
+## v0.6
+
+Draft, not released. Minor: token names change (breaking), and one file is added.
+
+- **Decided tokens and explorations are separate files.** `tokens/tokens.css` now holds only decided colour: the brand ramp, Dawn, Nocturne, the status ramps, the mode layer and the semantic tokens. The new `tokens/explore.css` holds the ramps still being tried (Taupe, Mist, slate, gray, zinc, neutral, stone, mauve, olive) and any future colour experiment. Products copy `tokens.css` only; the docs site loads both so the Display menu can preview any ramp. To decide a ramp, move it from `explore.css` into `tokens.css`. Slate, gray, zinc, neutral, stone, mauve and olive had no CSS at all before (only a JS table in `display.js`); they now do.
+- **Renamed colour tokens (breaking).** `--enviolo-*` is now `--brand-*` (`--brand-50…950`, and the named aliases such as `--brand-coral`, `--brand-orange`). The per-mode layer `--l-*` / `--d-*` is now `--light-*` / `--dark-*`. `--dawn-*`, `--nocturne-*`, `--n-*` and every semantic token keep their names. Find and replace in any project that references them.
+- **One copy of the tokens.** The docs site no longer keeps its own token copy in `docs-base.css`: pages load `tokens/tokens.css` and `tokens/explore.css`, so a token change is made once. `display.js` no longer holds a table of ramp values: it reads them from the loaded CSS, and swaps a ramp by pointing `--light-*` / `--dark-*` at it. A ramp appears in the Display menu when its tokens exist. The brand gradient stops the docs used (`--brand-1…4`) now use the real steps.
+- **Colour page.** The Neutrals section always shows the decided ramps, Dawn and Nocturne, whatever is picked in Display.
+
 ## v0.5.1
 
 Released 2026-11-26.

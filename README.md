@@ -33,7 +33,7 @@ nohup python3 serve.py > serve.log 2>&1 &
 | Path | What it is |
 | ---- | ---------- |
 | [design.md](design.md) | Source of truth: rules, tokens, components, layout, accessibility. |
-| [tokens/](tokens/) | `tokens.css` (design tokens) and `components.css` (plain-HTML components), plus the `<enviolo-calendar>` web component. |
+| [tokens/](tokens/) | `tokens.css` (decided design tokens), `components.css` (plain-HTML components) and the `<enviolo-calendar>` web component. `explore.css` holds colour ramps still being explored; the docs site loads it, products don't. |
 | [index.html](index.html), [site/](site/) | Docs site. Overview is `index.html`; Foundations and Components pages are in `site/`. |
 | [docs/](docs/) | Project notes: backlog, changelog, research. |
 | [CLAUDE.md](CLAUDE.md) | Instructions for AI work on this repo itself. |

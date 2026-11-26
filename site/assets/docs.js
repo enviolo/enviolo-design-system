@@ -177,11 +177,11 @@
   function renderDocs(){
     function row(id,titleId,key,mode){
       var el=document.getElementById(id); if(!el) return;
-      el.innerHTML=RAMPS[state[key]].map(function(v,i){return '<button type="button" data-copy-color style="background:'+v+'" title="'+STEPS[i]+' · '+v+' · select to copy hex" aria-label="Copy '+RAMP_LABELS[state[key]]+' '+STEPS[i]+' hex"></button>';}).join('');
-      document.getElementById(titleId).innerHTML=mode+' <small>'+RAMP_LABELS[state[key]]+'</small>';
+      el.innerHTML=RAMPS[key].map(function(v,i){return '<button type="button" data-copy-color style="background:'+v+'" title="'+STEPS[i]+' · '+v+' · select to copy hex" aria-label="Copy '+RAMP_LABELS[key]+' '+STEPS[i]+' hex"></button>';}).join('');
+      document.getElementById(titleId).innerHTML=mode+' <small>'+RAMP_LABELS[key]+'</small>';
     }
-    row('neutralLight','nl-title','rampLight','Light mode');
-    row('neutralDark','nd-title','rampDark','Dark mode');
+    row('neutralLight','nl-title','dawn','Light mode');
+    row('neutralDark','nd-title','nocturne','Dark mode');
     markStatus();
     markNeutrals();
     var fontNames={source:'Source Sans 3',urbanist:'Urbanist',plex:'IBM Plex Sans',system:'System font'};

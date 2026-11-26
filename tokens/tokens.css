@@ -1,49 +1,39 @@
 /* ==========================================================================
-   Enviolo Design System: tokens.css  (v0.5.1, draft)
+   Enviolo Design System: tokens.css  (v0.6, draft)
    Framework-agnostic: works with Enviolo CSS (components.css, web) and shadcn/ui (React).
    Load BEFORE components.css, and AFTER Tailwind base styles if used. Dark mode = `.dark` on <html>.
+   Decided tokens only. Ramps still being explored live in explore.css, which products don't copy.
    Layers: 1 primitives -> 2 mode layer -> 3 semantic -> 4 Tailwind mapping.
    Components only use layer 3 (semantic) tokens.
    ========================================================================== */
 
 /* 1. Primitives ------------------------------------------------------------ */
 :root {
-  /* Enviolo brand ramp (draft): sunset -> midnight */
-  --enviolo-50: #FAEAC0;
-  --enviolo-100: #F9C1A3;
-  --enviolo-200: #ED9B85;
-  --enviolo-300: #C88273;
-  --enviolo-400: #AA6E65;
-  --enviolo-500: #895D58;
-  --enviolo-600: #674C4E;
-  --enviolo-700: #443E44;
-  --enviolo-800: #272D32;
-  --enviolo-900: #0B1D22;
-  --enviolo-950: #020D12;
-  --enviolo-ivory: var(--enviolo-50);
-  --enviolo-orange: var(--enviolo-100);
-  --enviolo-coral: var(--enviolo-200);
-  --enviolo-copper: var(--enviolo-300);
-  --enviolo-clay: var(--enviolo-400);
-  --enviolo-dusk: var(--enviolo-500);
-  --enviolo-twilight: var(--enviolo-600);
-  --enviolo-coffee: var(--enviolo-700);
-  --enviolo-nightfall: var(--enviolo-800);
-  --enviolo-midnight: var(--enviolo-900);
-  --enviolo-pearl-black: var(--enviolo-950);
+  /* Brand ramp (draft): sunset -> midnight. Named steps are aliases of the numbered ones. */
+  --brand-50: #FAEAC0;
+  --brand-100: #F9C1A3;
+  --brand-200: #ED9B85;
+  --brand-300: #C88273;
+  --brand-400: #AA6E65;
+  --brand-500: #895D58;
+  --brand-600: #674C4E;
+  --brand-700: #443E44;
+  --brand-800: #272D32;
+  --brand-900: #0B1D22;
+  --brand-950: #020D12;
+  --brand-ivory: var(--brand-50);
+  --brand-orange: var(--brand-100);
+  --brand-coral: var(--brand-200);
+  --brand-copper: var(--brand-300);
+  --brand-clay: var(--brand-400);
+  --brand-dusk: var(--brand-500);
+  --brand-twilight: var(--brand-600);
+  --brand-coffee: var(--brand-700);
+  --brand-nightfall: var(--brand-800);
+  --brand-midnight: var(--brand-900);
+  --brand-pearl-black: var(--brand-950);
 
-  /* Neutrals: Tailwind v4.3 values */
-  --taupe-50: oklch(98.6% 0.002 67.8);
-  --taupe-100: oklch(96% 0.002 17.2);
-  --taupe-200: oklch(92.2% 0.005 34.3);
-  --taupe-300: oklch(86.8% 0.007 39.5);
-  --taupe-400: oklch(71.4% 0.014 41.2);
-  --taupe-500: oklch(54.7% 0.021 43.1);
-  --taupe-600: oklch(43.8% 0.017 39.3);
-  --taupe-700: oklch(36.7% 0.016 35.7);
-  --taupe-800: oklch(26.8% 0.011 36.5);
-  --taupe-900: oklch(21.4% 0.009 43.1);
-  --taupe-950: oklch(14.7% 0.004 49.3);
+  /* Neutrals: Dawn is the light ramp, Nocturne the dark one (Enviolo-made, tinted from the brand ramp) */
   --dawn-50: oklch(98.6% 0.006 85);
   --dawn-100: oklch(96% 0.008 70);
   --dawn-200: oklch(92.2% 0.011 55);
@@ -55,17 +45,6 @@
   --dawn-800: oklch(26.8% 0.016 20);
   --dawn-900: oklch(21.4% 0.012 15);
   --dawn-950: oklch(14.7% 0.008 15);
-  --mist-50: oklch(98.7% 0.002 197.1);
-  --mist-100: oklch(96.3% 0.002 197.1);
-  --mist-200: oklch(92.5% 0.005 214.3);
-  --mist-300: oklch(87.2% 0.007 219.6);
-  --mist-400: oklch(72.3% 0.014 214.4);
-  --mist-500: oklch(56% 0.021 213.5);
-  --mist-600: oklch(45% 0.017 213.2);
-  --mist-700: oklch(37.8% 0.015 216);
-  --mist-800: oklch(27.5% 0.011 216.9);
-  --mist-900: oklch(21.8% 0.008 223.9);
-  --mist-950: oklch(14.8% 0.004 228.8);
   --nocturne-50: oklch(98.7% 0.003 205);
   --nocturne-100: oklch(96.3% 0.004 205);
   --nocturne-200: oklch(92.5% 0.006 212);
@@ -75,10 +54,10 @@
   --nocturne-600: oklch(45% 0.019 214);
   --nocturne-700: oklch(37.8% 0.018 216);
   --nocturne-800: oklch(27.5% 0.018 218);
-  --nocturne-900: var(--enviolo-900);
-  --nocturne-950: var(--enviolo-950);
+  --nocturne-900: var(--brand-900);
+  --nocturne-950: var(--brand-950);
 
-  /* Status: Tailwind v4.3 values */
+  /* Status: Tailwind v4.3 values (red, amber, green, blue) */
   --red-50: oklch(97.1% 0.013 17.38);
   --red-100: oklch(93.6% 0.032 17.717);
   --red-200: oklch(88.5% 0.062 18.334);
@@ -125,54 +104,55 @@
   --blue-950: oklch(28.2% 0.091 267.935);
 }
 
-/* 2. Mode layer: light uses Dawn, dark uses Nocturne (swap ramps here) ------ */
+/* 2. Mode layer: --light-* feeds light mode (Dawn), --dark-* feeds dark mode (Nocturne). Swap a ramp here
+      by pointing these at another ramp (the docs Display menu does it at runtime). --n-* is the active mode. */
 :root {
-  --l-50: var(--dawn-50);
-  --l-100: var(--dawn-100);
-  --l-200: var(--dawn-200);
-  --l-300: var(--dawn-300);
-  --l-400: var(--dawn-400);
-  --l-500: var(--dawn-500);
-  --l-600: var(--dawn-600);
-  --l-700: var(--dawn-700);
-  --l-800: var(--dawn-800);
-  --l-900: var(--dawn-900);
-  --l-950: var(--dawn-950);
-  --d-50: var(--nocturne-50);
-  --d-100: var(--nocturne-100);
-  --d-200: var(--nocturne-200);
-  --d-300: var(--nocturne-300);
-  --d-400: var(--nocturne-400);
-  --d-500: var(--nocturne-500);
-  --d-600: var(--nocturne-600);
-  --d-700: var(--nocturne-700);
-  --d-800: var(--nocturne-800);
-  --d-900: var(--nocturne-900);
-  --d-950: var(--nocturne-950);
-  --n-50: var(--l-50);
-  --n-100: var(--l-100);
-  --n-200: var(--l-200);
-  --n-300: var(--l-300);
-  --n-400: var(--l-400);
-  --n-500: var(--l-500);
-  --n-600: var(--l-600);
-  --n-700: var(--l-700);
-  --n-800: var(--l-800);
-  --n-900: var(--l-900);
-  --n-950: var(--l-950);
+  --light-50: var(--dawn-50);
+  --light-100: var(--dawn-100);
+  --light-200: var(--dawn-200);
+  --light-300: var(--dawn-300);
+  --light-400: var(--dawn-400);
+  --light-500: var(--dawn-500);
+  --light-600: var(--dawn-600);
+  --light-700: var(--dawn-700);
+  --light-800: var(--dawn-800);
+  --light-900: var(--dawn-900);
+  --light-950: var(--dawn-950);
+  --dark-50: var(--nocturne-50);
+  --dark-100: var(--nocturne-100);
+  --dark-200: var(--nocturne-200);
+  --dark-300: var(--nocturne-300);
+  --dark-400: var(--nocturne-400);
+  --dark-500: var(--nocturne-500);
+  --dark-600: var(--nocturne-600);
+  --dark-700: var(--nocturne-700);
+  --dark-800: var(--nocturne-800);
+  --dark-900: var(--nocturne-900);
+  --dark-950: var(--nocturne-950);
+  --n-50: var(--light-50);
+  --n-100: var(--light-100);
+  --n-200: var(--light-200);
+  --n-300: var(--light-300);
+  --n-400: var(--light-400);
+  --n-500: var(--light-500);
+  --n-600: var(--light-600);
+  --n-700: var(--light-700);
+  --n-800: var(--light-800);
+  --n-900: var(--light-900);
+  --n-950: var(--light-950);
 }
 .dark {
-  --n-50: var(--d-50);
-  --n-100: var(--d-100);
-  --n-200: var(--d-200);
-  --n-300: var(--d-300);
-  --n-400: var(--d-400);
-  --n-500: var(--d-500);
-  --n-600: var(--d-600);
-  --n-700: var(--d-700);
-  --n-800: var(--d-800);
-  --n-900: var(--d-900);
-  --n-950: var(--d-950);
+  --n-50: var(--dark-50);
+  --n-100: var(--dark-100);
+  --n-200: var(--dark-200);
+  --n-300: var(--dark-300);
+  --n-400: var(--dark-400);
+  --n-500: var(--dark-500);
+  --n-600: var(--dark-600);
+  --n-700: var(--dark-700);
+  --n-800: var(--dark-800);
+  --n-900: var(--dark-900);
+  --n-950: var(--dark-950);
 }
 
 /* 3. Semantic tokens (shadcn names + Enviolo additions) --------------------
@@ -195,7 +175,7 @@
   --popover: var(--background);
   --popover-foreground: var(--foreground);
   --input: var(--n-200);
-  --ring: var(--light-ring, var(--enviolo-300)); /* Copper, 3.1:1 on white */
+  --ring: var(--light-ring, var(--brand-300)); /* Copper, 3.1:1 on white */
 
   --destructive: var(--red-600);  --destructive-foreground: #ffffff;
   --success: var(--green-600);    --success-foreground: #ffffff;
@@ -209,9 +189,9 @@
   --info-bg: var(--blue-50);         --info-text: var(--blue-700);
 
   /* Series follow the ramp order, lightest first. Orange and Ivory are pale: label the bars. */
-  --chart-1: var(--enviolo-100); --chart-2: var(--enviolo-200);
-  --chart-3: var(--enviolo-400); --chart-4: var(--enviolo-600);
-  --chart-5: var(--enviolo-900);
+  --chart-1: var(--brand-100); --chart-2: var(--brand-200);
+  --chart-3: var(--brand-400); --chart-4: var(--brand-600);
+  --chart-5: var(--brand-900);
 
   --radius: 0.625rem;        /* 10px, small containers */
   --radius-xl: calc(var(--radius) + 4px); /* 14px, cards, menus, dialogs (shadcn's rounded-xl) */
@@ -238,7 +218,7 @@
   --popover: var(--n-900);
   --popover-foreground: var(--foreground);
   --input: var(--n-800);
-  --ring: var(--dark-ring, var(--enviolo-100)); /* Orange, 12.3:1 on Neutral 950 */
+  --ring: var(--dark-ring, var(--brand-100)); /* Orange, 12.3:1 on Neutral 950 */
 
   --destructive: var(--red-500);
   --success: var(--green-400);    --success-foreground: var(--green-950);
@@ -250,9 +230,9 @@
   --warning-bg: var(--amber-950);    --warning-text: var(--amber-300);
   --info-bg: var(--blue-950);        --info-text: var(--blue-300);
 
-  --chart-1: var(--enviolo-50);  --chart-2: var(--enviolo-100);
-  --chart-3: var(--enviolo-200); --chart-4: var(--enviolo-400);
-  --chart-5: var(--enviolo-500);
+  --chart-1: var(--brand-50);  --chart-2: var(--brand-100);
+  --chart-3: var(--brand-200); --chart-4: var(--brand-400);
+  --chart-5: var(--brand-500);
 }
 
 /* 4. Tailwind v4 mapping (Tailwind projects only) ------------------------- */

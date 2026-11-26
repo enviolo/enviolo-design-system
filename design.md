@@ -2,11 +2,11 @@
 
 The single reference for designing and building Enviolo interfaces across **web, app and AI-assisted development**. Written for people and for AI tools (Claude, Cursor, Claude Code). When generating UI, follow this file before any default habit. Adopt it step by step, per product, as each is ready.
 
-- **Version:** v0.5.1 (draft), November 2026
+- **Version:** v0.6 (draft), November 2026
 - **Repository:** [github.com/enviolo/enviolo-design-system](https://github.com/enviolo/enviolo-design-system). Latest tokens, components, docs site and changelog; released versions are git tags.
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published.
 
-Values (token definitions, hex, ramps) live in `tokens/tokens.css` and are not repeated here. Visual examples are on the docs site in the repository (see section 13).
+Values (token definitions, hex, ramps) live in `tokens/tokens.css`, which holds only decided tokens, and are not repeated here. Ramps still being explored live in `tokens/explore.css`, which products do not copy. Visual examples are on the docs site in the repository (see section 13).
 
 ---
 
@@ -69,7 +69,7 @@ Each layer only changes values in the layer below it, never names.
 
 ### 2.1 Flow
 
-Primitives (neutral, Enviolo and status ramps) feed a per-mode layer (light reads `--l-*` Dawn, dark reads `--d-*` Nocturne), which feeds the semantic tokens. **Components only ever read semantic tokens.** Per-mode overrides (`--light-bg`, `--dark-accent`, …) are optional variables with fallbacks; removing one restores the default. Definitions and a full Tailwind v4 `@theme` example: `tokens/tokens.css`.
+Primitives (brand, neutral and status ramps) feed a per-mode layer (light reads `--light-*`, set to Dawn; dark reads `--dark-*`, set to Nocturne), which feeds the semantic tokens. **Components only ever read semantic tokens.** Per-mode overrides (`--light-bg`, `--dark-accent`, …) are optional variables with fallbacks; removing one restores the default. Definitions and a full Tailwind v4 `@theme` example: `tokens/tokens.css`.
 
 ### 2.2 Semantic tokens
 
@@ -105,7 +105,7 @@ Names are the contract.
 Enviolo's own ramps (OKLCH), 11 steps each, with evenly stepped lightness: **Dawn** (light) and **Nocturne** (dark). Reference `var(--dawn-*)` and `var(--nocturne-*)`, never the values (rule 2).
 
 - Warm days, cool nights: light mode reads warm (Dawn), dark mode reads cool (Nocturne). The split is deliberate.
-- Taupe and Mist (the previous defaults) and the other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) are for exploration only.
+- Taupe and Mist (the previous defaults) and the other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) are not part of the system. They live in `tokens/explore.css` for the docs site's Display menu, which previews them as the light or dark neutrals. A ramp that is decided moves from `explore.css` into `tokens.css`.
 
 ### 3.2 Enviolo colour ramp *(draft, not yet published)*
 
@@ -115,7 +115,7 @@ For gradients, chart bars and volumetric effects. It imitates the sky, so the hu
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | Name | Ivory | Orange | Coral | Copper | Clay | Dusk | Twilight | Coffee | Nightfall | Midnight | Pearl Black |
 
-Tokens: `--enviolo-50…950`, Tailwind `--color-enviolo-*`, name aliases (`--enviolo-coral`, …). Hex values: `tokens/tokens.css`.
+Tokens: `--brand-50…950` and name aliases (`--brand-coral`, …). Hex values: `tokens/tokens.css`.
 
 **Gradient recipes** (numbers are ramp steps)
 

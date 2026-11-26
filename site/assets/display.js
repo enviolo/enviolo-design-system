@@ -1,7 +1,7 @@
 /* Display personalizer: theme, font, icons, code font and per-mode settings.
    Shared by the docs site and the sandboxes. It builds its own menu at the bottom right, keeps the
    choices in localStorage ("enviolo-display"), and sets the optional token overrides from tokens.css
-   (--l-*, --d-*, --light-bg, --dark-accent, --light-ring, ...) on <html>.
+   (--light-*, --dark-*, --light-bg, --dark-accent, --light-ring, ...) on <html>.
 
    Optional config, set before this script loads:
      window.EnvioloDisplayConfig = { hide: ['icons', 'mono'] }   // groups that don't apply to the page
@@ -66,9 +66,16 @@
 
   var FONTS={source:'"Source Sans 3"',urbanist:'"Urbanist"',plex:'"IBM Plex Sans"',system:'system-ui'};
   var MONO={system:'ui-monospace, SFMono-Regular, Menlo, Consolas, monospace',sourcecode:'"Source Code Pro", ui-monospace, monospace'};
-  var RAMPS={"slate": ["oklch(98.4% 0.003 247.858)", "oklch(96.8% 0.007 247.896)", "oklch(92.9% 0.013 255.508)", "oklch(86.9% 0.022 252.894)", "oklch(70.4% 0.04 256.788)", "oklch(55.4% 0.046 257.417)", "oklch(44.6% 0.043 257.281)", "oklch(37.2% 0.044 257.287)", "oklch(27.9% 0.041 260.031)", "oklch(20.8% 0.042 265.755)", "oklch(12.9% 0.042 264.695)"], "gray": ["oklch(98.5% 0.002 247.839)", "oklch(96.7% 0.003 264.542)", "oklch(92.8% 0.006 264.531)", "oklch(87.2% 0.01 258.338)", "oklch(70.7% 0.022 261.325)", "oklch(55.1% 0.027 264.364)", "oklch(44.6% 0.03 256.802)", "oklch(37.3% 0.034 259.733)", "oklch(27.8% 0.033 256.848)", "oklch(21% 0.034 264.665)", "oklch(13% 0.028 261.692)"], "zinc": ["oklch(98.5% 0 none)", "oklch(96.7% 0.001 286.375)", "oklch(92% 0.004 286.32)", "oklch(87.1% 0.006 286.286)", "oklch(70.5% 0.015 286.067)", "oklch(55.2% 0.016 285.938)", "oklch(44.2% 0.017 285.786)", "oklch(37% 0.013 285.805)", "oklch(27.4% 0.006 286.033)", "oklch(21% 0.006 285.885)", "oklch(14.1% 0.005 285.823)"], "neutral": ["oklch(98.5% 0 none)", "oklch(97% 0 none)", "oklch(92.2% 0 none)", "oklch(87% 0 none)", "oklch(70.8% 0 none)", "oklch(55.6% 0 none)", "oklch(43.9% 0 none)", "oklch(37.1% 0 none)", "oklch(26.9% 0 none)", "oklch(20.5% 0 none)", "oklch(14.5% 0 none)"], "stone": ["oklch(98.5% 0.001 106.423)", "oklch(97% 0.001 106.424)", "oklch(92.3% 0.003 48.717)", "oklch(86.9% 0.005 56.366)", "oklch(70.9% 0.01 56.259)", "oklch(55.3% 0.013 58.071)", "oklch(44.4% 0.011 73.639)", "oklch(37.4% 0.01 67.558)", "oklch(26.8% 0.007 34.298)", "oklch(21.6% 0.006 56.043)", "oklch(14.7% 0.004 49.25)"], "mauve": ["oklch(98.5% 0 none)", "oklch(96% 0.003 325.6)", "oklch(92.2% 0.005 325.62)", "oklch(86.5% 0.012 325.68)", "oklch(71.1% 0.019 323.02)", "oklch(54.2% 0.034 322.5)", "oklch(43.5% 0.029 321.78)", "oklch(36.4% 0.029 323.89)", "oklch(26.3% 0.024 320.12)", "oklch(21.2% 0.019 322.12)", "oklch(14.5% 0.008 326)"], "olive": ["oklch(98.8% 0.003 106.5)", "oklch(96.6% 0.005 106.5)", "oklch(93% 0.007 106.5)", "oklch(88% 0.011 106.6)", "oklch(73.7% 0.021 106.9)", "oklch(58% 0.031 107.3)", "oklch(46.6% 0.025 107.3)", "oklch(39.4% 0.023 107.4)", "oklch(28.6% 0.016 107.4)", "oklch(22.8% 0.013 107.4)", "oklch(15.3% 0.006 107.1)"], "mist": ["oklch(98.7% 0.002 197.1)", "oklch(96.3% 0.002 197.1)", "oklch(92.5% 0.005 214.3)", "oklch(87.2% 0.007 219.6)", "oklch(72.3% 0.014 214.4)", "oklch(56% 0.021 213.5)", "oklch(45% 0.017 213.2)", "oklch(37.8% 0.015 216)", "oklch(27.5% 0.011 216.9)", "oklch(21.8% 0.008 223.9)", "oklch(14.8% 0.004 228.8)"], "taupe": ["oklch(98.6% 0.002 67.8)", "oklch(96% 0.002 17.2)", "oklch(92.2% 0.005 34.3)", "oklch(86.8% 0.007 39.5)", "oklch(71.4% 0.014 41.2)", "oklch(54.7% 0.021 43.1)", "oklch(43.8% 0.017 39.3)", "oklch(36.7% 0.016 35.7)", "oklch(26.8% 0.011 36.5)", "oklch(21.4% 0.009 43.1)", "oklch(14.7% 0.004 49.3)"], "nocturne": ["oklch(98.7% 0.003 205)", "oklch(96.3% 0.004 205)", "oklch(92.5% 0.006 212)", "oklch(87.2% 0.008 217)", "oklch(72.3% 0.015 214)", "oklch(56% 0.021 213.5)", "oklch(45% 0.019 214)", "oklch(37.8% 0.018 216)", "oklch(27.5% 0.018 218)", "#0B1D22", "#020D12"], "dawn": ["oklch(98.6% 0.006 85)", "oklch(96% 0.008 70)", "oklch(92.2% 0.011 55)", "oklch(86.8% 0.015 48)", "oklch(71.4% 0.024 40)", "oklch(54.7% 0.03 36)", "oklch(43.8% 0.027 30)", "oklch(36.7% 0.022 25)", "oklch(26.8% 0.016 20)", "oklch(21.4% 0.012 15)", "oklch(14.7% 0.008 15)"]};
-  var RAMP_LABELS={"slate": "Slate", "gray": "Gray", "zinc": "Zinc", "neutral": "Neutral", "stone": "Stone", "mauve": "Mauve", "olive": "Olive", "mist": "Mist", "taupe": "Taupe", "nocturne": "Nocturne", "dawn": "Dawn"};
+  /* Ramps are read from the loaded CSS (tokens/tokens.css = decided, tokens/explore.css = exploring), so the values live in one place.
+     A ramp shows up in the menu when its --name-500 token is defined. Decided ramps come first. */
   var STEPS=[50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+  var RAMP_ORDER=['dawn','nocturne','taupe','mist','slate','gray','zinc','neutral','stone','mauve','olive'];
+  var rootStyle=getComputedStyle(document.documentElement), RAMPS={};
+  RAMP_ORDER.forEach(function(r){
+    if(!rootStyle.getPropertyValue('--'+r+'-500').trim()) return;
+    RAMPS[r]=STEPS.map(function(st){return rootStyle.getPropertyValue('--'+r+'-'+st).trim();});
+  });
+  var RAMP_LABELS={"slate": "Slate", "gray": "Gray", "zinc": "Zinc", "neutral": "Neutral", "stone": "Stone", "mauve": "Mauve", "olive": "Olive", "mist": "Mist", "taupe": "Taupe", "nocturne": "Nocturne", "dawn": "Dawn"};
   var ICONS={
     lucide:{
       'chevron-down':'<path d="m6 9 6 6 6-6"/>',
@@ -127,14 +134,14 @@
 
   var MODE_OPTS={
     light:{
-      bg:{white:['White','#FFFFFF',null],neutral:['Neutral 50','var(--l-50)','var(--l-50)'],ivory:['Ivory tint','color-mix(in srgb,var(--enviolo-50) 35%,#fff)','color-mix(in srgb,var(--enviolo-50) 35%,#fff)']},
-      accent:{neutral:['Neutral 100','var(--l-100)',null],ivory:['Ivory','color-mix(in srgb,var(--enviolo-50) 70%,#fff)','color-mix(in srgb,var(--enviolo-50) 70%,#fff)'],coral:['Coral tint','color-mix(in srgb,var(--enviolo-200) 18%,#fff)','color-mix(in srgb,var(--enviolo-200) 18%,transparent)']},
-      focus:{copper:['Copper','var(--enviolo-300)',null,'3.05:1'],coral:['Coral','var(--enviolo-200)','var(--enviolo-200)','2.2:1 · low'],clay:['Clay','var(--enviolo-400)','var(--enviolo-400)','4.1:1']}
+      bg:{white:['White','#FFFFFF',null],neutral:['Neutral 50','var(--light-50)','var(--light-50)'],ivory:['Ivory tint','color-mix(in srgb,var(--brand-50) 35%,#fff)','color-mix(in srgb,var(--brand-50) 35%,#fff)']},
+      accent:{neutral:['Neutral 100','var(--light-100)',null],ivory:['Ivory','color-mix(in srgb,var(--brand-50) 70%,#fff)','color-mix(in srgb,var(--brand-50) 70%,#fff)'],coral:['Coral tint','color-mix(in srgb,var(--brand-200) 18%,#fff)','color-mix(in srgb,var(--brand-200) 18%,transparent)']},
+      focus:{copper:['Copper','var(--brand-300)',null,'3.05:1'],coral:['Coral','var(--brand-200)','var(--brand-200)','2.2:1 · low'],clay:['Clay','var(--brand-400)','var(--brand-400)','4.1:1']}
     },
     dark:{
-      bg:{neutral:['Neutral 950','var(--d-950)',null],pearl:['Pearl Black','var(--enviolo-950)','var(--enviolo-950)'],midnight:['Midnight','var(--enviolo-900)','var(--enviolo-900)']},
-      accent:{neutral:['Neutral 800','var(--d-800)',null],nightfall:['Nightfall','var(--enviolo-800)','var(--enviolo-800)'],coral:['Coral tint','color-mix(in srgb,var(--enviolo-200) 22%,#0B1D22)','color-mix(in srgb,var(--enviolo-200) 20%,transparent)']},
-      focus:{orange:['Orange','var(--enviolo-100)',null,'12.3:1'],coral:['Coral','var(--enviolo-200)','var(--enviolo-200)','9.0:1'],ivory:['Ivory','var(--enviolo-50)','var(--enviolo-50)','16:1']}
+      bg:{neutral:['Neutral 950','var(--dark-950)',null],pearl:['Pearl Black','var(--brand-950)','var(--brand-950)'],midnight:['Midnight','var(--brand-900)','var(--brand-900)']},
+      accent:{neutral:['Neutral 800','var(--dark-800)',null],nightfall:['Nightfall','var(--brand-800)','var(--brand-800)'],coral:['Coral tint','color-mix(in srgb,var(--brand-200) 22%,#0B1D22)','color-mix(in srgb,var(--brand-200) 20%,transparent)']},
+      focus:{orange:['Orange','var(--brand-100)',null,'12.3:1'],coral:['Coral','var(--brand-200)','var(--brand-200)','9.0:1'],ivory:['Ivory','var(--brand-50)','var(--brand-50)','16:1']}
     }
   };
   var state={theme:'system',font:'source',icons:'tabler',mono:'sourcecode',rampLight:'dawn',rampDark:'nocturne',bgLight:'white',bgDark:'neutral',accentLight:'neutral',accentDark:'neutral',focusLight:'copper',focusDark:'orange',ringApricot:true};
@@ -163,8 +170,8 @@
     root.classList.toggle('dark',isDark()); /* sandboxes use the .dark class (tokens.css) */
     root.style.setProperty('--font',FONTS[state.font]+', ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif');
     root.style.setProperty('--font-mono',MONO[state.mono]);
-    RAMPS[state.rampLight].forEach(function(v,i){root.style.setProperty('--l-'+STEPS[i],v);});
-    RAMPS[state.rampDark].forEach(function(v,i){root.style.setProperty('--d-'+STEPS[i],v);});
+    STEPS.forEach(function(st){root.style.setProperty('--light-'+st,'var(--'+state.rampLight+'-'+st+')');});
+    STEPS.forEach(function(st){root.style.setProperty('--dark-'+st,'var(--'+state.rampDark+'-'+st+')');});
     [['--light-bg','light','bg','bgLight'],['--dark-bg','dark','bg','bgDark'],['--light-accent','light','accent','accentLight'],['--dark-accent','dark','accent','accentDark'],['--light-ring','light','focus','focusLight'],['--dark-ring','dark','focus','focusDark']].forEach(function(x){
       var v=MODE_OPTS[x[1]][x[2]][state[x[3]]][2]; if(v) root.style.setProperty(x[0],v); else root.style.removeProperty(x[0]);
     });
