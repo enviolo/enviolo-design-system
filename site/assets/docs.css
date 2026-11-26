@@ -168,7 +168,7 @@ a.ghost-card:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
 .topnav-inner{padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .brandmark{display:inline-flex;align-items:baseline;gap:12px;color:var(--foreground);text-decoration:none;white-space:nowrap}
 .brandmark svg{height:18px;width:auto;display:block}
-.brandmark span{color:var(--muted-foreground);font-size:.95rem;font-weight:500;padding-left:12px;border-left:1px solid var(--border);line-height:1.2}
+.brandmark span{color:var(--muted-foreground);font-size:1.125rem;font-weight:500;padding-left:12px;border-left:1px solid var(--border);line-height:1.2}
 .mainnav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0}
 .mainnav .btn{color:var(--muted-foreground)}
 .mainnav .btn[aria-current="page"]{background:var(--secondary);color:var(--secondary-foreground)}

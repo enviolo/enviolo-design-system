@@ -8,7 +8,7 @@
   /* The Overview is the repo's root index.html; every other page lives in site/<topic>/.
      Links are relative, so the site works from a folder, a local server or an embedded browser. */
   var IN_DOCS=PAGE!=='overview', DEPTH=PAGE.split('/').length;
-  var TO_ROOT=IN_DOCS?new Array(DEPTH+1).join('../'):'site/';
+  var TO_ROOT=IN_DOCS?new Array(DEPTH+1).join('../'):'';
   var TO_DOCS=IN_DOCS?new Array(DEPTH).join('../'):'site/';
   function homeHref(){return TO_ROOT+'index.html';}
   function href(p){return TO_DOCS+p;} /* p is relative to site/ */
