@@ -2,7 +2,7 @@
 
 The single reference for designing and building Enviolo interfaces across **web, app and AI-assisted development**. Written for people and for AI tools (Claude, Cursor, Claude Code). When generating UI, follow this file before any default habit. Adopt it step by step, per product, as each is ready.
 
-- **Version:** v0.5 (draft), November 2026
+- **Version:** v0.5.1 (draft), November 2026
 - **Repository:** [github.com/enviolo/enviolo-design-system](https://github.com/enviolo/enviolo-design-system). Latest tokens, components, docs site and changelog; released versions are git tags.
 - **Status:** structure and defaults confirmed; the Enviolo colour ramp is a draft and not yet published.
 

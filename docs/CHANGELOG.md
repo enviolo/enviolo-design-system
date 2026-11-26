@@ -6,6 +6,14 @@ The spec-level history for v0.3.1 to v0.3.11 used to live in `design.md` and is 
 
 Planned work is in [BACKLOG.md](BACKLOG.md).
 
+## v0.5.1
+
+Released 2026-11-26.
+
+Patch: a docs-site fix. No token, rule or path changes.
+
+- **Layout page: the grid overlay now lines up with the page.** It was centred on the whole window, so the 232px sidebar threw it off. It now starts where the content area starts (desktop, 880px and up) and fills the width when the sidebar collapses. The sidebar now collapses at 879px, so 880px is desktop, as the breakpoints specify. The breakpoint spec itself (600, 880, 1080px) is unchanged. `site/assets/docs.css`.
+
 ## v0.5
 
 Released 2026-11-25.
