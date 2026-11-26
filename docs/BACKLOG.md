@@ -1,13 +1,13 @@
 # Backlog
 
-Work still to do on the design system. Rules and settled choices live in `design.md` (section 12); this file only tracks the work, including every open decision. Tick an item when it ships on `dev`, and add it to [CHANGELOG.md](CHANGELOG.md) under the version that carries it.
+Work still to do on the design system. Rules live in `design.md`; this file tracks the work, including every open decision. Tick an item when it ships on `dev`, and add it to [CHANGELOG.md](CHANGELOG.md) under the version that carries it.
 
 ## Decide first
 
 - [x] **Version label.** Settled: the release is tagged `v0.3.12` and every header says v0.3.12. If Rhea replaces Luma, the next release is v0.4.
 - [ ] **Brand system.** The brand guidelines will be merged into this design system, which then becomes the brand system (logo, colour, voice and so on alongside the product rules). Not scoped yet: decide what moves in, where it lives (Foundations topic or a new Brand topic) and what happens to the current guidelines. This replaces "publish the Enviolo ramp to the brand guidelines": the ramp is final and already lives here.
 - [ ] **Rollout.** Which product adopts the system first (not decided).
-- [x] **Style: try Rhea against Luma.** Decided: stays Luma. Recorded in design.md section 12 (settled choices).
+- [x] **Style: try Rhea against Luma.** Decided: stays Luma.
 - [x] **Calendar.** Promoted: `<enviolo-calendar>` is now in the web component set (`tokens/components.css` plus `tokens/enviolo-calendar.js`), specified in design.md 7.4, with a docs page at `site/components/calendar.html`. React apps still use react-day-picker.
 
 ## Next
@@ -19,6 +19,7 @@ Work still to do on the design system. Rules and settled choices live in `design
 - [ ] **Date-range field in the spec.** The calendar has a design.md section now (7.4); the field that opens it (`.range-field`, a button styled as an input, in `sandboxes/html-dashboard/dashboard.css`) still doesn't.
 - [ ] **Move shared pieces out of the sandbox.** The popover (`.popover`) and the range field (`.range-field`, a button styled as an input) live in `sandboxes/html-dashboard/dashboard.css`. If another page needs them, they belong in `tokens/components.css`, per the rule in CLAUDE.md.
 - [ ] **React calendar test card.** Keep it as the shadcn comparison or remove it. It loads React and react-day-picker from esm.sh, so the dashboard needs internet for that card.
+- [ ] **Menus and navigation in `components.css`.** design.md 7.3 specifies dropdown menus, submenus, disclosure and cards-as-links, but their CSS only exists in the docs site (`site/assets/docs.css`, `display.js`), not in `tokens/components.css`. Port them with tokens only, in the shadcn vocabulary, and say in design.md 7 that they are covered once they ship. Related to the "Confirm docs-site-only vs product patterns" item below.
 - [ ] **Components missing from `components.css`.** Check which of select, tooltip, dialog, tabs and table the web side needs before the first product adopts the system.
 - [ ] **Lint design.md rule 0.** `design.md` research (`docs/research/design-md-best-practices.md`) flags that several AI rules are checkable: no hex/oklch/palette classes in components, one `btn` without `data-variant` per view, `aria-label` on icon-only buttons. Turn these into a stylelint rule, a grep pre-commit hook, or a Claude Code hook, so violations don't rely on prose alone.
 - [ ] **Confirm docs-site-only vs product patterns.** `design.md` 7.3 and 9.2 were trimmed (Nov 2026) to keep only general menu/theming rules; the docs site's top nav, topic dropdown, cards-as-links and the Display menu UI stayed site/sandbox-only (`site/assets/docs.js`, `display.js`). Decide if any of these should become real components in `components.css` before the first product needs them.

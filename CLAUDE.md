@@ -16,6 +16,7 @@ This repo is the design system itself. `design.md` is the single source of the r
 
 - Work on `dev`. `main` holds released versions only. Merge to `main` and tag (`vX.Y.Z`) only when asked. Commit and push only when asked.
 - A version bump touches: the `design.md` header, `docs/CHANGELOG.md`, the header comments in `tokens/tokens.css` and `tokens/components.css`, the meta line in the root `index.html`, and the footer line in the dashboard sandbox.
+- Notion mirrors the backlog and changelog (hub page "Design system & AI"). When you add, finish or remove an item in `docs/BACKLOG.md`, do the same in the Notion "(DS) Backlog database" (short action-style Name, Status, current Sprint; Done tasks get Due set to the day they were done, so the burn-up chart tracks them). When a version is released, add it to the Notion "Change logs" database (Product: Design system & AI; `[key release]` prefix for minor versions). Notion details are in the user's memory.
 - Old versions are not archived in folders: read them from their git tag (`git show v0.2:design.md`).
 
 

@@ -1,11 +1,11 @@
 # Enviolo Design System — [design.md](http://design.md)
 
-The single reference for designing and building Enviolo interfaces across **web, app and AI-assisted development**. Written for people and for AI tools (Claude, Cursor, Claude Code). When generating UI, follow this file before any default habit. Adopt it step by step, per product, as each is ready.
+The single reference for designing and building Enviolo interfaces across **web, app and AI-assisted development**. Written for people and for AI tools (Claude, Cursor, Claude Code). When generating UI, follow this file before any default habit.
 
-- **Version:** v0.6 (draft), November 2026
+- **Version:** v0.6, November 2026
 - **Repository:** [github.com/enviolo/enviolo-design-system](https://github.com/enviolo/enviolo-design-system). Latest tokens, components, docs site and changelog; released versions are git tags.
 
-Values (token definitions, hex, ramps) live in `tokens/tokens.css`, which holds only decided tokens, and are not repeated here. Ramps still being explored live in `tokens/explore.css`, which products do not copy. Visual examples are on the docs site in the repository (see section 13).
+Values (token definitions, hex, ramps) live in `tokens/tokens.css`, the only token file products copy, and are not repeated here. Visual examples are on the docs site in the repository (see section 12).
 
 ---
 
@@ -18,7 +18,7 @@ Values (token definitions, hex, ramps) live in `tokens/tokens.css`, which holds 
 5. **Pills act, corners hold.** Controls use `--radius-4xl` (pill). Containers use soft corners.
 6. **Icons by semantic name**, Tabler by default. Label icon-only buttons.
 7. **Brand colour is for brand moments only.** The Enviolo ramp goes into gradients, charts and illustrations, never on buttons, text or borders.
-8. **Must work in light and dark** with any neutral ramp, with no horizontal scroll from 320px.
+8. **Must work in light and dark**, with no horizontal scroll from 320px.
 9. **Sentence case**, and actions named by their outcome ("Place order", not "Submit").
 10. When unsure, ask rather than invent a new token.
 
@@ -39,7 +39,7 @@ Each layer only changes values in the layer below it, never names.
 | **Figma** | shadcncraft kit; variables named exactly like the CSS tokens | Design, handoff |
 
 - React apps run on **Tailwind v4**; the Tailwind mapping in `tokens.css` is for them. Enviolo CSS is plain CSS with no build step.
-- Dark mode in production uses the `.dark` **class** on `<html>` (what shadcn expects). The docs site also sets `data-theme`; don't copy that.
+- Dark mode in production uses the `.dark` **class** on `<html>` (what shadcn expects).
 - **Same vocabulary, different syntax.** Variants (primary, secondary, outline, ghost, link, destructive) and sizes (sm, default, lg, icon sizes) mean the same on every surface. Write specs in these names, then translate. Primary is the default in both: shadcn names it `default`, Enviolo CSS omits `data-variant`.
 
 | Intent | shadcn/ui (React) | Enviolo CSS (HTML) |
@@ -48,19 +48,19 @@ Each layer only changes values in the layer below it, never names.
 | Outline, small | `<Button variant="outline" size="sm">` | `<button class="btn" data-variant="outline" data-size="sm">` |
 | Destructive, large | `<Button variant="destructive" size="lg">` | `<button class="btn" data-variant="destructive" data-size="lg">` |
 
-- **Adding a web component:** port it into `components.css` with tokens only, states as a solid token fill (7.1), checked in light and dark. Maintainer detail is in `CLAUDE.md`.
+- **Adding a web component:** port it into `components.css` with tokens only, states as a solid token fill (7.1), checked in light and dark.
 
 ### 1.2 Defaults
 
-| Setting | Enviolo default | Alternatives (exploration only) |
-|---|---|---|
-| Theme | Match system | Light, dark |
-| UI font | Source Sans 3 | Urbanist, IBM Plex Sans, system |
-| Code font | Source Code Pro | System mono |
-| Icons | Tabler (outline) | Lucide (shadcn's default) |
-| Style | Luma | — |
-| Light mode | Background White · Accent Neutral 100 · Focus Copper · Neutrals Dawn | see 9.2 |
-| Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Orange · Neutrals Nocturne | see 9.2 |
+| Setting | Default |
+|---|---|
+| Theme | Match system |
+| UI font | Source Sans 3 |
+| Code font | Source Code Pro |
+| Icons | Tabler (outline) |
+| Style | Luma |
+| Light mode | Background White · Accent Neutral 100 · Focus Copper · Neutrals Dawn |
+| Dark mode | Background Neutral 950 · Accent Neutral 800 · Focus Orange · Neutrals Nocturne |
 
 ---
 
@@ -104,7 +104,6 @@ Names are the contract.
 Enviolo's own ramps (OKLCH), 11 steps each, with evenly stepped lightness: **Dawn** (light) and **Nocturne** (dark). Reference `var(--dawn-*)` and `var(--nocturne-*)`, never the values (rule 2).
 
 - Warm days, cool nights: light mode reads warm (Dawn), dark mode reads cool (Nocturne). The split is deliberate.
-- Taupe and Mist (the previous defaults) and the other Tailwind neutrals (slate, gray, zinc, neutral, stone, mauve, olive) are not part of the system. They live in `tokens/explore.css` for the docs site's Display menu, which previews them as the light or dark neutrals. A ramp that is decided moves from `explore.css` into `tokens.css`.
 
 ### 3.2 Enviolo colour ramp
 
@@ -204,7 +203,7 @@ Tailwind: `--breakpoint-sm: 37.5rem` (600px), `--breakpoint-md: 55rem` (880px), 
 
 ## 7. Components
 
-`tokens/components.css` covers **buttons, inputs, search, status pills, cards, the segmented control and the calendar**. Menus and navigation (7.3) are specified here but built only in the docs site (`site/assets/docs.css`) so far.
+`tokens/components.css` covers **buttons, inputs, search, status pills, cards, the segmented control and the calendar**.
 
 ### 7.1 Buttons
 
@@ -214,7 +213,7 @@ Tailwind: `--breakpoint-sm: 37.5rem` (600px), `--breakpoint-md: 55rem` (880px), 
 | 2 | Secondary (muted) **or** outline | `secondary` / `outline` | `data-variant="secondary"` / `"outline"` | Supporting action. Same rank; the surface decides. |
 | 3 | Ghost | `ghost` | `data-variant="ghost"` | Repeated, low-stakes, skip or defer, icon actions |
 | 4 | Link | `link` | `data-variant="link"` | Inline navigation in text |
-| — | Destructive | `destructive` | `data-variant="destructive"` | Irreversible only, next to an outline way out. Muted: red text on a pale red fill (`--destructive-bg`, `--destructive-text`), like shadcn's base-nova style and Basecoat, not a solid red |
+| — | Destructive | `destructive` | `data-variant="destructive"` | Irreversible only, next to an outline way out. Muted: red text on a pale red fill (`--destructive-bg`, `--destructive-text`), not a solid red |
 
 **Choosing** (ask in order, stop at the first yes): main job → primary. Supports the job and changes something → secondary or outline. Repeated, optional or a way out → ghost. Navigation inside a sentence → link. Irreversible → destructive.
 
@@ -267,8 +266,6 @@ Tailwind: `--breakpoint-sm: 37.5rem` (600px), `--breakpoint-md: 55rem` (880px), 
 - **Disclosure:** secondary information hides behind a ghost button with a rotating chevron (`aria-expanded`).
 - **Cards as links:** overview cards are fully clickable (stretched link), with secondary sub-links layered on top.
 
-The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not promoted here.
-
 ### 7.4 Calendar
 
 - `<enviolo-calendar>`**:** a dependency-free range-calendar web component (`tokens/enviolo-calendar.js`), styled in `tokens/components.css`. Attributes: `months` (1 or 2, default 2), `week-start` (0 Sun / 1 Mon, default 1), `locale`, `min` / `max` (ISO dates; days outside are disabled), `today`. Property `range = {from, to}`; fires `change` once both ends are picked.
@@ -294,7 +291,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 ### 9.1 Accessibility
 
 - Visible focus on every interactive element (`:focus-visible` + `--ring`), at ≥ 3:1 against its background. **Coral fails on white** (2.2:1), so the light-mode default is Copper (3.05:1, a narrow pass).
-- Text contrast WCAG AA. Check `--muted-foreground` on card and muted surfaces for every neutral ramp and both modes.
+- Text contrast WCAG AA. Check `--muted-foreground` on card and muted surfaces in both modes.
 - Touch targets ≥ 40px (32px allowed for icon buttons in dense tables).
 - ARIA: menus `role="menu"` with `menuitem` / `menuitemradio` + `aria-checked`; toggles `aria-pressed`; disclosures `aria-expanded`; current page `aria-current="page"`.
 - Respect `prefers-reduced-motion`. Never use colour alone to carry meaning.
@@ -302,7 +299,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 ### 9.2 Theming and display preferences
 
 - **Theme:** match system by default; users can force light or dark. A quick toggle shows the destination (moon in light mode, sun in dark mode).
-- Per-mode background, accent and focus are overridable (`--light-bg`/`--dark-bg`, `--light-accent`/`--dark-accent`, `--light-ring`/`--dark-ring`), each with a default (see 1.2). Allowed options live in `site/assets/display.js`; the Display menu that exposes them is a docs-site pattern, not yet a product component.
+- Per-mode background, accent and focus are overridable (`--light-bg`/`--dark-bg`, `--light-accent`/`--dark-accent`, `--light-ring`/`--dark-ring`), each with a default (see 1.2).
 
 ---
 
@@ -322,7 +319,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 - [ ] Only semantic tokens; no raw colours or palette classes
 - [ ] One primary action, placed last on desktop, top on mobile; second rank by surface; repeated actions ghost
 - [ ] Pill controls, soft-cornered containers
-- [ ] Works in light and dark, with Dawn/Nocturne and any other neutral ramp
+- [ ] Works in light and dark, with Dawn and Nocturne
 - [ ] Icons by semantic name; icon-only buttons labelled
 - [ ] No horizontal scroll at 320px; two columns hold on tablet where content allows
 - [ ] Focus visible and ≥ 3:1; reduced motion respected; text contrast AA
@@ -331,20 +328,7 @@ The docs site's own top nav (topic dropdowns, sidebar) is site-specific and not 
 
 ---
 
-## 12. Settled choices
-
-These are decided. Don't reverse them.
-
-- Light-mode focus is **Copper**, dark-mode focus is **Orange** (12.3:1 on Neutral 950). Coral stays an option in the mode settings.
-- Status backgrounds use **solid ramp steps**, not transparent tints.
-- **Nightfall** is the final name for Enviolo 800.
-- Websites use **Enviolo CSS** (`tokens/components.css`), not the Basecoat library. Basecoat stays a reference for new components.
-- **Luma** stays the style. Rhea was considered as a replacement and dropped.
-
----
-
-## 13. Reference
+## 12. Reference
 
 - **Token values:** `tokens/tokens.css` · **Web component CSS:** `tokens/components.css`
 - **Visual examples:** the docs site, in the repository only (copying this file into another project doesn't bring it along). Serve the repo root with `python3 serve.py` (opens the browser), then open `index.html`; Foundations and Components pages are in `site/`.
-- **History:** `docs/CHANGELOG.md` · **Planned work:** `docs/BACKLOG.md`
