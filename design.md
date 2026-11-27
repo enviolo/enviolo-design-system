@@ -2,7 +2,7 @@
 
 The single reference for designing and building Enviolo interfaces across **web, app and AI-assisted development**. Written for people and for AI tools (Claude, Cursor, Claude Code). When generating UI, follow this file before any default habit.
 
-- **Version:** v0.6, November 2026
+- **Version:** v0.6.1, November 2026
 - **Repository:** [github.com/enviolo/enviolo-design-system](https://github.com/enviolo/enviolo-design-system). Latest tokens, components, docs site and changelog; released versions are git tags.
 
 Values (token definitions, hex, ramps) live in `tokens/tokens.css`, the only token file products copy, and are not repeated here. Visual examples are on the docs site in the repository (see section 12).
