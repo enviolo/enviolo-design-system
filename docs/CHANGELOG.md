@@ -10,9 +10,10 @@ Planned work is in [BACKLOG.md](BACKLOG.md).
 
 Released 2026-11-27.
 
-Patch: two Colour page improvements. No token, rule or path changes.
+Patch: Colour page improvements and an Overview link fix. No token, rule or path changes.
 
 - **Colour page: status colour headings use their semantic names** (Destructive, Warning, Success, Info; the Tailwind ramp, Red, Amber, Green, Blue, moves to the small text beside them). `site/foundations/colour.html`.
+- **Overview: the big cards open their section's index page** (Foundations, Components, Patterns) instead of the first page in it. The buttons on each card still go to a specific page. `index.html`.
 - **Colour page: click a chart bar to copy its colour.** The example bars are buttons now (keyboard focusable, labelled "Copy Cargo bar colour" and so on); selecting one copies that series' hex and shows the usual toast, in the current mode's colour. A bar lifts 2px on hover, like the colour swatches, and gets a focus ring only from the keyboard. `site/foundations/colour.html`, `site/assets/docs.css`.
 
 ## v0.6
