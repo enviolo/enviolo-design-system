@@ -8,7 +8,9 @@ Planned work is in [BACKLOG.md](BACKLOG.md).
 
 ## v0.6
 
-Draft, not released. Minor: token names change (breaking), and one file is added.
+Released 2026-11-27.
+
+Minor bump: colour token names change (breaking: `--enviolo-*` is now `--brand-*`, `--l-*` / `--d-*` are now `--light-*` / `--dark-*`), the Dawn ramp's values change, and one file is added (`tokens/explore.css`). Projects that copy `tokens/tokens.css` need to take it again and rename any token they reference.
 
 - **Dawn's lightness steps are smoother, and it ends on Midnight.** `--dawn-950` is Midnight (`--brand-900`); every other stop is Dawn's own OKLCH value, no other brand colour is forced in. The lightness gaps now rise and fall in one curve (2.6, 4, 8, 14, 15, 9.5, 7.5, 6, 5, 4.5 points) instead of jumping at 300 to 400 and zigzagging on the dark side. 50, 100, 200 and 500 keep their lightness (500 is the muted-text colour and stays at its contrast); 300 is a touch darker and 400 a touch lighter. The hue now moves in one even sweep: warm peach at 50, easing through rose at 500 to 600 (hue 0), then pink, mauve and blue in even steps into Midnight's teal, with less colour in the middle. Before, the light end sat in yellow-brown and swung 36° between 500 and 600. Nocturne and the other ramps are untouched. `tokens/tokens.css`.
 - **Decided tokens and explorations are separate files.** `tokens/tokens.css` now holds only decided colour: the brand ramp, Dawn, Nocturne, the status ramps, the mode layer and the semantic tokens. The new `tokens/explore.css` holds the ramps still being tried (Taupe, Mist, slate, gray, zinc, neutral, stone, mauve, olive) and any future colour experiment. Products copy `tokens.css` only; the docs site loads both so the Display menu can preview any ramp. To decide a ramp, move it from `explore.css` into `tokens.css`. Slate, gray, zinc, neutral, stone, mauve and olive had no CSS at all before (only a JS table in `display.js`); they now do.
