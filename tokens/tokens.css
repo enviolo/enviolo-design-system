@@ -36,15 +36,15 @@
   /* Neutrals: Dawn is the light ramp, Nocturne the dark one (Enviolo-made, tinted from the brand ramp) */
   --dawn-50: oklch(98.6% 0.006 85);
   --dawn-100: oklch(96% 0.008 70);
-  --dawn-200: oklch(92.2% 0.011 55);
-  --dawn-300: oklch(86.8% 0.015 48);
-  --dawn-400: oklch(71.4% 0.024 40);
+  --dawn-200: oklch(92% 0.011 55);
+  --dawn-300: oklch(84% 0.015 48);
+  --dawn-400: oklch(70% 0.024 40);
   --dawn-500: oklch(54.7% 0.03 36);
-  --dawn-600: oklch(43.8% 0.027 30);
-  --dawn-700: oklch(36.7% 0.022 25);
-  --dawn-800: oklch(26.8% 0.016 20);
-  --dawn-900: oklch(21.4% 0.012 15);
-  --dawn-950: oklch(14.7% 0.008 15);
+  --dawn-600: oklch(45.2% 0.025 0);
+  --dawn-700: oklch(37.7% 0.019 321);
+  --dawn-800: oklch(31.5% 0.015 284);
+  --dawn-900: oklch(26.3% 0.018 250);
+  --dawn-950: var(--brand-900); /* Midnight */
   --nocturne-50: oklch(98.7% 0.003 205);
   --nocturne-100: oklch(96.3% 0.004 205);
   --nocturne-200: oklch(92.5% 0.006 212);

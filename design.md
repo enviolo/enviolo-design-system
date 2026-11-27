@@ -101,7 +101,7 @@ Names are the contract.
 
 ### 3.1 Neutrals
 
-Enviolo's own ramps (OKLCH), 11 steps each, with evenly stepped lightness: **Dawn** (light) and **Nocturne** (dark). Reference `var(--dawn-*)` and `var(--nocturne-*)`, never the values (rule 2).
+Enviolo's own ramps (OKLCH), 11 steps each, with lightness stepping gradually (Dawn ends on Midnight at 950): **Dawn** (light) and **Nocturne** (dark). Reference `var(--dawn-*)` and `var(--nocturne-*)`, never the values (rule 2).
 
 - Warm days, cool nights: light mode reads warm (Dawn), dark mode reads cool (Nocturne). The split is deliberate.
 
