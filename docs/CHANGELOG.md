@@ -12,7 +12,7 @@ Released 2026-11-27.
 
 Patch: two Colour page improvements. No token, rule or path changes.
 
-- **Colour page: status colour headings use their semantic names** (Destructive, Warning, Success, Info; the Tailwind ramp, Red, Amber, Green, Blue, moves to the small text beside them) and appear in "On this page" as children of Status colours. `site/foundations/colour.html`, `site/assets/docs.js`.
+- **Colour page: status colour headings use their semantic names** (Destructive, Warning, Success, Info; the Tailwind ramp, Red, Amber, Green, Blue, moves to the small text beside them). `site/foundations/colour.html`.
 - **Colour page: click a chart bar to copy its colour.** The example bars are buttons now (keyboard focusable, labelled "Copy Cargo bar colour" and so on); selecting one copies that series' hex and shows the usual toast, in the current mode's colour. A bar lifts 2px on hover, like the colour swatches, and gets a focus ring only from the keyboard. `site/foundations/colour.html`, `site/assets/docs.css`.
 
 ## v0.6

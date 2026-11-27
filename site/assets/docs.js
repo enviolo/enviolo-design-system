@@ -63,7 +63,7 @@
   /* ---------- "On this page": a right-hand table of contents built from the page's headings ---------- */
   (function(){
     if(!IN_DOCS||topicList||!document.body.classList.contains('has-sidenav')) return;
-    var heads=[].slice.call(document.querySelectorAll('.view section > .section-head > h2, .view section section > .section-head > h3, .view section > .status-block > h3, .view section > h3'));
+    var heads=[].slice.call(document.querySelectorAll('.view section > .section-head > h2, .view section section > .section-head > h3, .view section > h3'));
     if(heads.length<2) return;
     var used={};
     var items=heads.map(function(h){
